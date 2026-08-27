@@ -95,6 +95,8 @@ Read-only copies of what the client holds. Do not edit them here.
 - **All learner- and client-facing copy is French.**
 - Split unrelated work into separate commits; never mention AI or planning
   references in commit messages.
+- Consult **context7** for framework documentation — Next.js, Supabase, and
+  anything else in the stack — before writing implementation code.
 
 <!-- GSD:project-start source:PROJECT.md -->
 
