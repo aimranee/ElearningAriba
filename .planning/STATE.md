@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 00-05-PLAN.md
-last_updated: "2026-08-27T13:24:20.105Z"
+stopped_at: 00-06-PLAN.md — Tasks 1-3 complete, Task 4 pending human verification (checkpoint)
+last_updated: "2026-08-27T14:00:00.000Z"
 last_activity: 2026-08-27
 progress:
   total_phases: 11
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 00 (socle-technique-et-environnement) — EXECUTING
-Plan: 6 of 6
-Status: Ready to execute
+Plan: 6 of 6 — 3/4 tasks complete, Task 4 (independent README walk) pending human verification
+Status: Blocked on checkpoint — NOT fully complete, phase 0 NOT fully verified
 Last activity: 2026-08-27
 
 Progress: [░░░░░░░░░░] 0%
@@ -79,7 +79,11 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+- Walk `README.md` from a clean clone outside the working tree (00-06 Task 4) —
+  must be done by the developer, not the executor that wrote the README. See
+  `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`
+  "Pending human verification" for the exact steps. Phase 0 is not fully
+  verified until this is walked to green.
 
 ### Blockers/Concerns
 
@@ -102,6 +106,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27T13:24:20.097Z
-Stopped at: Completed 00-05-PLAN.md
-Resume file: None
+Last session: 2026-08-27T14:00:00.000Z
+Stopped at: 00-06-PLAN.md — Tasks 1-3 complete and committed, Task 4 (checkpoint:human-verify) pending
+Resume file: .planning/phases/00-socle-technique-et-environnement/00-06-PLAN.md (Task 4)
