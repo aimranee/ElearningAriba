@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Formation SAP Ariba — plateforme de réservation live
 
-## Getting Started
+Plateforme de réservation et de suivi de formations SAP Ariba en direct.
+L'apprenant crée un compte, réserve et paie un créneau dans l'agenda du
+formateur, puis suit sa progression jusqu'à l'attestation.
 
-First, run the development server:
+## Prérequis
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Node 22**, tel que pinné dans `.nvmrc`
+- **npm**
+- **Docker Desktop**, installé **et démarré**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Démarrer le démon Docker Desktop est une étape manuelle qu'aucune commande
+n'effectue : `npx supabase start` échoue tant qu'il n'est pas lancé.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Démarrage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Cloner ce dépôt.
+2. Installer les dépendances :
 
-## Learn More
+   ```bash
+   npm ci
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Copier le fichier d'exemple d'environnement :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cp .env.example .env.local
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Démarrer la stack Supabase locale (Docker Desktop doit déjà être lancé) :
 
-## Deploy on Vercel
+   ```bash
+   npx supabase start
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Lire l'URL de l'API et les clés générées par la commande suivante, puis
+   les coller dans `.env.local` :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npx supabase status
+   ```
+
+6. Générer les types de la base de données :
+
+   ```bash
+   npm run db:types
+   ```
+
+7. Démarrer l'application :
+
+   ```bash
+   npm run dev
+   ```
+
+La CLI Supabase est invoquée via `npx` et n'est jamais installée
+globalement.
+
+## Scripts npm
+
+- `dev` — démarre le serveur de développement Next.js
+- `build` — construit l'application pour la production
+- `start` — démarre l'application construite
+- `lint` — exécute ESLint
+- `typecheck` — exécute la vérification de types TypeScript sans émission
+- `db:types` — régénère `src/types/database.types.ts` depuis la stack
+  Supabase locale
+
+## Migrations de base de données
+
+- Créer une nouvelle migration : `npx supabase migration new <nom>`
+- L'appliquer localement : `npx supabase db reset`
+- Régénérer les types après toute nouvelle migration : `npm run db:types`
+
+Appliquer une migration à un projet hébergé est fait par la partie qui
+détient les identifiants de ce projet, selon `docs/hebergement.md` — pas
+depuis une machine de développement.
+
+## Variables d'environnement
+
+`.env.example` est la liste faisant autorité. `.env.local` n'est jamais
+commité. Une variable manquante arrête l'application au démarrage en nommant
+la variable — une erreur qui mentionne un nom de variable signifie que cette
+variable est absente de `.env.local`, pas que l'application est cassée.
+
+## Pour aller plus loin
+
+- Flux de contribution (branche, pull request, CI) : voir `CONTRIBUTING.md`
+- Configuration de l'hébergement (Supabase et Vercel hébergés) : voir
+  `docs/hebergement.md`
