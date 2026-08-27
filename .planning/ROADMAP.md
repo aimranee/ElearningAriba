@@ -80,7 +80,7 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 00-05-PLAN.md — Generated database types and Supabase client wiring driven by the validated environment
+- [x] 00-05-PLAN.md — Generated database types and Supabase client wiring driven by the validated environment
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
@@ -278,7 +278,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Socle technique et environnement | 4/6 | In Progress|  |
+| 0. Socle technique et environnement | 5/6 | In Progress|  |
 | 1. Cadrage, contenus et design | 0/TBD | Not started | - |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
