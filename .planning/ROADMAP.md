@@ -51,6 +51,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: SOCLE-01, SOCLE-02, SOCLE-03, SOCLE-04, SOCLE-05
 **Payment gate**: None — this phase carries no lot.
+**Effort**: Carries no lot and no payment gate of its own; its effort sits inside the signed 28,5 j and is accounted against Lot 2 — Site public, whose deliverable cannot exist on the contractual stack without the application, the database and the deployment target this phase stands up.
 **Success Criteria** (what must be TRUE):
   1. The Next.js (React, TypeScript) application starts locally with server-side rendering, from a documented setup
   2. A Supabase project is provisioned with database, authentication and file storage, and its schema is under versioned migrations in the repository
