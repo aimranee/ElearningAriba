@@ -33,7 +33,7 @@ a delivered phase be matched to a payment gate with no interpretation.
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 0: Socle technique et environnement** - Next.js, Supabase, Vercel preview and the local environment stood up
+- [x] **Phase 0: Socle technique et environnement** - Next.js, Supabase, Vercel preview and the local environment stood up
 - [ ] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups
 - [ ] **Phase 2: Site public** - Lot 2 — landing page in seven sections, internal pages, contact form, navigation
 - [ ] **Phase 3: Comptes, connexion et espace apprenant** - Lot 3 — accounts, Google sign-in, learner space, data isolation, GDPR rights

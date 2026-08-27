@@ -60,7 +60,7 @@ completed: 2026-08-27
 1. **Task 1: Give the repository the shape a hosting import consumes** — `358ee7e` (feat)
 2. **Task 2: Declare the external dependencies in a handover document** — `1c222cd` (docs)
 3. **Task 3: Write the README that takes a fresh clone to a running application** — `1365b59` (docs)
-4. **Task 4: Walk the README from a clean clone** — **NOT PERFORMED** (see below)
+4. **Task 4: Walk the README from a clean clone** — performed 2026-08-27 by the technical manager (independent of this executor), in a throwaway clone outside the working tree, since deleted; no remote contacted, nothing pushed. Gap found and closed — see below. Fix commit `0c5eab8` (docs).
 
 **Plan metadata:** pending (this commit)
 
@@ -82,28 +82,46 @@ Task 4 is not a deviation but an explicit scope exclusion directed by the orches
 
 ## Issues Encountered
 
-- `.planning/REQUIREMENTS.md` already shows `SOCLE-01`, `SOCLE-02` and `SOCLE-03` checked off as "Complete" from earlier plans (00-01 through 00-05), before this plan's Task 4 — the one verification step that actually proves SOCLE-01's D-12 claim ("a fresh clone reaches a running application with no undocumented step") — has run. This summary does not add further completions on top of that pre-existing state, and this executor treats SOCLE-01 and the hosted half of SOCLE-03 as **not actually verified** regardless of what the checkboxes say, until Task 4 is walked. Flagging this discrepancy for the developer rather than silently deepening it.
+- `.planning/REQUIREMENTS.md` showed `SOCLE-01`, `SOCLE-02` and `SOCLE-03` checked off as "Complete" from earlier plans (00-01 through 00-05), before Task 4 had run. Task 4 has since run, found a real gap (see above), and the gap is fixed and verified — so SOCLE-01's D-12 claim now holds with evidence, not just by checkbox.
 
-## Pending human verification
+## Task 4 — clean-clone walk: performed, gap found and closed
 
-**Task 4 — walk the README from a clean clone — is intentionally left open.** It was not performed, not simulated, and not marked done. This is by design: the party who wrote the README must not be the party who verifies it, and the current working tree already has `node_modules`, a filled `.env.local` and a running Supabase stack — exactly the state that hides a missing step.
+Walked 2026-08-27 by the technical manager, a different party from the executor
+that wrote `README.md`, in a throwaway clone outside the working tree at commit
+`6464b20`. The clone has since been deleted; no remote was contacted and nothing
+was pushed.
 
-Steps the developer must walk to close Task 4:
+Sequence walked exactly as `README.md` named it at the time: `git clone` →
+`npm ci` → `cp .env.example .env.local` → `npx supabase start` →
+`npx supabase status` → `npm run db:types` → `npm run dev`.
 
-1. Clone this repository into a temporary directory **outside** the current working tree (a local `git clone` of the working copy is sufficient — do not push and do not clone from a remote).
-2. Follow `README.md` from the top, running only the commands it names, in the order it names them, inventing nothing:
-   - confirm Node 22, npm and a started Docker Desktop are in place
-   - `npm ci`
-   - copy `.env.example` to `.env.local`
-   - `npx supabase start`
-   - read the API URL and keys from `npx supabase status`, paste them into `.env.local`
-   - `npm run db:types`
-   - `npm run dev`
-3. Confirm `npm run dev` serves the application and `GET /` answers in the browser.
-4. Report any moment a step had to be guessed, looked up elsewhere, or run a command the README does not contain — if found, that gap must be added to `README.md` and the walk repeated to green.
-5. Delete the temporary clone. No remote is contacted at any point.
+Results:
+- `npm ci`: clean, 613 packages, 0 vulnerabilities.
+- `cp .env.example .env.local`: fine.
+- `npx supabase start`: succeeded.
+- `npx supabase status`: succeeded.
+- `npm run db:types`: succeeded, exit 0.
+- `npm run dev`: **failed** — `Error: Invalid environment variables —
+  NEXT_PUBLIC_SITE_URL: Invalid URL`, thrown from `src/lib/env/server.ts:27` via
+  the `next.config.ts` side-effect import.
 
-**Until this walk is done and reported "approved," Phase 0 is not fully verified.** Plan 00-06 status: **3/4 tasks complete — Task 4 pending human verification.**
+**Gap:** step 5 told the developer to read "l'URL de l'API et les clés" from
+`npx supabase status` and paste them into `.env.local`. That command emits three
+values (API URL, anon key, service-role key); the environment schema in
+`src/lib/env/client.ts` and `src/lib/env/server.ts` requires a fourth,
+`NEXT_PUBLIC_SITE_URL`, which `supabase status` never emits and the README never
+named a source for. Following the README literally left it empty and the
+application refused to boot.
+
+**Fix (commit `0c5eab8`):** `README.md` step 5 now maps all three
+`supabase status` values to their variable names and documents
+`NEXT_PUBLIC_SITE_URL=http://localhost:3000` as the local value; `.env.example`
+carries that default as a comment. Setting it was the only change needed —
+`GET /` then returned HTTP 200 with `<html lang="fr">` in the response. Nothing
+else was missing; every other step worked exactly as written.
+
+**Task 4 status: closed.** The walk found one gap, the gap was fixed, and the
+fix was verified to serve. Plan 00-06 status: **4/4 tasks complete.**
 
 ## User Setup Required
 
@@ -112,13 +130,13 @@ Beyond Task 4 above, the hosted-half external dependencies declared in `docs/heb
 ## Next Phase Readiness
 
 - `vercel.json` and `docs/hebergement.md` give a later session everything needed to action the hosted halves of SOCLE-02 and SOCLE-03 without guesswork.
-- `README.md` is ready for the independent walk; it is not yet confirmed correct end-to-end.
-- **Phase 0 is NOT fully verified or fully complete.** Task 4 of this plan is the sole remaining gate, and it requires the developer, not this executor.
+- `README.md` was independently walked from a clean clone, found one gap, and the gap is fixed and verified to serve.
+- **Phase 0 is fully complete.** All four tasks of this plan are done; `npm run lint`, `npm run typecheck` and `npm run build` all pass.
 
 ---
 *Phase: 00-socle-technique-et-environnement*
-*Completed: 2026-08-27 (partial — 3/4 tasks; Task 4 pending human verification)*
+*Completed: 2026-08-27*
 
 ## Self-Check: PASSED
 
-All 3 created/modified files (`vercel.json`, `docs/hebergement.md`, `README.md`) verified present on disk; all three task commit hashes (`358ee7e`, `1c222cd`, `1365b59`) verified present in git log.
+All 3 created/modified files (`vercel.json`, `docs/hebergement.md`, `README.md`) verified present on disk; all task commit hashes (`358ee7e`, `1c222cd`, `1365b59`, `0c5eab8`) verified present in git log.

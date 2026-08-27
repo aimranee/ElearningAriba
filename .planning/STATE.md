@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 00-06-PLAN.md — Tasks 1-3 complete, Task 4 pending human verification (checkpoint)
-last_updated: "2026-08-27T14:00:00.000Z"
+stopped_at: 00-06-PLAN.md — all 4 tasks complete, Phase 0 verified and closed
+last_updated: "2026-08-27T15:00:00.000Z"
 last_activity: 2026-08-27
 progress:
   total_phases: 11
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 6
-  completed_plans: 5
-  percent: 0
+  completed_plans: 6
+  percent: 9
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 
 ## Current Position
 
-Phase: 00 (socle-technique-et-environnement) — EXECUTING
-Plan: 6 of 6 — 3/4 tasks complete, Task 4 (independent README walk) pending human verification
-Status: Blocked on checkpoint — NOT fully complete, phase 0 NOT fully verified
+Phase: 00 (socle-technique-et-environnement) — COMPLETE
+Plan: 6 of 6 — all tasks complete
+Status: Phase 0 verified — lint, typecheck and build all pass
 Last activity: 2026-08-27
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 9%
 
 ## Performance Metrics
 
@@ -79,11 +79,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-- Walk `README.md` from a clean clone outside the working tree (00-06 Task 4) —
-  must be done by the developer, not the executor that wrote the README. See
-  `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`
-  "Pending human verification" for the exact steps. Phase 0 is not fully
-  verified until this is walked to green.
+*(none — 00-06 Task 4 closed; see `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`)*
 
 ### Blockers/Concerns
 
@@ -106,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27T14:00:00.000Z
-Stopped at: 00-06-PLAN.md — Tasks 1-3 complete and committed, Task 4 (checkpoint:human-verify) pending
-Resume file: .planning/phases/00-socle-technique-et-environnement/00-06-PLAN.md (Task 4)
+Last session: 2026-08-27T15:00:00.000Z
+Stopped at: 00-06-PLAN.md — all 4 tasks complete and committed, Phase 0 closed
+Resume file: none — Phase 0 complete; next phase is Phase 1 (Lot 1)
