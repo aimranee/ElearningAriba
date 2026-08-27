@@ -58,7 +58,15 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Pushing a branch produces a Vercel preview deployment reachable over HTTPS
   4. Environment variables are separated per environment and no secret is committed
   5. Lint, type-check and build run automatically and block a broken merge
-**Plans**: TBD
+**Plans**: 6 plans
+
+Plans:
+- [ ] 00-01-PLAN.md — Next.js application, French / Europe-Paris defaults, Tailwind v4 + shadcn/ui toolchain
+- [ ] 00-02-PLAN.md — Per-environment variables, no committed secret, Zod validation failing loudly at boot
+- [ ] 00-03-PLAN.md — Supabase local stack via Docker and the migration mechanism proven end to end
+- [ ] 00-04-PLAN.md — Automated lint / type-check / build gate on pull requests, and the delivery flow
+- [ ] 00-05-PLAN.md — Generated database types and Supabase client wiring driven by the validated environment
+- [ ] 00-06-PLAN.md — Hosting-consumable repository shape, fresh-clone README, external-dependency handover
 
 ### Phase 1: Cadrage, contenus et design
 **Goal**: Lot 1 — settle the positioning and the sale formulas, write every French text, prepare the visuals, define the design system, and get the mockups validated by the client before any integration.
@@ -222,7 +230,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Socle technique et environnement | 0/TBD | Not started | - |
+| 0. Socle technique et environnement | 0/6 | Not started | - |
 | 1. Cadrage, contenus et design | 0/TBD | Not started | - |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
