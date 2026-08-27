@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 00-03-PLAN.md
-last_updated: "2026-08-27T13:12:29.922Z"
+stopped_at: Completed 00-04-PLAN.md
+last_updated: "2026-08-27T13:17:24.074Z"
 last_activity: 2026-08-27
 progress:
   total_phases: 11
   completed_phases: 0
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 00 (socle-technique-et-environnement) — EXECUTING
-Plan: 4 of 6
+Plan: 5 of 6
 Status: Ready to execute
 Last activity: 2026-08-27
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 00 P01 | 20min | 3 tasks | 26 files |
 | Phase 00 P02 | 15min | 2 tasks | 9 files |
 | Phase 00-socle-technique-et-environnement P03 | 12min | 4 tasks | 3 files |
+| Phase 00 P04 | 1min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,7 @@ Recent decisions affecting current work:
 - [Phase 00-01]: Verification runs build before typecheck: Next.js 16 LayoutProps global type is only generated into .next/types after a build
 - [Phase 00-02]: zod was already transitive via shadcn; npm install promoted it to a direct dependency
 - [Phase 00-03]: Kept CLI-generated project_id (local container namespace) in config.toml as-is, not a hosted-project reference
+- [Phase 00-04]: Placeholder build-env values in CI kept obviously non-secret (localhost/127.0.0.1/literal placeholder strings) to satisfy both the boot-time Zod validator and the secret-shape acceptance check
 
 ### Pending Todos
 
@@ -98,6 +100,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27T13:12:29.914Z
-Stopped at: Completed 00-03-PLAN.md
+Last session: 2026-08-27T13:17:24.065Z
+Stopped at: Completed 00-04-PLAN.md
 Resume file: None

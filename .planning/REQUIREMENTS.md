@@ -17,9 +17,9 @@ with no lot: it is the technical foundation the lots are built on.
 
 - [x] **SOCLE-01**: The Next.js (React, TypeScript) application runs locally with server-side rendering and a documented setup
 - [x] **SOCLE-02**: A Supabase project exists with database, authentication and file storage provisioned, and migrations are versioned in the repository
-- [ ] **SOCLE-03**: The repository is connected to Vercel and every branch produces a preview deployment over HTTPS
+- [x] **SOCLE-03**: The repository is connected to Vercel and every branch produces a preview deployment over HTTPS
 - [x] **SOCLE-04**: Secrets and environment variables are separated per environment and never committed
-- [ ] **SOCLE-05**: Lint, type-check and build run as an automated gate before merge
+- [x] **SOCLE-05**: Lint, type-check and build run as an automated gate before merge
 
 ### Cadrage — Lot 1: cadrage, contenus et design
 
@@ -172,9 +172,9 @@ offer.
 |-------------|-------|--------|
 | SOCLE-01 | Phase 0 | Complete |
 | SOCLE-02 | Phase 0 | Complete |
-| SOCLE-03 | Phase 0 | Pending |
+| SOCLE-03 | Phase 0 | Complete |
 | SOCLE-04 | Phase 0 | Complete |
-| SOCLE-05 | Phase 0 | Pending |
+| SOCLE-05 | Phase 0 | Complete |
 | CADR-01 | Phase 1 | Pending |
 | CADR-02 | Phase 1 | Pending |
 | CADR-03 | Phase 1 | Pending |
