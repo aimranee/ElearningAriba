@@ -34,12 +34,22 @@ n'effectue : `npx supabase start` échoue tant qu'il n'est pas lancé.
    npx supabase start
    ```
 
-5. Lire l'URL de l'API et les clés générées par la commande suivante, puis
-   les coller dans `.env.local` :
+5. Lire l'URL de l'API et les clés générées par la commande suivante :
 
    ```bash
    npx supabase status
    ```
+
+   Reporter chaque valeur dans `.env.local` sous le nom de variable
+   correspondant :
+
+   - `API URL` → `NEXT_PUBLIC_SUPABASE_URL`
+   - `anon key` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `service_role key` → `SUPABASE_SERVICE_ROLE_KEY`
+
+   `npx supabase status` ne fournit pas d'URL du site : renseigner
+   `NEXT_PUBLIC_SITE_URL=http://localhost:3000`, la valeur locale documentée
+   pour cette variable (voir aussi `.env.example`).
 
 6. Générer les types de la base de données :
 
