@@ -77,7 +77,7 @@ cadrage") — decided in Lot 1.
 ## Git Commits
 
 Format: `#<type>: <one sentence>`
-Example: `#feat: add halaqah schedule tab`
+Example: `#feat: add agenda slot picker`
 Types: feat / fix / refactor / chore / docs
 
 ## Developer Profile
