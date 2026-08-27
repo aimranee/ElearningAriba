@@ -95,3 +95,112 @@ Read-only copies of what the client holds. Do not edit them here.
 - **All learner- and client-facing copy is French.**
 - Split unrelated work into separate commits; never mention AI or planning
   references in commit messages.
+
+<!-- GSD:project-start source:PROJECT.md -->
+
+## Project
+
+**Formation SAP Ariba — plateforme de réservation live**
+
+A live-training booking platform for a SAP Ariba training offer, in French. A
+learner creates an account, books and pays for a slot in the trainer's calendar
+(discovery call, one-to-one session, group session, or a prepaid package),
+receives the appointment in their own Google Calendar, and follows their
+attendance and progression through to a certificate. The trainer runs
+availability, sessions, attendance and payments from a custom French
+back-office, and sees every booking land in their own Google Calendar.
+
+The client owns this repository. Everything written here ships to them.
+
+**Core Value:** The learner can book — and pay for — a real slot in the trainer's calendar, and
+the trainer sees it. If everything else fails, that must work.
+
+### Constraints
+
+- **Tech stack** (contractual, section 1 "Socle technique" of the signed offer):
+  Next.js (React, TypeScript) avec rendu serveur pour le référencement et la
+  rapidité · Supabase (PostgreSQL, authentification email et Google, stockage de
+  fichiers) · back-office sur mesure en français · hébergement Vercel avec
+  HTTPS · emails transactionnels avec authentification du domaine · paiement
+  délégué à un prestataire certifié PCI DSS, aucune donnée bancaire sur le
+  site · API Google Calendar · code livré sur un dépôt Git dont le client est
+  propriétaire. — Changing any of it means re-issuing a signed offer.
+
+- **Language**: all learner- and client-facing copy is French, including the
+  back-office — the client and their learners are French-speaking.
+
+- **Payment provider**: deliberately open in the offer ("Stripe ou équivalent,
+  choisi au cadrage") — decided in Lot 1, not before.
+
+- **No card data on the site**: payment page hosted by the provider; no bank
+  detail transits or is stored here — contractual, section 1 and Lot 7.
+
+- **Data isolation**: roles are learner and administrator, with row-level
+  isolation in the database — a learner cannot technically reach another
+  learner's data (Lot 3).
+
+- **Timezone**: Europe/Paris, with recurring availabilities, exceptions and
+  holidays (Lot 4).
+
+- **Performance**: Lighthouse ≥ 90 on mobile, responsive across mobile, tablet
+  and desktop (Lot 5).
+
+- **Repository ownership**: the client owns this repo. Nothing internal belongs
+  in it — no rates, no margins, no internal calendar, no reference to work
+  outside the signed offer.
+
+- **Documentation lookups**: consult context7 for framework documentation
+  (Next.js, Supabase, and anything else in the stack) before writing
+  implementation code.
+<!-- GSD:project-end -->
+
+<!-- GSD:stack-start source:STACK.md -->
+
+## Technology Stack
+
+Technology stack not yet documented. Will populate after codebase mapping or first phase.
+<!-- GSD:stack-end -->
+
+<!-- GSD:conventions-start source:CONVENTIONS.md -->
+
+## Conventions
+
+Conventions not yet established. Will populate as patterns emerge during development.
+<!-- GSD:conventions-end -->
+
+<!-- GSD:architecture-start source:ARCHITECTURE.md -->
+
+## Architecture
+
+Architecture not yet mapped. Follow existing patterns found in the codebase.
+<!-- GSD:architecture-end -->
+
+<!-- GSD:skills-start source:skills/ -->
+
+## Project Skills
+
+No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
+<!-- GSD:skills-end -->
+
+<!-- GSD:workflow-start source:GSD defaults -->
+
+## GSD Workflow Enforcement
+
+Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+
+Use these entry points:
+
+- `/gsd:quick` for small fixes, doc updates, and ad-hoc tasks
+- `/gsd:debug` for investigation and bug fixing
+- `/gsd:execute-phase` for planned phase work
+
+Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+<!-- GSD:workflow-end -->
+
+<!-- GSD:profile-start -->
+
+## Developer Profile
+
+> Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.
+> This section is managed by `generate-claude-profile` -- do not edit manually.
+<!-- GSD:profile-end -->
