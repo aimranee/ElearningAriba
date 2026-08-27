@@ -62,6 +62,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Environment variables are separated per environment and no secret is committed
   5. Lint, type-check and build run automatically and block a broken merge
 
+**Open external dependency**: success criterion 3 is not met yet - no Vercel project is connected to the repository, so no branch produces a preview deployment. Everything this phase owns on the repository side is in place: `vercel.json`, per-environment variables and the automated gate. Criterion 2's hosted Supabase project exists in an EU region, but the repository is not yet linked to it and no migration has been applied to it. Both close when the hosting connection is made, outside this repository.
+
 **Plans**: 6 plans
 
 Plans:
@@ -84,7 +86,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 00-06-PLAN.md — Hosting-consumable repository shape, fresh-clone README, external-dependency handover
+- [x] 00-06-PLAN.md — Hosting-consumable repository shape, fresh-clone README, external-dependency handover
 
 ### Phase 1: Cadrage, contenus et design
 
