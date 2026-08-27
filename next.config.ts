@@ -7,7 +7,9 @@ import type { NextConfig } from "next";
 import "./src/lib/env/server";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
