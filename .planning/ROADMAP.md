@@ -75,7 +75,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 00-03-PLAN.md — Supabase local stack via Docker and the migration mechanism proven end to end
+- [x] 00-03-PLAN.md — Supabase local stack via Docker and the migration mechanism proven end to end
 - [ ] 00-04-PLAN.md — Automated lint / type-check / build gate on pull requests, and the delivery flow
 
 **Wave 4** *(blocked on Wave 3 completion)*
@@ -278,7 +278,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Socle technique et environnement | 2/6 | In Progress|  |
+| 0. Socle technique et environnement | 3/6 | In Progress|  |
 | 1. Cadrage, contenus et design | 0/TBD | Not started | - |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
