@@ -2,84 +2,96 @@
 
 ## What this is
 
-The **product** repository for the SAP Ariba e-learning site: a live-training booking
-platform where a learner creates an account, books and pays for a slot in the trainer's
-calendar, and follows their progression.
+The **product** repo for the SAP Ariba e-learning site: a live-training booking
+platform — the learner creates an account, books and pays for a slot in the
+trainer's calendar, and follows their progression. A French back-office runs
+availability, sessions, attendance and payments.
 
-Remote: `https://github.com/aimranee/ElearningAriba.git` — private, and it must stay private
-(`reference/` carries the client's pricing).
+Remote `github.com/aimranee/ElearningAriba.git`, default branch `main`, private.
+It sits inside the workspace repo, which ignores it — two separate histories.
+Never commit product code to the parent.
 
-This directory sits inside the workspace repo
-(`https://github.com/aimranee/ElearningWorkspace.git`, the parent folder), which **ignores**
-it. Two separate git histories, deliberately: the workspace holds the commercial proposal
-generator, this repo holds the code. Never run `git` here expecting the parent's history, and
-never commit product code to the parent.
+**The client owns this repo.** Nothing internal goes in it: no day rates, no
+margins, no internal calendar, no reference to unsold lots.
 
-## Current state
+## Scope — signed, closed
 
-Environment only: git, `.gitignore`, this file, `reference/`. No scope locked, no code.
+**Offre 1 "Essentiel" was signed 2026-08-26.** Lots 1–10 are the v1 requirement
+set: **28,5 j, 1 500 €**, no deposit, each lot paid on delivery, 30-day
+corrective warranty after go-live. `reference/Offre_1_Essentiel.pdf` is the
+single scope reference — where anything disagrees with it, the PDF wins.
 
-**No offer is signed.** Candidate scopes are Essentiel (lots 1–10), Business (1–13),
-Premium (1–18). The signed offer becomes the v1 requirement set. The lots are cumulative
-prefixes, so starting at Essentiel and upgrading later appends work rather than restructuring
-it.
+| Lot | Charge | Titre | Payable |
+|---|---|---|---|
+| 1 | 2,5 j | Cadrage, contenus et design | à validation des maquettes |
+| 2 | 3,5 j | Site public | à la recette des pages |
+| 3 | 3,5 j | Comptes, connexion et espace apprenant | à la recette des comptes |
+| 4 | 3 j | Agenda et prise de rendez-vous | à la recette de l'agenda |
+| 5 | 2,5 j | SEO, pages juridiques, RGPD et mise en ligne | **à la mise en ligne** |
+| 6 | 3 j | Sessions live de groupe | à la recette des sessions |
+| 7 | 3 j | Paiement en ligne, formules et factures | au premier paiement encaissé |
+| 8 | 2,5 j | Synchronisation Google Calendar | à la recette de la synchro |
+| 9 | 2,5 j | Présence, progression et attestations | à la recette du suivi |
+| 10 | 2,5 j | Administration des utilisateurs et des contenus | à la livraison du lot |
 
-**Next step:** run `/gsd:new-project` from this directory — it creates `.planning/PROJECT.md`,
-`REQUIREMENTS.md`, `ROADMAP.md`. It resolves `.planning/` against the session's working
-directory, so the session must be started here, not in the parent. Feed it
-`reference/ElearningAriba_CahierDeCharges.odt` and the offer PDFs. Rewrite this file once the
-roadmap exists.
+One lot = one iteration = one payment gate; a lot is done when it is
+*recettable* on its own. **Lot 5 is go-live** and sits mid-scope on purpose —
+the site cannot collect accounts and payments without SEO, legal pages, RGPD and
+deployment. Lots 6–10 deploy onto the live site without downtime.
+
+**Lots 11–18 (Business, Premium) are not sold. Do not build into them.** The
+lots are cumulative prefixes — keep that true, and stop at ten.
+
+## Stack — committed to the client in writing
+
+`reference/Offre_1_Essentiel.pdf`, section 1, **"Socle technique"**. Not an open
+decision; changing any of it means re-issuing a signed offer.
+
+**Next.js (React, TypeScript)** server-rendered · **Supabase** (PostgreSQL, auth
+by email and Google, file storage) · **Vercel** with HTTPS · transactional email
+with domain authentication · payment delegated to a PCI-DSS certified provider,
+no card data on the site · **Google Calendar API** · custom back-office in French.
+
+Open on purpose: the **payment provider** ("Stripe ou équivalent, choisi au
+cadrage") — decided in Lot 1.
+
+## Non-negotiables
+
+1. **The agenda and the payment are the product surface.** Training is live. The
+   site sells a slot in the trainer's calendar, not access to videos. Booking is
+   the primary conversion.
+2. **The learner account is the spine.** Every booking goes through an account,
+   including the free discovery call — that is what ties appointments, payments,
+   attendance and progression to one person.
+3. **Fully dynamic from v1.** No module, slot, price or asset hardcoded.
+
+## Not owed — excluded in writing
+
+Auto-generated visio links and J-1/H-1 reminders; waiting lists and learner
+self-service cancellation; free editing of section presentation copy plus a media
+library (business content — modules, programme, FAQ, tarifs, formules — *is*
+editable here); e-learning lessons, quizzes, video hosting. Excluded from all
+three offers: B2B multi-seat accounts, automatic refunds, English version, forum,
+native mobile app.
+
+Deliberate limits, not oversights: refunds are manual (cancelling frees the slot
+and notifies; the trainer decides); attendance is an admin sheet plus a learner
+self check-in code, never imported from the visio; notifications email-only; one
+trainer, one agenda.
 
 ## Reference documents
 
-Read-only copies from the workspace repo. Do not edit here — the offers are generated by
-`generer_offres.py` one level up, and edits here would be silently overwritten at the source.
+Read-only copies of what the client holds. Do not edit them here.
 
 | File | What it is |
 |---|---|
-| `ElearningAriba_CahierDeCharges.odt` | The client's original spec, in French. Source of the seven landing-page sections, five modules, five target profiles. It is a zip — extract with `zipfile` and strip tags from `content.xml`. |
-| `Offre_1_Essentiel.pdf` | Lots 1–10 — 28 j, 1 500 €. |
-| `Offre_2_Business.pdf` | Lots 1–13 — 36 j, 2 200 €. |
-| `Offre_3_Premium.pdf` | Lots 1–18 — 54 j, 3 500 €. |
-| `maquette-landing-2026-01-17.png` | Landing-page mockup. |
-
-## Stack — already committed to the client
-
-Stated in writing in section 4 of all three offer PDFs. Not an open decision; changing any of
-it means re-issuing the offer.
-
-- **Next.js (React, TypeScript)**, server-rendered — the offers sell SEO and speed on it
-- **Supabase** — PostgreSQL, authentication by email and Google, file storage
-- **Vercel** hosting with HTTPS (the free plan's terms exclude commercial projects)
-- Transactional email with domain authentication
-- Custom back-office, in French
-- Google Calendar API — two-way trainer sync plus learner OAuth
-- Visio: Zoom API or Google Meet, trainer's choice
-
-Left open on purpose: the **payment provider** ("Stripe ou équivalent, choisi au cadrage").
-
-## Non-negotiables from the offers
-
-Do not dilute these without the user asking — they are what was sold:
-
-1. **The agenda and the payment are the product surface.** Training is delivered live. The
-   site sells a slot in the calendar, booked and paid online — not video access. Booking is
-   the primary conversion and a first-class module.
-2. **The learner account is the spine.** Every booking goes through an account, including the
-   free discovery call. That is what ties appointments, payments, attendance and progression
-   to one person.
-3. **Fully dynamic from v1.** No module, slot, price, or asset hardcoded — the trainer adds
-   content from the back-office without development.
-
-Deliberate limits, not oversights: refunds manual (cancelling frees the slot and notifies,
-nothing more); attendance is an admin sheet plus a learner self check-in code, never imported
-from the visio; notifications email-only; one trainer, one agenda; B2B multi-seat accounts
-out of scope.
-
-Commercial terms: no deposit, each lot paid on delivery, next lot's scope confirmed when the
-previous one is validated, 30-day corrective warranty, 60-day validity.
+| `Offre_1_Essentiel.pdf` | **The signed offer** — lots 1–10, 28,5 j, 1 500 €. |
+| `ElearningAriba_CahierDeCharges.odt` | Client's original spec, French — source of the seven landing sections, five modules, five profiles. A zip: read `content.xml`. Predates the offer; the offer wins. |
+| `Offre_2_Business.pdf`, `Offre_3_Premium.pdf` | Lots 1–13 / 1–18. **Unsold** — contrast only. |
+| `maquette-landing-2026-01-17.png` | Landing mockup, six months older than the offer. Palette and hero accroche are good; its positioning is **wrong** — it sells self-paced e-learning and omits Agenda and Se connecter. Tone only, not structure or copy. |
 
 ## Conventions
 
 - **All learner- and client-facing copy is French.**
-- Split unrelated work into separate commits.
+- Split unrelated work into separate commits; never mention AI or planning
+  references in commit messages.
