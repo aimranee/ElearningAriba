@@ -1,10 +1,17 @@
 name: CI
 
+# A workflow only runs from the ref that carries it. Listing `main` alone
+# meant this file — which lives on the phase branches — could never fire:
+# a push to a `gsd/**` branch matched no trigger, and `main` has no copy of
+# it to run. The check name therefore never registered, so it could not be
+# required. Phase branches run it on every push, which is also what proves
+# the workflow before it becomes the merge gate.
 on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches: [main, 'gsd/**']
+  workflow_dispatch:
 
 permissions:
   contents: read
