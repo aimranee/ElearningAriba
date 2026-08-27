@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Project initialization complete — roadmap written, nothing planned
-last_updated: "2026-08-27T12:20:00.992Z"
-last_activity: 2026-08-27 -- Phase 0 planning complete
+stopped_at: Completed 00-01-PLAN.md
+last_updated: "2026-08-27T12:59:26.647Z"
+last_activity: 2026-08-27
 progress:
   total_phases: 11
   completed_phases: 0
   total_plans: 6
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 0 — Socle technique et environnement
+**Current focus:** Phase 00 — socle-technique-et-environnement
 
 ## Current Position
 
-Phase: 0 of 10 (Socle technique et environnement)
-Plan: 0 of TBD in current phase
+Phase: 00 (socle-technique-et-environnement) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-08-27 -- Phase 0 planning complete
+Last activity: 2026-08-27
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 00 P01 | 20min | 3 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,8 @@ Recent decisions affecting current work:
 - Init: Go-live stays at Lot 5 / Phase 5, mid-scope
 - Init: Booking and enrolment carry an inert order/confirmation seam from Phases 4 and 6
 - Init: Payment provider left undecided — it is a Lot 1 / Phase 1 decision
+- [Phase 00-01]: Excluded scaffold CLAUDE.md from tmp-scaffold relocation to protect authoritative project CLAUDE.md
+- [Phase 00-01]: Verification runs build before typecheck: Next.js 16 LayoutProps global type is only generated into .next/types after a build
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27
-Stopped at: Project initialization complete — roadmap written, nothing planned
+Last session: 2026-08-27T12:59:26.638Z
+Stopped at: Completed 00-01-PLAN.md
 Resume file: None

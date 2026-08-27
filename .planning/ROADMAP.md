@@ -67,7 +67,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 **Wave 1**
 
-- [ ] 00-01-PLAN.md — Next.js application, French / Europe-Paris defaults, Tailwind v4 + shadcn/ui toolchain
+- [x] 00-01-PLAN.md — Next.js application, French / Europe-Paris defaults, Tailwind v4 + shadcn/ui toolchain
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -278,7 +278,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Socle technique et environnement | 0/6 | Not started | - |
+| 0. Socle technique et environnement | 1/6 | In Progress|  |
 | 1. Cadrage, contenus et design | 0/TBD | Not started | - |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |

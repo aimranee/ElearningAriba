@@ -15,7 +15,7 @@ with no lot: it is the technical foundation the lots are built on.
 
 ### Socle — technical foundation (no lot)
 
-- [ ] **SOCLE-01**: The Next.js (React, TypeScript) application runs locally with server-side rendering and a documented setup
+- [x] **SOCLE-01**: The Next.js (React, TypeScript) application runs locally with server-side rendering and a documented setup
 - [ ] **SOCLE-02**: A Supabase project exists with database, authentication and file storage provisioned, and migrations are versioned in the repository
 - [ ] **SOCLE-03**: The repository is connected to Vercel and every branch produces a preview deployment over HTTPS
 - [ ] **SOCLE-04**: Secrets and environment variables are separated per environment and never committed
@@ -170,7 +170,7 @@ offer.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SOCLE-01 | Phase 0 | Pending |
+| SOCLE-01 | Phase 0 | Complete |
 | SOCLE-02 | Phase 0 | Pending |
 | SOCLE-03 | Phase 0 | Pending |
 | SOCLE-04 | Phase 0 | Pending |
@@ -260,6 +260,7 @@ offer.
 | ADM-07 | Phase 10 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 88 total
 - Mapped to phases: 88
 - Unmapped: 0 ✓
@@ -274,8 +275,10 @@ resolved in the roadmap.
    package — a number of sessions, an hour volume, a validity window, or a
    module list. Needs a client answer at cadrage (Lot 1) before Lot 7 is
    planned.
+
 2. **The attendance threshold for a certificate is "paramétrable"** (SUI-06) but
    no default is given. Needs a client answer before Lot 9 is planned.
+
 3. **Whether the free discovery call counts towards progression** (SUI-03) is
    not stated. Needs a client answer before Lot 9 is planned.
 
