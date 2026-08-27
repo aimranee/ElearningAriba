@@ -84,5 +84,3 @@ Types: feat / fix / refactor / chore / docs
 
 > Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.
 > This section is managed by `generate-claude-profile` -- do not edit manually.
-
-<!-- GSD:profile-end -->
