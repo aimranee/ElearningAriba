@@ -7,6 +7,10 @@ import { z } from "zod";
  * client-side environment variables only when the access is statically
  * analysable — a dynamic lookup returns undefined in the browser.
  *
+ * NEXT_PUBLIC_SITE_URL specifically is inlined via next.config.ts's `env`
+ * field, not a real environment variable on Vercel — see
+ * src/lib/env/site-url.ts for the per-environment resolution.
+ *
  * This module must never import src/lib/env/server.ts and must never
  * reference the server-only, secret Supabase key.
  */

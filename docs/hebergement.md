@@ -58,10 +58,16 @@ valeur — jamais la valeur elle-même.
 
 | Variable | Local | Preview | Production |
 |---|---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | ✓ | ✓ | ✓ |
+| `NEXT_PUBLIC_SITE_URL` | ✓ | dérivée automatiquement | dérivée automatiquement |
 | `NEXT_PUBLIC_SUPABASE_URL` | ✓ | ✓ | ✓ |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✓ | ✓ | ✓ |
 | `SUPABASE_SERVICE_ROLE_KEY` | ✓ | ✓ | ✓ |
+
+`NEXT_PUBLIC_SITE_URL` n'a pas besoin d'être renseignée sur Vercel : elle est
+dérivée au moment du build à partir des variables système du projet
+(production → l'URL de production du projet, preview → l'URL de la branche
+ou du déploiement). Ne la renseigner explicitement ici que pour remplacer
+cette valeur dérivée.
 
 `SUPABASE_SERVICE_ROLE_KEY` est **secrète et strictement côté serveur**. Elle
 ne doit jamais porter le préfixe `NEXT_PUBLIC_`, et ne doit jamais être collée

@@ -47,9 +47,9 @@ n'effectue : `npx supabase start` échoue tant qu'il n'est pas lancé.
    - `anon key` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `service_role key` → `SUPABASE_SERVICE_ROLE_KEY`
 
-   `npx supabase status` ne fournit pas d'URL du site : renseigner
-   `NEXT_PUBLIC_SITE_URL=http://localhost:3000`, la valeur locale documentée
-   pour cette variable (voir aussi `.env.example`).
+   `npx supabase status` ne fournit pas d'URL du site : `NEXT_PUBLIC_SITE_URL`
+   peut rester vide en local, elle vaut alors `http://localhost:3000` par
+   défaut (voir aussi `.env.example`).
 
 6. Générer les types de la base de données :
 
@@ -92,6 +92,11 @@ depuis une machine de développement.
 commité. Une variable manquante arrête l'application au démarrage en nommant
 la variable — une erreur qui mentionne un nom de variable signifie que cette
 variable est absente de `.env.local`, pas que l'application est cassée.
+
+Exception : `NEXT_PUBLIC_SITE_URL` n'a pas besoin d'être renseignée. Une
+valeur explicite l'emporte toujours ; à défaut, elle est dérivée par
+environnement (Vercel en preview et production, `http://localhost:3000` en
+local) — voir `src/lib/env/site-url.ts`.
 
 ## Pour aller plus loin
 
