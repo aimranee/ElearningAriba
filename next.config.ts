@@ -19,6 +19,21 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+
+  // Pre-launch guard, Phase 0. The site goes live at Lot 5 / Phase 5 with
+  // its SEO, legal pages and RGPD; until then nothing here may be indexed.
+  // A header covers every response, not only HTML, and outlives any
+  // hosting-side protection setting. REMOVED AS PART OF LOT 5 GO-LIVE.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
