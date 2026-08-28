@@ -44,3 +44,11 @@ Desktop.ini
 # Local uploads / generated media
 /uploads/
 /public/uploads/
+
+# Hosting / local backend tooling
+.vercel
+supabase/.temp/
+supabase/.branches/
+
+# Internal tooling output (never ships to the client-owned repo)
+.gsd-headless/

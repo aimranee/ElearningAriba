@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
+last_updated: "2026-08-28T00:00:00.000Z"
+last_activity: 2026-08-28
+progress:
+  total_phases: 11
+  completed_phases: 1
+  total_plans: 6
+  completed_plans: 6
+  percent: 9
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 0 — Socle technique et environnement
+**Current focus:** Phase 00 — socle-technique-et-environnement
 
 ## Current Position
 
-Phase: 0 of 10 (Socle technique et environnement)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-08-27 — Project initialized: PROJECT.md, REQUIREMENTS.md, ROADMAP.md written
+Phase: 00 (socle-technique-et-environnement) — COMPLETE
+Plan: 6 of 6 — all tasks complete
+Status: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
+Last activity: 2026-08-28
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 9%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: —
 - Total execution time: —
@@ -30,10 +47,16 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: —
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 00 P01 | 20min | 3 tasks | 26 files |
+| Phase 00 P02 | 15min | 2 tasks | 9 files |
+| Phase 00-socle-technique-et-environnement P03 | 12min | 4 tasks | 3 files |
+| Phase 00 P04 | 1min | 2 tasks | 3 files |
+| Phase 00 P05 | 20min | 4 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -47,10 +70,16 @@ Recent decisions affecting current work:
 - Init: Go-live stays at Lot 5 / Phase 5, mid-scope
 - Init: Booking and enrolment carry an inert order/confirmation seam from Phases 4 and 6
 - Init: Payment provider left undecided — it is a Lot 1 / Phase 1 decision
+- [Phase 00-01]: Excluded scaffold CLAUDE.md from tmp-scaffold relocation to protect authoritative project CLAUDE.md
+- [Phase 00-01]: Verification runs build before typecheck: Next.js 16 LayoutProps global type is only generated into .next/types after a build
+- [Phase 00-02]: zod was already transitive via shadcn; npm install promoted it to a direct dependency
+- [Phase 00-03]: Kept CLI-generated project_id (local container namespace) in config.toml as-is, not a hosted-project reference
+- [Phase 00-04]: Placeholder build-env values in CI kept obviously non-secret (localhost/127.0.0.1/literal placeholder strings) to satisfy both the boot-time Zod validator and the secret-shape acceptance check
+- [Phase 00-05]: Session-aware server Supabase client reads the anon key, not the service-role key; a service-role/admin client has no consumer yet
 
 ### Pending Todos
 
-None yet.
+*(none — 00-06 Task 4 closed; see `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`)*
 
 ### Blockers/Concerns
 
@@ -59,6 +88,7 @@ None yet.
   free discovery call counts towards progression. See
   `.planning/REQUIREMENTS.md` § Open scope questions. They need a client answer
   before Phases 7 and 9 are planned.
+
 - The milestone map is pending verification by the Chief of Staff before any
   phase is planned.
 
@@ -72,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27
-Stopped at: Project initialization complete — roadmap written, nothing planned
-Resume file: None
+Last session: 2026-08-27T15:00:00.000Z
+Stopped at: 00-06-PLAN.md — all 4 tasks complete and committed, Phase 0 closed
+Resume file: none — Phase 0 complete; next phase is Phase 1 (Lot 1)
