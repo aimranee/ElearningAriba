@@ -23,6 +23,22 @@ concurrency:
 jobs:
   quality:
     runs-on: ubuntu-latest
+
+    # No real value may ever be written here. These are schema-valid,
+    # non-secret placeholders that satisfy the boot-time environment
+    # validation (src/lib/env/server.ts) so CI can run without connecting to
+    # anything. Real values are supplied per environment on the hosting side.
+    #
+    # Scoped to the job, not to Build alone: `typecheck` runs `next typegen`,
+    # which boots the app to emit route types and so hits the same validation
+    # — and Type-check runs before Build. A clean checkout has no `.env.local`
+    # to fall back on, which is why this passes locally and failed here.
+    env:
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+      SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,15 +58,5 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
-      # No real value may ever be written here. These are schema-valid,
-      # non-secret placeholders that satisfy the boot-time environment
-      # validation (src/lib/env/server.ts) so the build can run in CI without
-      # connecting to anything. Real values are supplied per environment on
-      # the hosting side.
       - name: Build
         run: npm run build
-        env:
-          NEXT_PUBLIC_SITE_URL: http://localhost:3000
-          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
-          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
