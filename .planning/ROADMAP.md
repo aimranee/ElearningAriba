@@ -103,7 +103,21 @@ Plans:
   4. The design system exists with the bleu / blanc / vert palette, typography, spacing scale and components with their states
   5. The client has validated the mockups for the landing page, the internal pages, and every screen of the full journey — inscription, connexion, agenda, réservation, paiement, espace apprenant
 
-**Plans**: TBD
+**Plans**: 12 plans in 5 waves
+
+Plans:
+- [ ] 01-01-PLAN.md — Exploration — two or three throwaway visual directions outside src/, typography settled
+- [ ] 01-02-PLAN.md — Design tokens, typography wiring, atmosphere layer and motion primitives
+- [ ] 01-03-PLAN.md — French copy for the shared chrome and the five public screens
+- [ ] 01-04-PLAN.md — French copy for the six journey screens, incl. the four surface states
+- [ ] 01-05-PLAN.md — Component families: CTA buttons, cards, badges, and the shared Message part
+- [ ] 01-06-PLAN.md — Component families: accordions and form fields, plus the four surface-state components
+- [ ] 01-07-PLAN.md — Pictograms and the presentational header and footer, mounted in the root layout
+- [ ] 01-08-PLAN.md — Automatic email copy, the mock-content guard, and the framing record
+- [ ] 01-09-PLAN.md — Maquette: landing, its seven signed sections and the prepared video slot
+- [ ] 01-10-PLAN.md — Maquettes: programme, formation, à propos, contact
+- [ ] 01-11-PLAN.md — Maquettes: inscription, connexion, espace apprenant
+- [ ] 01-12-PLAN.md — Maquettes: agenda, réservation, paiement, and the two missing formatters
 
 ### Phase 2: Site public
 
