@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 00-06-PLAN.md — all 4 tasks complete, Phase 0 verified and closed
-last_updated: "2026-08-27T15:00:00.000Z"
-last_activity: 2026-08-27
+stopped_at: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
+last_updated: "2026-08-28T00:00:00.000Z"
+last_activity: 2026-08-28
 progress:
   total_phases: 11
   completed_phases: 1
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 
 Phase: 00 (socle-technique-et-environnement) — COMPLETE
 Plan: 6 of 6 — all tasks complete
-Status: Phase 0 verified — lint, typecheck and build all pass
-Last activity: 2026-08-27
+Status: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
+Last activity: 2026-08-28
 
 Progress: [█░░░░░░░░░] 9%
 

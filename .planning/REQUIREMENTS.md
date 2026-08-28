@@ -17,11 +17,13 @@ with no lot: it is the technical foundation the lots are built on.
 
 - [x] **SOCLE-01**: The Next.js (React, TypeScript) application runs locally with server-side rendering and a documented setup
 - [x] **SOCLE-02**: A Supabase project exists with database, authentication and file storage provisioned, and migrations are versioned in the repository
-- [ ] **SOCLE-03**: The repository is connected to Vercel and every branch produces a preview deployment over HTTPS
+- [x] **SOCLE-03**: The repository is connected to Vercel and every branch produces a preview deployment over HTTPS
 - [x] **SOCLE-04**: Secrets and environment variables are separated per environment and never committed
 - [x] **SOCLE-05**: Lint, type-check and build run as an automated gate before merge
 
-**Hosting dependencies - status at 2026-08-27.** SOCLE-02 and SOCLE-03 each have a repository half and a hosting half. The repository half of both is delivered: versioned migrations under `supabase/`, the typed Supabase clients, `vercel.json`, per-environment variables and the automated gate. On the hosting side, the Supabase project exists in an EU region (`eu-west-3`, Paris), but the repository is not yet linked to it and no migration has been applied to the hosted database; and no Vercel project is connected, so no branch produces a preview deployment. SOCLE-03 is therefore not met. Both close when the hosting connection is made.
+**Hosting dependencies - status at 2026-08-28.** SOCLE-02 and SOCLE-03 each have a repository half and a hosting half, and both halves of both are now delivered. Repository side: versioned migrations under `supabase/`, the typed Supabase clients, `vercel.json`, per-environment variables and the automated gate. Hosting side: the Vercel project `elearning-ariba` is connected and preview-per-branch is confirmed — deployments `17a58cd` and `f399aec` both succeeded and answer over HTTPS, which is SOCLE-03. Two Supabase projects exist in `eu-west-3` (Paris), production `toxegyhxdoxjuyijgemx` and preview `urmtwbcsqodjnwsnxcqd`, and `20260827131029_init_schema.sql` is applied to both, its version recorded in each project's migration history. The note that stood here said no Vercel project was connected and no migration had been applied; both were true on 2026-08-27 and are false now.
+
+**Two limits recorded rather than glossed.** Vercel Deployment Protection is `all_except_custom_domains`, so every preview URL and the production URL answer `302` to Vercel SSO — a deployment is reachable over HTTPS, but no automated check, Lighthouse run or client demo reaches a built page until a protection-bypass secret exists. And no production deployment has ever succeeded: `main` carries no application, so `https://elearning-ariba.vercel.app` returns `DEPLOYMENT_NOT_FOUND` until this branch merges.
 
 ### Cadrage — Lot 1: cadrage, contenus et design
 

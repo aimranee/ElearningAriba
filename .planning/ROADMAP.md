@@ -62,7 +62,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Environment variables are separated per environment and no secret is committed
   5. Lint, type-check and build run automatically and block a broken merge
 
-**Open external dependency**: success criterion 3 is not met yet - no Vercel project is connected to the repository, so no branch produces a preview deployment. Everything this phase owns on the repository side is in place: `vercel.json`, per-environment variables and the automated gate. Criterion 2's hosted Supabase project exists in an EU region, but the repository is not yet linked to it and no migration has been applied to it. Both close when the hosting connection is made, outside this repository.
+**External dependencies - closed 2026-08-28**: success criterion 3 is met. The Vercel project `elearning-ariba` is connected and preview-per-branch is confirmed — deployments `17a58cd` and `f399aec` both succeeded over HTTPS. Criterion 2's hosted Supabase is provisioned in `eu-west-3` (Paris) as two projects, production and preview, and `20260827131029_init_schema.sql` is applied to both with its version recorded in each migration history. Two limits stay open and belong to later lots rather than to this phase: every deployment URL sits behind Vercel SSO (`all_except_custom_domains`), so no automated check reaches a built page yet; and no production deployment exists until this branch merges to `main`.
 
 **Plans**: 6 plans
 
@@ -171,6 +171,8 @@ Plans:
   4. The five legal pages are published, and no tracker is set before the consent banner is accepted
   5. The client has accepted the site, received a one-hour back-office training and a written French guide, and the 30-day corrective warranty has started
   6. Later phases can be deployed onto the live site without service interruption
+
+**Carried from Phase 0**: `next.config.ts` sets a repository-wide `X-Robots-Tag: noindex, nofollow` guard so the pre-launch placeholder cannot be indexed. Removing it is part of this phase's go-live — the site cannot appear in search results until it is gone.
 
 **Plans**: TBD
 
