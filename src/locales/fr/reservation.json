@@ -1,0 +1,20 @@
+{
+  "titre": "Confirmez votre réservation. Un dernier coup d'œil avant de valider.",
+  "intro": "Vérifiez les détails de votre rendez-vous avant de continuer vers le paiement.",
+  "etapes": {
+    "typeRendezVous": "Type de rendez-vous",
+    "creneau": "Créneau",
+    "confirmation": "Confirmation"
+  },
+  "recapitulatif": {
+    "type": "Type de rendez-vous",
+    "date": "Date",
+    "heure": "Heure",
+    "duree": "Durée",
+    "prix": "Montant"
+  },
+  "conditions": "En confirmant, vous acceptez nos conditions générales de vente.",
+  "erreurs": {
+    "creneauIndisponible": "Ce créneau vient d'être réservé par quelqu'un d'autre. Choisissez un autre horaire."
+  }
+}
