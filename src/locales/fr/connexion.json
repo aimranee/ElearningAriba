@@ -1,0 +1,16 @@
+{
+  "titre": "Retrouvez votre espace apprenant. Votre parcours vous attend là où vous l'avez laissé.",
+  "intro": "Connectez-vous avec votre email et votre mot de passe, ou en un clic avec Google.",
+  "champs": {
+    "email": "Adresse email",
+    "motDePasse": "Mot de passe"
+  },
+  "motDePasseOublie": "Mot de passe oublié ?",
+  "google": "Continuer avec Google",
+  "erreurs": {
+    "identifiantsInvalides": "Adresse email ou mot de passe incorrect.",
+    "rejetServeur": "La connexion n'a pas pu être établie. Réessayez dans quelques instants.",
+    "tropDeTentatives": "Trop de tentatives. Réessayez dans quelques minutes."
+  },
+  "pasDeCompte": "Pas encore de compte ? Inscrivez-vous."
+}
