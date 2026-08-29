@@ -1,0 +1,316 @@
+# Phase 2: Site public — Context
+
+**Gathered:** 2026-08-29
+**Status:** Ready for planning
+**Source:** PRD Express Path (`C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-brief-phase-2-site-public.md`)
+
+<domain>
+## Phase Boundary
+
+Lot 2 — the **public site** that sells the training. It delivers:
+
+- the landing page in its **seven signed sections**, in order: Hero · Pour qui est
+  cette formation ? · Ce que vous allez apprendre · Programme détaillé · Format et
+  modalités · Confiance et sécurité · CTA final et FAQ
+- the three internal pages: Programme, Formation, À propos
+- a working Contact page and form (stored + two emails + anti-spam)
+- navigation reaching any page in two clicks, and a complete footer
+- migration of the signed public content from `src/locales/fr/*.json` into Supabase,
+  so no public page reads the JSON at runtime
+- a `/programme.pdf` route generated from the same database rows
+
+Payment gate: **« à la recette des pages »**. The acceptance criteria are written as
+**applied outcomes** so that gate is provable.
+
+**Audience:** anonymous visitor only. No authenticated surface in this lot.
+
+**Explicitly NOT in this phase** (negative space — building any of it is unpaid work):
+accounts / Google sign-in / learner space (Lot 3); availabilities, public agenda,
+booking (Lot 4); SEO, meta, structured data, legal pages, RGPD, deployment (Lot 5);
+group sessions (Lot 6); payment, formulas, orders, invoices (Lot 7); Google Calendar
+sync (Lot 8); attendance, progression, certificates (Lot 9); admin back-office
+(Lot 10). Lots 11–18 are unsold. Also: no dark theme, no second locale, no CMS,
+no analytics, no third-party script.
+
+⛔ **Prior-lot lesson.** Lot 1 shipped twelve green plans whose maquettes the founder
+rejected on sight, because every design criterion was a *presence check* — does the
+token exist, is there one `cubic-bezier`. A grep cannot see timidity. The criteria in
+this phase name **applied outcomes** on purpose. Do not soften them back into presence
+checks. Diagnosis: `ariba-cto/notes/2026-08-29-les-maquettes-lot-1-sont-insuffisantes.md`.
+</domain>
+
+<decisions>
+## Implementation Decisions
+
+All decisions below were given by the founder inline on 2026-08-29 before launch, or
+are verbatim scope from the signed offer. None is inferred. Every one is **locked**.
+
+### Design direction
+
+- **D-01**: The design reference is **26academy.com, taken literally** — structure,
+  treatment, components and palette.
+- **D-02**: The accent is violet **`#635BFF`**, verbatim from 26academy. ⚠ This departs
+  from a written term of the signed offer: `CADR-05` says « palette bleu / blanc /
+  vert ». The conflict was raised and the cost named; the founder reaffirmed violet and
+  instructed that it **not** be routed to the Chief of Staff for pricing. Build as
+  instructed.
+- **D-03**: The seven signed sections ship, **plus the 26academy-style bands** —
+  animated figures band and honest trust placeholders. Not routed for pricing.
+- **D-04**: The **validated maquette is the visual contract**. The founder reviewed and
+  approved it (*"yes that what I'm talking about"*, then *"go ahead, approved"*). File:
+  `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html`
+  — a single self-contained HTML file. **Read it.** Where this document and the file
+  disagree, **the file wins**.
+
+### Design tokens — replace the Lot 1 `:root` palette
+
+- **D-05**: The token set is exactly:
+  `--ink:#0A2540; --ink-soft:#28374B; --muted:#5C6B82; --muted2:#8A95A8;`
+  `--violet:#635BFF; --violet-l:#8B85FF; --deep:#4F46E5; --indigo:#4338CA;`
+  `--blue:#3B82F6; --sky:#38BDF8; --mint:#1FC79B; --amber:#FFB444;`
+  `--lav:#F1F0FF; --lav2:#F6F5FF; --soft:#FBFBFE; --paper:#FCFCFF;`
+  `--border:#E9ECF3; --border2:#F0F2F8; --card:#FFFFFF;`
+  `--ease:cubic-bezier(.16,1,.3,1);`
+- **D-06**: Shadows are **paired** — a 1px contact shadow plus a large soft one —
+  across four tiers `--shadow-1` … `--shadow-4`, plus `--shadow-brand`
+  (`0 30px 60px -24px rgba(99,91,255,.45)`) for anything wearing the accent.
+- **D-07**: Typography is **unchanged from Lot 1** and already wired through
+  `next/font`: **Plus Jakarta Sans** display at `letter-spacing:-.028em`, **Inter** body.
+
+### Motion — exact values measured from 26academy's source
+
+- **D-08**: **H1 typewriter** cycling the six signed competencies: 26 ms/char typing,
+  1050 ms hold, 15 ms/char erase, 140 ms between words.
+- **D-09**: **Typewriter width-lock** to the widest word, **re-locked on
+  `document.fonts.ready`** — the H1 must never reflow (CLS).
+- **D-10**: **Typewriter resync on `visibilitychange`** — restore the whole current
+  word; background tabs throttle timers and freeze it mid-letter.
+- **D-11**: **Hero spotlight** — 600 px radial `rgba(99,91,255,.16)`, positioned from
+  `mousemove` on the hero only, `opacity` 0 → 1.
+- **D-12**: **Magnetic buttons** — `translate(mx*.12, my*.18 - 2)` on `.btn-primary`,
+  cleared on `mouseleave`.
+- **D-13**: **Mesh atmosphere** — 4 blurred blobs, `filter:blur(84px)`,
+  `mix-blend-mode:multiply`, drifting on 24–32 s loops, plus a rAF-throttled
+  whole-layer cursor drift of ±34 px.
+- **D-14**: **Reveal on scroll** — `translateY(34px)` → none, 1 s, staggered `.09s` per
+  `data-d` step.
+- **D-15**: **One curve only**: `cubic-bezier(.16,1,.3,1)` and nothing else, anywhere.
+- **D-16**: **Every animation has a `prefers-reduced-motion: reduce` bypass** — the
+  typewriter renders the full word, the spotlight is hidden, the mesh stops.
+- **D-17**: The motion kit is 26academy's own and **stops there**. Not a per-section
+  cursor-reactive background: that is more than the reference does and it endangers
+  `GOL-02`.
+- **D-18**: **Scroll progress** indicator and **blurred header at rest, deepening on
+  scroll**.
+
+### Composition — the rules Lot 1 broke
+
+- **D-19**: Cards **float**: no border, `--shadow-3` at rest, `--shadow-4` and
+  `translateY(-7px)` on hover. A bordered card on `--shadow-1` is the Lot 1 failure and
+  **must not appear on any public page**.
+- **D-20**: The atmosphere layer is mounted **once at the root** and is visible behind
+  **all seven** sections. Lot 1 reached 2 of 8.
+- **D-21**: Sections **alternate** transparent / `--lav2` tinted bands, to give the
+  atmosphere something to read against.
+- **D-22**: Every section opens **eyebrow → two-sentence H2 → lead**. A claim, a full
+  stop, then a turn; the second half carries the emotional payload and takes the
+  gradient.
+- **D-23**: `variant="raised"` already exists on the Card family and is used zero times
+  in eleven routes — **this lot uses it**. `--shadow-4` is defined and consumed nowhere
+  — **this lot consumes it**.
+
+### Content and data
+
+- **D-24**: **Public content migrates to Supabase in this lot**, seeded from Lot 1's
+  signed JSON. The JSON becomes the **seed**, not the runtime source. No public page
+  reads `src/locales/fr/landing.json` at runtime.
+- **D-25**: **Content is never re-authored.** The signed French in `src/locales/fr/` is
+  the source. Where a string is missing, the **mock registry is the answer, not
+  invention**. Moving content into the database must not silently satisfy the mock
+  guard — a key that was unresolved stays unresolved.
+- **D-26**: The new Supabase migration is **strictly additive** — it must not alter or
+  drop a Phase 0 table (`supabase/migrations/20260827131029_init_schema.sql`, already
+  applied to production and preview).
+- **D-27**: The content seed is **idempotent** — upsert on a stable natural key, never a
+  blind insert. Supabase migrations are forward-only.
+- **D-28**: **RLS**: new content tables get an anon-select policy for **published rows
+  only**; the contact table is **insert-only for anon, with no select**.
+- **D-29**: The **programme PDF is generated from the database** — not supplied by the
+  client, not a placeholder. `/programme.pdf` renders the five modules and their
+  durations from the same rows the page reads.
+- **D-30**: The five modules and durations, from `landing.json`: 3 h, 4 h, 4 h, 3 h,
+  3 h — **17 h total**. The figures band uses these.
+- **D-31**: Témoignages and logos partenaires have signed **placeholder** copy and render
+  as **marked placeholders**, never as invented reviews.
+- **D-32**: The **four surface-state components from Lot 1** (loading, empty, error,
+  success) are the only permitted states and must be **used, not re-invented**. A failed
+  database read renders the error surface, never a blank section.
+
+### Contact form and email
+
+- **D-33**: **Email transport is Resend.** Exactly two emails leave the system, both on
+  a contact submission and both from Lot 1's signed `emails.json`: an immediate
+  notification to the trainer and an acknowledgement to the prospect. No other outward
+  traffic.
+- **D-34**: The Resend API key and the domain's SPF/DKIM records are the CIO's to
+  provision — **read from validated env, never committed**.
+- **D-35**: **Anti-spam is honeypot + rate limit + minimum-time-to-submit** — no third
+  party, so nothing enters the cookie/RGPD inventory before Lot 5. A honeypot submission
+  is rejected **without sending either email**.
+- **D-36**: The contact form covers four states: submitting, success, validation error,
+  transport error.
+- **D-37**: Contact messages are personal data and are **retained**. Their deletion and
+  export path is Lot 5's RGPD work — **this lot must not build a public delete route**.
+
+### Technical constraints
+
+- **D-38**: Next.js App Router, **React Server Components for content reads**. The
+  landing page stays **static or ISR** — it must not become a client page because of the
+  motion. **Motion mounts in small client islands.**
+- **D-39**: `GOL-02` obliges **Lighthouse ≥ 90 on mobile** — contractual. The motion
+  budget is sized for it: one rAF-throttled pointer listener for the mesh, one for the
+  hero spotlight, CSS keyframes for the rest.
+- **D-40**: `next/font` is already wired — **no font may be loaded from a CDN**.
+- **D-41**: **No image is required by this design.** 26academy's homepage loads five
+  images total and all its richness is CSS and inline SVG. Pictograms are **inline SVG
+  from a sprite**, as Lot 1 built them.
+- **D-42**: **Tailwind v4 + shadcn/ui**, the Lot 1 component families reused. **Do not
+  fork a second button or card implementation.**
+- **D-43**: **French only** — `fr-FR`, LTR, `Europe/Paris`, pinned in
+  `src/lib/i18n/fr.ts`, which exports the **only permitted formatters**. Every date, time
+  and number formats through them. `currencyFormatter` carries the `€`; a hand-written
+  symbol violates Lot 1's decisions D-29/D-30 (not the D-numbers in this document).
+- **D-44**: **Single tenant** — one trainer, one organisation, one catalogue. No tenant
+  scoping, no organisation table, no per-tenant keys.
+- **D-45**: **No price appears on the public site in this lot.** Formulas, prices, orders
+  and invoices are Lot 7, and `CADR-02` (payment provider) is deferred to Lot 7 by a
+  reaffirmed founder decision — **no provider may be named in code**.
+
+### Process constraints
+
+- **D-46**: **Atomic commits**, `STATE.md` updated, all work on the **current branch**.
+- **D-47**: ⛔ **Never `git push`.** Publishing `main` in `ElearningAriba` is a Vercel
+  production deploy and belongs to the CIO alone.
+- **D-48**: Ship green: `tsc` 0, `eslint` 0, `next build` 0, and the mock guard still
+  exits 1 on an unresolved client-dependent key.
+
+### Claude's Discretion
+
+- Table and column naming for the new Supabase content tables, and how many tables vs.
+  a single typed content table.
+- File/module organisation of the client motion islands, and which island owns which
+  effect.
+- Rate-limit storage mechanism and window/threshold values for D-35 (must be
+  dependency-free per the "no third party" constraint).
+- PDF generation technique for `/programme.pdf`, provided the data comes from the same
+  rows the page reads (D-29).
+- Wave/plan decomposition and commit granularity, within D-46.
+- Zod schema shapes at the boundaries (per CLAUDE.md), and queryKeys factory usage.
+</decisions>
+
+<canonical_refs>
+## Canonical References
+
+**Downstream agents MUST read these before planning or implementing.**
+
+### The visual contract — read this first
+- `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html` — the founder-approved Lot 2 landing maquette, self-contained HTML. **Authority where anything else disagrees.**
+
+### The brief and its background
+- `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-brief-phase-2-site-public.md` — source PRD for this context
+- `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-les-maquettes-lot-1-sont-insuffisantes.md` — why the criteria are applied outcomes, not presence checks
+
+### Signed scope
+- `reference/Offre_1_Essentiel.pdf` — the single scope reference; where anything disagrees, the PDF wins
+- `.planning/REQUIREMENTS.md` — PUB-01 … PUB-13, plus `GOL-02` (Lighthouse ≥ 90 mobile), `CADR-05` (palette, superseded for this lot by D-02), `CADR-02` (payment provider, deferred to Lot 7)
+- `.planning/ROADMAP.md` — Phase 2 goal and success criteria
+- `CLAUDE.md` — project rules: no `any`, no hardcoded strings, French locale keys, atomic commit format
+
+### Signed content — the seed source, never re-authored
+- `src/locales/fr/landing.json` — hero, pourQui, competences, programme, formatModalites, confiance, faq, ctaFinal
+- `src/locales/fr/common.json` — nav, footer, actions
+- `src/locales/fr/emails.json` — the two signed contact emails
+- the per-page bundles in `src/locales/fr/`
+
+### Existing code this lot must reuse, not fork
+- `src/app/globals.css` — the four shadow tiers, the single easing token, the fluid type scale and spacing scale from Lot 1 (`--shadow-4` currently consumed nowhere)
+- `src/lib/i18n/fr.ts` — pins `fr-FR` / `Europe/Paris`, exports the only permitted formatters
+- the Lot 1 Card family (`variant="raised"`, used zero times in eleven routes) and Button family
+- the four Lot 1 surface-state components (loading, empty, error, success)
+- the mock registry guarding 60 client-dependent keys, exiting 1 on an unresolved one (deliberately outside CI)
+
+### Database
+- `supabase/migrations/20260827131029_init_schema.sql` — Phase 0 schema, applied to production and preview. The new migration is strictly additive.
+</canonical_refs>
+
+<specifics>
+## Specific Ideas
+
+### The seven landing sections, in order (named in the offer — the gate criterion)
+
+1. **Hero** — accroche, sous-titre, CTA « Démarrer ma formation », CTA secondaire
+   « Voir le programme », visuel principal, emplacement vidéo prêt
+2. **Pour qui est cette formation ?** — the five profils + « même sans expérience SAP »
+3. **Ce que vous allez apprendre** — the six compétences
+4. **Programme détaillé** — the five modules in an accordion + bouton PDF
+5. **Format et modalités** — the six repères
+6. **Confiance et sécurité** — the three faits + emplacements témoignages / logos
+7. **CTA final et FAQ** — sept questions
+
+### Verified facts, checked 2026-08-29
+
+- Lot 1 is complete and green on `4f44f71`: `tsc` 0, `eslint` 0, `next build` 0, eleven
+  routes prerendered static. **Nothing pushed.**
+- 26academy's tokens, motion and section structure were read from source on 2026-08-29
+  (`https://26academy.com/`, inline `:root` and `/assets/v2/home.css`). Their accent is
+  `#635BFF`; their `theme-color` meta is `#4837F5`.
+- The header's « Connexion » and « Prendre RDV » are links to routes whose shells exist
+  from Lot 1. **This lot adds no auth logic.**
+
+### Acceptance criteria — applied outcomes, not presence checks
+
+1. On the landing page, **at least eleven** surfaces render as floating cards (no
+   border, `--shadow-3`): the five profils, the three faits de confiance, and the format
+   items. **Zero** bordered-flat cards appear on any public page.
+2. `--shadow-4` appears in the **compiled CSS output** — consumed by the hero visual
+   frame and the final CTA — not only declared in `globals.css`.
+3. The atmosphere layer is behind **all seven** landing sections, verifiable by mounting
+   it once at the root rather than per section.
+4. A search of the codebase for `cubic-bezier` returns **exactly one distinct value**. A
+   search for `ease-in`, `ease-out` or `linear` on a `transition` or `animation` returns
+   nothing.
+5. The H1 cycles the six signed competencies at the measured timings, the headline never
+   reflows while cycling, and the whole word is restored after a tab switch.
+6. The header is blurred at rest and deepens on scroll.
+7. Under `prefers-reduced-motion: reduce`: the H1 shows a complete word, the spotlight is
+   absent, the mesh is static, reveals are visible.
+8. Each of the seven sections opens eyebrow → two-sentence H2 → lead.
+9. A visitor sends a contact message: it is stored, the trainer receives the signed
+   notification, the prospect receives the signed acknowledgement, and a honeypot
+   submission is rejected without sending either.
+10. No public page reads `src/locales/fr/landing.json` at runtime — every module,
+    competency, profile, format item and FAQ entry is read from Supabase. `PUB-13` is
+    provable by **deleting a row and seeing the page change**.
+11. `/programme.pdf` renders the five modules and their durations from the same rows the
+    page reads.
+12. Every page is reachable in two clicks; the footer is complete.
+13. `tsc` 0, `eslint` 0, `next build` 0, and the mock guard still exits 1 on an
+    unresolved client-dependent key.
+</specifics>
+
+<deferred>
+## Deferred Ideas
+
+- Per-section cursor-reactive backgrounds — more than the reference does, endangers
+  `GOL-02` (D-17).
+- RGPD deletion/export path for contact messages — Lot 5 (D-37).
+- Prices, sale formulas, payment provider selection — Lot 7 (D-45).
+- SEO, meta, structured data, legal pages, deployment — Lot 5.
+- Dark theme, second locale, CMS, analytics — not sold, not built.
+- Lots 11–18 (Business, Premium) — unsold.
+</deferred>
+
+---
+
+*Phase: 02-site-public*
+*Context gathered: 2026-08-29 via PRD Express Path*
