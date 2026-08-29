@@ -35,11 +35,15 @@ les maquettes validées.
 ## Direction retenue
 
 ```
-direction: À REMPLIR PAR LE FONDATEUR
-police-titres: À REMPLIR PAR LE FONDATEUR
-police-texte: À REMPLIR PAR LE FONDATEUR
-primary: À REMPLIR PAR LE FONDATEUR
-success: À REMPLIR PAR LE FONDATEUR
-foreground: À REMPLIR PAR LE FONDATEUR
-ease-brand: À REMPLIR PAR LE FONDATEUR
+direction: 2 — profondeur
+police-titres: Plus Jakarta Sans
+police-texte: Inter
+primary: oklch(0.578 0.235 260)
+success: oklch(0.65 0.16 145)
+foreground: oklch(0.26 0.06 251)
+ease-brand: cubic-bezier(0.16, 1, 0.3, 1)
 ```
+
+Note : `--primary` donne 4,54:1 sur blanc (AA texte normal). Les états
+`:hover` et `:active` doivent **assombrir** cette couleur (jamais l'éclaircir)
+pour rester lisibles.
