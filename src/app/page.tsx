@@ -47,7 +47,7 @@ export default function Home() {
           title={landing.pourQui.titre}
           lead={landing.pourQui.reassurance}
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.pourQui.profils.map((profil) => {
             const Picto = pictograms[profil.picto as PictogramName];
             return (
@@ -67,7 +67,7 @@ export default function Home() {
 
       <Section id="competences" tone="muted">
         <SectionHeader title={landing.competences.titre} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.competences.items.map((item, index) => {
             const Picto = pictograms[COMPETENCE_PICTOS[index]];
             return (
@@ -109,7 +109,7 @@ export default function Home() {
 
       <Section id="formatModalites" tone="muted">
         <SectionHeader title={landing.formatModalites.titre} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.formatModalites.items.map((item) => (
             <Card key={item.titre}>
               <CardHeader>
@@ -130,7 +130,7 @@ export default function Home() {
 
       <Section id="confiance" tone="default">
         <SectionHeader title={landing.confiance.titre} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.confiance.items.map((item) => (
             <Card key={item.titre}>
               <CardHeader>
