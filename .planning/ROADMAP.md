@@ -106,7 +106,8 @@ Plans:
 **Plans**: 12 plans in 5 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Exploration — two or three throwaway visual directions outside src/, typography settled
+
+- [x] 01-01-PLAN.md — Exploration — two or three throwaway visual directions outside src/, typography settled
 - [ ] 01-02-PLAN.md — Design tokens, typography wiring, atmosphere layer and motion primitives
 - [ ] 01-03-PLAN.md — French copy for the shared chrome and the five public screens
 - [ ] 01-04-PLAN.md — French copy for the six journey screens, incl. the four surface states
@@ -297,7 +298,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
-| 1. Cadrage, contenus et design | 0/TBD | Not started | - |
+| 1. Cadrage, contenus et design | 1/12 | In Progress|  |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
 | 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |

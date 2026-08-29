@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
-last_updated: "2026-08-28T00:00:00.000Z"
-last_activity: 2026-08-28
+stopped_at: 00-06-PLAN.md — all 4 tasks complete and committed, Phase 0 closed
+last_updated: "2026-08-29T10:20:47.091Z"
+last_activity: 2026-08-29 -- Phase 01 execution started
 progress:
   total_phases: 11
   completed_phases: 1
-  total_plans: 6
+  total_plans: 18
   completed_plans: 6
   percent: 9
 ---
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 00 — socle-technique-et-environnement
+**Current focus:** Phase 01 — cadrage-contenus-et-design
 
 ## Current Position
 
-Phase: 00 (socle-technique-et-environnement) — COMPLETE
-Plan: 6 of 6 — all tasks complete
-Status: Phase 0 closed - hosting halves delivered, SOCLE-01..05 all met, PR #1 open for the CIO
-Last activity: 2026-08-28
+Phase: 01 (cadrage-contenus-et-design) — EXECUTING
+Plan: 1 of 12
+Status: Executing Phase 01
+Last activity: 2026-08-29 -- Phase 01 execution started
 
 Progress: [█░░░░░░░░░] 9%
 
