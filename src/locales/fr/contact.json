@@ -36,5 +36,8 @@
   "coordonnees": {
     "titre": "Nous contacter directement",
     "email": "contact@formation-sap-ariba.fr"
+  },
+  "demonstration": {
+    "titre": "États du champ, pour validation avant le Lot 2"
   }
 }
