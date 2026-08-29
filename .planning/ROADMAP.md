@@ -111,10 +111,10 @@ Plans:
 - [x] 01-02-PLAN.md — Design tokens, typography wiring, atmosphere layer and motion primitives
 - [x] 01-03-PLAN.md — French copy for the shared chrome and the five public screens
 - [x] 01-04-PLAN.md — French copy for the six journey screens, incl. the four surface states
-- [ ] 01-05-PLAN.md — Component families: CTA buttons, cards, badges, and the shared Message part
+- [x] 01-05-PLAN.md — Component families: CTA buttons, cards, badges, and the shared Message part
 - [ ] 01-06-PLAN.md — Component families: accordions and form fields, plus the four surface-state components
-- [ ] 01-07-PLAN.md — Pictograms and the presentational header and footer, mounted in the root layout
-- [ ] 01-08-PLAN.md — Automatic email copy, the mock-content guard, and the framing record
+- [x] 01-07-PLAN.md — Pictograms and the presentational header and footer, mounted in the root layout
+- [x] 01-08-PLAN.md — Automatic email copy, the mock-content guard, and the framing record
 - [ ] 01-09-PLAN.md — Maquette: landing, its seven signed sections and the prepared video slot
 - [ ] 01-10-PLAN.md — Maquettes: programme, formation, à propos, contact
 - [ ] 01-11-PLAN.md — Maquettes: inscription, connexion, espace apprenant
@@ -298,7 +298,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
-| 1. Cadrage, contenus et design | 4/12 | In Progress|  |
+| 1. Cadrage, contenus et design | 7/12 | In Progress|  |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
 | 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
