@@ -135,7 +135,21 @@ Plans:
   4. A visitor can reach any page in two clicks through the navigation menu, and the footer is complete
   5. No module, price or asset on the public site is hardcoded — all of it comes from the database
 
-**Plans**: TBD
+**Plans**: 11 plans in 6 waves
+
+Plans:
+
+- [ ] 02-01-PLAN.md — Design tokens, floating cards, banded sections and the single easing curve
+- [ ] 02-02-PLAN.md — Content and contact tables with RLS, cookieless read client, typed queries, idempotent seed
+- [ ] 02-03-PLAN.md — Root atmosphere layer, mesh drift and the scroll reveal island
+- [ ] 02-04-PLAN.md — Blurred header deepening on scroll, scroll progress, complete footer, two-click navigation
+- [ ] 02-05-PLAN.md — Hero and figures band from the database, with typewriter, spotlight and magnetic motion
+- [ ] 02-06-PLAN.md — Programme, Formation and À propos pages read from the database
+- [ ] 02-07-PLAN.md — Contact form end to end: validation, anti-spam, storage and the two emails
+- [ ] 02-08-PLAN.md — /programme.pdf generated from the module rows, no new dependency
+- [ ] 02-09-PLAN.md — Landing sections: Pour qui, Ce que vous allez apprendre, Programme détaillé
+- [ ] 02-10-PLAN.md — Landing sections: Format et modalités, Confiance et sécurité, CTA final et FAQ
+- [ ] 02-11-PLAN.md — Applied-outcome audit, founder recette and phase close
 
 ### Phase 3: Comptes, connexion et espace apprenant
 
