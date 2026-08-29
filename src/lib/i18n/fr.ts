@@ -29,6 +29,25 @@ export const numberFormatter: Intl.NumberFormat = new Intl.NumberFormat(
   LOCALE,
 );
 
+/* why: numberFormatter has no currency style, so it never produces a "€" —
+   a maquette that hand-writes the symbol next to a plain number would
+   violate D-29/D-30, so every price must go through this formatter instead */
+export const currencyFormatter: Intl.NumberFormat = new Intl.NumberFormat(
+  LOCALE,
+  {
+    style: "currency",
+    currency: "EUR",
+  },
+);
+
+export const timeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  LOCALE,
+  {
+    timeZone: TIME_ZONE,
+    timeStyle: "short",
+  },
+);
+
 export function formatDate(date: Date): string {
   return dateFormatter.format(date);
 }
@@ -39,4 +58,12 @@ export function formatDateTime(date: Date): string {
 
 export function formatNumber(value: number): string {
   return numberFormatter.format(value);
+}
+
+export function formatCurrency(value: number): string {
+  return currencyFormatter.format(value);
+}
+
+export function formatTime(date: Date): string {
+  return timeFormatter.format(date);
 }
