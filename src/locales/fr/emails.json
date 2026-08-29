@@ -1,0 +1,62 @@
+{
+  "confirmationInscription": {
+    "objet": "Votre compte est confirmé. Vous pouvez réserver votre premier créneau.",
+    "preheader": "Bienvenue {prenom}, votre inscription est validée.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Votre compte apprenant est désormais actif.",
+      "Vous pouvez réserver un appel découverte, une session individuelle ou une session de groupe dès maintenant."
+    ],
+    "action": {
+      "libelle": "Accéder à mon espace",
+      "contexte": "Ce lien vous mène directement à votre espace apprenant pour réserver votre premier créneau."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique confirme la création de votre compte ; vous n'avez rien à faire d'autre."
+  },
+  "confirmationReservation": {
+    "objet": "Votre réservation est confirmée pour le {dateHeure}.",
+    "preheader": "Rendez-vous confirmé : {typeRendezVous}, {dateHeure}.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Votre réservation est confirmée : {typeRendezVous}, le {dateHeure}, pour une durée de {duree}.",
+      "Le montant de {montant} a été réglé pour cette réservation."
+    ],
+    "action": {
+      "libelle": "Voir ma réservation",
+      "contexte": "Ce lien ouvre le récapitulatif de votre rendez-vous dans votre espace apprenant."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique confirme votre réservation ; conservez-le pour référence."
+  },
+  "rappel": {
+    "objet": "Rappel : votre rendez-vous approche.",
+    "preheader": "{typeRendezVous}, le {dateHeure}.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Nous vous rappelons votre rendez-vous : {typeRendezVous}, le {dateHeure}.",
+      "Retrouvez tous les détails dans votre espace apprenant."
+    ],
+    "action": {
+      "libelle": "Voir les détails",
+      "contexte": "Ce lien ouvre le récapitulatif de votre rendez-vous dans votre espace apprenant."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique est un rappel ; aucune action n'est requise si votre créneau vous convient toujours."
+  },
+  "reinitialisationMotDePasse": {
+    "objet": "Réinitialisez votre mot de passe.",
+    "preheader": "Un lien de réinitialisation vous a été envoyé.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Vous avez demandé la réinitialisation de votre mot de passe.",
+      "Si vous n'êtes pas à l'origine de cette demande, ignorez cet email : votre mot de passe reste inchangé."
+    ],
+    "action": {
+      "libelle": "Réinitialiser mon mot de passe",
+      "contexte": "Ce lien vous mène vers un formulaire de nouveau mot de passe ; il expire après un délai de sécurité."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique ne contient aucune information sensible."
+  }
+}
