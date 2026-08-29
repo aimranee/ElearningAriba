@@ -5,5 +5,54 @@
   },
   "home": {
     "placeholder": "Le contenu de cette page sera défini au Lot 2."
+  },
+  "nav": {
+    "accueil": "Accueil",
+    "programme": "Programme",
+    "formation": "Formation",
+    "aPropos": "À propos",
+    "contact": "Contact",
+    "inscription": "Inscription",
+    "connexion": "Connexion",
+    "agenda": "Agenda",
+    "reservation": "Réservation",
+    "paiement": "Paiement",
+    "espace": "Mon espace",
+    "menu": {
+      "ouvrir": "Ouvrir le menu",
+      "fermer": "Fermer le menu"
+    }
+  },
+  "footer": {
+    "baseline": "Une formation SAP Ariba en direct, animée par un expert certifié — pas une vidéo de plus à regarder.",
+    "colonnes": {
+      "formation": "Formation",
+      "compte": "Mon compte",
+      "informations": "Informations"
+    },
+    "copyright": "© {annee} Formation SAP Ariba. Tous droits réservés.",
+    "mentionsLegales": "Mentions légales",
+    "politiqueConfidentialite": "Politique de confidentialité",
+    "politiqueCookies": "Politique de cookies",
+    "politiqueRemboursement": "Politique de remboursement",
+    "clauseNonResponsabilite": "Clause de non-responsabilité"
+  },
+  "actions": {
+    "demarrer": "Démarrer ma formation",
+    "voirProgramme": "Voir le programme",
+    "reserver": "Réserver",
+    "sInscrire": "S'inscrire",
+    "seConnecter": "Se connecter",
+    "envoyer": "Envoyer",
+    "telecharger": "Télécharger",
+    "reessayer": "Réessayer",
+    "annuler": "Annuler",
+    "continuer": "Continuer"
+  },
+  "etats": {
+    "chargement": "Chargement en cours…",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer.",
+    "champRequis": "Ce champ est requis.",
+    "aucunResultat": "Aucun résultat pour le moment."
   }
 }
