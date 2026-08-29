@@ -49,7 +49,10 @@ function FieldControl({
   className,
   size = "default",
   ...props
-}: FieldPrimitive.Control.Props & VariantProps<typeof inputVariants>) {
+}: /* why: `<input>` has a native numeric `size` attribute — omit it before
+     intersecting with the string-valued `size` variant, or the prop type
+     collapses to `never` */
+Omit<FieldPrimitive.Control.Props, "size"> & VariantProps<typeof inputVariants>) {
   return (
     <FieldPrimitive.Control
       data-slot="field-control"

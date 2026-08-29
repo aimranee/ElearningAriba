@@ -26,7 +26,10 @@ function Input({
   className,
   size = "default",
   ...props
-}: InputPrimitive.Props & VariantProps<typeof inputVariants>) {
+}: /* why: `<input>` has a native numeric `size` attribute — omit it before
+     intersecting with the string-valued `size` variant, or the prop type
+     collapses to `never` */
+Omit<InputPrimitive.Props, "size"> & VariantProps<typeof inputVariants>) {
   return (
     <InputPrimitive
       data-slot="input"
