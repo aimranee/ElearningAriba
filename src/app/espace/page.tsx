@@ -58,7 +58,7 @@ export default function Espace() {
           default value here. */}
       <div
         data-density="default"
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
         {SURFACES.map(({ key, tone }) => {
           const surface = espace[key];
