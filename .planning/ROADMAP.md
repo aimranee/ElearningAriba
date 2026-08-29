@@ -34,7 +34,7 @@ a delivered phase be matched to a payment gate with no interpretation.
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Socle technique et environnement** - Next.js, Supabase, Vercel preview and the local environment stood up
-- [ ] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups
+- [x] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups (completed 2026-08-29)
 - [ ] **Phase 2: Site public** - Lot 2 — landing page in seven sections, internal pages, contact form, navigation
 - [ ] **Phase 3: Comptes, connexion et espace apprenant** - Lot 3 — accounts, Google sign-in, learner space, data isolation, GDPR rights
 - [ ] **Phase 4: Agenda et prise de rendez-vous** - Lot 4 — availabilities, public agenda, three-screen booking, agenda back-office
@@ -115,10 +115,10 @@ Plans:
 - [x] 01-06-PLAN.md — Component families: accordions and form fields, plus the four surface-state components
 - [x] 01-07-PLAN.md — Pictograms and the presentational header and footer, mounted in the root layout
 - [x] 01-08-PLAN.md — Automatic email copy, the mock-content guard, and the framing record
-- [ ] 01-09-PLAN.md — Maquette: landing, its seven signed sections and the prepared video slot
-- [ ] 01-10-PLAN.md — Maquettes: programme, formation, à propos, contact
-- [ ] 01-11-PLAN.md — Maquettes: inscription, connexion, espace apprenant
-- [ ] 01-12-PLAN.md — Maquettes: agenda, réservation, paiement, and the two missing formatters
+- [x] 01-09-PLAN.md — Maquette: landing, its seven signed sections and the prepared video slot
+- [x] 01-10-PLAN.md — Maquettes: programme, formation, à propos, contact
+- [x] 01-11-PLAN.md — Maquettes: inscription, connexion, espace apprenant
+- [x] 01-12-PLAN.md — Maquettes: agenda, réservation, paiement, and the two missing formatters
 
 ### Phase 2: Site public
 
@@ -298,7 +298,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
-| 1. Cadrage, contenus et design | 8/12 | In Progress|  |
+| 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
 | 2. Site public | 0/TBD | Not started | - |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
 | 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
