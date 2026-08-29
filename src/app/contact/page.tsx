@@ -34,6 +34,11 @@ export default function Contact() {
         </p>
       </header>
 
+      {/* why: no SectionHeader (plan 01-09) exists yet — a visually-hidden h2
+          keeps the outline h1 -> h2 -> h3 (card title) intact without
+          inventing a French string; the nav label already names this page */}
+      <h2 className="sr-only">{common.nav.contact}</h2>
+
       <Card className="reveal-rise">
         <CardHeader className="flex flex-row items-center gap-2">
           <Mail aria-hidden="true" className="size-5 text-primary" />

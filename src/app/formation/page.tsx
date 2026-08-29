@@ -1,6 +1,7 @@
 import { CheckCircle2, Clock } from "lucide-react";
 
 import formation from "@/locales/fr/formation.json";
+import common from "@/locales/fr/common.json";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -36,6 +37,11 @@ export default function Formation() {
           ))}
         </ol>
       </section>
+
+      {/* why: no SectionHeader (plan 01-09) exists yet — a visually-hidden h2
+          keeps the outline h1 -> h2 -> h3 (card titles) intact without
+          inventing a French string; the nav label already names this page */}
+      <h2 className="sr-only">{common.nav.formation}</h2>
 
       <Card variant="outline" className="reveal-rise">
         <CardHeader>

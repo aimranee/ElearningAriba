@@ -1,6 +1,7 @@
 import { Compass, GraduationCap, ShieldCheck } from "lucide-react";
 
 import aPropos from "@/locales/fr/a-propos.json";
+import common from "@/locales/fr/common.json";
 import { pictograms } from "@/components/icons/pictograms";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -35,6 +36,11 @@ export default function APropos() {
           </p>
         </div>
       </header>
+
+      {/* why: no SectionHeader (plan 01-09) exists yet — a visually-hidden h2
+          keeps the outline h1 -> h2 -> h3 (card titles) intact without
+          inventing a French string; the nav label already names this page */}
+      <h2 className="sr-only">{common.nav.aPropos}</h2>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="reveal-rise">

@@ -1,6 +1,7 @@
 import { Target, BookOpen } from "lucide-react";
 
 import programme from "@/locales/fr/programme.json";
+import common from "@/locales/fr/common.json";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,11 @@ export default function Programme() {
           {programme.intro}
         </p>
       </header>
+
+      {/* why: no SectionHeader (plan 01-09) exists yet — a visually-hidden h2
+          keeps the outline h1 -> h2 -> h3 (card titles) intact without
+          inventing a French string; the nav label already names this page */}
+      <h2 className="sr-only">{common.nav.programme}</h2>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {programme.modules.map((module) => (
