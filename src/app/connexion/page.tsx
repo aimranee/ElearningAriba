@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Chrome } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -67,7 +67,7 @@ export default function Connexion() {
             {/* why: the Google control is inert in Lot 1 — no provider
                 client, no consent-flow URL, no redirect (D-11, D-41, T-01-40). */}
             <Button type="button" variant="outline">
-              <Chrome aria-hidden="true" />
+              <LogIn aria-hidden="true" />
               {connexion.google}
             </Button>
           </form>
