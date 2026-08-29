@@ -1,0 +1,41 @@
+{
+  "titre": "Créez votre compte apprenant. Une seule inscription pour tout le parcours SAP Ariba.",
+  "intro": "Un compte suffit pour réserver un appel découverte, une session individuelle ou une formation en groupe.",
+  "champs": {
+    "prenom": "Prénom",
+    "nom": "Nom",
+    "email": "Adresse email",
+    "motDePasse": "Mot de passe",
+    "confirmation": "Confirmez le mot de passe",
+    "profil": {
+      "libelle": "Votre profil",
+      "options": {
+        "acheteur": "Acheteur",
+        "consultant": "Consultant",
+        "etudiant": "Étudiant",
+        "entreprise": "Entreprise"
+      }
+    }
+  },
+  "aideParChamp": {
+    "prenom": "Utilisé pour personnaliser vos échanges avec le formateur.",
+    "nom": "Apparaît sur vos attestations et factures.",
+    "email": "Sert à vous envoyer vos confirmations de réservation.",
+    "motDePasse": "Huit caractères minimum, avec au moins un chiffre.",
+    "confirmation": "Ressaisissez le même mot de passe.",
+    "profil": "Nous aide à adapter le contenu proposé."
+  },
+  "conditions": "En créant votre compte, vous acceptez nos conditions générales et notre politique de confidentialité.",
+  "erreurs": {
+    "requis": "Ce champ est obligatoire.",
+    "emailInvalide": "Cette adresse email n'est pas valide.",
+    "motDePasseFaible": "Ce mot de passe est trop faible.",
+    "confirmationDifferente": "Les deux mots de passe ne correspondent pas.",
+    "rejetServeur": "Votre inscription n'a pas pu être validée. Vérifiez vos informations et réessayez."
+  },
+  "succes": {
+    "titre": "Vérifiez votre boîte mail. Un lien de confirmation vous attend.",
+    "message": "Nous vous enverrons un email pour confirmer votre adresse avant l'activation de votre compte."
+  },
+  "dejaInscrit": "Déjà inscrit ? Connectez-vous."
+}
