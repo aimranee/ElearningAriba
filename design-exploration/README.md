@@ -22,9 +22,15 @@ Trois décisions, et seulement trois :
 
 | Direction | Police titres | Police texte | `--primary` | `--success` | `--foreground` | `--ease-brand` | Parti pris |
 |---|---|---|---|---|---|---|---|
-| 1 — clarté | | | | | | | |
-| 2 — profondeur | | | | | | | |
-| 3 — éditorial | | | | | | | |
+| 1 — clarté | Inter | Inter | `oklch(0.52 0.18 255)` | `oklch(0.62 0.15 150)` | `oklch(0.24 0.02 250)` | `cubic-bezier(0.16, 1, 0.3, 1)` | Blanc généreux, bleu en accent rare, surfaces quasi plates. |
+| 2 — profondeur | Manrope | Inter | `oklch(0.48 0.2 260)` | `oklch(0.65 0.16 145)` | `oklch(0.2 0.03 260)` | `cubic-bezier(0.22, 1, 0.36, 1)` | Hero bleu profond, blobs flous, grain, cartes flottantes à fort contraste. |
+| 3 — éditorial | Fraunces | Inter | `oklch(0.44 0.16 258)` | `oklch(0.58 0.14 148)` | `oklch(0.22 0.015 250)` | `cubic-bezier(0.4, 0, 0.2, 1)` | Serif display, filets fins, vert comme marqueur éditorial plutôt que couleur de succès seule. |
+
+## Après la décision
+
+Les valeurs de la direction retenue vont dans `src/app/globals.css` et
+`src/app/layout.tsx` (Wave 2). `design-exploration/` est supprimé une fois
+les maquettes validées.
 
 ## Direction retenue
 
