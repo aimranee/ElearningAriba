@@ -135,3 +135,81 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+  /* Atmosphere (D-21): CSS and inline SVG only, no raster image, no generative
+     hero (D-20) — no JS, no computed paths, no resize handler. */
+
+  .atmosphere-wash {
+    background-image:
+      radial-gradient(circle at 30% 20%, color-mix(in oklch, var(--primary), var(--background) 15%) 0%, transparent 60%),
+      linear-gradient(160deg, color-mix(in oklch, var(--primary), black 55%), color-mix(in oklch, var(--primary), var(--success) 20%));
+  }
+
+  .atmosphere-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .atmosphere-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Motion primitives (D-17): every transition/animation uses --ease-brand and
+     --duration-base — no `ease`, no `linear`, no second curve anywhere. */
+
+  @keyframes reveal-rise {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal-rise {
+    animation: reveal-rise calc(var(--duration-base) * 3.4) var(--ease-brand) both;
+  }
+
+  .reveal-delay-1 {
+    animation-delay: 90ms;
+  }
+
+  .reveal-delay-2 {
+    animation-delay: 180ms;
+  }
+
+  .reveal-delay-3 {
+    animation-delay: 270ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Density contract (D-24): the back-office and the learner surface share one
+     component set at two densities. Components react to the compact subtree
+     with the `in-data-[density=compact]:` variant, mirroring the
+     `in-data-[slot=button-group]:` idiom in button.tsx:25-32. Set the
+     layer-level overrides here so component files only adjust heights/type. */
+  [data-density="compact"] {
+    --spacing: 0.2rem;
+    --radius: 0.5rem;
+  }
+}
