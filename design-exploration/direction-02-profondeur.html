@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direction 2 — profondeur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Bleu / blanc / vert — proposition direction 2, profondeur */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.2 0.03 260);
+    --primary: oklch(0.48 0.2 260);
+    --primary-foreground: oklch(0.98 0.01 260);
+    --success: oklch(0.65 0.16 145);
+    --success-foreground: oklch(0.98 0.02 145);
+    --success-muted: oklch(0.93 0.05 145);
+    --muted: oklch(0.95 0.02 260);
+    --muted-foreground: oklch(0.42 0.03 260);
+    --border: oklch(0.88 0.02 260);
+    --ring: oklch(0.48 0.2 260 / 0.5);
+    --destructive: oklch(0.56 0.22 25);
+
+    --shadow-contact: 0 1px 2px oklch(0.2 0.03 260 / 0.12);
+    --shadow-soft: 0 32px 64px oklch(0.2 0.03 260 / 0.22);
+    --shadow-1: var(--shadow-contact), 0 4px 10px oklch(0.2 0.03 260 / 0.08);
+    --shadow-2: var(--shadow-contact), 0 10px 20px oklch(0.2 0.03 260 / 0.12);
+    --shadow-3: var(--shadow-contact), 0 20px 40px oklch(0.2 0.03 260 / 0.18);
+    --shadow-4: var(--shadow-contact), var(--shadow-soft);
+
+    --radius: 0.75rem;
+    --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+    --duration-base: 220ms;
+
+    --font-heading: "Manrope", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+  }
+
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+
+  h1, h2, h3 { font-family: var(--font-heading); margin: 0; }
+
+  a, button {
+    font-family: inherit;
+    transition: all var(--duration-base) var(--ease-brand);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  .card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+    border-radius: var(--radius);
+  }
+
+  @keyframes rise-fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 2rem 6rem;
+    text-align: center;
+    color: oklch(0.97 0.02 260);
+    background:
+      radial-gradient(circle at 30% 20%, oklch(0.32 0.12 265 / 0.9), transparent 60%),
+      linear-gradient(160deg, oklch(0.16 0.05 260), oklch(0.26 0.09 262));
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .blob-1 {
+    width: 22rem;
+    height: 22rem;
+    top: -6rem;
+    right: -4rem;
+    background: oklch(0.55 0.2 260 / 0.55);
+  }
+
+  .blob-2 {
+    width: 16rem;
+    height: 16rem;
+    bottom: -5rem;
+    left: -3rem;
+    background: oklch(0.62 0.16 150 / 0.35);
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 46rem;
+    margin: 0 auto;
+    animation: rise-fade 750ms var(--ease-brand) both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .hero p.lede {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    color: oklch(0.9 0.03 260);
+    line-height: 1.6;
+  }
+
+  .cta-row {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-3);
+  }
+
+  .btn-primary:hover {
+    background: oklch(0.55 0.21 260);
+    box-shadow: var(--shadow-4);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: oklch(1 0 0 / 0.1);
+    color: oklch(0.97 0.02 260);
+    border-color: oklch(1 0 0 / 0.3);
+  }
+
+  .btn-secondary:hover {
+    background: oklch(1 0 0 / 0.18);
+  }
+
+  .cards {
+    position: relative;
+    margin-top: -3.5rem;
+    padding: 0 2rem 6rem;
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .card {
+    display: block;
+    padding: 1.75rem;
+    border-radius: calc(var(--radius) * 1.2);
+    border: 1px solid var(--border);
+    background: var(--background);
+    box-shadow: var(--shadow-4);
+    text-decoration: none;
+    color: inherit;
+    animation: rise-fade 750ms var(--ease-brand) both;
+  }
+
+  .card:nth-child(2) { animation-delay: 90ms; }
+  .card:nth-child(3) { animation-delay: 180ms; }
+
+  .card:hover {
+    box-shadow: var(--shadow-4), 0 0 0 1px var(--primary);
+    transform: translateY(-3px);
+  }
+
+  .card svg { width: 2rem; height: 2rem; color: var(--primary); }
+
+  .card h3 { margin-top: 1rem; font-size: 1.05rem; font-weight: 700; }
+
+  .card p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: var(--success-muted);
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="hero">
+  <div class="grain"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-inner">
+    <h1>Formez-vous en direct avec un expert SAP Ariba. Chaque créneau est réel, chaque suivi aussi.</h1>
+    <p class="lede">Réservez un rendez-vous dans un agenda vivant, payez en toute sécurité, progressez jusqu'à l'attestation.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#">Démarrer ma formation</a>
+      <a class="btn btn-secondary" href="#">Voir le programme</a>
+    </div>
+  </div>
+</section>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="cards">
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 5h16M4 12h16M4 19h10" stroke-linecap="round" />
+    </svg>
+    <h3>Un programme structuré</h3>
+    <p>Cinq modules, un fil pédagogique clair, du cadrage jusqu'à la pratique.</p>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 4h16v16H4z" stroke-linejoin="round" />
+      <path d="M4 9h16" stroke-linecap="round" />
+    </svg>
+    <h3>Un agenda réel</h3>
+    <p>Choisissez un créneau qui existe vraiment dans le calendrier du formateur.</p>
+    <span class="badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Créneau confirmé
+    </span>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" stroke-linejoin="round" />
+    </svg>
+    <h3>Un suivi jusqu'à l'attestation</h3>
+    <p>Présence, progression et attestation, visibles depuis votre espace apprenant.</p>
+  </a>
+</section>
+
+</body>
+</html>
