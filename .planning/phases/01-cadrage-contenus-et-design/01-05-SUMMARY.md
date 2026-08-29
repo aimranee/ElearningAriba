@@ -111,3 +111,11 @@ None - no external service configuration required.
 ---
 *Phase: 01-cadrage-contenus-et-design*
 *Completed: 2026-08-29*
+
+## Self-Check: PASSED
+
+- FOUND: src/components/ui/message.tsx
+- FOUND: src/components/ui/badge.tsx
+- FOUND: src/components/ui/card.tsx
+- FOUND: src/components/ui/button.tsx
+- FOUND: 62155b2, d022cb0, 859c36e, 5561a3f (all present in git log)
