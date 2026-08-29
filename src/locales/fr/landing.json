@@ -1,0 +1,169 @@
+{
+  "hero": {
+    "titre": "Maîtrisez SAP Ariba avec un expert, en direct. Réservez votre créneau et progressez à votre rythme professionnel.",
+    "sousTitre": "Une formation live, animée par un expert certifié, pour prendre en main l'écosystème Ariba du premier appel d'offres jusqu'à la certification."
+  },
+  "pourQui": {
+    "titre": "Cette formation s'adresse à des profils précis. Trouvez le vôtre.",
+    "reassurance": "Même sans expérience SAP, vous avez votre place ici.",
+    "profils": [
+      {
+        "titre": "Acheteurs",
+        "description": "Structurez vos processus d'achat et gagnez en autonomie sur Ariba au quotidien.",
+        "picto": "acheteur"
+      },
+      {
+        "titre": "Category managers",
+        "description": "Pilotez vos catégories d'achat avec les bons outils Source-to-Pay.",
+        "picto": "category-manager"
+      },
+      {
+        "titre": "Professionnels supply chain et achats",
+        "description": "Reliez vos flux d'approvisionnement aux processus Procure-to-Pay.",
+        "picto": "supply-chain"
+      },
+      {
+        "titre": "Consultants SAP Ariba juniors ou en reconversion",
+        "description": "Construisez une expertise opérationnelle reconnue sur le marché.",
+        "picto": "consultant"
+      },
+      {
+        "titre": "Étudiants et jeunes diplômés",
+        "description": "Ajoutez une compétence recherchée à votre profil, sans prérequis SAP.",
+        "picto": "etudiant"
+      }
+    ]
+  },
+  "competences": {
+    "titre": "Six compétences concrètes vous attendent. Chacune se pratique, pas seulement se regarde.",
+    "items": [
+      "L'écosystème Ariba dans son ensemble",
+      "Le processus Procure-to-Pay",
+      "Le processus Source-to-Pay",
+      "Les appels d'offres RFQ et RFP",
+      "La gestion des catalogues",
+      "Les contrats et les workflows"
+    ]
+  },
+  "programme": {
+    "titre": "Le programme se déroule en cinq modules. Chacun construit sur le précédent.",
+    "telechargerPdf": "Télécharger le programme en PDF",
+    "modules": [
+      {
+        "titre": "Découverte de l'écosystème Ariba",
+        "duree": 3,
+        "resume": "Panorama de la plateforme, des rôles et des flux principaux."
+      },
+      {
+        "titre": "Procure-to-Pay au quotidien",
+        "duree": 4,
+        "resume": "De la demande d'achat au paiement fournisseur, étape par étape."
+      },
+      {
+        "titre": "Source-to-Pay et stratégie achats",
+        "duree": 4,
+        "resume": "Sourcing, négociation et intégration au cycle achats."
+      },
+      {
+        "titre": "Appels d'offres RFQ et RFP",
+        "duree": 3,
+        "resume": "Construire, diffuser et analyser un appel d'offres sur Ariba."
+      },
+      {
+        "titre": "Catalogues, contrats et workflows",
+        "duree": 3,
+        "resume": "Configurer les catalogues et automatiser les circuits de validation."
+      }
+    ]
+  },
+  "formatModalites": {
+    "titre": "Le format tient en quelques repères clairs. Voici comment se déroule la formation.",
+    "items": [
+      {
+        "titre": "Formations live",
+        "description": "Des sessions animées en direct par un expert certifié, pas des enregistrements."
+      },
+      {
+        "titre": "Supports PDF",
+        "description": "Un support de cours téléchargeable pour chaque module."
+      },
+      {
+        "titre": "Vidéos à venir",
+        "description": "Des compléments vidéo sont à l'étude pour une prochaine version — non inclus à ce jour.",
+        "statut": "futur"
+      },
+      {
+        "titre": "Durée d'accès",
+        "description": "Un accès à vos supports pendant toute la durée de votre parcours."
+      },
+      {
+        "titre": "Cas pratiques en fin de module",
+        "description": "Chaque module se conclut par une mise en situation concrète."
+      },
+      {
+        "titre": "Prérequis",
+        "description": "Aucun prérequis SAP n'est nécessaire pour commencer."
+      }
+    ]
+  },
+  "confiance": {
+    "titre": "La confiance se construit sur des faits. En voici trois.",
+    "items": [
+      {
+        "titre": "Protection des données",
+        "description": "Vos informations restent hébergées et traitées dans un cadre sécurisé."
+      },
+      {
+        "titre": "Experts SAP Ariba certifiés",
+        "description": "Chaque session est animée par un formateur certifié sur l'écosystème Ariba."
+      },
+      {
+        "titre": "Contenus régulièrement mis à jour",
+        "description": "Le programme suit les évolutions de la plateforme et de ses usages."
+      }
+    ],
+    "temoignages": {
+      "placeholder": "Les témoignages des premiers apprenants arrivent bientôt."
+    },
+    "logos": {
+      "placeholder": "Les entreprises partenaires seront présentées ici."
+    }
+  },
+  "faq": {
+    "titre": "Les questions les plus fréquentes trouvent leur réponse ici.",
+    "items": [
+      {
+        "question": "Faut-il déjà connaître SAP Ariba pour commencer ?",
+        "reponse": "Non, aucun prérequis SAP n'est nécessaire pour suivre cette formation."
+      },
+      {
+        "question": "La formation est-elle animée en direct ?",
+        "reponse": "Oui, chaque session est animée en direct par un expert certifié."
+      },
+      {
+        "question": "Combien de temps ai-je accès aux supports ?",
+        "reponse": "La durée d'accès est précisée sur la page Formation."
+      },
+      {
+        "question": "Puis-je réserver un appel découverte gratuit ?",
+        "reponse": "Oui, un appel découverte gratuit est proposé avant tout engagement."
+      },
+      {
+        "question": "Comment se déroule l'inscription ?",
+        "reponse": "La création d'un compte est nécessaire, y compris pour l'appel découverte gratuit."
+      },
+      {
+        "question": "Un support PDF est-il fourni pour chaque module ?",
+        "reponse": "Oui, chaque module dispose de son propre support téléchargeable."
+      },
+      {
+        "question": "Que se passe-t-il si je dois annuler ma réservation ?",
+        "reponse": "Le créneau est libéré et vous êtes prévenu selon la politique de remboursement publiée."
+      }
+    ]
+  },
+  "ctaFinal": {
+    "titre": "Votre créneau vous attend. Réservez-le dès maintenant.",
+    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba."
+  }
+}

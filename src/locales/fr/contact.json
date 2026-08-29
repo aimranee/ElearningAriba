@@ -1,0 +1,40 @@
+{
+  "titre": "Une question avant de réserver ? Écrivez-nous directement.",
+  "intro": "Ce formulaire rejoint directement le formateur — la réponse arrive par email.",
+  "champs": {
+    "nom": "Nom",
+    "email": "Email",
+    "telephone": "Téléphone",
+    "profil": "Votre profil",
+    "message": "Message"
+  },
+  "profil": {
+    "acheteur": "Acheteur",
+    "consultant": "Consultant",
+    "etudiant": "Étudiant",
+    "entreprise": "Entreprise"
+  },
+  "aideParChamp": {
+    "nom": "Votre nom et prénom.",
+    "email": "Une adresse valide pour vous répondre.",
+    "telephone": "Facultatif, utile pour un rappel rapide.",
+    "profil": "Le profil qui vous ressemble le plus.",
+    "message": "Décrivez votre besoin ou votre question."
+  },
+  "erreurs": {
+    "nomRequis": "Merci d'indiquer votre nom.",
+    "emailRequis": "Merci d'indiquer votre email.",
+    "emailInvalide": "Cette adresse email n'est pas valide.",
+    "messageRequis": "Merci d'écrire votre message.",
+    "profilRequis": "Merci de sélectionner votre profil.",
+    "rejetServeur": "Votre message n'a pas pu être envoyé. Merci de réessayer dans quelques instants."
+  },
+  "succes": {
+    "titre": "Message envoyé",
+    "message": "Merci, votre message a bien été reçu. Une réponse vous parviendra par email."
+  },
+  "coordonnees": {
+    "titre": "Nous contacter directement",
+    "email": "contact@formation-sap-ariba.fr"
+  }
+}
