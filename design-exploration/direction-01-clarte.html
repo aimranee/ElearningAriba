@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direction 1 — clarté</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Bleu / blanc / vert — proposition direction 1, clarté */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.24 0.02 250);
+    --primary: oklch(0.52 0.18 255);
+    --primary-foreground: oklch(0.98 0.01 255);
+    --success: oklch(0.62 0.15 150);
+    --success-foreground: oklch(0.98 0.02 150);
+    --success-muted: oklch(0.95 0.04 150);
+    --muted: oklch(0.97 0.01 250);
+    --muted-foreground: oklch(0.45 0.02 250);
+    --border: oklch(0.9 0.01 250);
+    --ring: oklch(0.52 0.18 255 / 0.5);
+    --destructive: oklch(0.58 0.22 25);
+
+    /* Ombre — deux tons empilés (contact + douce), quatre paliers */
+    --shadow-contact: 0 1px 2px oklch(0.24 0.02 250 / 0.08);
+    --shadow-soft: 0 24px 48px oklch(0.24 0.02 250 / 0.10);
+    --shadow-1: var(--shadow-contact), 0 4px 8px oklch(0.24 0.02 250 / 0.04);
+    --shadow-2: var(--shadow-contact), 0 8px 16px oklch(0.24 0.02 250 / 0.06);
+    --shadow-3: var(--shadow-contact), 0 16px 32px oklch(0.24 0.02 250 / 0.08);
+    --shadow-4: var(--shadow-contact), var(--shadow-soft);
+
+    --radius: 0.625rem;
+    --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-base: 200ms;
+
+    --font-heading: "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1, h2, h3 { font-family: var(--font-heading); margin: 0; }
+
+  a, button {
+    font-family: inherit;
+    transition: all var(--duration-base) var(--ease-brand);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  .card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+    border-radius: var(--radius);
+  }
+
+  @keyframes rise-fade {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero {
+    position: relative;
+    padding: 6rem 2rem 5rem;
+    background: linear-gradient(180deg, oklch(0.97 0.02 255 / 0.6), var(--background) 70%);
+    text-align: center;
+    animation: rise-fade 700ms var(--ease-brand) both;
+  }
+
+  .hero-inner {
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p.lede {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+    line-height: 1.6;
+  }
+
+  .cta-row {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-2);
+  }
+
+  .btn-primary:hover {
+    background: oklch(0.46 0.19 255);
+    box-shadow: var(--shadow-3);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--background);
+    color: var(--foreground);
+    border-color: var(--border);
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-secondary:hover {
+    background: var(--muted);
+    box-shadow: var(--shadow-2);
+  }
+
+  .cards {
+    padding: 4rem 2rem 6rem;
+    max-width: 64rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .card {
+    display: block;
+    padding: 1.75rem;
+    border-radius: calc(var(--radius) * 1.4);
+    border: 1px solid var(--border);
+    background: var(--background);
+    box-shadow: var(--shadow-1);
+    text-decoration: none;
+    color: inherit;
+    animation: rise-fade 700ms var(--ease-brand) both;
+  }
+
+  .card:nth-child(2) { animation-delay: 80ms; }
+  .card:nth-child(3) { animation-delay: 160ms; }
+
+  .card:hover {
+    box-shadow: var(--shadow-3);
+    transform: translateY(-2px);
+  }
+
+  .card svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--primary);
+  }
+
+  .card h3 {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .card p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: var(--success-muted);
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Réservez votre créneau avec un formateur SAP Ariba. Votre montée en compétence commence maintenant.</h1>
+    <p class="lede">Un accompagnement live, un agenda réel, un suivi de votre progression jusqu'à l'attestation.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#">Démarrer ma formation</a>
+      <a class="btn btn-secondary" href="#">Voir le programme</a>
+    </div>
+  </div>
+</section>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="cards">
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 5h16M4 12h16M4 19h10" stroke-linecap="round" />
+    </svg>
+    <h3>Un programme structuré</h3>
+    <p>Cinq modules, un fil pédagogique clair, du cadrage jusqu'à la pratique.</p>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 4h16v16H4z" stroke-linejoin="round" />
+      <path d="M4 9h16" stroke-linecap="round" />
+    </svg>
+    <h3>Un agenda réel</h3>
+    <p>Choisissez un créneau qui existe vraiment dans le calendrier du formateur.</p>
+    <span class="badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Créneau confirmé
+    </span>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" stroke-linejoin="round" />
+    </svg>
+    <h3>Un suivi jusqu'à l'attestation</h3>
+    <p>Présence, progression et attestation, visibles depuis votre espace apprenant.</p>
+  </a>
+</section>
+
+</body>
+</html>
