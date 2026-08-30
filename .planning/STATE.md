@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
+stopped_at: "Waves 1-5 of phase 02 complete (02-01..02-10); 02-11 not started — it is the founder's batched visual review of the deferred human-verify checkpoints and must not be run headless"
 last_updated: "2026-08-30T21:04:07.851Z"
-last_activity: 2026-08-30 -- Phase 02 execution started
+last_activity: 2026-08-30
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 29
-  completed_plans: 22
-  percent: 18
+  completed_plans: 28
+  percent: 97
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 02 (site-public) — EXECUTING
-Plan: 1 of 11
-Status: Executing Phase 02
-Last activity: 2026-08-30 -- Phase 02 execution started
+Plan: 02-01..02-10 complete; 02-11 not started. Unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 — all deliberately deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending
+Status: Waves 1-5 delivered and verified from the repo: next build green, all content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows
+Last activity: 2026-08-30
 
-Progress: [████░░░░░░] 36%
+Progress: [█████████░] 97%
 
 ## Performance Metrics
 
@@ -93,6 +93,8 @@ Recent decisions affecting current work:
 *(none — 00-06 Task 4 closed; see `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`)*
 
 ### Blockers/Concerns
+
+- **[Phase 02, hosted content is stale]** The CIO seeded both hosted projects on 2026-08-30 with the seed script as it stood at commit 879069c — 39 content items and no eyebrow or titre_accent on any section. Five later commits (425aaf2, 73a06a0, 81a337d, 36375bd, fab7474) extended the seed: local now holds 47 items and 10 of 11 sections carry eyebrow and titre_accent. A hosted build today would render section headers without their eyebrow and accent and the Formation and A-propos pages without their items. The seed is idempotent, so the fix is simply to re-run npm run content:seed against both hosted refs; it is requested from the CIO.
 
 - **[Phase 02-02, resolved]** `20260830090000_public_content.sql` was pushed to
   both hosted Supabase projects by the CIO on 2026-08-30 (see the two handoffs
