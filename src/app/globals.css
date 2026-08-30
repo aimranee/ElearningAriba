@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* why (D-18): the header is fixed at 76px tall; an in-page anchor jump must
+   stop short of sliding underneath it. */
+html {
+  scroll-padding-top: 92px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
