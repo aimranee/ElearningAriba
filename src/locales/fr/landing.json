@@ -80,6 +80,7 @@
     ]
   },
   "formatModalites": {
+    "eyebrow": "Format et modalités",
     "titre": "Le format tient en quelques repères clairs. Voici comment se déroule la formation.",
     "items": [
       {
@@ -110,6 +111,7 @@
     ]
   },
   "confiance": {
+    "eyebrow": "Confiance et sécurité",
     "titre": "La confiance se construit sur des faits. En voici trois.",
     "items": [
       {
@@ -126,13 +128,16 @@
       }
     ],
     "temoignages": {
+      "label": "Témoignages",
       "placeholder": "Les témoignages des premiers apprenants arrivent bientôt."
     },
     "logos": {
+      "label": "Entreprises",
       "placeholder": "Les entreprises partenaires seront présentées ici."
     }
   },
   "faq": {
+    "eyebrow": "Vous avez des questions",
     "titre": "Les questions les plus fréquentes trouvent leur réponse ici.",
     "items": [
       {
@@ -166,6 +171,7 @@
     ]
   },
   "ctaFinal": {
+    "eyebrow": "Votre prochaine étape",
     "titre": "Votre créneau vous attend. Réservez-le dès maintenant.",
     "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba."
   }
