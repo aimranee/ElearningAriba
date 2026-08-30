@@ -47,7 +47,7 @@ with no lot: it is the technical foundation the lots are built on.
 - [ ] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
 - [ ] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
 - [ ] **PUB-11**: Visitor can send a message from the Contact page (nom, email, téléphone, profil, message), it is stored in the database, the trainer is notified immediately, the prospect gets an acknowledgement, and the form is protected against spam
-- [ ] **PUB-12**: Every page is reachable in two clicks through a minimalist navigation menu, with a complete footer
+- [x] **PUB-12**: Every page is reachable in two clicks through a minimalist navigation menu, with a complete footer
 - [ ] **PUB-13**: All public-site content comes from the database — no module, price or asset hardcoded
 
 ### Comptes — Lot 3: comptes utilisateurs, connexion et espace apprenant
@@ -196,7 +196,7 @@ offer.
 | PUB-09 | Phase 2 | Pending |
 | PUB-10 | Phase 2 | Pending |
 | PUB-11 | Phase 2 | Pending |
-| PUB-12 | Phase 2 | Pending |
+| PUB-12 | Phase 2 | Complete (02-04) |
 | PUB-13 | Phase 2 | Pending |
 | CPT-01 | Phase 3 | Pending |
 | CPT-02 | Phase 3 | Pending |
