@@ -126,6 +126,7 @@ Recent decisions affecting current work:
 | Date | Task | Result |
 |------|------|--------|
 | 2026-08-30 | Repair brittle verification commands in plans 02-05..02-11 | Widened literal-JSX-shape greps (variant="raised", tone="band", data-magnetic="true", literal nav href) to also accept expression/data-driven forms; fixed two over-strict counts (hardcoded "17" check in 02-08, exact shadow-4 count in 02-10). No source touched. |
+| 2026-08-30 | Correct prior sweep: replace value-blind ("literal"\|{expr}) greps with prerendered-HTML value assertions | The previous widening accepted `variant={anything}`/`data-magnetic={false}` as a pass — a false positive. Converted 02-05 (hero data-magnetic) and 02-06 (programme/formation/a-propos raised-card + band-tone) to assert the actual value in `.next/server/app/*.html` after `npm run build`, since those files are routes rendered directly. Left 02-09/02-10's own per-file checks unconverted: those components mount into `src/app/page.tsx` only in each plan's later checkpoint task, so no route exists yet at their verification point to assert against — explained in each plan and covered by that checkpoint's human visual review. 02-11's nav-href widening left as-is (different shape, out of scope of this correction). No source touched. |
 
 ## Deferred Items
 
