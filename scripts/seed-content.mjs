@@ -33,6 +33,21 @@ function splitTwoSentences(value) {
   };
 }
 
+// why: the FAQ's signed H2 (landing.json's faq.titre) is one sentence, not
+// two — the maquette still gives it a gradient turn, but mid-sentence
+// ("...fréquentes / trouvent leur réponse ici.") rather than at a period.
+// splitTwoSentences can't find that boundary (no ". " inside a single
+// sentence), so this is the same "authored split point against the known
+// signed string" idea, keyed to the maquette's own literal accent phrase
+// instead of a sentence break.
+function splitAtPhrase(value, phrase) {
+  const index = value.indexOf(phrase);
+  if (index === -1) {
+    return { title: value, titleAccent: undefined };
+  }
+  return { title: value.slice(0, index).trimEnd(), titleAccent: value.slice(index) };
+}
+
 // why: content_item.cle is a stable natural key the seed upserts on (D-27) —
 // derived from the JSON's own titre rather than hand-authored, so no French
 // sentence is invented here, only transliterated into an ascii identifier.
@@ -158,15 +173,36 @@ async function main() {
       titre_accent: splitTwoSentences(landing.programme.titre).titleAccent,
       position: 4,
     },
-    { cle: "format-modalites", titre: landing.formatModalites.titre, position: 5 },
-    { cle: "confiance", titre: landing.confiance.titre, position: 6 },
+    {
+      cle: "format-modalites",
+      eyebrow: landing.formatModalites.eyebrow,
+      titre: splitTwoSentences(landing.formatModalites.titre).title,
+      titre_accent: splitTwoSentences(landing.formatModalites.titre).titleAccent,
+      position: 5,
+    },
+    {
+      cle: "confiance",
+      eyebrow: landing.confiance.eyebrow,
+      titre: splitTwoSentences(landing.confiance.titre).title,
+      titre_accent: splitTwoSentences(landing.confiance.titre).titleAccent,
+      position: 6,
+    },
     {
       cle: "cta-final",
-      titre: landing.ctaFinal.titre,
+      eyebrow: landing.ctaFinal.eyebrow,
+      titre: splitTwoSentences(landing.ctaFinal.titre).title,
+      titre_accent: splitTwoSentences(landing.ctaFinal.titre).titleAccent,
       lead: landing.ctaFinal.supportLine,
       position: 7,
     },
-    { cle: "faq", titre: landing.faq.titre, position: 8 },
+    {
+      cle: "faq",
+      eyebrow: landing.faq.eyebrow,
+      titre: splitAtPhrase(landing.faq.titre, "trouvent leur réponse ici.").title,
+      titre_accent: splitAtPhrase(landing.faq.titre, "trouvent leur réponse ici.")
+        .titleAccent,
+      position: 8,
+    },
     {
       cle: "page-programme",
       eyebrow: common.nav.programme,
@@ -266,6 +302,7 @@ async function main() {
     {
       section_cle: "confiance",
       cle: "temoignages",
+      titre: landing.confiance.temoignages.label,
       description: landing.confiance.temoignages.placeholder,
       statut: "placeholder",
       position: confianceItems.length + 1,
@@ -273,6 +310,7 @@ async function main() {
     {
       section_cle: "confiance",
       cle: "logos",
+      titre: landing.confiance.logos.label,
       description: landing.confiance.logos.placeholder,
       statut: "placeholder",
       position: confianceItems.length + 2,
