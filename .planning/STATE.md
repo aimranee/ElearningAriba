@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 02-02-PLAN.md complete (Task 3 executed against the local stack; hosted push of the new grant migration still owed by the CIO)
-last_updated: "2026-08-30T17:17:32.000Z"
-last_activity: 2026-08-30
+stopped_at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
+last_updated: "2026-08-30T21:04:07.851Z"
+last_activity: 2026-08-30 -- Phase 02 execution started
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 29
   completed_plans: 22
-  percent: 76
+  percent: 18
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 02 (site-public) — EXECUTING
-Plan: 02-01, 02-02, 02-03, 02-04 complete; 02-05..02-11 not started — they read the content tables and can now proceed against the local Supabase stack
-Status: 02-02 fully executed against the local stack (Task 1/2 were already done; Task 3 ran this session). A follow-up grant migration (20260830093000) is written and applied locally but not yet pushed to the hosted projects — does not block local development of 02-05..02-11
-Last activity: 2026-08-30
+Plan: 1 of 11
+Status: Executing Phase 02
+Last activity: 2026-08-30 -- Phase 02 execution started
 
 Progress: [████░░░░░░] 36%
 
