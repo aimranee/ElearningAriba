@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 02-04-PLAN.md complete (Task 3 checkpoint deferred to 02-11 by founder decision); 02-02 Task 2/3 still blocked on external Supabase operator
-last_updated: "2026-08-30T13:00:00.000Z"
+stopped_at: 02-02-PLAN.md complete (Task 3 executed against the local stack; hosted push of the new grant migration still owed by the CIO)
+last_updated: "2026-08-30T17:17:32.000Z"
 last_activity: 2026-08-30
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 29
-  completed_plans: 21
-  percent: 72
+  completed_plans: 22
+  percent: 76
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 02 (site-public) — EXECUTING
-Plan: 02-01, 02-03, 02-04 complete; 02-02 still blocked at Task 2/3 (hosted Supabase push, external operator); 02-05..02-08 held back (depend on the un-pushed content migration); 02-09..02-11 not started
-Status: Wave 2 (02-03) and wave 3's 02-04 done; waves 3's remaining plans and waves 4+ wait on the Supabase migration reaching the hosted projects
+Plan: 02-01, 02-02, 02-03, 02-04 complete; 02-05..02-11 not started — they read the content tables and can now proceed against the local Supabase stack
+Status: 02-02 fully executed against the local stack (Task 1/2 were already done; Task 3 ran this session). A follow-up grant migration (20260830093000) is written and applied locally but not yet pushed to the hosted projects — does not block local development of 02-05..02-11
 Last activity: 2026-08-30
 
-Progress: [███░░░░░░░] 27%
+Progress: [████░░░░░░] 36%
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Progress: [███░░░░░░░] 27%
 | Phase 02-site-public P01 | 25min | 3 tasks | 7 files |
 | Phase 02-site-public P03 | 22min | 3 tasks | 6 files |
 | Phase 02-site-public P04 | 45min | 2 tasks | 8 files |
+| Phase 02-site-public P02 | 45min | 1 task | 8 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,9 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Remapped tone=muted/tone=atmosphere call sites in page.tsx to tone=band in the same commit as narrowing the Section tone union, to keep tsc green
 - [Phase 02-04]: Founder decided to batch all mid-phase visual-review checkpoints for this phase into plan 02-11 rather than gating each one individually; 02-04 Task 3 (header resting/scrolled states, scroll-progress bar, mobile nav) was built but not reviewed — see Blockers/Concerns
 - [Phase 02]: `app` added to `supabase/config.toml` `[api] schemas`, exposing it through the Data API/PostgREST; both Supabase clients (`src/lib/supabase/client.ts`, `server.ts`) default `db.schema` to `app` since no table lives in `public`. Verified locally: `GET app.content_section` with `Accept-Profile: app` and the anon key returns 200 with an empty array; `npm run build` and `npx tsc --noEmit` clean.
+- [Phase 02-02]: `src/lib/supabase/public.ts` is a cookieless anon client (`createClient` from `@supabase/supabase-js`, not `createServerClient`) so public content reads never force dynamic rendering; `src/lib/supabase/server.ts` is untouched for Lot 3's session-aware path.
+- [Phase 02-02]: `service_role` needed an explicit `grant usage on schema app` plus table grants beyond RLS bypass — added as a second additive migration (`20260830093000_grant_service_role_content.sql`) rather than editing the already-applied `20260830090000`. Not yet pushed to hosted; local-only so far.
+- [Phase 02-02]: Seed script normalizes every row to the full column set before a batched upsert — PostgREST's bulk upsert sends an explicit `NULL` for any column a given row omits when other rows in the same batch carry it, so relying on the table's column default inside a heterogeneous batch silently fails.
 
 ### Pending Todos
 
@@ -90,16 +94,22 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- **[Phase 02-02, blocking]** The additive content migration
-  (`supabase/migrations/20260830090000_public_content.sql`) is written and
-  verified locally (`supabase db reset` green) but not pushed to the hosted
-  preview (`urmtwbcsqodjnwsnxcqd`) or production (`toxegyhxdoxjuyijgemx`)
-  Supabase projects. This environment has no `SUPABASE_ACCESS_TOKEN` and the
-  hosted projects belong to a different operator. Resume by running, in order:
-  `supabase link --project-ref urmtwbcsqodjnwsnxcqd && supabase db push`, then
-  the same for `toxegyhxdoxjuyijgemx`. Verify with
-  `npx supabase migration list --linked`. 02-02 Task 3 and phase waves 2-6
-  cannot start until this push lands.
+- **[Phase 02-02, resolved]** `20260830090000_public_content.sql` was pushed to
+  both hosted Supabase projects by the CIO on 2026-08-30 (see the two handoffs
+  cited in `02-02-SUMMARY.md`), and Task 3 has now run against the local
+  stack: cookieless read client, generated types, query layer and the
+  idempotent seed are all committed and verified (39 items / 11 sections,
+  idempotent across two runs; `tsc`/`eslint`/`next build` all clean, all 14
+  routes still static, `content:check` still exits 1).
+
+- **[Phase 02-02, follow-up, not blocking local work]** A second additive
+  migration, `supabase/migrations/20260830093000_grant_service_role_content.sql`,
+  was written this session (service_role lacked schema/table grants needed to
+  run the seed) and applied locally, but not pushed to either hosted project.
+  It needs the same CIO push-and-verify sequence Task 2 used for
+  `20260830090000` before a hosted seed run (`SUPABASE_SERVICE_ROLE_KEY`
+  against the hosted DB) will succeed. Plans 02-05..02-11 are not blocked by
+  this — they read against the local stack.
 
 - Three scope questions the signed offer does not answer are open — package
   (« forfait ») limits, the certificate attendance threshold, and whether the
@@ -139,10 +149,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-30T13:00:00.000Z
-Stopped at: 02-03 and 02-04 complete. 02-02 still blocked at Task 2 (hosted Supabase push,
-external operator). 02-05 through 02-08 cannot start until that push lands — they read the
-Supabase content tables. Do not start them against the local-only schema.
-Resume file: None — resume by pushing the migration (see Blockers/Concerns), then continuing
-02-02 Task 3 and waves 3 (remainder)-6. Separately, plan 02-11 owes a real human review of the
-02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
+Last session: 2026-08-30T17:17:32.000Z
+Stopped at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
+service_role grants committed separately). 02-01, 02-02, 02-03, 02-04 all complete.
+Resume file: None — resume with 02-05-PLAN.md. CIO still owes a hosted push of
+`20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
+02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
+review of the 02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
