@@ -169,58 +169,127 @@
 
 @layer components {
   /* Atmosphere (D-21): CSS and inline SVG only, no raster image, no generative
-     hero (D-20) — no JS, no computed paths, no resize handler. */
+     hero (D-20) — no JS, no computed paths, no resize handler. Mounted once at
+     the root (D-20/AC-3) — see src/components/atmosphere/atmosphere-layer.tsx. */
 
-  .atmosphere-wash {
-    background-image:
-      radial-gradient(circle at 30% 20%, color-mix(in oklch, var(--primary), var(--background) 15%) 0%, transparent 60%),
-      linear-gradient(160deg, color-mix(in oklch, var(--primary), black 55%), color-mix(in oklch, var(--primary), var(--success) 20%));
+  .bg-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    pointer-events: none;
+    overflow: hidden;
+    clip-path: inset(0);
   }
 
-  .atmosphere-blob {
+  .mesh-layer {
+    position: absolute;
+    inset: -10%;
+    will-change: transform;
+    transition: transform 1.2s var(--ease-brand);
+  }
+
+  .mesh {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
-    pointer-events: none;
+    filter: blur(84px);
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    will-change: transform;
   }
 
-  .atmosphere-grain {
-    position: absolute;
+  @keyframes m1 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(60px, -40px) scale(1.12);
+    }
+    66% {
+      transform: translate(-30px, 30px) scale(0.95);
+    }
+  }
+
+  @keyframes m2 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-50px, 40px) scale(1.1);
+    }
+  }
+
+  @keyframes m3 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(40px, 30px) scale(1.08);
+    }
+  }
+
+  @keyframes m4 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    40% {
+      transform: translate(-40px, -30px) scale(1.06);
+    }
+    75% {
+      transform: translate(30px, 20px) scale(0.96);
+    }
+  }
+
+  .grid-fade {
+    position: fixed;
     inset: 0;
+    z-index: -4;
     pointer-events: none;
-    opacity: 0.35;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image:
+      linear-gradient(rgba(99, 91, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 91, 255, 0.045) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 72%);
+    mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 30%, transparent 72%);
   }
 
   /* Motion primitives (D-17): every transition/animation uses --ease-brand and
      --duration-base — no `ease`, no `linear`, no second curve anywhere. */
 
-  @keyframes reveal-rise {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .reveal {
+    opacity: 0;
+    transform: translateY(34px);
+    transition:
+      opacity 1s var(--ease-brand),
+      transform 1s var(--ease-brand);
   }
 
-  .reveal-rise {
-    animation: reveal-rise calc(var(--duration-base) * 3.4) var(--ease-brand) both;
+  .reveal.in {
+    opacity: 1;
+    transform: none;
   }
 
-  .reveal-delay-1 {
-    animation-delay: 90ms;
+  .reveal[data-d="1"] {
+    transition-delay: 0.09s;
   }
 
-  .reveal-delay-2 {
-    animation-delay: 180ms;
+  .reveal[data-d="2"] {
+    transition-delay: 0.18s;
   }
 
-  .reveal-delay-3 {
-    animation-delay: 270ms;
+  .reveal[data-d="3"] {
+    transition-delay: 0.27s;
+  }
+
+  .reveal[data-d="4"] {
+    transition-delay: 0.36s;
+  }
+
+  .reveal[data-d="5"] {
+    transition-delay: 0.45s;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -231,6 +300,15 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .mesh {
+      animation: none;
     }
   }
 
