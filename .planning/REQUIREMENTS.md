@@ -43,9 +43,9 @@ with no lot: it is the technical foundation the lots are built on.
 - [ ] **PUB-05**: Visitor sees « Format et modalités » — live training, PDF supports, videos to come, access duration, end-of-module practical cases, prerequisites
 - [ ] **PUB-06**: Visitor sees « Confiance et sécurité » — data protection, certified SAP Ariba experts, regularly updated content, and ready placeholders for testimonials and company logos
 - [ ] **PUB-07**: Visitor sees a final CTA and a FAQ of six to eight questions answering the most frequent objections
-- [ ] **PUB-08**: Visitor can read the Programme page — the five modules developed with pedagogical objectives, content and duration
-- [ ] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
-- [ ] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
+- [x] **PUB-08**: Visitor can read the Programme page — the five modules developed with pedagogical objectives, content and duration
+- [x] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
+- [x] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
 - [ ] **PUB-11**: Visitor can send a message from the Contact page (nom, email, téléphone, profil, message), it is stored in the database, the trainer is notified immediately, the prospect gets an acknowledgement, and the form is protected against spam
 - [x] **PUB-12**: Every page is reachable in two clicks through a minimalist navigation menu, with a complete footer
 - [ ] **PUB-13**: All public-site content comes from the database — no module, price or asset hardcoded
@@ -192,9 +192,9 @@ offer.
 | PUB-05 | Phase 2 | Pending |
 | PUB-06 | Phase 2 | Pending |
 | PUB-07 | Phase 2 | Pending |
-| PUB-08 | Phase 2 | Pending |
-| PUB-09 | Phase 2 | Pending |
-| PUB-10 | Phase 2 | Pending |
+| PUB-08 | Phase 2 | Complete |
+| PUB-09 | Phase 2 | Complete |
+| PUB-10 | Phase 2 | Complete |
 | PUB-11 | Phase 2 | Pending |
 | PUB-12 | Phase 2 | Complete (02-04) |
 | PUB-13 | Phase 2 | Pending |
