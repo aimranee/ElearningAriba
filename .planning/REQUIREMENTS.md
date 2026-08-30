@@ -36,13 +36,13 @@ with no lot: it is the technical foundation the lots are built on.
 
 ### Site public — Lot 2
 
-- [ ] **PUB-01**: Visitor sees a Hero section — accroche title, explanatory subtitle, primary CTA « Démarrer ma formation », secondary CTA « Voir le programme », main visual and a ready video placeholder
-- [ ] **PUB-02**: Visitor sees « Pour qui est cette formation ? » — the five target profiles with pictograms and the reassurance « même sans expérience SAP »
-- [ ] **PUB-03**: Visitor sees « Ce que vous allez apprendre » — the six acquired competencies (écosystème Ariba, Procure-to-Pay, Source-to-Pay, appels d'offres RFQ/RFP, catalogues, contrats et workflows, préparation à la certification)
-- [ ] **PUB-04**: Visitor sees « Programme détaillé » — the five modules in an accordion with estimated duration, and a button to download the programme as PDF
-- [ ] **PUB-05**: Visitor sees « Format et modalités » — live training, PDF supports, videos to come, access duration, end-of-module practical cases, prerequisites
-- [ ] **PUB-06**: Visitor sees « Confiance et sécurité » — data protection, certified SAP Ariba experts, regularly updated content, and ready placeholders for testimonials and company logos
-- [ ] **PUB-07**: Visitor sees a final CTA and a FAQ of six to eight questions answering the most frequent objections
+- [x] **PUB-01**: Visitor sees a Hero section — accroche title, explanatory subtitle, primary CTA « Démarrer ma formation », secondary CTA « Voir le programme », main visual and a ready video placeholder
+- [x] **PUB-02**: Visitor sees « Pour qui est cette formation ? » — the five target profiles with pictograms and the reassurance « même sans expérience SAP »
+- [x] **PUB-03**: Visitor sees « Ce que vous allez apprendre » — the six acquired competencies (écosystème Ariba, Procure-to-Pay, Source-to-Pay, appels d'offres RFQ/RFP, catalogues, contrats et workflows, préparation à la certification)
+- [x] **PUB-04**: Visitor sees « Programme détaillé » — the five modules in an accordion with estimated duration, and a button to download the programme as PDF
+- [x] **PUB-05**: Visitor sees « Format et modalités » — live training, PDF supports, videos to come, access duration, end-of-module practical cases, prerequisites
+- [x] **PUB-06**: Visitor sees « Confiance et sécurité » — data protection, certified SAP Ariba experts, regularly updated content, and ready placeholders for testimonials and company logos
+- [x] **PUB-07**: Visitor sees a final CTA and a FAQ of six to eight questions answering the most frequent objections
 - [ ] **PUB-08**: Visitor can read the Programme page — the five modules developed with pedagogical objectives, content and duration
 - [ ] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
 - [ ] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
@@ -185,13 +185,13 @@ offer.
 | CADR-04 | Phase 1 | Pending |
 | CADR-05 | Phase 1 | Pending |
 | CADR-06 | Phase 1 | Pending |
-| PUB-01 | Phase 2 | Pending |
-| PUB-02 | Phase 2 | Pending |
-| PUB-03 | Phase 2 | Pending |
-| PUB-04 | Phase 2 | Pending |
-| PUB-05 | Phase 2 | Pending |
-| PUB-06 | Phase 2 | Pending |
-| PUB-07 | Phase 2 | Pending |
+| PUB-01 | Phase 2 | Complete |
+| PUB-02 | Phase 2 | Complete |
+| PUB-03 | Phase 2 | Complete |
+| PUB-04 | Phase 2 | Complete |
+| PUB-05 | Phase 2 | Complete |
+| PUB-06 | Phase 2 | Complete |
+| PUB-07 | Phase 2 | Complete |
 | PUB-08 | Phase 2 | Pending |
 | PUB-09 | Phase 2 | Pending |
 | PUB-10 | Phase 2 | Pending |

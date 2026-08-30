@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 00-06-PLAN.md — all 4 tasks complete and committed, Phase 0 closed
-last_updated: "2026-08-29T10:41:33.932Z"
-last_activity: 2026-08-29 -- Phase 01 execution started
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-08-30T11:51:06.965Z"
+last_activity: 2026-08-30
 progress:
   total_phases: 11
-  completed_phases: 1
-  total_plans: 18
-  completed_plans: 7
-  percent: 9
+  completed_phases: 2
+  total_plans: 29
+  completed_plans: 19
+  percent: 18
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 01 (cadrage-contenus-et-design) — EXECUTING
-Plan: 1 of 12
-Status: Executing Phase 01
-Last activity: 2026-08-29 -- Phase 01 execution started
+Plan: 2 of 12
+Status: Ready to execute
+Last activity: 2026-08-30
 
 Progress: [█░░░░░░░░░] 9%
 
@@ -57,6 +57,7 @@ Progress: [█░░░░░░░░░] 9%
 | Phase 00-socle-technique-et-environnement P03 | 12min | 4 tasks | 3 files |
 | Phase 00 P04 | 1min | 2 tasks | 3 files |
 | Phase 00 P05 | 20min | 4 tasks | 5 files |
+| Phase 02-site-public P01 | 25min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 00-03]: Kept CLI-generated project_id (local container namespace) in config.toml as-is, not a hosted-project reference
 - [Phase 00-04]: Placeholder build-env values in CI kept obviously non-secret (localhost/127.0.0.1/literal placeholder strings) to satisfy both the boot-time Zod validator and the secret-shape acceptance check
 - [Phase 00-05]: Session-aware server Supabase client reads the anon key, not the service-role key; a service-role/admin client has no consumer yet
+- [Phase 02-01]: Renamed raw --muted colour token to --muted-ink in :root to avoid shadowing shadcn's --muted surface alias
+- [Phase 02-01]: Remapped tone=muted/tone=atmosphere call sites in page.tsx to tone=band in the same commit as narrowing the Section tone union, to keep tsc green
 
 ### Pending Todos
 
@@ -102,6 +105,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-27T15:00:00.000Z
-Stopped at: 00-06-PLAN.md — all 4 tasks complete and committed, Phase 0 closed
-Resume file: none — Phase 0 complete; next phase is Phase 1 (Lot 1)
+Last session: 2026-08-30T11:51:06.949Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: None
