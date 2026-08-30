@@ -4,6 +4,7 @@
     "sousTitre": "Une formation live, animée par un expert certifié, pour prendre en main l'écosystème Ariba du premier appel d'offres jusqu'à la certification."
   },
   "pourQui": {
+    "eyebrow": "Pour qui",
     "titre": "Cette formation s'adresse à des profils précis. Trouvez le vôtre.",
     "reassurance": "Même sans expérience SAP, vous avez votre place ici.",
     "profils": [
@@ -35,6 +36,7 @@
     ]
   },
   "competences": {
+    "eyebrow": "Ce que vous allez apprendre",
     "titre": "Six compétences concrètes vous attendent. Chacune se pratique, pas seulement se regarde.",
     "items": [
       "L'écosystème Ariba dans son ensemble",
@@ -46,6 +48,7 @@
     ]
   },
   "programme": {
+    "eyebrow": "Programme détaillé",
     "titre": "Le programme se déroule en cinq modules. Chacun construit sur le précédent.",
     "telechargerPdf": "Télécharger le programme en PDF",
     "modules": [
