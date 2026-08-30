@@ -12,7 +12,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "db:types": "node scripts/gen-db-types.mjs",
-    "content:check": "node scripts/check-mock-content.mjs"
+    "content:check": "node scripts/check-mock-content.mjs",
+    "content:seed": "node --env-file-if-exists=.env.local scripts/seed-content.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

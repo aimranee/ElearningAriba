@@ -13,7 +13,131 @@ export type Json =
 export type Database = {
   app: {
     Tables: {
-      [_ in never]: never
+      contact_message: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          nom: string
+          profil: string
+          telephone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          nom: string
+          profil: string
+          telephone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          nom?: string
+          profil?: string
+          telephone?: string | null
+        }
+        Relationships: []
+      }
+      content_item: {
+        Row: {
+          cle: string
+          created_at: string
+          description: string | null
+          donnees: Json
+          duree_heures: number | null
+          id: string
+          picto: string | null
+          position: number
+          publie: boolean
+          section_cle: string
+          statut: string | null
+          titre: string | null
+          updated_at: string
+        }
+        Insert: {
+          cle: string
+          created_at?: string
+          description?: string | null
+          donnees?: Json
+          duree_heures?: number | null
+          id?: string
+          picto?: string | null
+          position: number
+          publie?: boolean
+          section_cle: string
+          statut?: string | null
+          titre?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cle?: string
+          created_at?: string
+          description?: string | null
+          donnees?: Json
+          duree_heures?: number | null
+          id?: string
+          picto?: string | null
+          position?: number
+          publie?: boolean
+          section_cle?: string
+          statut?: string | null
+          titre?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_item_section_cle_fkey"
+            columns: ["section_cle"]
+            isOneToOne: false
+            referencedRelation: "content_section"
+            referencedColumns: ["cle"]
+          },
+        ]
+      }
+      content_section: {
+        Row: {
+          cle: string
+          created_at: string
+          eyebrow: string | null
+          id: string
+          lead: string | null
+          position: number
+          publie: boolean
+          titre: string
+          titre_accent: string | null
+          updated_at: string
+        }
+        Insert: {
+          cle: string
+          created_at?: string
+          eyebrow?: string | null
+          id?: string
+          lead?: string | null
+          position: number
+          publie?: boolean
+          titre: string
+          titre_accent?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cle?: string
+          created_at?: string
+          eyebrow?: string | null
+          id?: string
+          lead?: string | null
+          position?: number
+          publie?: boolean
+          titre?: string
+          titre_accent?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

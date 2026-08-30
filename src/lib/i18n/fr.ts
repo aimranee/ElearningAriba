@@ -48,6 +48,16 @@ export const timeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   },
 );
 
+/* why: numberFormatter/formatNumber render a bare digit with no unit
+   (D-30/D-43 of Lot 2) — a hand-written " h" at a call site is the same
+   class of violation as a hand-written "€", so the module duration unit
+   gets its own formatter instead of a second formatting path. */
+export const hourFormatter: Intl.NumberFormat = new Intl.NumberFormat(LOCALE, {
+  style: "unit",
+  unit: "hour",
+  unitDisplay: "short",
+});
+
 export function formatDate(date: Date): string {
   return dateFormatter.format(date);
 }
@@ -66,4 +76,8 @@ export function formatCurrency(value: number): string {
 
 export function formatTime(date: Date): string {
   return timeFormatter.format(date);
+}
+
+export function formatHours(value: number): string {
+  return hourFormatter.format(value);
 }
