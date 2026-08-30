@@ -16,6 +16,23 @@ function readJson(name) {
   return JSON.parse(readFileSync(join(localesDir, name), "utf8"));
 }
 
+// why: D-22 wants the signed two-sentence H2 split into title (first
+// sentence, plain) + titleAccent (second sentence, gradient). SectionHeader's
+// own comment forbids doing this split at render time (fragile on
+// abbreviations) — splitting once here, at seed time, against the known
+// signed string is the sanctioned alternative; the split point is authored,
+// not inferred at runtime.
+function splitTwoSentences(value) {
+  const breakAt = value.indexOf(". ");
+  if (breakAt === -1) {
+    return { title: value, titleAccent: undefined };
+  }
+  return {
+    title: value.slice(0, breakAt + 1),
+    titleAccent: value.slice(breakAt + 2),
+  };
+}
+
 // why: content_item.cle is a stable natural key the seed upserts on (D-27) —
 // derived from the JSON's own titre rather than hand-authored, so no French
 // sentence is invented here, only transliterated into an ascii identifier.
@@ -112,6 +129,10 @@ async function main() {
   const programme = readJson("programme.json");
   const formation = readJson("formation.json");
   const aPropos = readJson("a-propos.json");
+  // why: eyebrow -> two-sentence H2 -> lead (D-22) needs a short label above
+  // the internal-page headers. The nav labels are already signed copy
+  // (common.json is chrome, read at seed time here rather than invented).
+  const common = readJson("common.json");
 
   await upsertSections([
     { cle: "hero", titre: landing.hero.titre, lead: landing.hero.sousTitre, position: 1 },
@@ -134,19 +155,25 @@ async function main() {
     { cle: "faq", titre: landing.faq.titre, position: 8 },
     {
       cle: "page-programme",
-      titre: programme.titre,
+      eyebrow: common.nav.programme,
+      titre: splitTwoSentences(programme.titre).title,
+      titre_accent: splitTwoSentences(programme.titre).titleAccent,
       lead: programme.intro,
       position: 9,
     },
     {
       cle: "page-formation",
-      titre: formation.titre,
+      eyebrow: common.nav.formation,
+      titre: splitTwoSentences(formation.titre).title,
+      titre_accent: splitTwoSentences(formation.titre).titleAccent,
       lead: formation.intro,
       position: 10,
     },
     {
       cle: "page-a-propos",
-      titre: aPropos.titre,
+      eyebrow: common.nav.aPropos,
+      titre: splitTwoSentences(aPropos.titre).title,
+      titre_accent: splitTwoSentences(aPropos.titre).titleAccent,
       lead: aPropos.intro,
       position: 11,
     },
