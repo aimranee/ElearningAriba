@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-08-30T11:51:06.965Z"
+stopped_at: 02-02-PLAN.md Task 1 complete, Task 2 blocked on external Supabase operator
+last_updated: "2026-08-30T12:10:00.000Z"
 last_activity: 2026-08-30
 progress:
   total_phases: 11
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 01 — cadrage-contenus-et-design
+**Current focus:** Phase 02 — site-public
 
 ## Current Position
 
-Phase: 01 (cadrage-contenus-et-design) — EXECUTING
-Plan: 2 of 12
-Status: Ready to execute
+Phase: 02 (site-public) — EXECUTING
+Plan: 02-01 complete; 02-02 blocked at Task 2 (hosted Supabase push, external operator)
+Status: Wave 1 done, waiting on external operator before waves 2-6
 Last activity: 2026-08-30
 
 Progress: [█░░░░░░░░░] 9%
@@ -86,6 +86,17 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
+- **[Phase 02-02, blocking]** The additive content migration
+  (`supabase/migrations/20260830090000_public_content.sql`) is written and
+  verified locally (`supabase db reset` green) but not pushed to the hosted
+  preview (`urmtwbcsqodjnwsnxcqd`) or production (`toxegyhxdoxjuyijgemx`)
+  Supabase projects. This environment has no `SUPABASE_ACCESS_TOKEN` and the
+  hosted projects belong to a different operator. Resume by running, in order:
+  `supabase link --project-ref urmtwbcsqodjnwsnxcqd && supabase db push`, then
+  the same for `toxegyhxdoxjuyijgemx`. Verify with
+  `npx supabase migration list --linked`. 02-02 Task 3 and phase waves 2-6
+  cannot start until this push lands.
+
 - Three scope questions the signed offer does not answer are open — package
   (« forfait ») limits, the certificate attendance threshold, and whether the
   free discovery call counts towards progression. See
@@ -105,6 +116,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-30T11:51:06.949Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: None
+Last session: 2026-08-30T12:10:00.000Z
+Stopped at: Wave 1 of Phase 02 done — 02-01 complete, 02-02 halted at Task 2 checkpoint
+Resume file: None — resume by pushing the migration (see Blockers/Concerns), then continuing 02-02 Task 3 and waves 2-6
