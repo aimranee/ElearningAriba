@@ -40,8 +40,16 @@ function EmptyState({
 }: React.ComponentProps<"div"> & VariantProps<typeof emptyStateVariants>) {
   return (
     <EmptyStateContext.Provider value={tone ?? "neutral"}>
+      {/* why (D-32, D-19): the error/empty surface is one of the four
+          permitted surface-state components and renders on public routes —
+          a bordered shadow-none outline card would be the exact Lot 1
+          failure AC-1 forbids ("zero bordered-flat cards on any public
+          page"). The raised Card variant below makes this a floating card
+          like every other surface, resolving the contradiction between
+          D-32 (use this component, don't reinvent it) and AC-1 (no
+          bordered-flat cards). */}
       <Card
-        variant="outline"
+        variant="raised"
         data-slot="empty-state"
         role={tone === "error" ? "alert" : undefined}
         className={cn(emptyStateVariants({ tone, size, className }))}

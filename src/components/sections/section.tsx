@@ -2,16 +2,19 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-type SectionTone = "default" | "muted" | "atmosphere";
+type SectionTone = "default" | "band";
 
 interface SectionProps extends ComponentProps<"section"> {
   tone?: SectionTone;
 }
 
 /**
- * The shared shell every landing block and internal page reuses. `tone`
- * composes the atmosphere layer (D-21) for the one section per screen that
- * needs it; every other tone stays a plain surface.
+ * The shared shell every landing block and internal page reuses. `default`
+ * is fully transparent so the root atmosphere layer (mounted in plan 02-03,
+ * D-20) reads through it; `band` applies the maquette's --lav2 gradient band
+ * so sections alternate transparent / tinted (D-21). The per-section blob
+ * and grain spans this file used to mount are gone — that mount point moves
+ * to the root, not to every section (Lot 1 reached 2 of 8).
  */
 function Section({ className, tone = "default", children, ...props }: SectionProps) {
   return (
@@ -19,23 +22,13 @@ function Section({ className, tone = "default", children, ...props }: SectionPro
       data-slot="section"
       data-tone={tone}
       className={cn(
-        "relative py-16 sm:py-20 lg:py-24",
-        tone === "muted" && "bg-muted",
-        tone === "atmosphere" &&
-          "atmosphere-wash overflow-hidden text-primary-foreground",
+        "relative py-[clamp(4.5rem,9vw,7.5rem)]",
+        tone === "band" &&
+          "bg-[linear-gradient(180deg,rgba(241,240,255,0),var(--lav2)_18%,var(--lav2)_82%,rgba(241,240,255,0))]",
         className
       )}
       {...props}
     >
-      {tone === "atmosphere" && (
-        <>
-          <span
-            aria-hidden="true"
-            className="atmosphere-blob top-[-20%] right-[-10%] size-72 bg-success/30 sm:size-96"
-          />
-          <span aria-hidden="true" className="atmosphere-grain" />
-        </>
-      )}
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {children}
       </div>
@@ -44,24 +37,42 @@ function Section({ className, tone = "default", children, ...props }: SectionPro
 }
 
 interface SectionHeaderProps {
+  eyebrow?: string;
   title: string;
+  titleAccent?: string;
   lead?: string;
   className?: string;
 }
 
 /**
- * The title stays in one element so the browser wraps the two-sentence
- * copy device naturally (D-25) — splitting on "." in JavaScript would break
- * on any abbreviation the copy layer later introduces.
+ * Every section opens eyebrow -> two-sentence H2 -> lead (D-22): a claim, a
+ * full stop, then a turn. The title stays in one element so the browser
+ * wraps the two-sentence copy device naturally — splitting on "." in
+ * JavaScript would break on any abbreviation the copy layer later
+ * introduces. `titleAccent` renders inside the same <h2> as a trailing span
+ * carrying the maquette's gradient-text treatment — the second half carries
+ * the emotional payload.
  */
-function SectionHeader({ title, lead, className }: SectionHeaderProps) {
+function SectionHeader({ eyebrow, title, titleAccent, lead, className }: SectionHeaderProps) {
   return (
     <div className={cn("mx-auto max-w-3xl text-center", className)}>
-      <h2 className="font-heading text-[var(--text-title)] leading-[var(--text-title--line-height)] font-semibold text-balance">
+      {eyebrow ? (
+        <span className="inline-flex items-center gap-2 text-[0.72rem] leading-none font-bold tracking-[0.18em] text-[var(--deep)] uppercase">
+          <span aria-hidden="true" className="inline-block h-0.5 w-[22px] bg-[linear-gradient(90deg,var(--violet),var(--blue))]" />
+          {eyebrow}
+        </span>
+      ) : null}
+      <h2 className="mt-3 font-heading text-[var(--text-title)] leading-[var(--text-title--line-height)] font-semibold text-balance">
         {title}
+        {titleAccent ? (
+          <span className="bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent">
+            {" "}
+            {titleAccent}
+          </span>
+        ) : null}
       </h2>
       {lead ? (
-        <p className="mt-4 text-[var(--text-lead)] leading-[var(--text-lead--line-height)] text-current/80">
+        <p className="mx-auto mt-4 max-w-[62ch] text-[var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]">
           {lead}
         </p>
       ) : null}

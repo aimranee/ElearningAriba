@@ -65,7 +65,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="competences" tone="muted">
+      <Section id="competences" tone="band">
         <SectionHeader title={landing.competences.titre} />
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.competences.items.map((item, index) => {
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="formatModalites" tone="muted">
+      <Section id="formatModalites" tone="band">
         <SectionHeader title={landing.formatModalites.titre} />
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {landing.formatModalites.items.map((item) => (
@@ -158,7 +158,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="faq" tone="muted">
+      <Section id="faq" tone="band">
         <SectionHeader title={landing.faq.titre} />
         <Accordion className="mt-10 mx-auto max-w-3xl">
           {landing.faq.items.map((item) => (
@@ -172,7 +172,7 @@ export default function Home() {
         </Accordion>
       </Section>
 
-      <Section id="ctaFinal" tone="atmosphere">
+      <Section id="ctaFinal" tone="band">
         <SectionHeader
           title={landing.ctaFinal.titre}
           lead={landing.ctaFinal.supportLine}
