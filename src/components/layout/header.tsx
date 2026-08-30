@@ -1,25 +1,44 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { FOCUS_RING } from "@/lib/utils";
 import common from "@/locales/fr/common.json";
 
-const FOCUS_RING =
-  "outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring rounded-md";
+// why (PUB-12): every visible label reads from common.nav — never a literal
+// string (CLAUDE.md) — so the header can reach five public routes in one
+// click, with the footer covering the rest (D-41).
+const NAV_LINK_CLASS = `text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`;
 
-const NAV_LINKS = [
+const MOBILE_LINKS = [
+  { href: "/", label: common.nav.accueil },
   { href: "/programme", label: common.nav.programme },
   { href: "/formation", label: common.nav.formation },
   { href: "/a-propos", label: common.nav.aPropos },
   { href: "/contact", label: common.nav.contact },
+  { href: "/connexion", label: common.nav.connexion },
 ] as const;
 
 /**
  * Presentational only — no active-route computation, no client state.
- * PUB-12's navigation behaviour lands in Lot 2 (D-41).
+ * Lot 1 route shells only; Lot 3 owns auth (D-38).
  */
 export function Header() {
   return (
-    <header className="border-b border-border bg-background shadow-[var(--shadow-1)] in-data-[density=compact]:py-1">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <header
+      data-slot="site-header"
+      className={
+        "fixed inset-x-0 top-0 z-50 h-[76px] bg-[rgba(252,252,255,.55)] backdrop-blur-[10px] backdrop-saturate-[1.25] " +
+        "transition-[background-color,box-shadow,backdrop-filter] duration-[400ms] ease-[var(--ease-brand)] " +
+        /* why (D-18/AC-6): the header deepens past 12px of scroll — the
+           three properties below are the applied delta, not a bare class
+           toggle with no visual change (scroll-progress.tsx owns the
+           data-scrolled write). */
+        "data-[scrolled=true]:bg-[rgba(252,252,255,.82)] " +
+        "data-[scrolled=true]:backdrop-blur-[20px] data-[scrolled=true]:backdrop-saturate-[1.45] " +
+        "data-[scrolled=true]:shadow-[0_1px_0_rgba(10,37,64,.06),0_12px_30px_-24px_rgba(10,37,64,.3)]"
+      }
+    >
+      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-6">
         <Link
           href="/"
           className={`font-heading text-lg font-semibold text-foreground ${FOCUS_RING}`}
@@ -27,60 +46,41 @@ export function Header() {
           {common.metadata.title}
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav
+          aria-label={common.metadata.title}
+          className="hidden items-center gap-6 min-[1000px]:flex"
+        >
+          <Link href="/" className={NAV_LINK_CLASS}>
+            {common.nav.accueil}
+          </Link>
+          <Link href="/programme" className={NAV_LINK_CLASS}>
+            {common.nav.programme}
+          </Link>
+          <Link href="/formation" className={NAV_LINK_CLASS}>
+            {common.nav.formation}
+          </Link>
+          <Link href="/a-propos" className={NAV_LINK_CLASS}>
+            {common.nav.aPropos}
+          </Link>
+          <Link href="/contact" className={NAV_LINK_CLASS}>
+            {common.nav.contact}
+          </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/connexion"
-            className={`text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`}
-          >
+        <div className="hidden items-center gap-3 min-[1000px]:flex">
+          <Button render={<Link href="/connexion" />} variant="ghost" size="sm">
             {common.nav.connexion}
-          </Link>
-          <Button render={<Link href="/inscription" />}>
+          </Button>
+          <Button
+            render={<Link href="/inscription" />}
+            size="sm"
+            data-magnetic="true"
+          >
             {common.actions.demarrer}
           </Button>
         </div>
 
-        <details className="group md:hidden">
-          <summary
-            className={`cursor-pointer list-none text-sm text-foreground/80 ${FOCUS_RING}`}
-          >
-            <span className="group-open:hidden">{common.nav.menu.ouvrir}</span>
-            <span className="hidden group-open:inline">
-              {common.nav.menu.fermer}
-            </span>
-          </summary>
-          <nav className="flex flex-col gap-3 pt-3">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
-              href="/connexion"
-              className={`text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`}
-            >
-              {common.nav.connexion}
-            </Link>
-            <Button render={<Link href="/inscription" />}>
-              {common.actions.demarrer}
-            </Button>
-          </nav>
-        </details>
+        <MobileNav links={MOBILE_LINKS} />
       </div>
     </header>
   );

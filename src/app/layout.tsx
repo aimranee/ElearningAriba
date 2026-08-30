@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { AtmosphereLayer } from "@/components/atmosphere/atmosphere-layer";
 import { MeshDrift } from "@/components/atmosphere/mesh-drift";
 import { RevealScope } from "@/components/motion/reveal";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 
 const bodyFont = Inter({ variable: "--font-body", subsets: ["latin"] });
 const headingFont = Plus_Jakarta_Sans({
@@ -29,9 +30,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <AtmosphereLayer />
         <MeshDrift />
         <RevealScope />
+        <ScrollProgress />
         <a
           href="#contenu-principal"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           {common.nav.allerAuContenu}
         </a>
@@ -39,8 +41,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* why: children need flex-1 on a wrapper, not on <body> itself, now
             that the header and footer are siblings sharing the body's flex
             column — otherwise every page's own flex-1 would compete with
-            them for the remaining space. */}
-        <main id="contenu-principal" className="flex-1">
+            them for the remaining space. pt-[76px] offsets the now-fixed
+            header (D-18) so no route's content renders underneath it. */}
+        <main id="contenu-principal" className="flex-1 pt-[76px]">
           {children}
         </main>
         <Footer />

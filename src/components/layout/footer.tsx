@@ -1,113 +1,117 @@
 import Link from "next/link";
+import { FOCUS_RING } from "@/lib/utils";
 import common from "@/locales/fr/common.json";
 
-const FOCUS_RING =
-  "outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring rounded-md";
+const FOOTER_LINK_CLASS = `block py-1 text-sm text-white/78 hover:text-white ${FOCUS_RING}`;
 
-const FORMATION_LINKS = [
-  { href: "/programme", label: common.nav.programme },
-  { href: "/formation", label: common.nav.formation },
-  { href: "/agenda", label: common.nav.agenda },
+// why (D-41/PUB-12): the five legal pages are Lot 5 work — a placeholder
+// anchor pointing nowhere would look clickable and go nowhere, so they
+// render as non-navigating spans carrying the signed label until Lot 5
+// ships the route.
+const INFORMATIONS_LABELS = [
+  common.footer.mentionsLegales,
+  common.footer.politiqueConfidentialite,
+  common.footer.politiqueCookies,
+  common.footer.politiqueRemboursement,
+  common.footer.clauseNonResponsabilite,
 ] as const;
-
-const COMPTE_LINKS = [
-  { href: "/inscription", label: common.nav.inscription },
-  { href: "/connexion", label: common.nav.connexion },
-  { href: "/espace", label: common.nav.espace },
-] as const;
-
-/** camelCase JSON key -> kebab-case future slug, e.g. "mentionsLegales" -> "/mentions-legales". */
-function keyToSlug(key: string) {
-  return `/${key.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}`;
-}
-
-/**
- * The Lot 5 legal pages, derived from every string entry in `common.footer`
- * other than the baseline and the copyright line — labels pointing at their
- * future slugs, no legal text (D-41).
- */
-const EXCLUDED_FOOTER_KEYS = new Set(["baseline", "colonnes", "copyright"]);
-const INFORMATIONS_LINKS = [
-  { href: "/a-propos", label: common.nav.aPropos },
-  { href: "/contact", label: common.nav.contact },
-  ...Object.entries(common.footer)
-    .filter(
-      (entry): entry is [string, string] =>
-        typeof entry[1] === "string" && !EXCLUDED_FOOTER_KEYS.has(entry[0])
-    )
-    .map(([key, label]) => ({ href: keyToSlug(key), label })),
-];
 
 /** Presentational only — link labels and layout, no legal prose (D-41). */
 export function Footer() {
   const annee = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background in-data-[density=compact]:py-2">
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <p className="max-w-md text-sm text-foreground/80">
-          {common.footer.baseline}
-        </p>
+    <footer className="bg-[var(--ink)] text-white in-data-[density=compact]:py-2">
+      <div className="mx-auto max-w-[1200px] px-6 py-16">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+          <div className="col-span-2 flex flex-col gap-3 sm:col-span-4 lg:col-span-1">
+            <span className="font-heading text-lg font-semibold text-white">
+              {common.metadata.title}
+            </span>
+            <p className="max-w-[38ch] text-sm leading-relaxed text-white/62">
+              {common.footer.baseline}
+            </p>
+          </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-3">
           <nav aria-label={common.footer.colonnes.formation}>
-            <h2 className="text-sm font-semibold text-foreground">
+            <h2 className="text-xs font-bold tracking-[0.14em] text-white/55 uppercase">
               {common.footer.colonnes.formation}
             </h2>
-            <ul className="mt-3 flex flex-col gap-2">
-              {FORMATION_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`text-sm text-foreground/70 hover:text-foreground ${FOCUS_RING}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="mt-4 flex flex-col gap-1">
+              <li>
+                <Link href="/programme" className={FOOTER_LINK_CLASS}>
+                  {common.nav.programme}
+                </Link>
+              </li>
+              <li>
+                <Link href="/formation" className={FOOTER_LINK_CLASS}>
+                  {common.nav.formation}
+                </Link>
+              </li>
+              <li>
+                <Link href="/a-propos" className={FOOTER_LINK_CLASS}>
+                  {common.nav.aPropos}
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className={FOOTER_LINK_CLASS}>
+                  {common.nav.contact}
+                </Link>
+              </li>
             </ul>
           </nav>
 
           <nav aria-label={common.footer.colonnes.compte}>
-            <h2 className="text-sm font-semibold text-foreground">
+            <h2 className="text-xs font-bold tracking-[0.14em] text-white/55 uppercase">
               {common.footer.colonnes.compte}
             </h2>
-            <ul className="mt-3 flex flex-col gap-2">
-              {COMPTE_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`text-sm text-foreground/70 hover:text-foreground ${FOCUS_RING}`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="mt-4 flex flex-col gap-1">
+              <li>
+                <Link href="/inscription" className={FOOTER_LINK_CLASS}>
+                  {common.nav.inscription}
+                </Link>
+              </li>
+              <li>
+                <Link href="/connexion" className={FOOTER_LINK_CLASS}>
+                  {common.nav.connexion}
+                </Link>
+              </li>
+              <li>
+                <Link href="/agenda" className={FOOTER_LINK_CLASS}>
+                  {common.nav.agenda}
+                </Link>
+              </li>
+              <li>
+                <Link href="/espace" className={FOOTER_LINK_CLASS}>
+                  {common.nav.espace}
+                </Link>
+              </li>
             </ul>
           </nav>
 
-          <nav aria-label={common.footer.colonnes.informations}>
-            <h2 className="text-sm font-semibold text-foreground">
+          <div aria-label={common.footer.colonnes.informations}>
+            <h2 className="text-xs font-bold tracking-[0.14em] text-white/55 uppercase">
               {common.footer.colonnes.informations}
             </h2>
-            <ul className="mt-3 flex flex-col gap-2">
-              {INFORMATIONS_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`text-sm text-foreground/70 hover:text-foreground ${FOCUS_RING}`}
-                  >
-                    {link.label}
-                  </Link>
+            <ul className="mt-4 flex flex-col gap-1">
+              {INFORMATIONS_LABELS.map((label) => (
+                <li key={label}>
+                  <span className="block py-1 text-sm text-white/78">{label}</span>
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
         </div>
 
-        <p className="mt-10 border-t border-border pt-6 text-xs text-foreground/60">
-          {common.footer.copyright.replace("{annee}", String(annee))}
-        </p>
+        <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/12 pt-6 text-sm text-white/55">
+          <span>{common.footer.copyright.replace("{annee}", String(annee))}</span>
+          <Link
+            href="/reservation"
+            className={`ml-auto text-white/72 hover:text-white ${FOCUS_RING}`}
+          >
+            {common.actions.reserver}
+          </Link>
+        </div>
       </div>
     </footer>
   );
