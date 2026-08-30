@@ -16,6 +16,23 @@ function readJson(name) {
   return JSON.parse(readFileSync(join(localesDir, name), "utf8"));
 }
 
+// why: D-22 wants the signed two-sentence H2 split into title (first
+// sentence, plain) + titleAccent (second sentence, gradient). SectionHeader's
+// own comment forbids doing this split at render time (fragile on
+// abbreviations) — splitting once here, at seed time, against the known
+// signed string is the sanctioned alternative; the split point is authored,
+// not inferred at runtime.
+function splitTwoSentences(value) {
+  const breakAt = value.indexOf(". ");
+  if (breakAt === -1) {
+    return { title: value, titleAccent: undefined };
+  }
+  return {
+    title: value.slice(0, breakAt + 1),
+    titleAccent: value.slice(breakAt + 2),
+  };
+}
+
 // why: content_item.cle is a stable natural key the seed upserts on (D-27) —
 // derived from the JSON's own titre rather than hand-authored, so no French
 // sentence is invented here, only transliterated into an ascii identifier.
@@ -112,6 +129,10 @@ async function main() {
   const programme = readJson("programme.json");
   const formation = readJson("formation.json");
   const aPropos = readJson("a-propos.json");
+  // why: eyebrow -> two-sentence H2 -> lead (D-22) needs a short label above
+  // the internal-page headers. The nav labels are already signed copy
+  // (common.json is chrome, read at seed time here rather than invented).
+  const common = readJson("common.json");
 
   await upsertSections([
     { cle: "hero", titre: landing.hero.titre, lead: landing.hero.sousTitre, position: 1 },
@@ -134,19 +155,25 @@ async function main() {
     { cle: "faq", titre: landing.faq.titre, position: 8 },
     {
       cle: "page-programme",
-      titre: programme.titre,
+      eyebrow: common.nav.programme,
+      titre: splitTwoSentences(programme.titre).title,
+      titre_accent: splitTwoSentences(programme.titre).titleAccent,
       lead: programme.intro,
       position: 9,
     },
     {
       cle: "page-formation",
-      titre: formation.titre,
+      eyebrow: common.nav.formation,
+      titre: splitTwoSentences(formation.titre).title,
+      titre_accent: splitTwoSentences(formation.titre).titleAccent,
       lead: formation.intro,
       position: 10,
     },
     {
       cle: "page-a-propos",
-      titre: aPropos.titre,
+      eyebrow: common.nav.aPropos,
+      titre: splitTwoSentences(aPropos.titre).title,
+      titre_accent: splitTwoSentences(aPropos.titre).titleAccent,
       lead: aPropos.intro,
       position: 11,
     },
@@ -194,6 +221,16 @@ async function main() {
     position: index + 1,
   }));
 
+  // why: the download-PDF button label must come from the database (D-24),
+  // not a hardcoded string — a non-module item carries it, distinguished by
+  // having no duree_heures.
+  const pageProgrammeDownloadItem = {
+    section_cle: "page-programme",
+    cle: "telecharger-pdf",
+    titre: programme.telechargerPdf,
+    position: pageProgrammeItems.length + 1,
+  };
+
   const formatItems = landing.formatModalites.items.map((item, index) => ({
     section_cle: "format-modalites",
     cle: slugify(item.titre),
@@ -235,6 +272,49 @@ async function main() {
     position: index + 1,
   }));
 
+  // why: page-formation carried a titre/lead content_section row (upserted
+  // above) but no content_item rows — a gap left open by the previous plan
+  // (02-02-SUMMARY.md, Next Phase Readiness). The Formation page reads its
+  // modalités, déroulé and "ce qui est fourni" from these items.
+  const pageFormationModaliteItems = formation.modalites.map((modalite, index) => ({
+    section_cle: "page-formation",
+    cle: slugify(modalite.titre),
+    titre: modalite.titre,
+    description: modalite.description,
+    statut: modalite.statut ?? null,
+    position: index + 1,
+  }));
+
+  const pageFormationDerouleItem = {
+    section_cle: "page-formation",
+    cle: "deroule",
+    donnees: { deroule: formation.deroule },
+    position: pageFormationModaliteItems.length + 1,
+  };
+
+  const pageFormationFourniItem = {
+    section_cle: "page-formation",
+    cle: "fourni",
+    donnees: {
+      fourni: formation.fourni,
+      prerequis: formation.prerequis,
+      dureeAcces: formation.dureeAcces,
+    },
+    position: pageFormationModaliteItems.length + 2,
+  };
+
+  // why: same gap as page-formation (02-02-SUMMARY.md) — page-a-propos had a
+  // content_section row and no content_item rows. The three narrative blocks
+  // (parcours, légitimité, approche) become items; the JSON carries no
+  // separate title for each block (the current page renders the narrative
+  // sentence itself as the card title), so `titre` holds that sentence
+  // verbatim rather than inventing a label (D-25).
+  const pageAProposItems = [
+    { section_cle: "page-a-propos", cle: "parcours", titre: aPropos.parcours, position: 1 },
+    { section_cle: "page-a-propos", cle: "legitimite", titre: aPropos.legitimite, position: 2 },
+    { section_cle: "page-a-propos", cle: "approche", titre: aPropos.approche, position: 3 },
+  ];
+
   await upsertItems([
     ...profilItems,
     ...competenceItems,
@@ -244,6 +324,11 @@ async function main() {
     ...confiancePlaceholders,
     ...faqItems,
     ...pageProgrammeItems,
+    pageProgrammeDownloadItem,
+    ...pageFormationModaliteItems,
+    pageFormationDerouleItem,
+    pageFormationFourniItem,
+    ...pageAProposItems,
   ]);
 
   console.log("content:seed: done");
