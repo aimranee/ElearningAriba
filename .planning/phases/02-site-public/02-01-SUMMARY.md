@@ -128,6 +128,10 @@ None.
 
 All files listed under "Files Created/Modified" and "Out-of-scope discoveries" exist on disk; all three task commits (`07cb597`, `091971f`, `2a47837`) are present in `git log`.
 
+## Correction (2026-08-30)
+
+This plan's frontmatter claimed `requirements-completed: [PUB-01..PUB-07]`. The executor marked them complete per protocol, but the claim was wrong: this plan modified only `globals.css`, `card.tsx`, `button.tsx`, `empty-state.tsx` and `section.tsx` — the design-system foundation, not landing content. No visitor can see any of the seven sections from this plan alone. The completion was reverted in `.planning/REQUIREMENTS.md`; PUB-01 through PUB-07 stay pending until plans 02-05, 02-09 and 02-10 actually render the sections.
+
 ---
 *Phase: 02-site-public*
 *Completed: 2026-08-30*
