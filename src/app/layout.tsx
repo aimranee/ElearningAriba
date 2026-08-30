@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AtmosphereLayer } from "@/components/atmosphere/atmosphere-layer";
 import { MeshDrift } from "@/components/atmosphere/mesh-drift";
+import { RevealScope } from "@/components/motion/reveal";
 
 const bodyFont = Inter({ variable: "--font-body", subsets: ["latin"] });
 const headingFont = Plus_Jakarta_Sans({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <AtmosphereLayer />
         <MeshDrift />
+        <RevealScope />
         <a
           href="#contenu-principal"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
