@@ -18,10 +18,15 @@ import type { Database } from "@/types/database.types";
 export async function createClient() {
   const cookieStore = await cookies();
 
-  return createServerClient<Database>(
+  return createServerClient<Database, "app">(
     serverEnv.NEXT_PUBLIC_SUPABASE_URL,
     serverEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
+      // Every table lives in schema app, nothing in public — default here
+      // instead of calling .schema('app') on every content read.
+      db: {
+        schema: "app",
+      },
       cookies: {
         getAll() {
           return cookieStore.getAll();
