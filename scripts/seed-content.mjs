@@ -235,6 +235,49 @@ async function main() {
     position: index + 1,
   }));
 
+  // why: page-formation carried a titre/lead content_section row (upserted
+  // above) but no content_item rows — a gap left open by the previous plan
+  // (02-02-SUMMARY.md, Next Phase Readiness). The Formation page reads its
+  // modalités, déroulé and "ce qui est fourni" from these items.
+  const pageFormationModaliteItems = formation.modalites.map((modalite, index) => ({
+    section_cle: "page-formation",
+    cle: slugify(modalite.titre),
+    titre: modalite.titre,
+    description: modalite.description,
+    statut: modalite.statut ?? null,
+    position: index + 1,
+  }));
+
+  const pageFormationDerouleItem = {
+    section_cle: "page-formation",
+    cle: "deroule",
+    donnees: { deroule: formation.deroule },
+    position: pageFormationModaliteItems.length + 1,
+  };
+
+  const pageFormationFourniItem = {
+    section_cle: "page-formation",
+    cle: "fourni",
+    donnees: {
+      fourni: formation.fourni,
+      prerequis: formation.prerequis,
+      dureeAcces: formation.dureeAcces,
+    },
+    position: pageFormationModaliteItems.length + 2,
+  };
+
+  // why: same gap as page-formation (02-02-SUMMARY.md) — page-a-propos had a
+  // content_section row and no content_item rows. The three narrative blocks
+  // (parcours, légitimité, approche) become items; the JSON carries no
+  // separate title for each block (the current page renders the narrative
+  // sentence itself as the card title), so `titre` holds that sentence
+  // verbatim rather than inventing a label (D-25).
+  const pageAProposItems = [
+    { section_cle: "page-a-propos", cle: "parcours", titre: aPropos.parcours, position: 1 },
+    { section_cle: "page-a-propos", cle: "legitimite", titre: aPropos.legitimite, position: 2 },
+    { section_cle: "page-a-propos", cle: "approche", titre: aPropos.approche, position: 3 },
+  ];
+
   await upsertItems([
     ...profilItems,
     ...competenceItems,
@@ -244,6 +287,10 @@ async function main() {
     ...confiancePlaceholders,
     ...faqItems,
     ...pageProgrammeItems,
+    ...pageFormationModaliteItems,
+    pageFormationDerouleItem,
+    pageFormationFourniItem,
+    ...pageAProposItems,
   ]);
 
   console.log("content:seed: done");
