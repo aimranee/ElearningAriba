@@ -121,6 +121,12 @@ Recent decisions affecting current work:
   `.planning/phases/02-site-public/02-04-SUMMARY.md` for the exact values to
   check. Do not treat this as approved.
 
+## Quick Tasks Completed
+
+| Date | Task | Result |
+|------|------|--------|
+| 2026-08-30 | Repair brittle verification commands in plans 02-05..02-11 | Widened literal-JSX-shape greps (variant="raised", tone="band", data-magnetic="true", literal nav href) to also accept expression/data-driven forms; fixed two over-strict counts (hardcoded "17" check in 02-08, exact shadow-4 count in 02-10). No source touched. |
+
 ## Deferred Items
 
 Items acknowledged and carried forward from previous milestone close:
