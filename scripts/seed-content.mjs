@@ -221,6 +221,16 @@ async function main() {
     position: index + 1,
   }));
 
+  // why: the download-PDF button label must come from the database (D-24),
+  // not a hardcoded string — a non-module item carries it, distinguished by
+  // having no duree_heures.
+  const pageProgrammeDownloadItem = {
+    section_cle: "page-programme",
+    cle: "telecharger-pdf",
+    titre: programme.telechargerPdf,
+    position: pageProgrammeItems.length + 1,
+  };
+
   const formatItems = landing.formatModalites.items.map((item, index) => ({
     section_cle: "format-modalites",
     cle: slugify(item.titre),
@@ -314,6 +324,7 @@ async function main() {
     ...confiancePlaceholders,
     ...faqItems,
     ...pageProgrammeItems,
+    pageProgrammeDownloadItem,
     ...pageFormationModaliteItems,
     pageFormationDerouleItem,
     pageFormationFourniItem,
