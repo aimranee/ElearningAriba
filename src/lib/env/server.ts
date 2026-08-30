@@ -18,6 +18,12 @@ const serverEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  /**
+   * why (D-48): boot-time-required would break `next build` until the CIO
+   * provisions the key — optional here, strictly re-validated at request
+   * time inside src/lib/email/resend.ts (D-34).
+   */
+  RESEND_API_KEY: z.string().min(1).optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

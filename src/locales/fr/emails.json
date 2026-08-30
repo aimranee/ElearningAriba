@@ -58,5 +58,39 @@
     },
     "signature": "Votre formateur, expert certifié SAP Ariba",
     "pied": "Cet email automatique ne contient aucune information sensible."
+  },
+  "contactNotification": {
+    "objet": "Nouveau message de contact reçu.",
+    "preheader": "{nom} a envoyé un message via le formulaire de contact.",
+    "salutation": "Bonjour,",
+    "corps": [
+      "Un message a été soumis via le formulaire de contact du site.",
+      "Nom : {nom}",
+      "Email : {email}",
+      "Téléphone : {telephone}",
+      "Profil : {profil}",
+      "Message : {message}"
+    ],
+    "action": {
+      "libelle": "Répondre à ce message",
+      "contexte": "Cet email automatique transmet le contenu du formulaire ; répondez directement à l'adresse indiquée ci-dessus."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique transmet un message reçu via le site."
+  },
+  "contactAccusReception": {
+    "objet": "Votre message a bien été reçu.",
+    "preheader": "Accusé de réception de votre message, {prenom}.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Votre message envoyé via le formulaire de contact a bien été reçu.",
+      "Il a été transmis au formateur."
+    ],
+    "action": {
+      "libelle": "Consulter le site",
+      "contexte": "Ce lien vous ramène au site pendant que votre message est traité."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique confirme la réception de votre message."
   }
 }
