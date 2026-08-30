@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 02-02-PLAN.md Task 1 complete, Task 2 blocked on external Supabase operator
-last_updated: "2026-08-30T12:10:00.000Z"
+stopped_at: 02-04-PLAN.md complete (Task 3 checkpoint deferred to 02-11 by founder decision); 02-02 Task 2/3 still blocked on external Supabase operator
+last_updated: "2026-08-30T13:00:00.000Z"
 last_activity: 2026-08-30
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 29
-  completed_plans: 19
-  percent: 18
+  completed_plans: 21
+  percent: 72
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 02 (site-public) — EXECUTING
-Plan: 02-01 complete; 02-02 blocked at Task 2 (hosted Supabase push, external operator)
-Status: Wave 1 done, waiting on external operator before waves 2-6
+Plan: 02-01, 02-03, 02-04 complete; 02-02 still blocked at Task 2/3 (hosted Supabase push, external operator); 02-05..02-08 held back (depend on the un-pushed content migration); 02-09..02-11 not started
+Status: Wave 2 (02-03) and wave 3's 02-04 done; waves 3's remaining plans and waves 4+ wait on the Supabase migration reaching the hosted projects
 Last activity: 2026-08-30
 
-Progress: [█░░░░░░░░░] 9%
+Progress: [███░░░░░░░] 27%
 
 ## Performance Metrics
 
@@ -58,6 +58,8 @@ Progress: [█░░░░░░░░░] 9%
 | Phase 00 P04 | 1min | 2 tasks | 3 files |
 | Phase 00 P05 | 20min | 4 tasks | 5 files |
 | Phase 02-site-public P01 | 25min | 3 tasks | 7 files |
+| Phase 02-site-public P03 | 22min | 3 tasks | 6 files |
+| Phase 02-site-public P04 | 45min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -79,6 +81,7 @@ Recent decisions affecting current work:
 - [Phase 00-05]: Session-aware server Supabase client reads the anon key, not the service-role key; a service-role/admin client has no consumer yet
 - [Phase 02-01]: Renamed raw --muted colour token to --muted-ink in :root to avoid shadowing shadcn's --muted surface alias
 - [Phase 02-01]: Remapped tone=muted/tone=atmosphere call sites in page.tsx to tone=band in the same commit as narrowing the Section tone union, to keep tsc green
+- [Phase 02-04]: Founder decided to batch all mid-phase visual-review checkpoints for this phase into plan 02-11 rather than gating each one individually; 02-04 Task 3 (header resting/scrolled states, scroll-progress bar, mobile nav) was built but not reviewed — see Blockers/Concerns
 
 ### Pending Todos
 
@@ -106,6 +109,17 @@ Recent decisions affecting current work:
 - The milestone map is pending verification by the Chief of Staff before any
   phase is planned.
 
+- **[Phase 02-04, unreviewed gate]** Task 3 (checkpoint:human-verify) was
+  deferred rather than executed, per founder decision to batch mid-phase visual
+  reviews into plan 02-11. Nobody has confirmed the header's resting state
+  (`rgba(252,252,255,.55)`, `blur(10px) saturate(1.25)`, no shadow) is visually
+  distinct from its scrolled state (`rgba(252,252,255,.82)`, `blur(20px)
+  saturate(1.45)`, two-part shadow), that the scroll-progress bar behaves
+  correctly, or that the mobile nav is usable — only `npm run build`/`lint`/
+  `tsc` and grep-based acceptance criteria passed. See
+  `.planning/phases/02-site-public/02-04-SUMMARY.md` for the exact values to
+  check. Do not treat this as approved.
+
 ## Deferred Items
 
 Items acknowledged and carried forward from previous milestone close:
@@ -116,6 +130,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-30T12:10:00.000Z
-Stopped at: Wave 1 of Phase 02 done — 02-01 complete, 02-02 halted at Task 2 checkpoint
-Resume file: None — resume by pushing the migration (see Blockers/Concerns), then continuing 02-02 Task 3 and waves 2-6
+Last session: 2026-08-30T13:00:00.000Z
+Stopped at: 02-03 and 02-04 complete. 02-02 still blocked at Task 2 (hosted Supabase push,
+external operator). 02-05 through 02-08 cannot start until that push lands — they read the
+Supabase content tables. Do not start them against the local-only schema.
+Resume file: None — resume by pushing the migration (see Blockers/Concerns), then continuing
+02-02 Task 3 and waves 3 (remainder)-6. Separately, plan 02-11 owes a real human review of the
+02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
