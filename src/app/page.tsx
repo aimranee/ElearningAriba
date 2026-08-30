@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Hero } from "@/components/sections/hero";
+import { StatsBand } from "@/components/sections/stats-band";
 import { Section, SectionHeader } from "@/components/sections/section";
 import {
   Accordion,
@@ -37,10 +38,16 @@ const COMPETENCE_PICTOS: readonly PictogramName[] = [
   "contrats-workflows",
 ];
 
+// why (D-38): the landing page must stay static/ISR, not dynamic, even
+// though Hero/StatsBand now read Supabase through the cookieless client —
+// an explicit revalidate window keeps the route on the ISR path.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>
       <Hero />
+      <StatsBand />
 
       <Section id="pourQui" tone="default">
         <SectionHeader
