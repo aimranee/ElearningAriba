@@ -2,6 +2,7 @@
   "titre": "Le programme détaillé se lit module par module. Chaque étape a un objectif précis.",
   "intro": "Cinq modules construisent progressivement votre maîtrise de SAP Ariba. Voici leur contenu complet.",
   "telechargerPdf": "Télécharger le programme en PDF",
+  "totalLabelPdf": "Total",
   "modules": [
     {
       "titre": "Découverte de l'écosystème Ariba",
