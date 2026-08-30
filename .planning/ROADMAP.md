@@ -141,8 +141,8 @@ Plans:
 
 - [x] 02-01-PLAN.md — Design tokens, floating cards, banded sections and the single easing curve
 - [ ] 02-02-PLAN.md — Content and contact tables with RLS, cookieless read client, typed queries, idempotent seed
-- [ ] 02-03-PLAN.md — Root atmosphere layer, mesh drift and the scroll reveal island
-- [ ] 02-04-PLAN.md — Blurred header deepening on scroll, scroll progress, complete footer, two-click navigation
+- [x] 02-03-PLAN.md — Root atmosphere layer, mesh drift and the scroll reveal island
+- [x] 02-04-PLAN.md — Blurred header deepening on scroll, scroll progress, complete footer, two-click navigation
 - [ ] 02-05-PLAN.md — Hero and figures band from the database, with typewriter, spotlight and magnetic motion
 - [ ] 02-06-PLAN.md — Programme, Formation and À propos pages read from the database
 - [ ] 02-07-PLAN.md — Contact form end to end: validation, anti-spam, storage and the two emails
@@ -313,7 +313,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 |-------|----------------|--------|-----------|
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
 | 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
-| 2. Site public | 1/11 | In Progress|  |
+| 2. Site public | 3/11 | In Progress|  |
 | 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
 | 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
