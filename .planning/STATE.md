@@ -82,6 +82,7 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Renamed raw --muted colour token to --muted-ink in :root to avoid shadowing shadcn's --muted surface alias
 - [Phase 02-01]: Remapped tone=muted/tone=atmosphere call sites in page.tsx to tone=band in the same commit as narrowing the Section tone union, to keep tsc green
 - [Phase 02-04]: Founder decided to batch all mid-phase visual-review checkpoints for this phase into plan 02-11 rather than gating each one individually; 02-04 Task 3 (header resting/scrolled states, scroll-progress bar, mobile nav) was built but not reviewed — see Blockers/Concerns
+- [Phase 02]: `app` added to `supabase/config.toml` `[api] schemas`, exposing it through the Data API/PostgREST; both Supabase clients (`src/lib/supabase/client.ts`, `server.ts`) default `db.schema` to `app` since no table lives in `public`. Verified locally: `GET app.content_section` with `Accept-Profile: app` and the anon key returns 200 with an empty array; `npm run build` and `npx tsc --noEmit` clean.
 
 ### Pending Todos
 
