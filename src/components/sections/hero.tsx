@@ -212,10 +212,7 @@ async function Hero() {
                   <GraduationCap aria-hidden="true" className="size-[10px]" />
                   {assemblage.badge}
                 </span>
-                <div className="mt-[0.2rem] text-[0.78rem] text-white/78">{resume}</div>
-                <div className="my-[0.75rem] h-[5px] overflow-hidden rounded-full bg-white/24">
-                  <span className="block h-full w-full rounded-full bg-white" />
-                </div>
+                <div className="mt-[0.2rem] mb-[0.75rem] text-[0.78rem] text-white/78">{resume}</div>
                 <div className="flex items-center gap-[0.45rem] py-[0.16rem] text-[0.78rem] font-semibold text-white/78">
                   <span
                     aria-hidden="true"
