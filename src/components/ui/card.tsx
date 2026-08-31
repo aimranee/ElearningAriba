@@ -10,14 +10,22 @@ const cardVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-border bg-background shadow-[var(--shadow-1)]",
-        /* why (D-19): every floating card lifts on hover, unconditionally —
-           not gated behind data-[interactive=true]. The base comment's
-           "a static card must never look clickable" rationale is superseded
-           for this variant; a floating card IS the maquette's default
-           surface, not an interactive control. */
+        /* niveau 1 (D-19): tinted, borderless-shadow surface — zero
+           box-shadow at rest and on hover. Hover only flips background to
+           white, border to --hairline-2, and lifts 2px. */
+        tint: "border-[var(--hairline)] bg-[var(--tint)] shadow-none rounded-[20px] hover:bg-white hover:border-[var(--hairline-2)] hover:-translate-y-[2px]",
+        /* niveau 2 (D-19): a contact shadow at rest, transitioning to
+           --shadow-1 on hover — never a lift into the raised tier. */
+        default:
+          "border-[var(--hairline)] bg-background shadow-[var(--contact),var(--inset-hi)] hover:-translate-y-[3px] hover:border-[var(--hairline-2)] hover:shadow-[var(--shadow-1),var(--inset-hi)]",
+        /* why (D-19): the unconditional hover-lift is now scoped to this
+           tier only — niveau 3, the reserved surface for the page's two
+           highest-emphasis elements. The base comment's "a static card must
+           never look clickable" rationale is superseded for this variant; a
+           raised card IS the maquette's highest-emphasis surface, not an
+           interactive control. */
         raised:
-          "border-transparent bg-background shadow-[var(--shadow-3)] rounded-[22px] hover:shadow-[var(--shadow-4)] hover:-translate-y-[7px]",
+          "border-transparent bg-background shadow-[var(--shadow-3),var(--inset-hi)] rounded-[22px] hover:shadow-[var(--shadow-4),var(--inset-hi)] hover:-translate-y-[7px]",
         outline: "border-border bg-background shadow-none",
         success: "border-transparent bg-success-muted shadow-[var(--shadow-1)]",
         muted: "border-transparent bg-muted shadow-none",
