@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { Typewriter } from "@/components/motion/typewriter";
+import { AssemblyConnectors } from "@/components/motion/assembly-connectors";
 import { HeroSpotlight } from "@/components/motion/hero-spotlight";
 import { Magnetic } from "@/components/motion/magnetic";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
@@ -201,48 +202,7 @@ async function Hero() {
             </div>
 
             <div className="relative grid grid-cols-[.92fr_1.08fr] items-center gap-[1.1rem] p-[1.15rem]">
-              <svg
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-0 size-full"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id="asm-w1" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="var(--violet)" stopOpacity=".25" />
-                    <stop offset="100%" stopColor="var(--violet)" stopOpacity=".95" />
-                  </linearGradient>
-                  <linearGradient id="asm-w2" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="var(--amber)" stopOpacity=".25" />
-                    <stop offset="100%" stopColor="var(--violet)" stopOpacity=".95" />
-                  </linearGradient>
-                  <linearGradient id="asm-w3" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="var(--mint)" stopOpacity=".25" />
-                    <stop offset="100%" stopColor="var(--violet)" stopOpacity=".95" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M40 18 C 56 18, 52 50, 66 50"
-                  fill="none"
-                  stroke="url(#asm-w1)"
-                  strokeWidth="1.6"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M40 50 C 54 50, 54 50, 66 50"
-                  fill="none"
-                  stroke="url(#asm-w2)"
-                  strokeWidth="1.6"
-                  vectorEffect="non-scaling-stroke"
-                />
-                <path
-                  d="M40 82 C 56 82, 52 50, 66 50"
-                  fill="none"
-                  stroke="url(#asm-w3)"
-                  strokeWidth="1.6"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
+              <AssemblyConnectors />
 
               <div className="relative z-[1] flex flex-col gap-[0.6rem]">
                 {assemblage.pills.map((pill, index) => {
