@@ -56,11 +56,14 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   instructed.
 - **D-03**: The seven signed sections ship, **plus the 26academy-style bands** —
   animated figures band and honest trust placeholders. Not routed for pricing.
-- **D-04**: The **validated maquette is the visual contract**. The founder reviewed and
-  approved it (*"yes that what I'm talking about"*, then *"go ahead, approved"*). File:
+- **D-04** (superseded 2026-08-31, founder decision): the maquette is **retired as
+  visual authority**. The rendered application is the reference. Reason: three times
+  the maquette was wrong and the shipped code was right (missing `<meta charset>`,
+  mobile burger off-viewport at 375px, a second easing curve). The landing is now
+  rebuilt **section by section** — each section discussed, corrected, delivered and
+  verified before the next opens. File
   `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html`
-  — a single self-contained HTML file. **Read it.** Where this document and the file
-  disagree, **the file wins**.
+  stays on disk as a historical trace only — not read, not authoritative.
 
 ### Design tokens — replace the Lot 1 `:root` palette
 

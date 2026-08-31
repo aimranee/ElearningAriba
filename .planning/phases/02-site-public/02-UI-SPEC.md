@@ -8,17 +8,19 @@
 
 ## 0. The authority
 
-The design contract for this phase is a **founder-approved maquette**, not this file:
+(Superseded 2026-08-31, founder decision — see D-04.) The maquette is **retired as
+visual authority**. The rendered application is the reference, and the landing is
+rebuilt **section by section**: each section discussed, corrected, delivered and
+verified before the next opens.
 
 `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html`
+stays on disk as a historical trace only — not read, not authoritative.
 
-A single self-contained HTML file. The founder reviewed and approved it on 2026-08-29
-(*"yes that what I'm talking about"*, then *"go ahead, approved"*).
+The tokens, timing and composition rules below were originally measured from that
+file and remain valid as a record of what shipped; treat them as descriptive, not as
+a contract to defer to over the rendered app.
 
-**Read the file.** Every token, timing and composition rule below was measured from it.
-**Where this document and the file disagree, the file wins.**
-
-The reference the maquette is built from is **26academy.com, taken literally** —
+The reference the maquette was built from is **26academy.com, taken literally** —
 structure, treatment, components and palette (D-01).
 
 ---
@@ -197,4 +199,6 @@ placeholders.
 ---
 
 *Phase: 02-site-public*
-*Derived from the founder-approved maquette on 2026-08-29. The maquette file is the authority.*
+*Originally derived from the founder-approved maquette on 2026-08-29. Superseded
+2026-08-31: the maquette is retired as visual authority; the rendered application is
+the reference, under the section-by-section regime (D-04).*
