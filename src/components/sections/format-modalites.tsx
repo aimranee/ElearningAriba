@@ -61,7 +61,7 @@ async function FormatModalites() {
           const isFutur = item.statut === "futur";
           return (
             <Reveal key={item.id} as="li" dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}>
-              <Card variant="raised" className="h-full flex-row items-start gap-4 px-[1.5rem] py-[1.4rem]">
+              <Card variant="tint" className="h-full flex-row items-start gap-4 px-[1.5rem] py-[1.4rem]">
                 {Icon ? (
                   <span
                     aria-hidden="true"

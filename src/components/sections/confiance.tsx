@@ -56,7 +56,7 @@ async function Confiance() {
           const Icon = CONFIANCE_ICONS[fait.cle];
           return (
             <Reveal key={fait.id} as="li" dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}>
-              <Card variant="raised" className="group h-full p-[1.7rem]">
+              <Card variant="default" className="group h-full p-[1.7rem]">
                 {Icon ? (
                   <span
                     aria-hidden="true"

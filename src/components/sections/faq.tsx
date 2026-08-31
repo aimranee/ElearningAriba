@@ -64,7 +64,9 @@ async function Faq() {
       <Accordion className="mx-auto mt-10 max-w-[880px] gap-[0.8rem]">
         {entries.map((entry, index) => (
           <Reveal key={entry.id} dataD={((index % 3) + 1) as 1 | 2 | 3}>
-            <AccordionItem>
+            <AccordionItem
+              className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[panel-open]:bg-white data-[panel-open]:border-[var(--hairline-2)]"
+            >
               <AccordionHeader>
                 <AccordionTrigger>{entry.question}</AccordionTrigger>
               </AccordionHeader>

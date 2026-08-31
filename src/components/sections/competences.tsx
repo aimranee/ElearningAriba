@@ -44,7 +44,7 @@ async function Competences() {
               key={item.id}
               as="li"
               dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-              className="flex items-center gap-4 rounded-[18px] bg-white p-[1.15rem] px-[1.35rem] shadow-[var(--shadow-2)] transition-[transform,box-shadow] duration-[420ms] ease-[var(--ease-brand)] hover:-translate-y-[5px] hover:shadow-[var(--shadow-3)]"
+              className="flex items-center gap-4 rounded-[20px] bg-[var(--tint)] border border-[var(--hairline)] p-[1.15rem] px-[1.35rem] shadow-none transition-[transform,background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] hover:-translate-y-[2px]"
             >
               <span
                 aria-hidden="true"

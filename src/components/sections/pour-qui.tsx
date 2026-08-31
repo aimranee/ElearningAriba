@@ -52,7 +52,7 @@ async function PourQui() {
                 index < 3 ? "min-[1000px]:col-span-2" : "min-[1000px]:col-span-3"
               }
             >
-              <Card variant="raised" className="group h-full p-[1.7rem]">
+              <Card variant="default" className="group h-full p-[1.7rem]">
                 {Picto ? (
                   <span
                     aria-hidden="true"
