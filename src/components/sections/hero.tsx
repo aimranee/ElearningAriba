@@ -170,12 +170,9 @@ async function Hero() {
               <span className="ml-2 truncate text-[0.72rem] font-semibold text-[var(--muted-ink)]">
                 {assemblage.frameLabel}
               </span>
-              <span className="ml-auto inline-flex items-center gap-[0.35rem] rounded-full bg-[var(--success-muted)] px-[0.55rem] py-[0.2rem] text-[0.68rem] font-bold text-[var(--mint)]">
-                {assemblage.statut}
-              </span>
             </div>
 
-            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
+            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] sm:gap-[3.5rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
               <AssemblyConnectors />
 
               <div className="relative z-[1] min-w-0 flex flex-col gap-[0.6rem]">
