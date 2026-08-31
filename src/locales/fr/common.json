@@ -83,13 +83,13 @@
   "formatModalitesAside": {
     "titre": "Ce que comprend votre parcours",
     "items": [
-      "Sessions animées en direct",
-      "Support PDF par module",
-      "Cas pratique en fin de module",
-      "Accès aux supports",
-      "Aucun prérequis SAP"
+      { "cle": "formations-live", "label": "Sessions animées en direct" },
+      { "cle": "supports-pdf", "label": "Support PDF par module" },
+      { "cle": "cas-pratiques-en-fin-de-module", "label": "Cas pratique en fin de module" },
+      { "cle": "duree-d-acces", "label": "Accès aux supports" },
+      { "cle": "prerequis", "label": "Aucun prérequis SAP" }
     ],
-    "itemFutur": "Compléments vidéo — à venir",
+    "itemFutur": { "cle": "videos-a-venir", "label": "Compléments vidéo — à venir" },
     "resume": "{modules} modules · {heures} de formation live"
   },
   "assemblage": {
