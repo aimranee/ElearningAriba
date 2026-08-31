@@ -5,6 +5,7 @@ status: draft
 shadcn_initialized: true
 preset: "none — components.json present, components hand-authored on @base-ui/react; no registry block is installed in this phase"
 created: 2026-08-31
+revised: 2026-08-31
 mode: autonomous
 ---
 
@@ -81,11 +82,22 @@ new spacing token.
 - `gap-5` (20px) — the intra-form field rhythm already used by `inscription/page.tsx:35` and
   `connexion/page.tsx:26`. A multiple of 4. Lot 3 reuses it verbatim so the replaced pages keep
   their approved rhythm.
-- `gap-1.5` (6px) — hard-coded inside the read-only `field.tsx:8` and `card.tsx:64`. Not
-  authorable here.
+- `gap-1.5` (6px) — hard-coded inside the read-only `field.tsx:8` and `card.tsx:64`. **Not a
+  multiple of 4, and not a Lot 3 debt.** See the merge-back item below.
 - **Touch target:** `Button` `size="default"` is `h-8` (32px). Every **primary submit** and every
   **destructive** button in Lot 3 takes `className="h-11"` (44px) at the call site — the same
   override `header.tsx:100` already uses. A call-site class is not a component modification.
+
+### Merge-back item for Lot 2 — `gap-1.5` (do not raise this against Lot 3)
+
+`field.tsx:8` (`flex flex-col gap-1.5`) and `card.tsx:64` (`CardHeader … gap-1.5`) put a 6px
+value into a 4px scale. Both files are **write-forbidden for the entire phase (D-04)** — the
+founder is editing them in the parallel Lot 2 session — so Lot 3 can neither fix nor override
+them without breaking the unidirectional Lot 2 → Lot 3 merge.
+
+**Owner: Lot 2.** **Disposition: carry, do not fix here.** If the deviation is to be resolved,
+the change is `gap-1.5` → `gap-2` inside those two read-only files, made on the Lot 2 side.
+Recorded here so it is not re-discovered as a Lot 3 finding at recette.
 
 ---
 
@@ -158,8 +170,27 @@ Lot 3 page reads cookies at render on a public route.
 | `/espace/donnees` | CPT-09 | **new** | dynamic (session) |
 | `/espace` documents download | CPT-07 | **new**, no page — an action on the *Mes documents* card | route handler → signed URL redirect |
 | déconnexion | CPT-08 | **new**, no page — a `POST` form in the espace nav | route handler → redirect `/connexion` |
+| — | **CPT-04** | **no surface — deliberate.** See below. | not applicable |
 
 **No `/admin` route and no administration screen exists in this contract (D-02).**
+
+### `CPT-04` has no Lot 3 UI — and that is deliberate, not an omission
+
+`CPT-04` — *"An account is required for every reservation, including the free discovery call —
+one identity, with the learner's whole history attached to their record"* — is a **data-model and
+gating invariant, not a screen.** It is satisfied in Lot 3 by the profile table being the single
+identity anchor keyed on `auth.uid()`, with RLS proving the isolation (`CPT-08`, D-09, D-18).
+
+**Nothing in Lot 3 may render a reservation entry point.** The flow that would *enforce* the
+invariant at the point of booking is Lot 4 (`AGD-02`, `AGD-04`, `AGD-05`), and
+`03-CONTEXT.md` § Deferred already sends every reservation surface there — including the
+`reservation` table itself (D-03). An executor finding no `CPT-04` surface in the tables above has
+found the intended state.
+
+The one visible trace `CPT-04` leaves on a Lot 3 surface already exists and is not re-authored:
+the unconditional `EmptyState tone="waiting"` on `/espace` — *« Vous n'avez encore rien
+réservé. »* with its *« Voir les créneaux disponibles »* action pointing at `/agenda`. That link
+is a Lot 1 route shell and stays one.
 
 ### State matrix — every surface renders all five
 
@@ -170,6 +201,17 @@ Lot 3 page reads cookies at render on a public route.
 | Field-level error | `FieldError` under the field + `aria-invalid="true"` on the control |
 | Server rejection | `Field data-rejected="server"` (label + border + ring go destructive) **and/or** a form-level `Message variant="error"` above the submit button |
 | Success | either a `Message variant="success"` in place (profil, nouveau mot de passe) or the card body is replaced by a `Card` + `CardHeader`/`CardTitle`/`CardDescription` confirmation block — the shape `inscription/page.tsx:231-236` already establishes |
+
+### Focal point — what the eye must land on first
+
+One primary anchor per surface. Everything else is subordinate by size, weight or surface tier.
+
+| Surface | Focal point (primary) | Subordinate |
+|---|---|---|
+| `/inscription`, `/connexion`, `/mot-de-passe-oublie`, `/nouveau-mot-de-passe` | the form card, and within it the single accent submit button (`h-11`) | the `h1` above it, the footer link below it |
+| **`/espace`** | **the `EmptyState tone="waiting"` — *« Vous n'avez encore rien réservé. »* — with its accent action button.** It is the only actionable element on the page and the only card carrying `variant="raised"` (`--shadow-3`). | the `h1` and intro read as a page header, not a destination; the `h2` greeting is a section label; the **six-card grid is a flat, uniform field** — `variant="default"` (niveau 2), identical treatment on all six, no card promoted, no card tinted, no accent inside any of them. A grid of six equal empty states must never out-shout the one thing the learner can act on. |
+| `/espace/profil` | the form card and its single accent submit button | the four `sections.*` headings, which are `CardTitle`-weight labels inside one card — not four competing cards |
+| **`/espace/donnees`** | **the export card — *Récupérer mes données* — first in DOM order, `Card variant="default"`, carrying the page's only accent button.** Routine, reversible, safe to click. | **the deletion card is second and deliberately quieter: `Card variant="muted"` (`--muted` fill, `shadow-none`), its trigger a `Button variant="outline"`, not accent and not red.** Destructive colour appears **only after** the confirmation panel is revealed, and only on the final confirm button. The irreversible action must never be the visually loudest thing on the page. |
 
 ### `/espace` — the six surfaces stay honest (D-03, D-27, hard constraint 3)
 
@@ -208,6 +250,9 @@ empty name, no card grid behind a spinner. The `/connexion` page then shows a fo
 French only, LTR, *vouvoiement*, full sentences, no technical vocabulary exposed to the learner
 (D-11, D-25). Tone reference: `espace.json` and `inscription.json`.
 
+`CPT-04` authors no copy — it has no surface (see above), and the one string that touches it,
+`espace.aucuneReservation.*`, already exists and is reused verbatim.
+
 ### Reused verbatim — never re-authored
 
 | Key | Used by |
@@ -215,7 +260,7 @@ French only, LTR, *vouvoiement*, full sentences, no technical vocabulary exposed
 | `inscription.*` (champs, aideParChamp, conditions, erreurs, succes, dejaInscrit) | `/inscription` |
 | `inscription.aideParChamp.motDePasse` — *« Huit caractères minimum, avec au moins un chiffre. »* | `/inscription`, `/nouveau-mot-de-passe`. **Signed copy — the configuration moves to match it (D-12), never the reverse.** |
 | `connexion.*` incl. `google`, `motDePasseOublie`, `erreurs.identifiantsInvalides`, `erreurs.rejetServeur`, `erreurs.tropDeTentatives`, `pasDeCompte` | `/connexion` |
-| `espace.*` — the six titles and their six empty states | `/espace` |
+| `espace.*` — the six titles and their six empty states, plus `aucuneReservation.*` | `/espace` |
 | `common.actions.sInscrire` / `seConnecter` / `telecharger` / `annuler` / `reessayer` | every surface |
 | `emails.confirmationInscription`, `emails.reinitialisationMotDePasse` | transactional email templates |
 
@@ -357,6 +402,8 @@ the founder to review at Lot 3 recette.
 | **D-A8** | The export artefact is named **« fichier »** in the copy; the deletion acknowledgement never promises a delay. | D-11 forbids technical vocabulary; D-10 executes deletion in SQL until Lot 10, so a stated SLA would be a promise the product cannot keep. |
 | **D-A9** | *Mes documents* is the only one of the six `/espace` cards that can render content in Lot 3. | D-05 — grants are seeded by SQL; the other five have no source of truth and stay honest empty states (D-03, hard constraint 3). |
 | **D-A10** | The password-reset success message is shown identically whether or not the address exists. | Account enumeration is a real leak on a public form; the copy is phrased to stay true in both cases. |
+| **D-A11** | **`CPT-04` gets no Lot 3 surface** — it is satisfied as a data-model invariant (the profile table as sole identity anchor, RLS-isolated), and enforced at the point of booking by Lot 4. | `03-CONTEXT.md` § Deferred sends every reservation surface to Lot 4, and D-03 forbids even a shell `reservation` table. Inventing a reservation entry point to "cover" `CPT-04` would be the scope breach, not the coverage. Recorded explicitly so the absence reads as deliberate. |
+| **D-A12** | Focal-point hierarchy declared for `/espace` (the *aucune réservation* empty state, not the six-card grid) and for `/espace/donnees` (export primary; deletion `muted` until revealed). | Two surfaces had multiple equal-weight anchors. On `/espace/donnees` in particular, giving the irreversible action the same prominence as the routine one is how accidental deletions happen. |
 
 ---
 
@@ -386,35 +433,43 @@ phase** (D-19: zero new dependencies).
    returns nothing new — every visible label resolves through `src/locales/fr/*.json`.
 4. `/espace` renders the learner's **real** first name; `PRENOM_MAQUETTE` no longer exists.
    The six empty-state strings are byte-identical to today's `espace.json`.
-5. No route matching `/admin` exists anywhere in `src/app/`.
+5. No route matching `/admin` exists anywhere in `src/app/`, and **no reservation entry point is
+   created** — `CPT-04` leaves no surface behind (D-A11).
 6. Hitting `/espace`, `/espace/profil` or `/espace/donnees` without a session produces a
    redirect to `/connexion` — never a partially rendered page. Verifiable in the response
    status, not by eye.
-7. The account-deletion confirm button is unreachable until the acknowledgement checkbox is
+7. On `/espace`, exactly one card carries `variant="raised"` (the *aucune réservation* empty
+   state) and the six grid cards are all `variant="default"` with no accent inside them. On
+   `/espace/donnees`, the deletion card is `variant="muted"` and no `destructive` class is
+   rendered until the confirmation panel is revealed.
+8. The account-deletion confirm button is unreachable until the acknowledgement checkbox is
    checked.
-8. Exactly one `cubic-bezier` value remains in the codebase (`--ease-brand`) — Lot 3 adds no
+9. Exactly one `cubic-bezier` value remains in the codebase (`--ease-brand`) — Lot 3 adds no
    second curve and no bare `ease`/`linear` transition.
-9. Every form renders all five states (idle, pending, field error, server rejection, success);
-   the server-rejection state uses `Field data-rejected="server"`, not a generic red border.
-10. `npm run lint`, `npm run typecheck` and `next build` exit 0; `npm run content:check` still
+10. Every form renders all five states (idle, pending, field error, server rejection, success);
+    the server-rejection state uses `Field data-rejected="server"`, not a generic red border.
+11. `npm run lint`, `npm run typecheck` and `next build` exit 0; `npm run content:check` still
     exits 1 on the single unresolved key (unchanged behaviour, D-20).
 
 ---
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
+*Verdicts are written by gsd-ui-checker, not by the researcher. They stay unchecked and
+unlabelled until the checker rules.*
 
-**Approval:** pending — and the ten decisions in *Decisions taken autonomously* additionally
+- [ ] Dimension 1 Copywriting: —
+- [ ] Dimension 2 Visuals: —
+- [ ] Dimension 3 Color: —
+- [ ] Dimension 4 Typography: —
+- [ ] Dimension 5 Spacing: —
+- [ ] Dimension 6 Registry Safety: —
+
+**Approval:** pending — and the twelve decisions in *Decisions taken autonomously* additionally
 require founder review at Lot 3 recette, together with the new French copy (D-11).
 
 ---
 
 *Phase: 03-comptes-connexion-et-espace-apprenant*
-*Generated 2026-08-31 in autonomous mode. The design system in `src/` is the authority; where this
-file disagrees with it, this file is wrong.*
+*Generated 2026-08-31 in autonomous mode; revised 2026-08-31 after checker review. The design
+system in `src/` is the authority; where this file disagrees with it, this file is wrong.*
