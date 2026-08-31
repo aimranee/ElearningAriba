@@ -172,7 +172,7 @@ async function Hero() {
               </span>
             </div>
 
-            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
+            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] sm:gap-[3.5rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
               <AssemblyConnectors />
 
               <div className="relative z-[1] min-w-0 flex flex-col gap-[0.6rem]">

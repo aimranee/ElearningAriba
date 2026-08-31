@@ -15,9 +15,9 @@
 import { useEffect, useRef } from "react";
 
 const PATHS = [
-  { id: "asm-w1", d: "M44.6 18 L 47.8 18", accent: "var(--violet)", cy: 18 },
-  { id: "asm-w2", d: "M44.6 50 L 47.8 50", accent: "var(--amber)", cy: 50 },
-  { id: "asm-w3", d: "M44.6 82 L 47.8 82", accent: "var(--mint)", cy: 82 },
+  { id: "asm-w1", d: "M40.9 18 C 46.8 18, 46.8 50, 52.7 50", accent: "var(--violet)", cy: 18 },
+  { id: "asm-w2", d: "M40.9 50 L 52.7 50", accent: "var(--amber)", cy: 50 },
+  { id: "asm-w3", d: "M40.9 82 C 46.8 82, 46.8 50, 52.7 50", accent: "var(--mint)", cy: 82 },
 ] as const;
 
 const TRACE_STAGGER_MS = 140;
@@ -105,9 +105,7 @@ function AssemblyConnectors() {
           vectorEffect="non-scaling-stroke"
         />
       ))}
-      {PATHS.map((path) => (
-        <circle key={`${path.id}-node`} cx="47.8" cy={path.cy} r="1.4" fill={path.accent} />
-      ))}
+      <circle cx={52.7} cy={50} r="1.6" fill="var(--violet)" />
       {PATHS.map((path, index) => (
         <circle
           key={`${path.id}-comet`}
