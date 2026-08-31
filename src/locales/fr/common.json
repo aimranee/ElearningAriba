@@ -89,8 +89,8 @@
     "frameLabel": "Votre parcours SAP Ariba — assemblage",
     "statut": "Sessions ouvertes",
     "badge": "Parcours SAP Ariba",
-    "resume": "{modules} modules · {heures} de formation live",
-    "certification": "Préparation à la certification",
+    "moduleLigne": "Module {n} · {heures}",
+    "progression": "Module {n} sur {total}",
     "pills": [
       { "cle": "appel-decouverte", "label": "Appel découverte" },
       { "cle": "session-live", "label": "Session live" },
