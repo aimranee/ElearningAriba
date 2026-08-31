@@ -37,6 +37,7 @@
   },
   "actions": {
     "demarrer": "Démarrer ma formation",
+    "prendreRdv": "Prendre RDV",
     "voirProgramme": "Voir le programme",
     "reserver": "Réserver",
     "sInscrire": "S'inscrire",
