@@ -279,9 +279,13 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 1. The surface map is verifiable **section by section**: **niveau 1** on
    compétences, the programme and FAQ accordions, and the Format parcours rows;
    **niveau 2** on the Pour-qui tiles, the Confiance tiles, and the parcours' side
-   frame; **niveau 3** on **exactly two** rendered elements page-wide (hero console,
-   CTA final card). The criterion is the **ceiling on niveau 3** (max 2), not a floor
-   on total card count.
+   frame; **niveau 3** on **exactly two persistent surfaces** page-wide (hero
+   console frame, CTA-final assembly card) — the ceiling counts rendered
+   elements that carry the niveau-3 rest/hover treatment (raised Card variant
+   or an equivalent hand-styled surface), not a `Button` primary variant's
+   `hover:shadow-[var(--shadow-4)]` hover micro-interaction, which is excluded
+   from the count. The criterion is the **ceiling on niveau 3** (max 2), not a
+   floor on total card count.
 2. `--shadow-4` appears in the **compiled CSS output** — consumed by the hero visual
    frame and the final CTA — not only declared in `globals.css`.
 3. The atmosphere layer is behind **all seven** landing sections, verifiable by mounting
