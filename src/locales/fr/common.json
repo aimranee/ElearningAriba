@@ -87,7 +87,6 @@
   },
   "assemblage": {
     "frameLabel": "Votre parcours SAP Ariba — assemblage",
-    "statut": "Sessions ouvertes",
     "badge": "Parcours SAP Ariba",
     "moduleLigne": "Module {n} · {heures}",
     "progression": "Module {n} sur {total}",
