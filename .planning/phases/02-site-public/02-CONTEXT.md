@@ -105,9 +105,14 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 
 ### Composition — the rules Lot 1 broke
 
-- **D-19**: Cards **float**: no border, `--shadow-3` at rest, `--shadow-4` and
-  `translateY(-7px)` on hover. A bordered card on `--shadow-1` is the Lot 1 failure and
-  **must not appear on any public page**.
+- **D-19**: The surface system is **tri-level**. The unconditional hover-lift
+  (`--shadow-3` rest / `--shadow-4` + `translateY(-7px)` hover) is scoped to **niveau 3**
+  only — the page's two highest-emphasis elements. **Niveau 1** (`--tint` background,
+  `--hairline` border, zero box-shadow) and **niveau 2** (white background, `--hairline`
+  border, `--contact`/`--inset-hi`) change background tint, border color (`--hairline` →
+  `--hairline-2`) and a 2-3px `translateY` on hover; niveau 2 additionally transitions its
+  box-shadow from `--contact` to `--shadow-1` (both paired with `--inset-hi`) — niveau 1
+  never gains a box-shadow at any state.
 - **D-20**: The atmosphere layer is mounted **once at the root** and is visible behind
   **all seven** sections. Lot 1 reached 2 of 8.
 - **D-21**: Sections **alternate** transparent / `--lav2` tinted bands, to give the
@@ -117,7 +122,9 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   gradient.
 - **D-23**: `variant="raised"` already exists on the Card family and is used zero times
   in eleven routes — **this lot uses it**. `--shadow-4` is defined and consumed nowhere
-  — **this lot consumes it**.
+  — **this lot consumes it**. (Run 3 changes the CTA-final call site's shape — a
+  card-assembly element replacing the current violet block — without changing this
+  criterion.)
 
 ### Content and data
 
@@ -269,9 +276,12 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 
 ### Acceptance criteria — applied outcomes, not presence checks
 
-1. On the landing page, **at least eleven** surfaces render as floating cards (no
-   border, `--shadow-3`): the five profils, the three faits de confiance, and the format
-   items. **Zero** bordered-flat cards appear on any public page.
+1. The surface map is verifiable **section by section**: **niveau 1** on
+   compétences, the programme and FAQ accordions, and the Format parcours rows;
+   **niveau 2** on the Pour-qui tiles, the Confiance tiles, and the parcours' side
+   frame; **niveau 3** on **exactly two** rendered elements page-wide (hero console,
+   CTA final card). The criterion is the **ceiling on niveau 3** (max 2), not a floor
+   on total card count.
 2. `--shadow-4` appears in the **compiled CSS output** — consumed by the hero visual
    frame and the final CTA — not only declared in `globals.css`.
 3. The atmosphere layer is behind **all seven** landing sections, verifiable by mounting
