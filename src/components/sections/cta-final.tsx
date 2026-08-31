@@ -108,7 +108,7 @@ async function CtaFinal() {
             aria-hidden="true"
             className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]"
           >
-            <div className="flex items-center gap-1.5 border-b border-[var(--border2)] bg-[linear-gradient(180deg,#fff,#FBFBFE)] px-[14px] py-[11px]">
+            <div className="flex items-center gap-1.5 border-b border-[var(--border2)] bg-white px-[14px] py-[11px]">
               <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
