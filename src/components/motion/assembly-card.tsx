@@ -110,8 +110,8 @@ function AssemblyCard({
 
     function lockHeight() {
       let max = 0;
-      for (const module of modules) {
-        sizer!.textContent = module.titre;
+      for (const mod of modules) {
+        sizer!.textContent = mod.titre;
         max = Math.max(max, sizer!.offsetHeight);
       }
       sizer!.textContent = "";
@@ -127,11 +127,11 @@ function AssemblyCard({
     }
 
     function render(i: number) {
-      const module = modules[i];
-      title!.textContent = module.titre;
-      idLine!.textContent = moduleLigne(moduleLigneTemplate, module);
-      fill!.style.width = `${(module.position / modules.length) * 100}%`;
-      label!.textContent = progressionLabel(progressionTemplate, module, modules.length);
+      const mod = modules[i];
+      title!.textContent = mod.titre;
+      idLine!.textContent = moduleLigne(moduleLigneTemplate, mod);
+      fill!.style.width = `${(mod.position / modules.length) * 100}%`;
+      label!.textContent = progressionLabel(progressionTemplate, mod, modules.length);
     }
 
     function advance() {
