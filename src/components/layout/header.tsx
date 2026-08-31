@@ -68,11 +68,17 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 min-[1000px]:flex">
-          <Button render={<Link href="/connexion" />} variant="ghost" size="sm">
+          <Button
+            render={<Link href="/connexion" />}
+            nativeButton={false}
+            variant="ghost"
+            size="sm"
+          >
             {common.nav.connexion}
           </Button>
           <Button
             render={<Link href="/inscription" />}
+            nativeButton={false}
             size="sm"
             data-magnetic="true"
           >

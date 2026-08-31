@@ -92,12 +92,20 @@ async function ProgrammeAccordion() {
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         {telechargerPdf ? (
-          <Button variant="ghost" render={<a href="/programme.pdf" />}>
+          <Button
+            variant="ghost"
+            render={<a href="/programme.pdf" />}
+            nativeButton={false}
+          >
             <Download aria-hidden="true" />
             {telechargerPdf}
           </Button>
         ) : null}
-        <Button render={<Link href="/reservation" />} data-magnetic="true">
+        <Button
+          render={<Link href="/reservation" />}
+          nativeButton={false}
+          data-magnetic="true"
+        >
           {common.actions.reserver}
         </Button>
       </div>

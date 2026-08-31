@@ -114,12 +114,18 @@ async function Hero() {
           <Reveal as="div" dataD={3} className="flex flex-wrap gap-[0.8rem]">
             <Button
               render={<Link href="/inscription" />}
+              nativeButton={false}
               size="lg"
               data-magnetic="true"
             >
               {common.actions.demarrer}
             </Button>
-            <Button render={<Link href="/programme" />} variant="outline" size="lg">
+            <Button
+              render={<Link href="/programme" />}
+              nativeButton={false}
+              variant="outline"
+              size="lg"
+            >
               <FileText />
               {common.actions.voirProgramme}
             </Button>

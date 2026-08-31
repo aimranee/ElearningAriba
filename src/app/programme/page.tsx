@@ -138,13 +138,18 @@ export default async function Programme() {
       <Section tone="band">
         <div className="flex flex-wrap justify-center gap-3">
           {telechargerPdf ? (
-            <Button variant="ghost" render={<a href="/programme.pdf" />}>
+            <Button
+              variant="ghost"
+              render={<a href="/programme.pdf" />}
+              nativeButton={false}
+            >
               <Download aria-hidden="true" />
               {telechargerPdf}
             </Button>
           ) : null}
           <Button
             render={<Link href="/reservation" />}
+            nativeButton={false}
             data-magnetic="true"
           >
             {common.actions.reserver}

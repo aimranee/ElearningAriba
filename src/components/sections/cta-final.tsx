@@ -63,6 +63,7 @@ async function CtaFinal() {
           <div className="mt-8 flex flex-wrap justify-center gap-[0.85rem]">
             <Button
               render={<Link href="/reservation" />}
+              nativeButton={false}
               size="lg"
               data-magnetic="true"
               className="bg-white text-[var(--deep)] shadow-[0_20px_40px_-18px_rgba(0,0,0,.45)] hover:bg-white hover:shadow-[0_28px_54px_-20px_rgba(0,0,0,.5)] hover:-translate-y-[2px]"
@@ -72,6 +73,7 @@ async function CtaFinal() {
             </Button>
             <Button
               render={<Link href="/programme" />}
+              nativeButton={false}
               variant="outline"
               size="lg"
               className="border-white/40 bg-white/8 text-white backdrop-blur-[8px] hover:bg-white/16 hover:text-white hover:-translate-y-[2px]"

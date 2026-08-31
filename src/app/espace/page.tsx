@@ -40,7 +40,7 @@ export default function Espace() {
           {espace.aucuneReservation.message}
         </EmptyStateDescription>
         <EmptyStateAction>
-          <Button render={<Link href="/agenda" />}>
+          <Button render={<Link href="/agenda" />} nativeButton={false}>
             {espace.aucuneReservation.action}
           </Button>
         </EmptyStateAction>
