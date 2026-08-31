@@ -1,19 +1,22 @@
 "use client";
 /* why: the assembly card's 3 bezier connectors are literal, hand-written
-   paths ported verbatim from cta-final.tsx's original static SVG (D-19's
-   sibling: never computed from element positions, never recomputed on
-   resize — that approach was rejected). This island only adds a
-   progressive stroke-trace on viewport entry (IntersectionObserver, once)
-   plus a small comet per path, modeled on typewriter.tsx's pattern: refs +
-   a single useEffect, direct DOM style writes, matchMedia reduced-motion
-   check, no useState-driven per-frame writes. */
+   paths — never computed from element positions, never recomputed on
+   resize (rejected 2026-08-28, reaffirmed 2026-08-31). Re-anchored
+   2026-08-31 onto the pastilles' right edge and the violet card's left
+   edge as measured at 1440px, after the original coordinates were found
+   ported unchanged from cta-final.tsx's old column split. This island
+   only adds a progressive stroke-trace on viewport entry
+   (IntersectionObserver, once) plus a small comet per path, modeled on
+   typewriter.tsx's pattern: refs + a single useEffect, direct DOM style
+   writes, matchMedia reduced-motion check, no useState-driven per-frame
+   writes. */
 
 import { useEffect, useRef } from "react";
 
 const PATHS = [
-  { id: "asm-w1", d: "M40 18 C 56 18, 52 50, 66 50", from: "var(--violet)" },
-  { id: "asm-w2", d: "M40 50 C 54 50, 54 50, 66 50", from: "var(--amber)" },
-  { id: "asm-w3", d: "M40 82 C 56 82, 52 50, 66 50", from: "var(--mint)" },
+  { id: "asm-w1", d: "M44.6 18 C 49.2 18, 48 50, 52 50", from: "var(--violet)" },
+  { id: "asm-w2", d: "M44.6 50 C 48.6 50, 48.6 50, 52 50", from: "var(--amber)" },
+  { id: "asm-w3", d: "M44.6 82 C 49.2 82, 48 50, 52 50", from: "var(--mint)" },
 ] as const;
 
 const TRACE_STAGGER_MS = 140;
@@ -84,7 +87,7 @@ function AssemblyConnectors() {
     <svg
       ref={svgRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 size-full"
+      className="pointer-events-none absolute inset-0 z-[2] size-full"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
