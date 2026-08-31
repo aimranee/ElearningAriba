@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { Typewriter } from "@/components/motion/typewriter";
+import { AssemblyCard } from "@/components/motion/assembly-card";
 import { AssemblyConnectors } from "@/components/motion/assembly-connectors";
 import { HeroSpotlight } from "@/components/motion/hero-spotlight";
 import { Magnetic } from "@/components/motion/magnetic";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
-import { formatHours, formatNumber } from "@/lib/i18n/fr";
 import common from "@/locales/fr/common.json";
 
 /* why: the three pills/checklist rows share icon + gradient, indexed the
@@ -87,12 +87,7 @@ async function Hero() {
     splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
   const hasValidSplit = leadSplit >= 0 && splitIndex >= 0;
 
-  const moduleCount = modulesResult.data.length;
-  const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
   const assemblage = common.assemblage;
-  const resume = assemblage.resume
-    .replace("{modules}", formatNumber(moduleCount))
-    .replace("{heures}", formatHours(totalHours));
 
   return (
     <section
@@ -212,16 +207,12 @@ async function Hero() {
                   <GraduationCap aria-hidden="true" className="size-[10px]" />
                   {assemblage.badge}
                 </span>
-                <div className="mt-[0.2rem] mb-[0.75rem] text-[0.78rem] text-white/78">{resume}</div>
-                <div className="flex items-center gap-[0.45rem] py-[0.16rem] text-[0.78rem] font-semibold text-white/78">
-                  <span
-                    aria-hidden="true"
-                    className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[var(--mint)] text-white"
-                  >
-                    <Check className="size-[9px]" />
-                  </span>
-                  {assemblage.certification}
-                </div>
+                <AssemblyCard
+                  modules={modulesResult.data}
+                  moduleLigneTemplate={assemblage.moduleLigne}
+                  progressionTemplate={assemblage.progression}
+                  pills={assemblage.pills}
+                />
               </div>
             </div>
           </div>
