@@ -35,7 +35,6 @@
     "clauseNonResponsabilite": "Clause de non-responsabilité"
   },
   "actions": {
-    "demarrer": "Démarrer ma formation",
     "prendreRdv": "Prendre RDV",
     "voirProgramme": "Voir le programme",
     "reserver": "Réserver",
@@ -54,8 +53,7 @@
     "aucunResultat": "Aucun résultat pour le moment."
   },
   "hero": {
-    "eyebrow": "Formation live · SAP Ariba",
-    "chips": ["Aucun prérequis SAP", "Expert certifié", "Appel découverte gratuit"],
+    "chips": ["Aucun prérequis SAP", "Expert certifié"],
     "console": {
       "url": "formation-sap-ariba.fr/reservation",
       "liveLabel": "Session live",
@@ -67,10 +65,6 @@
         { "date": "Jeudi 10 septembre · 14:00", "places": "Places restantes : 7" },
         { "date": "Lundi 14 septembre · 09:00", "places": "Places restantes : 9" }
       ]
-    },
-    "badges": {
-      "pdf": "Support PDF par module",
-      "certification": "Préparation certification"
     }
   },
   "statsBand": {
@@ -93,10 +87,10 @@
   },
   "assemblage": {
     "frameLabel": "Votre parcours SAP Ariba — assemblage",
-    "statut": "En préparation",
+    "statut": "Sessions ouvertes",
     "badge": "Parcours SAP Ariba",
-    "moduleTitre": "Procure-to-Pay",
     "resume": "{modules} modules · {heures} de formation live",
+    "certification": "Préparation à la certification",
     "pills": [
       { "cle": "appel-decouverte", "label": "Appel découverte" },
       { "cle": "session-live", "label": "Session live" },

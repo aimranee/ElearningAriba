@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, FileText, GraduationCap, Radio, Shield, UserCheck } from "lucide-react";
+import { Check, FileText, GraduationCap, Radio, UserCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
@@ -85,6 +85,7 @@ async function Hero() {
   const accrochePrefix = splitIndex >= 0 ? accrocheRest.slice(0, splitIndex) : accrocheRest;
   const accrocheSuffix =
     splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
+  const hasValidSplit = leadSplit >= 0 && splitIndex >= 0;
 
   const moduleCount = modulesResult.data.length;
   const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
@@ -103,29 +104,22 @@ async function Hero() {
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-[clamp(2rem,5vw,4.5rem)] px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
         <div className="flex flex-col gap-[1.6rem]">
           <Reveal
-            as="span"
-            className="inline-flex w-fit items-center gap-[0.55rem] text-[0.72rem] font-bold tracking-[0.18em] text-[var(--deep)] uppercase"
-          >
-            <span
-              aria-hidden="true"
-              className="h-0.5 w-[22px] shrink-0 rounded-full bg-[linear-gradient(90deg,var(--violet),var(--blue))]"
-            />
-            {common.hero.eyebrow}
-          </Reveal>
-
-          <Reveal
             as="h1"
             dataD={1}
             className="relative font-heading text-[clamp(2.5rem,4.6vw,3.9rem)] leading-[1.04] font-extrabold tracking-[-0.032em] text-balance"
           >
             <span className="sr-only">{accroche}</span>
-            <span aria-hidden="true">
-              <span className="text-[var(--violet)]">{accrocheLead}</span>{" "}
-              {accrochePrefix}
-              <br />
-              <Typewriter words={words} />
-              {accrocheSuffix}
-            </span>
+            {hasValidSplit ? (
+              <span aria-hidden="true">
+                <span className="text-[var(--violet)]">{accrocheLead}</span>{" "}
+                {accrochePrefix}
+                <br />
+                <Typewriter words={words} />
+                {accrocheSuffix}
+              </span>
+            ) : (
+              <span aria-hidden="true">{accroche}</span>
+            )}
           </Reveal>
 
           <Reveal
@@ -143,7 +137,7 @@ async function Hero() {
               size="lg"
               data-magnetic="true"
             >
-              {common.actions.demarrer}
+              {common.actions.prendreRdv}
             </Button>
             <Button
               render={<Link href="/programme" />}
@@ -170,21 +164,6 @@ async function Hero() {
         </div>
 
         <Reveal as="div" dataD={2} className="relative">
-          <div
-            aria-hidden="true"
-            className="absolute -top-[18px] -left-[14px] z-[2] flex animate-[bob_6.5s_var(--ease-brand)_infinite] items-center gap-[0.55rem] rounded-[14px] border border-white/70 bg-white/72 px-[0.9rem] py-[0.6rem] text-[0.8rem] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-2)] backdrop-blur-[18px]"
-          >
-            <Shield className="size-4 text-[var(--mint)]" />
-            {common.hero.badges.pdf}
-          </div>
-          <div
-            aria-hidden="true"
-            className="absolute -right-[10px] -bottom-[16px] z-[2] flex animate-[bob2_7.5s_var(--ease-brand)_infinite] items-center gap-[0.55rem] rounded-[14px] border border-white/70 bg-white/72 px-[0.9rem] py-[0.6rem] text-[0.8rem] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-2)] backdrop-blur-[18px]"
-          >
-            <GraduationCap className="size-4 text-[var(--violet)]" />
-            {common.hero.badges.certification}
-          </div>
-
           <div
             data-slot="hero-assembly"
             className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]"
@@ -233,24 +212,19 @@ async function Hero() {
                   <GraduationCap aria-hidden="true" className="size-[10px]" />
                   {assemblage.badge}
                 </span>
-                <h4 className="font-heading text-[1.3rem] leading-[1.1] font-extrabold tracking-[-0.025em]">
-                  {assemblage.moduleTitre}
-                </h4>
                 <div className="mt-[0.2rem] text-[0.78rem] text-white/78">{resume}</div>
                 <div className="my-[0.75rem] h-[5px] overflow-hidden rounded-full bg-white/24">
                   <span className="block h-full w-full rounded-full bg-white" />
                 </div>
-                {assemblage.pills.map((pill) => (
-                  <div key={pill.cle} className="flex items-center gap-[0.45rem] py-[0.16rem] text-[0.78rem] font-semibold">
-                    <span
-                      aria-hidden="true"
-                      className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[var(--mint)] text-white"
-                    >
-                      <Check className="size-[9px]" />
-                    </span>
-                    {pill.label}
-                  </div>
-                ))}
+                <div className="flex items-center gap-[0.45rem] py-[0.16rem] text-[0.78rem] font-semibold text-white/78">
+                  <span
+                    aria-hidden="true"
+                    className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[var(--mint)] text-white"
+                  >
+                    <Check className="size-[9px]" />
+                  </span>
+                  {assemblage.certification}
+                </div>
               </div>
             </div>
           </div>
