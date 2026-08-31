@@ -1,4 +1,4 @@
-import { BadgeCheck, RefreshCw, Shield, type LucideIcon } from "lucide-react";
+import { BadgeCheck, Camera, RefreshCw, Shield, type LucideIcon } from "lucide-react";
 
 import { Section, SectionHeader } from "@/components/sections/section";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
@@ -45,13 +45,34 @@ async function Confiance() {
 
   return (
     <Section tone="default">
-      <SectionHeader
-        eyebrow={section.eyebrow ?? undefined}
-        title={section.titre}
-        titleAccent={section.titre_accent ?? undefined}
-        lead={section.lead ?? undefined}
-      />
-      <ul className="mt-10 grid grid-cols-1 gap-[1.35rem] sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid items-center gap-10 lg:grid-cols-2">
+        <SectionHeader
+          eyebrow={section.eyebrow ?? undefined}
+          title={section.titre}
+          titleAccent={section.titre_accent ?? undefined}
+          lead={section.lead ?? undefined}
+          className="mx-0 max-w-none text-left"
+        />
+        <Reveal
+          as="figure"
+          dataD={2}
+          className="grid aspect-[16/9] place-items-center gap-2 rounded-[20px] border-[1.5px] border-dashed border-[#D6D3F0] bg-[var(--tint-violet)] p-6 text-center"
+        >
+          <span
+            aria-hidden="true"
+            className="flex size-11 items-center justify-center rounded-[14px] border border-[var(--hairline)] bg-white text-[var(--violet)]"
+          >
+            <Camera className="size-5" />
+          </span>
+          <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[var(--violet)] uppercase">
+            {common.photoSlot.label}
+          </span>
+          <p className="max-w-[30ch] text-[0.9rem] text-[var(--muted-ink)]">
+            {common.photoSlot.description}
+          </p>
+        </Reveal>
+      </div>
+      <ul className="mt-[3.25rem] grid grid-cols-1 gap-[1.35rem] sm:grid-cols-2 lg:grid-cols-3">
         {faits.map((fait, index) => {
           const Icon = CONFIANCE_ICONS[fait.cle];
           return (
