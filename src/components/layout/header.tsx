@@ -51,7 +51,7 @@ export function Header() {
       <div className="relative z-[1] mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-6">
         <Link
           href="/"
-          className={`inline-flex items-center gap-[0.6rem] ${FOCUS_RING}`}
+          className={`inline-flex min-w-0 items-center gap-[0.6rem] ${FOCUS_RING}`}
         >
           <span
             aria-hidden="true"
@@ -60,7 +60,11 @@ export function Header() {
           >
             A
           </span>
-          <span className="font-heading text-lg font-semibold text-foreground">
+          {/* why: min-w-0 + truncate on the wordmark, not the pastille — the
+              anchor sits between two fixed-width neighbors (burger, CTA) in a
+              nowrap flex row, so at 375px the text yields space rather than
+              pushing the burger past the viewport edge (checks 10/11). */}
+          <span className="truncate font-heading text-lg font-semibold text-foreground">
             {common.metadata.title}
           </span>
         </Link>
