@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: "Waves 1-5 of phase 02 complete (02-01..02-10); 02-11 not started — it is the founder's batched visual review of the deferred human-verify checkpoints and must not be run headless"
-last_updated: "2026-08-30T21:04:07.851Z"
-last_activity: 2026-08-30
+last_updated: "2026-08-31T00:00:00.000Z"
+last_activity: 2026-08-31
 progress:
   total_phases: 11
   completed_phases: 2
@@ -140,6 +140,7 @@ Recent decisions affecting current work:
 | 2026-08-30 | Repair brittle verification commands in plans 02-05..02-11 | Widened literal-JSX-shape greps (variant="raised", tone="band", data-magnetic="true", literal nav href) to also accept expression/data-driven forms; fixed two over-strict counts (hardcoded "17" check in 02-08, exact shadow-4 count in 02-10). No source touched. |
 | 2026-08-30 | Correct prior sweep: replace value-blind ("literal"\|{expr}) greps with prerendered-HTML value assertions | The previous widening accepted `variant={anything}`/`data-magnetic={false}` as a pass — a false positive. Converted 02-05 (hero data-magnetic) and 02-06 (programme/formation/a-propos raised-card + band-tone) to assert the actual value in `.next/server/app/*.html` after `npm run build`, since those files are routes rendered directly. Left 02-09/02-10's own per-file checks unconverted: those components mount into `src/app/page.tsx` only in each plan's later checkpoint task, so no route exists yet at their verification point to assert against — explained in each plan and covered by that checkpoint's human visual review. 02-11's nav-href widening left as-is (different shape, out of scope of this correction). No source touched. |
 | 2026-08-30 | Close the human-visual-review gap in 02-09/02-10: add prerendered-HTML assertions to each plan's Task 3 (the mount point) | The fallback named in the prior entry — Task 3's human visual review — does not exist; all mid-phase human-verify gates in this phase auto-advance unreviewed. Added to Task 3 in both plans, run against `.next/server/app/index.html` after `npm run build`: `data-tone="band"` and `data-tone="default"` each ≥1 (D-21 alternation); `data-magnetic="true"` ≥1 (02-09: ProgrammeAccordion's reservation CTA; 02-10: CtaFinal's white button). `shadow-[var(--shadow-3)]` and `rounded-[22px]` (Card variant="raised"'s literal base classes, confirmed in card.tsx) ≥5 in 02-09 — "These five cards are five of the eleven floating surfaces AC-1 counts" (Task 1) — and ≥9 in 02-10 — six format-modalites items + three confiance faits, per "this task brings the landing page to at least fourteen floating cards" (Task 1), i.e. 14 minus 02-09's 5. Competences.tsx's rows and confiance's two placeholders were excluded from the shadow-3/rounded-22 count: competences uses shadow-2 base / 18px radius per its own plan text, and the placeholders are explicitly "DELIBERATELY not floating cards". Task 1/2's existing source greps left untouched. No source touched. |
+| 2026-08-31 | Set `nativeButton={false}` on 11 Button call sites rendering a next/link Link or `<a>`, across header/hero/cta-final/programme-accordion/programme page/espace page; then bump Node runtime pin 22→24 in `.nvmrc` and `package.json` engines | Clears 7 Base UI console errors on `/` and 2 on every page carrying the header. Node bump touched only the two pin files — CI already reads `node-version-file: .nvmrc`. `npm run lint` and `npm run typecheck` green after both commits. Two atomic commits, nothing pushed. |
 
 ## Deferred Items
 
