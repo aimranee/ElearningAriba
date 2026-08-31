@@ -61,12 +61,19 @@ async function Hero() {
 
   // Split the signed accroche around its own resting word so the fixed
   // sentence text is derived from the database string, never hand-typed
-  // (D-25) — only the split point is computed here.
+  // (D-25) — only the split points are computed here. Two cuts: first the
+  // lead sentence at its own period (tinted --violet, per maquette v2 · 3),
+  // then the remainder around the resting word so the typewriter can sit on
+  // its own line below "Maîtrisez".
+  const leadSplit = accroche.indexOf(".");
+  const accrocheLead = leadSplit >= 0 ? accroche.slice(0, leadSplit + 1) : accroche;
+  const accrocheRest = leadSplit >= 0 ? accroche.slice(leadSplit + 1).trimStart() : "";
+
   const restingWord = words[0] ?? "";
-  const splitIndex = restingWord ? accroche.indexOf(restingWord) : -1;
-  const accrochePrefix = splitIndex >= 0 ? accroche.slice(0, splitIndex) : accroche;
+  const splitIndex = restingWord ? accrocheRest.indexOf(restingWord) : -1;
+  const accrochePrefix = splitIndex >= 0 ? accrocheRest.slice(0, splitIndex) : accrocheRest;
   const accrocheSuffix =
-    splitIndex >= 0 ? accroche.slice(splitIndex + restingWord.length) : "";
+    splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
 
   const liveModule = modulesResult.data[1] ?? modulesResult.data[0];
 
@@ -97,7 +104,9 @@ async function Hero() {
           >
             <span className="sr-only">{accroche}</span>
             <span aria-hidden="true">
+              <span className="text-[var(--violet)]">{accrocheLead}</span>{" "}
               {accrochePrefix}
+              <br />
               <Typewriter words={words} />
               {accrocheSuffix}
             </span>
