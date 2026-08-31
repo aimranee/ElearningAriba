@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 Phase: 02 (site-public) — EXECUTING
 Plan: 02-01..02-10 complete; 02-11 not started. Unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 — all deliberately deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending
 Status: Waves 1-5 delivered and verified from the repo: next build green, all content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows
-Last activity: 2026-08-30
+Last activity: 2026-08-31 - Completed quick task 260831-grv: landing v2 Run 2 (header + hero)
 
 Progress: [█████████░] 97%
 
@@ -124,14 +124,16 @@ Recent decisions affecting current work:
 
 - **[Phase 02-04, unreviewed gate]** Task 3 (checkpoint:human-verify) was
   deferred rather than executed, per founder decision to batch mid-phase visual
-  reviews into plan 02-11. Nobody has confirmed the header's resting state
-  (`rgba(252,252,255,.55)`, `blur(10px) saturate(1.25)`, no shadow) is visually
-  distinct from its scrolled state (`rgba(252,252,255,.82)`, `blur(20px)
-  saturate(1.45)`, two-part shadow), that the scroll-progress bar behaves
-  correctly, or that the mobile nav is usable — only `npm run build`/`lint`/
-  `tsc` and grep-based acceptance criteria passed. See
-  `.planning/phases/02-site-public/02-04-SUMMARY.md` for the exact values to
-  check. Do not treat this as approved.
+  reviews into plan 02-11. Nobody has confirmed the header's scroll behavior,
+  that the scroll-progress bar behaves correctly, or that the mobile nav is
+  usable — only `npm run build`/`lint`/`tsc` and grep-based acceptance
+  criteria passed. **Superseded 2026-08-31 (quick task 260831-grv, landing v2
+  Run 2):** the header's resting state is no longer `rgba(252,252,255,.55)` —
+  it is now fully transparent (no background/blur/shadow) at rest, with the
+  scrolled state at `rgba(252,252,255,.72)`, `blur(28px) saturate(1.7)`, per
+  `ariba-cto/notes/2026-08-31-maquette-lot2-landing-v2.html`. See
+  `.planning/quick/260831-grv-refonte-visuelle-landing-run-2-en-tete-e/260831-grv-SUMMARY.md`
+  for what changed. Still unreviewed by a human — do not treat as approved.
 
 ## Quick Tasks Completed
 
@@ -141,6 +143,7 @@ Recent decisions affecting current work:
 | 2026-08-30 | Correct prior sweep: replace value-blind ("literal"\|{expr}) greps with prerendered-HTML value assertions | The previous widening accepted `variant={anything}`/`data-magnetic={false}` as a pass — a false positive. Converted 02-05 (hero data-magnetic) and 02-06 (programme/formation/a-propos raised-card + band-tone) to assert the actual value in `.next/server/app/*.html` after `npm run build`, since those files are routes rendered directly. Left 02-09/02-10's own per-file checks unconverted: those components mount into `src/app/page.tsx` only in each plan's later checkpoint task, so no route exists yet at their verification point to assert against — explained in each plan and covered by that checkpoint's human visual review. 02-11's nav-href widening left as-is (different shape, out of scope of this correction). No source touched. |
 | 2026-08-30 | Close the human-visual-review gap in 02-09/02-10: add prerendered-HTML assertions to each plan's Task 3 (the mount point) | The fallback named in the prior entry — Task 3's human visual review — does not exist; all mid-phase human-verify gates in this phase auto-advance unreviewed. Added to Task 3 in both plans, run against `.next/server/app/index.html` after `npm run build`: `data-tone="band"` and `data-tone="default"` each ≥1 (D-21 alternation); `data-magnetic="true"` ≥1 (02-09: ProgrammeAccordion's reservation CTA; 02-10: CtaFinal's white button). `shadow-[var(--shadow-3)]` and `rounded-[22px]` (Card variant="raised"'s literal base classes, confirmed in card.tsx) ≥5 in 02-09 — "These five cards are five of the eleven floating surfaces AC-1 counts" (Task 1) — and ≥9 in 02-10 — six format-modalites items + three confiance faits, per "this task brings the landing page to at least fourteen floating cards" (Task 1), i.e. 14 minus 02-09's 5. Competences.tsx's rows and confiance's two placeholders were excluded from the shadow-3/rounded-22 count: competences uses shadow-2 base / 18px radius per its own plan text, and the placeholders are explicitly "DELIBERATELY not floating cards". Task 1/2's existing source greps left untouched. No source touched. |
 | 2026-08-31 | Set `nativeButton={false}` on 11 Button call sites rendering a next/link Link or `<a>`, across header/hero/cta-final/programme-accordion/programme page/espace page; then bump Node runtime pin 22→24 in `.nvmrc` and `package.json` engines | Clears 7 Base UI console errors on `/` and 2 on every page carrying the header. Node bump touched only the two pin files — CI already reads `node-version-file: .nvmrc`. `npm run lint` and `npm run typecheck` green after both commits. Two atomic commits, nothing pushed. |
+| 2026-08-31 | Landing v2 Run 2 (header + hero): header transparent at rest, `before:` safety gradient, "Prendre RDV" CTA (new `common.actions.prendreRdv` key) with arrow-chip pastille hidden below 1000px alongside Connexion; H1 accroche rewritten in `landing.json` to end on its animated word, `hero.tsx` split into lead-sentence (violet) + typewriter-on-its-own-line | Matches `ariba-cto/notes/2026-08-31-maquette-lot2-landing-v2.html` §Run 2. Re-seeded local Supabase content only. `npm run lint`/`typecheck`/`build` all 0, 14 routes still static, prerendered `index.html` confirms transparent header base classes and the new H1 split. Two atomic source commits, nothing pushed. See `260831-grv-SUMMARY.md`. |
 
 ## Deferred Items
 
