@@ -280,7 +280,7 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
    compétences, the programme and FAQ accordions, and the Format parcours rows;
    **niveau 2** on the Pour-qui tiles, the Confiance tiles, and the parcours' side
    frame; **niveau 3** on **exactly two persistent surfaces** page-wide (hero
-   console frame, CTA-final assembly card) — the ceiling counts rendered
+   assembly card, CTA-final console frame) — the ceiling counts rendered
    elements that carry the niveau-3 rest/hover treatment (raised Card variant
    or an equivalent hand-styled surface), not a `Button` primary variant's
    `hover:shadow-[var(--shadow-4)]` hover micro-interaction, which is excluded
