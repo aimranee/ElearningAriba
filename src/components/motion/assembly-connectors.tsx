@@ -87,7 +87,7 @@ function AssemblyConnectors() {
     <svg
       ref={svgRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[2] size-full"
+      className="pointer-events-none absolute inset-0 z-[2] hidden size-full sm:block"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
