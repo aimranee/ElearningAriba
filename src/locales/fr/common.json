@@ -79,5 +79,33 @@
     "heures": "de formation live",
     "competences": "compétences pratiquées",
     "prerequis": "prérequis SAP exigé"
+  },
+  "formatModalitesAside": {
+    "titre": "Ce que comprend votre parcours",
+    "items": [
+      "Sessions animées en direct",
+      "Support PDF par module",
+      "Cas pratique en fin de module",
+      "Accès aux supports",
+      "Aucun prérequis SAP"
+    ],
+    "itemFutur": "Compléments vidéo — à venir",
+    "resume": "{modules} modules · {heures} de formation live"
+  },
+  "assemblage": {
+    "frameLabel": "Votre parcours SAP Ariba — assemblage",
+    "statut": "En préparation",
+    "badge": "Parcours SAP Ariba",
+    "moduleTitre": "Procure-to-Pay",
+    "resume": "{modules} modules · {heures} de formation live",
+    "pills": [
+      { "cle": "appel-decouverte", "label": "Appel découverte" },
+      { "cle": "session-live", "label": "Session live" },
+      { "cle": "support-pdf", "label": "Support PDF" }
+    ]
+  },
+  "photoSlot": {
+    "label": "Photo · portrait du formateur",
+    "description": "Emplacement réel, dimensionné 16/9 et prêt pour next/image. Il reste déclaré tant qu'aucun fichier n'est fourni."
   }
 }
