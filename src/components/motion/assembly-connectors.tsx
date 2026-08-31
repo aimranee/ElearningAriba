@@ -94,8 +94,9 @@ function AssemblyConnectors() {
       <defs>
         {PATHS.map((path) => (
           <linearGradient key={path.id} id={path.id} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={path.from} stopOpacity=".25" />
-            <stop offset="100%" stopColor="var(--violet)" stopOpacity=".95" />
+            <stop offset="0%" stopColor={path.from} stopOpacity=".9" />
+            <stop offset="40%" stopColor="var(--card)" stopOpacity=".95" />
+            <stop offset="100%" stopColor="var(--card)" stopOpacity=".95" />
           </linearGradient>
         ))}
       </defs>
@@ -108,7 +109,7 @@ function AssemblyConnectors() {
           d={path.d}
           fill="none"
           stroke={`url(#${path.id})`}
-          strokeWidth="1.6"
+          strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
       ))}
@@ -119,7 +120,7 @@ function AssemblyConnectors() {
             cometRefs.current[index] = el;
           }}
           r="1.4"
-          fill="var(--violet)"
+          fill="var(--card)"
           style={{
             offsetPath: `path("${path.d}")`,
             animation: "comet 2.6s var(--ease-brand) infinite",
