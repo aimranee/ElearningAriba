@@ -11,7 +11,6 @@ import common from "@/locales/fr/common.json";
 const NAV_LINK_CLASS = `text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`;
 
 const MOBILE_LINKS = [
-  { href: "/", label: common.nav.accueil },
   { href: "/programme", label: common.nav.programme },
   { href: "/formation", label: common.nav.formation },
   { href: "/a-propos", label: common.nav.aPropos },
@@ -52,18 +51,24 @@ export function Header() {
       <div className="relative z-[1] mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-6">
         <Link
           href="/"
-          className={`font-heading text-lg font-semibold text-foreground ${FOCUS_RING}`}
+          className={`inline-flex items-center gap-[0.6rem] ${FOCUS_RING}`}
         >
-          {common.metadata.title}
+          <span
+            aria-hidden="true"
+            className="flex size-8 shrink-0 items-center justify-center rounded-[9px] text-sm font-bold text-white"
+            style={{ background: "linear-gradient(135deg,var(--violet),var(--indigo))" }}
+          >
+            A
+          </span>
+          <span className="font-heading text-lg font-semibold text-foreground">
+            {common.metadata.title}
+          </span>
         </Link>
 
         <nav
           aria-label={common.metadata.title}
           className="hidden items-center gap-6 min-[1000px]:flex"
         >
-          <Link href="/" className={NAV_LINK_CLASS}>
-            {common.nav.accueil}
-          </Link>
           <Link href="/programme" className={NAV_LINK_CLASS}>
             {common.nav.programme}
           </Link>

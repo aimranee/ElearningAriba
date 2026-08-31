@@ -4,7 +4,6 @@
     "description": "Plateforme de réservation de formations SAP Ariba en direct."
   },
   "nav": {
-    "accueil": "Accueil",
     "programme": "Programme",
     "formation": "Formation",
     "aPropos": "À propos",
