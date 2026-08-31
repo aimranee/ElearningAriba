@@ -163,7 +163,7 @@ async function Hero() {
           </Reveal>
         </div>
 
-        <Reveal as="div" dataD={2} className="relative">
+        <Reveal as="div" dataD={2} className="relative min-w-0">
           <div
             data-slot="hero-assembly"
             className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]"
@@ -180,10 +180,10 @@ async function Hero() {
               </span>
             </div>
 
-            <div className="relative grid grid-cols-[.92fr_1.08fr] items-center gap-[1.1rem] p-[1.15rem]">
+            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
               <AssemblyConnectors />
 
-              <div className="relative z-[1] flex flex-col gap-[0.6rem]">
+              <div className="relative z-[1] min-w-0 flex flex-col gap-[0.6rem]">
                 {assemblage.pills.map((pill, index) => {
                   const Icon = ASM_PILL_ICONS[index];
                   return (
@@ -205,7 +205,7 @@ async function Hero() {
               </div>
 
               <div
-                className="relative z-[1] rounded-[18px] p-[1.15rem] text-white shadow-[var(--shadow-brand)]"
+                className="relative z-[1] min-w-0 rounded-[18px] p-[1.15rem] text-white shadow-[var(--shadow-brand)]"
                 style={{ background: "linear-gradient(135deg,var(--violet),var(--indigo))" }}
               >
                 <span className="mb-[0.7rem] inline-flex items-center gap-[0.35rem] rounded-full bg-white/18 px-[0.6rem] py-[0.28rem] text-[0.6rem] font-extrabold tracking-[0.1em] uppercase">
