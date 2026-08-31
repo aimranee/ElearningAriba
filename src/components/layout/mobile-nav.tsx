@@ -4,6 +4,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { FOCUS_RING } from "@/lib/utils";
 import common from "@/locales/fr/common.json";
 
@@ -30,9 +31,11 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
         onClick={() => setOpen((value) => !value)}
         className={`flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground ${FOCUS_RING}`}
       >
-        <span aria-hidden="true" className="text-sm">
-          {open ? common.nav.menu.fermer : common.nav.menu.ouvrir}
-        </span>
+        {open ? (
+          <X aria-hidden="true" className="size-5" />
+        ) : (
+          <Menu aria-hidden="true" className="size-5" />
+        )}
       </button>
 
       {open && (
