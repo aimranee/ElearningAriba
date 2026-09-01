@@ -134,9 +134,11 @@ islands**, never by turning the page into a client component.
 6. **Confiance et sécurité** — three faits + emplacements témoignages / logos
 7. **CTA final et FAQ** — sept questions
 
-Plus the **26academy-style bands** the founder approved: the animated figures band (the
-five module durations 3 h / 4 h / 4 h / 3 h / 3 h — **17 h total**) and honest trust
-placeholders.
+The animated stats band is **removed 2026-09-01** (founder decision) — its
+figures duplicated content already shown elsewhere on the page. The **17 h
+total** itself is not removed from the site: it is still computed from the
+five module durations (3 h / 4 h / 4 h / 3 h / 3 h) at read time and shown by
+Format et modalités and `/programme.pdf`. Honest trust placeholders remain.
 
 ### Other surfaces
 
