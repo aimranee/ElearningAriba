@@ -2,6 +2,12 @@
   "titre": "Votre espace apprenant. Tout votre parcours SAP Ariba, réuni au même endroit.",
   "intro": "Retrouvez vos rendez-vous, vos sessions, votre historique, vos documents, vos factures et votre avancement.",
   "bienvenue": "Bonjour {prenom}, heureux de vous revoir.",
+  "nav": {
+    "apercu": "Mon espace",
+    "profil": "Mon profil",
+    "donnees": "Mes données"
+  },
+  "deconnexion": "Se déconnecter",
   "aucuneReservation": {
     "titre": "Vous n'avez encore rien réservé.",
     "message": "Choisissez un appel découverte, une session individuelle ou une session en groupe pour démarrer votre parcours.",
@@ -30,6 +36,8 @@
   },
   "documents": {
     "titre": "Mes documents",
+    "expiration": "Vos liens de téléchargement sont personnels et expirent rapidement. Relancez le téléchargement si le vôtre n'est plus valide.",
+    "erreur": "Ce document n'a pas pu être ouvert. Réessayez dans quelques instants.",
     "vide": {
       "titre": "Aucun document disponible.",
       "message": "Les supports de formation apparaîtront ici après votre première session."

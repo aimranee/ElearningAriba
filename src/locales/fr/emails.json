@@ -92,5 +92,23 @@
     },
     "signature": "Votre formateur, expert certifié SAP Ariba",
     "pied": "Cet email automatique confirme la réception de votre message."
+  },
+  "suppressionCompteNotification": {
+    "objet": "Une demande de suppression de compte a été enregistrée.",
+    "preheader": "{prenom} {nom} a demandé la suppression de son compte apprenant.",
+    "salutation": "Bonjour,",
+    "corps": [
+      "Un apprenant a demandé la suppression de son compte.",
+      "Prénom : {prenom}",
+      "Nom : {nom}",
+      "Email : {email}",
+      "Date de la demande : {date}"
+    ],
+    "action": {
+      "libelle": "Consulter le site",
+      "contexte": "Ce lien vous ramène au site pendant que la demande est traitée."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique transmet une demande de suppression de compte."
   }
 }
