@@ -69,9 +69,9 @@ html {
   /* D-54 (2026-09-01): --duration-entrance drives the .reveal entrance only —
      distinct from --duration-reveal above, which drives the "Pour qui" card
      hover expansion and the competence-rule trace, not entrance. */
-  /* D-55 (2026-09-01): 700ms read as pressed once the curve softened —
-     under easeOutCubic the full duration is perceived motion, unlike the
-     old expo-out where most of it was dead trail. */
+  /* D-55 (2026-09-01): the shorter D-54 duration read as pressed once the
+     curve softened — under easeOutCubic the full duration is perceived
+     motion, unlike the old expo-out where most of it was dead trail. */
   --duration-entrance: 950ms;
 
   /* D-06: four paired shadow tiers — a 1px contact shadow plus a large soft
