@@ -258,6 +258,17 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   titre en `--ink`, phrase en `--ink-soft`), et **l'ordre des teintes est
   calculé** pour que violet/indigo et bleu/ciel ne soient jamais adjacents,
   à aucune largeur.
+- **D-54** (2026-09-01, founder): la courbe unique du site passe de
+  `cubic-bezier(0.16, 1, 0.3, 1)` à `cubic-bezier(0.22, 0.61, 0.36, 1)`, et
+  l'entrée `.reveal` passe de 1s en dur à `--duration-entrance: 700ms`.
+  Motif : la courbe expo-out plaçait 49 % du mouvement dans les 10 premiers
+  pour cent du temps — sur les 34px de `.reveal`, 22px étaient parcourus en
+  150ms et les 12px restants étalés sur 850ms, ce que l'œil lit comme un
+  saut suivi d'une immobilité, pas comme un mouvement. Allonger la durée
+  aggrave le défaut ; seule la courbe le corrige. `D-17` tient : une seule
+  courbe sur le site, dont la valeur a changé. `--duration-reveal` (450ms,
+  `D-49`) reste distinct — il porte le dépliement « Pour qui » et le tracé
+  du filet, pas l'entrée.
 
 ### Claude's Discretion
 
