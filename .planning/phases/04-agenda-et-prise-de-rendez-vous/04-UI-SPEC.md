@@ -1,7 +1,7 @@
 ---
 phase: 4
 slug: agenda-et-prise-de-rendez-vous
-status: draft
+status: approved
 shadcn_initialized: true
 preset: "none — components.json present, components hand-authored on @base-ui/react; no registry block installed in this phase"
 created: 2026-09-01
@@ -405,16 +405,16 @@ and is recorded for founder review at Lot 4 recette.
 *Verdicts are written by gsd-ui-checker, not by the researcher. They stay unchecked and
 unlabelled until the checker rules.*
 
-- [ ] Dimension 1 Copywriting: —
-- [ ] Dimension 2 Visuals: —
-- [ ] Dimension 3 Color: —
-- [ ] Dimension 4 Typography: —
-- [ ] Dimension 5 Spacing: —
-- [ ] Dimension 6 Registry Safety: —
+- [x] Dimension 1 Copywriting: FLAG — "Continuer" CTA is a single verb without a noun; confirm unambiguous at recette or swap for "Continuer vers le récapitulatif"
+- [x] Dimension 2 Visuals: FLAG — icon-only admin action-buttons (44×44px cancel/move) need explicit `aria-label` + `sr-only` text fallback declared before planning locks component shape
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
 
-**Approval:** pending — the six decisions in *Decisions taken autonomously* additionally require
-founder review at Lot 4 recette, together with the D-24 legend content change (already flagged to
-the Chief of Staff per `04-CONTEXT.md`).
+**Approval:** APPROVED (2 non-blocking FLAGs, see above) — the six decisions in *Decisions taken
+autonomously* additionally require founder review at Lot 4 recette, together with the D-24 legend
+content change (already flagged to the Chief of Staff per `04-CONTEXT.md`).
 
 ---
 
