@@ -59,3 +59,13 @@ export function renderContactNotification(values: {
 export function renderContactAcknowledgement(values: { prenom: string }): RenderedEmail {
   return renderEntry(emails.contactAccusReception as EmailEntry, values);
 }
+
+/** The notification sent to the trainer when a learner requests account deletion. */
+export function renderSuppressionNotification(values: {
+  prenom: string;
+  nom: string;
+  email: string;
+  date: string;
+}): RenderedEmail {
+  return renderEntry(emails.suppressionCompteNotification as EmailEntry, values);
+}
