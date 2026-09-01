@@ -143,3 +143,7 @@ Per the plan's own `<hosted_limits>`: the callback's OAuth (`code`) branch is wr
 ---
 *Phase: 03-comptes-connexion-et-espace-apprenant*
 *Completed: 2026-09-01*
+
+## Self-Check: PASSED
+
+All 7 created files confirmed present on disk; all 4 commits (3fb2959, ae1b328, 00f5422, ada2967) confirmed in `git log`.
