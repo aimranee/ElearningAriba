@@ -144,6 +144,52 @@ export async function getFormationFourni(): Promise<
   return { ok: true, data: parsed.data };
 }
 
+/* why: `donnees.preuve` is jsonb, validated at the boundary per CLAUDE.md —
+   lienHref/lienLabel stay optional (the third fact carries no link). */
+const confianceDonneesSchema = z.object({
+  preuve: z.object({
+    texte: z.string(),
+    lienHref: z.string().optional(),
+    lienLabel: z.string().optional(),
+  }),
+});
+
+export type ConfianceFait = {
+  id: string;
+  cle: string;
+  titre: string;
+  description: string;
+  preuveTexte: string;
+  preuveLienHref?: string;
+  preuveLienLabel?: string;
+};
+
+export async function getConfianceFaits(): Promise<QueryResult<ConfianceFait[]>> {
+  const result = await getSectionItems("confiance");
+  if (!result.ok) {
+    return result;
+  }
+
+  const faits: ConfianceFait[] = [];
+  for (const item of result.data) {
+    const parsedDonnees = confianceDonneesSchema.safeParse(item.donnees);
+    if (!parsedDonnees.success || item.titre === null || item.description === null) {
+      return { ok: false };
+    }
+    faits.push({
+      id: item.id,
+      cle: item.cle,
+      titre: item.titre,
+      description: item.description,
+      preuveTexte: parsedDonnees.data.preuve.texte,
+      preuveLienHref: parsedDonnees.data.preuve.lienHref,
+      preuveLienLabel: parsedDonnees.data.preuve.lienLabel,
+    });
+  }
+
+  return { ok: true, data: faits };
+}
+
 export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
   const result = await getSectionItems("programme");
   if (!result.ok) {
