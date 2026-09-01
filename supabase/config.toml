@@ -168,7 +168,21 @@ site_url = "http://127.0.0.1:3000"
 # D-14 — this is https while site_url above is http; carried deliberately,
 # checked when Google is wired in plan 03-06. Not fixed here.
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+# Despite the "exact" wording above, GoTrue matches these entries as globs — measured
+# locally: an exact "http://localhost:3100/api/auth/callback" entry rejects the
+# mot-de-passe/demande redirect (which appends "?next=/nouveau-mot-de-passe"), silently
+# falling back to site_url. A trailing "**" matches the callback path plus any query
+# string. Entries below cover both local hosts (127.0.0.1, localhost) and both ports in
+# use across worktrees (3000 for the phase-02 session, 3100 for this one), so
+# NEXT_PUBLIC_SITE_URL/api/auth/callback is on the allow-list regardless of which
+# worktree issues the request.
+additional_redirect_urls = [
+  "https://127.0.0.1:3000",
+  "http://127.0.0.1:3000/api/auth/callback**",
+  "http://localhost:3000/api/auth/callback**",
+  "http://127.0.0.1:3100/api/auth/callback**",
+  "http://localhost:3100/api/auth/callback**",
+]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -266,9 +280,9 @@ otp_expiry = 3600
 # content_path = "./supabase/templates/invite.html"
 
 # D-23 — francised confirmation email; strings transcribed from
-# src/locales/fr/emails.json confirmationInscription.
+# src/locales/fr/emails.json verificationAdresse.
 [auth.email.template.confirmation]
-subject = "Votre compte est confirmé. Vous pouvez réserver votre premier créneau."
+subject = "Confirmez votre adresse email."
 content_path = "./supabase/templates/confirmation.html"
 
 # D-23 — francised recovery email; strings transcribed from
