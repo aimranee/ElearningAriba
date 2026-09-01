@@ -81,6 +81,69 @@ export type ModuleContent = {
  * every row so the 17 h total (D-30) is `sum(dureeHeures)` computed here,
  * never a stored string.
  */
+/* why (2026-09-01): these schemas duplicate src/app/formation/page.tsx:20-28
+   on purpose — that page already works, converging them in this run would
+   widen the risk surface for no benefit to section 5. */
+const derouleDonneesSchema = z.object({
+  deroule: z.array(z.string()).default([]),
+});
+
+const fourniDonneesSchema = z.object({
+  fourni: z.array(z.string()).default([]),
+  prerequis: z.string().optional(),
+  dureeAcces: z.string().optional(),
+});
+
+/**
+ * The five page-formation `deroule` steps. An empty array is treated as a
+ * read failure, not a valid empty list — a "how it runs" section with zero
+ * steps is a defect (D-57).
+ */
+export async function getFormationDeroule(): Promise<QueryResult<string[]>> {
+  const result = await getSectionItems("page-formation");
+  if (!result.ok) {
+    return result;
+  }
+
+  const item = result.data.find((row) => row.cle === "deroule");
+  if (!item) {
+    return { ok: false };
+  }
+
+  const parsed = derouleDonneesSchema.safeParse(item.donnees);
+  if (!parsed.success || parsed.data.deroule.length === 0) {
+    return { ok: false };
+  }
+
+  return { ok: true, data: parsed.data.deroule };
+}
+
+/**
+ * The page-formation `fourni` list plus `prerequis`/`dureeAcces`. Only the
+ * read/parse itself fails the whole result — a missing `prerequis` or
+ * `dureeAcces` degrades silently for the caller.
+ */
+export async function getFormationFourni(): Promise<
+  QueryResult<{ fourni: string[]; prerequis?: string; dureeAcces?: string }>
+> {
+  const result = await getSectionItems("page-formation");
+  if (!result.ok) {
+    return result;
+  }
+
+  const item = result.data.find((row) => row.cle === "fourni");
+  if (!item) {
+    return { ok: false };
+  }
+
+  const parsed = fourniDonneesSchema.safeParse(item.donnees);
+  if (!parsed.success) {
+    return { ok: false };
+  }
+
+  return { ok: true, data: parsed.data };
+}
+
 export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
   const result = await getSectionItems("programme");
   if (!result.ok) {
