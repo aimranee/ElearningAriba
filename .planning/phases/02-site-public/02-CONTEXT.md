@@ -343,6 +343,14 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   clic sur une carte échange sa moitié basse entre description et preuve.
   Hauteur de carte fixe, aucun décalage de mise en page, même comportement
   au clavier et au toucher.
+- **D-65** (2026-09-02, fondateur): la règle de décalage zéro du D-64 est
+  levée. Les cartes de fait de la section Confiance passent à une hauteur
+  animée : repliée la hauteur de la description, dépliée celle de la
+  preuve. Motif mesuré : la réserve permanente coûtait 90 px par carte,
+  payés trois fois sur mobile, et faisait grossir la section de 1567 à
+  1683 px malgré la suppression de 461 px d'encarts en pointillés. Le
+  décalage à l'ouverture est accepté parce que l'accordéon Programme
+  (D-56) le produit déjà.
 
 ### Claude's Discretion
 
