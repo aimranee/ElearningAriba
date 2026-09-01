@@ -112,6 +112,29 @@
   "formatModalites": {
     "eyebrow": "Format et modalités",
     "titre": "Le format tient en quelques repères clairs. Voici comment se déroule la formation.",
+    "apercu": {
+      "etapeLabel": "Étape {n}",
+      "panneaux": [
+        { "eyebrow": "Connexion", "titre": "Votre créneau réservé" },
+        { "eyebrow": "Présentation", "titre": "Le formateur présente le module" },
+        { "eyebrow": "Démonstration", "titre": "Le formateur partage son écran" },
+        { "eyebrow": "Cas pratique", "titre": "Vous mettez en pratique" },
+        { "eyebrow": "Synthèse", "titre": "Questions et synthèse" }
+      ],
+      "enDirect": "En direct",
+      "ecranPartage": "Écran partagé",
+      "rejoindre": "Rejoindre la session",
+      "confirme": "Confirmé",
+      "accompagne": "Accompagné par le formateur",
+      "supportModule": "Support PDF du module",
+      "vosQuestions": "Vos questions",
+      "creneauExemple": "Jeudi · 14 h — 16 h",
+      "formateur": "Formateur",
+      "participants": "Participants",
+      "nonContractuel": "Aperçu de l'interface — exemple non contractuel.",
+      "frameLabel": "Session live · Formation SAP Ariba",
+      "ceQuiEstFourni": "Ce qui est fourni"
+    },
     "items": [
       {
         "titre": "Formations live",
