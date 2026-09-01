@@ -160,7 +160,7 @@ export function ConnexionForm() {
       </div>
 
       <Button
-        render={<Link href="/api/auth/google" />}
+        render={<Link href="/api/auth/google" prefetch={false} />}
         nativeButton={false}
         variant="outline"
       >

@@ -19,7 +19,7 @@
     },
     "accuseReception": {
       "titre": "Votre demande de suppression a bien été enregistrée.",
-      "message": "Le formateur en a été informé. Vous recevrez un email dès que votre compte aura été supprimé."
+      "message": "Le formateur en a été informé."
     },
     "dejaDemandee": {
       "titre": "Une demande de suppression est déjà en cours.",
