@@ -210,7 +210,34 @@ Plans:
   4. The trainer can define weekly hours, open, grey out or block ranges, set holidays, and view, move, cancel, create on a learner's behalf, or export reservations
   5. A reservation carries an order/confirmation state that is inert until Phase 7 activates it, so the payment rule can be switched on without rewriting the booking flow
 
-**Plans**: TBD
+**Plans**: 8 plans
+
+Plans:
+**Wave 1**
+
+- [ ] 04-01-PLAN.md — Availability and reservation model, the exclusion-constraint lock, the read and write RPCs, applied migrations and regenerated types
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 04-02-PLAN.md — Idempotent agenda seed (administrator, appointment types, typical week, French holidays) and the free-slot expansion proofs
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 04-03-PLAN.md — Public `/agenda`: static shell, client availability island, monthly grid, slot list, three-state legend
+
+**Wave 4** *(blocked on Wave 3, run in parallel)*
+
+- [ ] 04-04-PLAN.md — Booking commit: video-link env var, `.ics` builder, Resend attachments, the POST route and the `.ics` download
+- [ ] 04-06-PLAN.md — `/admin` shell with the role gate, weekly hours, range exceptions and the holiday calendar
+
+**Wave 5** *(blocked on Wave 4, run in parallel)*
+
+- [ ] 04-05-PLAN.md — The three booking screens, the success surface and the learner's appointments in `/espace`
+- [ ] 04-07-PLAN.md — Admin reservation RPCs (move, cancel, book on behalf) and the French-Excel CSV export
+
+**Wave 6** *(blocked on Wave 5)*
+
+- [ ] 04-08-PLAN.md — `/admin/reservations`: the table, per-row move and cancel, create-on-behalf and the export panel
 
 ### Phase 5: SEO, pages juridiques, RGPD et mise en ligne
 
