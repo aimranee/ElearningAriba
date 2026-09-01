@@ -80,10 +80,16 @@ async function Competences() {
                       "linear-gradient(150deg, color-mix(in srgb, var(--card-accent) 30%, white) 0%, white 72%)",
                   }}
                 />
+                {/* why (D-55, 2026-09-01): the tile rose 2px while its own
+                    watermark dropped 6px — opposing vectors that visibly
+                    detached the icon from its card — and the element is
+                    clipped by the tile's edge, so any offset re-cropped it
+                    and changed its silhouette mid-motion. A 150px shape
+                    blooms; it doesn't travel. */}
                 {Picto ? (
                   <Picto
                     aria-hidden="true"
-                    className="absolute -bottom-7 -right-7 size-[150px] pointer-events-none text-[var(--card-accent)] opacity-[0.18] transition-[opacity,transform] duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:opacity-[0.26] group-hover:translate-x-[6px] group-hover:translate-y-[6px]"
+                    className="absolute -bottom-7 -right-7 size-[150px] pointer-events-none text-[var(--card-accent)] opacity-[0.18] transition-opacity duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:opacity-[0.26]"
                   />
                 ) : null}
                 <div
