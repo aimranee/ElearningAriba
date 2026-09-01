@@ -212,13 +212,18 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 - **D-49** (2026-09-01, founder): "Pour qui" moves to intention cards — a
   first-person accroche (`content_item.donnees.accroche`, jsonb, no
   migration) is the card headline, the five signed profile names move to the
-  card footer as a `/programme` link label, the description reveals on hover
-  via a two-block inverse-grid technique that keeps card and row height
-  constant, and the section tone flips to `band` (Competences flips to
-  `default` to preserve alternation). Two reference screenshots
-  (`Screenshot 2026-09-01 083648.png`/`083656.png`) set direction only, not
-  authority — see `D-50` and the AA contrast note below for the two measured
-  departures.
+  card footer as a `/programme` link label, and the section tone flips to
+  `band` (Competences flips to `default` to preserve alternation). Two
+  reference screenshots (`Screenshot 2026-09-01 083648.png`/`083656.png`) set
+  direction only, not authority — see `D-50` and the AA contrast note below
+  for the two measured departures. The description originally revealed on
+  hover via a two-block inverse-grid technique that reserved constant card
+  and row height; **replaced 2026-09-01 (founder)** with a dynamic height —
+  compact at rest, expanding on hover/focus, row and downstream content shift
+  with it — after measuring 114–116px of dead space under the footer at rest
+  (35–36% of card height). Reveal duration also slows from `--duration-base`
+  (220ms) to a dedicated `--duration-reveal` (450ms) token for this gesture
+  only; `--duration-base` is unchanged for its other consumers.
 - **D-50** (2026-09-01, CTO): extends `D-05`'s token set with `--blue-ink`
   (`#3472d8`), `--mint-ink` (`#158568`), `--amber-ink` (`#996c29`) — measured,
   not an oversight: `--blue`/`--mint`/`--amber` fail WCAG AA as ink-on-white-card
