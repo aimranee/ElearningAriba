@@ -329,6 +329,20 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   périmée est un piège pour le prochain lecteur. #4338ca porte un glyphe
   blanc en AA, contrairement à `--sky`, `--mint` et `--blue` (mesurés 2,14 /
   2,16 / 3,68 au D-57), donc la pastille pictogramme reste conforme.
+- **D-61** (2026-09-01, fondateur): les emplacements « Témoignages » et
+  « Entreprises » sont retirés du rendu et des données semées.
+- **D-62** (2026-09-01, fondateur + CTO): les trois faits deviennent
+  vérifiables — appel découverte gratuit 30 min, formateur nommé avec
+  parcours consultable, groupe plafonné à un nombre. « Protection des
+  données » et « Contenus régulièrement mis à jour » quittent la landing.
+- **D-63** (2026-09-01, fondateur + CTO): l'encart photo 16/9 en pointillés
+  est remplacé par une carte formateur composée en code. Aucune photo n'est
+  sourcée ; `public/` ne contient aucune image matricielle. La pastille de
+  monogramme est le seul emplacement du portrait futur.
+- **D-64** (2026-09-01, fondateur + CTO): mécanisme « fait → preuve » — un
+  clic sur une carte échange sa moitié basse entre description et preuve.
+  Hauteur de carte fixe, aucun décalage de mise en page, même comportement
+  au clavier et au toucher.
 
 ### Claude's Discretion
 
