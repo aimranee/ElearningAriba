@@ -67,12 +67,6 @@
       ]
     }
   },
-  "statsBand": {
-    "modules": "modules progressifs",
-    "heures": "de formation live",
-    "competences": "compétences pratiquées",
-    "prerequis": "prérequis SAP exigé"
-  },
   "formatModalitesAside": {
     "titre": "Ce que comprend votre parcours",
     "items": [

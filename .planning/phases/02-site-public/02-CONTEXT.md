@@ -54,8 +54,14 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   vert ». The conflict was raised and the cost named; the founder reaffirmed violet and
   instructed that it **not** be routed to the Chief of Staff for pricing. Build as
   instructed.
-- **D-03**: The seven signed sections ship, **plus the 26academy-style bands** —
-  animated figures band and honest trust placeholders. Not routed for pricing.
+- **D-03** (superseded 2026-09-01, founder decision): the animated stats band
+  is **removed** — its four figures are all restated elsewhere on the page:
+  Format et modalités repeats the module/hours line verbatim
+  (`formatModalitesAside.resume`), the Compétences section renders the same
+  six skills, and "Aucun prérequis SAP" already appears twice (hero chip,
+  Format et modalités). The honest trust placeholders remain. The seven
+  signed sections remain. No signed requirement is affected — none of
+  `PUB-01`..`PUB-07` names a stats band.
 - **D-04** (superseded 2026-08-31, founder decision): the maquette is **retired as
   visual authority**. The rendered application is the reference. Reason: three times
   the maquette was wrong and the shipped code was right (missing `<meta charset>`,
