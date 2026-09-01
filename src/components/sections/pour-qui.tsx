@@ -12,7 +12,10 @@ import common from "@/locales/fr/common.json";
  * PUB-02 — five intention cards read from `pour-qui`. Uniform-width 3+2 grid
  * at lg (64rem) (D-49), two equal columns below lg, one below 640px.
  * `tone="band"` tints the section (D-49) — Compétences flips to `default` to
- * preserve the alternation after the 2026-09-01 stats-band removal.
+ * preserve the alternation after the 2026-09-01 stats-band removal. Cards are
+ * compact at rest and expand on hover/focus (D-49, 2026-09-01) — the row
+ * grows with the hovered card and content below shifts down; this is
+ * intentional.
  */
 const FALLBACK = { accent: "var(--violet)", ink: "var(--violet)" };
 
@@ -78,7 +81,7 @@ async function PourQui() {
               >
                 <Card
                   variant="default"
-                  className="h-full p-[1.7rem] group-hover:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)] group-focus-within:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)]"
+                  className="h-full p-[1.7rem] duration-[var(--duration-reveal)] group-hover:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)] group-focus-within:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)]"
                   style={
                     {
                       "--card-accent": accentInk.accent,
@@ -97,7 +100,7 @@ async function PourQui() {
                   <CardTitle className="mt-3 font-heading text-[1.05rem] leading-[1.3] font-bold tracking-[-0.02em] text-[var(--ink)]">
                     {accroche}
                   </CardTitle>
-                  <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] [@media(hover:none)]:grid-rows-[1fr]">
+                  <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] [@media(hover:none)]:grid-rows-[1fr]">
                     <div className="overflow-hidden">
                       <CardDescription className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
                         {profil.description}
@@ -111,20 +114,10 @@ async function PourQui() {
                       </span>
                       <ArrowRight
                         aria-hidden="true"
-                        className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:translate-x-[3px] group-focus-within:translate-x-[3px]"
+                        className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:translate-x-[3px] group-focus-within:translate-x-[3px]"
                       />
                     </div>
                   ) : null}
-                  <div
-                    aria-hidden="true"
-                    className="grid grid-rows-[1fr] transition-[grid-template-rows] duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:grid-rows-[0fr] group-focus-within:grid-rows-[0fr] [@media(hover:none)]:grid-rows-[0fr]"
-                  >
-                    <div className="overflow-hidden invisible">
-                      <CardDescription className="text-[0.94rem] leading-[1.6]">
-                        {profil.description}
-                      </CardDescription>
-                    </div>
-                  </div>
                 </Card>
               </Link>
             </Reveal>

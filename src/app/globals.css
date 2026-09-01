@@ -59,6 +59,10 @@ html {
   /* D-17: the only easing curve on the site. Never add a second one. */
   --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-base: 220ms;
+  /* D-49: slower reveal for the "Pour qui" card hover expansion — 220ms read
+     as too abrupt for a height change; --duration-base stays 220ms for its
+     other 15 consumers. */
+  --duration-reveal: 450ms;
 
   /* D-06: four paired shadow tiers — a 1px contact shadow plus a large soft
      one — plus a fifth accent tier for anything wearing the violet brand. */
