@@ -317,6 +317,18 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   a été écarté : 3,53 en blanc-sur, sous la barre AA. Le rose s'écarte une
   seconde fois de CADR-05 (« palette bleu / blanc / vert »), après le violet
   de D-02, sur décision du fondateur.
+- **D-60** (2026-09-01, fondateur): la tuile « Tenir catalogues, contrats et
+  workflows » repasse de `--rose` à `--indigo` (#4338ca). Le rose lisait
+  « girly » pour le fondateur ; mesuré sur le rendu, il n'existait qu'à cinq
+  éléments de toute la page, tous dans cette tuile et son pictogramme. Le
+  mur devient violet, blue, mint, amber, indigo, sky : six teintes
+  distinctes, aucun rose. L'objection du D-59 — indigo quasi-jumeau du
+  violet — tombe maintenant que `--sky` occupe la sixième tuile et que les
+  tuiles 1 et 5 ne sont jamais adjacentes dans la grille à trois colonnes.
+  `--rose` sort de la palette : un jeton mort dont la justification est
+  périmée est un piège pour le prochain lecteur. #4338ca porte un glyphe
+  blanc en AA, contrairement à `--sky`, `--mint` et `--blue` (mesurés 2,14 /
+  2,16 / 3,68 au D-57), donc la pastille pictogramme reste conforme.
 
 ### Claude's Discretion
 
