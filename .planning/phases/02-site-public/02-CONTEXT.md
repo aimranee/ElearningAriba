@@ -291,6 +291,22 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   ses items en manque — la loger dans `programme` rendrait l'état
   d'erreur. Sa requête reste **hors de la garde d'erreur** : son échec
   masque le bouton, il ne blanchit pas la section.
+- **D-57** (2026-09-01, founder + CTO): la section Format rend le `deroule`
+  réel de cinq étapes lu depuis `page-formation`, avec un aperçu par étape
+  dans le cadre de fenêtre du héros, cinq mises en page distinctes, et « Ce
+  qui est fourni » en bande sous les deux colonnes. Les six « repères »
+  cessaient de décrire une séquence : ils étaient numérotés `01→06` avec une
+  barre de progression alors que « Prérequis » y était l'étape 06 et
+  « Vidéos à venir » — non livré — l'étape 03. L'aperçu de l'étape 03 est un
+  wireframe abstrait : aucune reprise de l'habillage de SAP Ariba sur une
+  page marchande.
+- **D-58** (2026-09-01, CTO): `--sky-ink: #0f7ea6` rejoint `--blue-ink` /
+  `--mint-ink` / `--amber-ink`. Les pastilles numérotées passent du dégradé
+  à l'aplat : seuls `--violet` (4,70), `--deep` (6,29), `--blue-ink` (4,62),
+  `--sky-ink` (4,61) et `--mint-ink` (4,58) portent un chiffre blanc à AA ;
+  `--sky` et `--mint`, utilisés jusqu'ici, étaient mesurés à 2,14 et 2,16.
+  Le glyphe de coche passe à `--mint-ink` (2,16 → 4,58) et les numéros
+  inactifs du stepper à `--muted-ink` (3,02 → 5,41).
 
 ### Claude's Discretion
 
