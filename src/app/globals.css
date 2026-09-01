@@ -103,6 +103,10 @@ html {
   --sky: #38bdf8;
   --mint: #1fc79b;
   --amber: #ffb444;
+  /* why (2026-09-01): --blue/--mint/--amber serve as pastille and wash tint in "Pour qui", but fail AA as ink-on-white-card (3.68 / 2.16 / 1.77). These darkened variants keep the hue and pass (4.62 / 4.58 / 4.63). The accent decorates, the ink reads. */
+  --blue-ink: #3472d8;
+  --mint-ink: #158568;
+  --amber-ink: #996c29;
   --lav: #f1f0ff;
   --lav2: #f6f5ff;
   --soft: #fbfbfe;

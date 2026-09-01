@@ -61,6 +61,10 @@ const moduleDonneesSchema = z.object({
   contenu: z.array(z.string()).default([]),
 });
 
+/* why: `accroche` is jsonb, validated at the boundary per CLAUDE.md; optional
+   so a missing/malformed value degrades silently instead of throwing. */
+export const profilDonneesSchema = z.object({ accroche: z.string().optional() });
+
 export type ModuleContent = {
   id: string;
   cle: string;
