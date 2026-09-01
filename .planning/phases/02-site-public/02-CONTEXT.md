@@ -269,6 +269,18 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   courbe sur le site, dont la valeur a changé. `--duration-reveal` (450ms,
   `D-49`) reste distinct — il porte le dépliement « Pour qui » et le tracé
   du filet, pas l'entrée.
+- **D-55** (2026-09-01, founder + CTO): `--duration-entrance` passe à
+  **950ms**, et le filigrane des tuiles de compétence cesse de se déplacer
+  au survol : il ne lui reste qu'une éclosion d'opacité 0,18 → 0,26 portée
+  par `--duration-reveal`. Motif, en deux temps. La durée : 700ms se lisait
+  pressé une fois la courbe adoucie, parce que sous easeOutCubic la durée
+  entière est du mouvement perçu. Le filigrane : la tuile monte de 2px
+  pendant que son propre filigrane descendait de 6px — vecteurs opposés qui
+  décollent l'icône de sa carte — et l'élément étant coupé par le bord de la
+  tuile, tout déplacement le pousse hors cadre et lui fait changer de
+  silhouette en cours de mouvement. Règle retenue : ce qui est grand bouge
+  peu et lentement. Le décalage d'icône de 3px de `pour-qui.tsx` reste
+  valide — petit élément, un seul axe, aucun bord qui le coupe.
 
 ### Claude's Discretion
 
