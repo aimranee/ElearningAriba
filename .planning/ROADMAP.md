@@ -171,25 +171,25 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 03-01-PLAN.md — Grouped Lot 3 schema: profile identity anchor, support grants, deletion requests, RLS with a negative isolation proof
-- [ ] 03-02-PLAN.md — Auth configuration joins the signed copy: password rule, address confirmation, native rate limits, French Auth emails, Google provider, private bucket
-- [ ] 03-03-PLAN.md — The new French copy, the checkbox primitive, the auth shell and submit button, and the two validation boundaries
+- [x] 03-01-PLAN.md — Grouped Lot 3 schema: profile identity anchor, support grants, deletion requests, RLS with a negative isolation proof
+- [x] 03-02-PLAN.md — Auth configuration joins the signed copy: password rule, address confirmation, native rate limits, French Auth emails, Google provider, private bucket
+- [x] 03-03-PLAN.md — The new French copy, the checkbox primitive, the auth shell and submit button, and the two validation boundaries
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 03-04-PLAN.md — The session spine: middleware, session read, auth callback, sign-out, the espace gate and its nav band
+- [x] 03-04-PLAN.md — The session spine: middleware, session read, auth callback, sign-out, the espace gate and its nav band
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 03-05-PLAN.md — Sign-up with email verification, end to end
-- [ ] 03-06-PLAN.md — Sign-in with password and with Google, throttled, plus the deferred redirect-URL check
-- [ ] 03-07-PLAN.md — Password reset: request without enumeration, then a new password
-- [ ] 03-08-PLAN.md — The learner space with its real first name, and signed short-lived support downloads
-- [ ] 03-09-PLAN.md — The profile surface, and the CPT-04 identity invariant
+- [x] 03-05-PLAN.md — Sign-up with email verification, end to end
+- [x] 03-06-PLAN.md — Sign-in with password and with Google, throttled, plus the deferred redirect-URL check
+- [x] 03-07-PLAN.md — Password reset: request without enumeration, then a new password
+- [x] 03-08-PLAN.md — The learner space with its real first name, and signed short-lived support downloads
+- [x] 03-09-PLAN.md — The profile surface, and the CPT-04 identity invariant
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 03-10-PLAN.md — RGPD: data export and a two-step account-deletion request
+- [x] 03-10-PLAN.md — RGPD: data export and a two-step account-deletion request
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
@@ -341,7 +341,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
 | 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
 | 2. Site public | 10/11 | In Progress|  |
-| 3. Comptes, connexion et espace apprenant | 0/11  | Not started | - |
+| 3. Comptes, connexion et espace apprenant | 10/11 | In Progress|  |
 | 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
 | 6. Sessions live de groupe | 0/TBD | Not started | - |

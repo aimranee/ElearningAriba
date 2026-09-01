@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Waves 1-5 of phase 02 complete (02-01..02-10); 02-11 not started — it is the founder's batched visual review of the deferred human-verify checkpoints and must not be run headless"
-last_updated: "2026-08-31T00:00:00.000Z"
-last_activity: 2026-08-31
+stopped_at: "Phase 03, waves 1-4 complete (03-01..03-10); 03-11 not started -- it is a non-autonomous human-verification checkpoint and must not be run headless"
+last_updated: "2026-09-01T09:13:54.861Z"
+last_activity: 2026-09-01
 progress:
   total_phases: 11
   completed_phases: 2
-  total_plans: 29
-  completed_plans: 28
-  percent: 97
+  total_plans: 40
+  completed_plans: 38
+  percent: 18
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 02 — site-public
+**Current focus:** Phase 03 — comptes-connexion-et-espace-apprenant
 
 ## Current Position
 
-Phase: 02 (site-public) — EXECUTING
-Plan: 02-01..02-10 complete; 02-11 not started. Unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 — all deliberately deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending
-Status: Waves 1-5 delivered and verified from the repo: next build green, all content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows
-Last activity: 2026-08-31 - Completed quick task 260831-gyj: landing v2 Run 3 (parcours, assemblage, photo) + 2 corrections
+Phase: 03 (comptes-connexion-et-espace-apprenant) — EXECUTING
+Plan: 03-01..03-10 complete (10 of 11); 03-11 not started — non-autonomous human-verification checkpoint, deliberately not run headless
+Status: Waves 1-4 delivered: profil/RLS schema, auth config + email templates, locale copy + auth components, session middleware, sign-up, sign-in + Google consent route, password reset, learner space + support documents, profile form, GDPR export/deletion. All local gates (typecheck/lint/build/content:check) green. Hosted deps (Google OAuth client, SMTP, private bucket, migration publish) still owed by CIO.
+Last activity: 2026-09-01
 
 Progress: [█████████░] 97%
 
@@ -134,6 +134,8 @@ Recent decisions affecting current work:
   `ariba-cto/notes/2026-08-31-maquette-lot2-landing-v2.html`. See
   `.planning/quick/260831-grv-refonte-visuelle-landing-run-2-en-tete-e/260831-grv-SUMMARY.md`
   for what changed. Still unreviewed by a human — do not treat as approved.
+
+- Plan 03-11 (checkpoint autonomous:false) intentionally not run headlessly per run instructions -- clean-database re-run and human sign-off on Lot 3 owed to the founder before phase 03 can close
 
 ## Quick Tasks Completed
 
