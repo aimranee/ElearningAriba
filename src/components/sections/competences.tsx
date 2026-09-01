@@ -18,7 +18,7 @@ async function Competences() {
 
   if (!sectionResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="band">
+      <Section tone="default">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -30,7 +30,7 @@ async function Competences() {
   const items = itemsResult.data;
 
   return (
-    <Section tone="band">
+    <Section tone="default">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

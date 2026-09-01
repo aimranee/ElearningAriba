@@ -11,27 +11,32 @@
       {
         "titre": "Acheteurs",
         "description": "Structurez vos processus d'achat et gagnez en autonomie sur Ariba au quotidien.",
-        "picto": "acheteur"
+        "picto": "acheteur",
+        "accroche": "« Je veux structurer mes achats, pas les subir »"
       },
       {
         "titre": "Category managers",
         "description": "Pilotez vos catégories d'achat avec les bons outils Source-to-Pay.",
-        "picto": "category-manager"
+        "picto": "category-manager",
+        "accroche": "« Je veux piloter mes catégories avec les bons outils »"
       },
       {
         "titre": "Professionnels supply chain et achats",
         "description": "Reliez vos flux d'approvisionnement aux processus Procure-to-Pay.",
-        "picto": "supply-chain"
+        "picto": "supply-chain",
+        "accroche": "« Je veux relier mes flux au bon processus »"
       },
       {
         "titre": "Consultants SAP Ariba juniors ou en reconversion",
         "description": "Construisez une expertise opérationnelle reconnue sur le marché.",
-        "picto": "consultant"
+        "picto": "consultant",
+        "accroche": "« Je veux une expertise que le marché reconnaît »"
       },
       {
         "titre": "Étudiants et jeunes diplômés",
         "description": "Ajoutez une compétence recherchée à votre profil, sans prérequis SAP.",
-        "picto": "etudiant"
+        "picto": "etudiant",
+        "accroche": "« Je veux une compétence rare avant mon premier poste »"
       }
     ]
   },

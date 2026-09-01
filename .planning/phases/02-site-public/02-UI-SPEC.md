@@ -128,6 +128,13 @@ islands**, never by turning the page into a client component.
 1. **Hero** — accroche, sous-titre, CTA « Démarrer ma formation », CTA secondaire
    « Voir le programme », visuel principal, emplacement vidéo prêt
 2. **Pour qui est cette formation ?** — five profils + « même sans expérience SAP »
+
+   "Pour qui" cards **rebuilt 2026-09-01** (founder/CTO decisions) — each card
+   now opens on a first-person accroche, with the profile name moved to the
+   footer as a `/programme` link; hover reveals the description under a
+   reserved-height two-block inverse-grid technique so card and row height
+   never shift; the section is `tone="band"` (Compétences flips to
+   `tone="default"` to preserve the alternation) — see `D-49`/`D-50`.
 3. **Ce que vous allez apprendre** — six compétences
 4. **Programme détaillé** — five modules in an accordion + bouton PDF
 5. **Format et modalités** — six repères

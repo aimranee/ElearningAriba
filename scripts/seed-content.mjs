@@ -236,6 +236,7 @@ async function main() {
     description: profil.description,
     picto: profil.picto,
     position: index + 1,
+    donnees: { accroche: profil.accroche },
   }));
 
   const competenceItems = landing.competences.items.map((titre, index) => ({
