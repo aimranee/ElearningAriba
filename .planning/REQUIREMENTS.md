@@ -52,15 +52,15 @@ with no lot: it is the technical foundation the lots are built on.
 
 ### Comptes — Lot 3: comptes utilisateurs, connexion et espace apprenant
 
-- [ ] **CPT-01**: Visitor can create an account with email and password, and must verify their email address
-- [ ] **CPT-02**: Visitor can sign in with a Google account in one click
-- [ ] **CPT-03**: Learner can reset a forgotten password, and repeated sign-in attempts are throttled
-- [ ] **CPT-04**: An account is required for every reservation, including the free discovery call — one identity, with the learner's whole history attached to their record
-- [ ] **CPT-05**: Learner can fill their profile — identity, contact details, professional profile (acheteur, consultant, étudiant, entreprise), communication preferences
-- [ ] **CPT-06**: Learner sees their space — mes prochains rendez-vous et sessions, mon historique, mes documents, mes factures, mon avancement — with honest empty states for the surfaces filled by later lots
-- [ ] **CPT-07**: Enrolled learners can download supports through signed, time-limited, non-shareable links
+- [x] **CPT-01**: Visitor can create an account with email and password, and must verify their email address
+- [ ] **CPT-02**: Visitor can sign in with a Google account in one click — **bloquée** : aucun identifiant Google (client OAuth) n'existe encore ; `src/app/api/auth/google/route.ts` vise la même URL de callback que les parcours corrigés (`65dea14`/`3eee9bc`/`2a1b518`) ; la liste d'autorisation **hébergée** devra porter `https://<domaine>/api/auth/callback**`, faute de quoi Google échouera dès sa livraison.
+- [x] **CPT-03**: Learner can reset a forgotten password, and repeated sign-in attempts are throttled
+- [x] **CPT-04**: An account is required for every reservation, including the free discovery call — one identity, with the learner's whole history attached to their record
+- [x] **CPT-05**: Learner can fill their profile — identity, contact details, professional profile (acheteur, consultant, étudiant, entreprise), communication preferences
+- [x] **CPT-06**: Learner sees their space — mes prochains rendez-vous et sessions, mon historique, mes documents, mes factures, mon avancement — with honest empty states for the surfaces filled by later lots
+- [x] **CPT-07**: Enrolled learners can download supports through signed, time-limited, non-shareable links
 - [x] **CPT-08**: Roles are learner and administrator, and database-level isolation makes it technically impossible for a learner to read another learner's data
-- [ ] **CPT-09**: Learner can request deletion of their account and export of their data (GDPR)
+- [x] **CPT-09**: Learner can request deletion of their account and export of their data (GDPR)
 
 ### Agenda — Lot 4: agenda et prise de rendez-vous
 
@@ -198,15 +198,15 @@ offer.
 | PUB-11 | Phase 2 | Pending |
 | PUB-12 | Phase 2 | Complete (02-04) |
 | PUB-13 | Phase 2 | Pending |
-| CPT-01 | Phase 3 | Pending |
-| CPT-02 | Phase 3 | Pending |
-| CPT-03 | Phase 3 | Pending |
-| CPT-04 | Phase 3 | Pending |
-| CPT-05 | Phase 3 | Pending |
-| CPT-06 | Phase 3 | Pending |
-| CPT-07 | Phase 3 | Pending |
-| CPT-08 | Phase 3 | Complete |
-| CPT-09 | Phase 3 | Pending |
+| CPT-01 | Phase 3 | Complete (03-11) |
+| CPT-02 | Phase 3 | Blocked — Google OAuth client missing |
+| CPT-03 | Phase 3 | Complete (03-11) |
+| CPT-04 | Phase 3 | Complete (03-11) |
+| CPT-05 | Phase 3 | Complete (03-11) |
+| CPT-06 | Phase 3 | Complete (03-11) |
+| CPT-07 | Phase 3 | Complete (03-11) |
+| CPT-08 | Phase 3 | Complete (03-11) |
+| CPT-09 | Phase 3 | Complete (03-11) |
 | AGD-01 | Phase 4 | Pending |
 | AGD-02 | Phase 4 | Pending |
 | AGD-03 | Phase 4 | Pending |

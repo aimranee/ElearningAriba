@@ -38,7 +38,7 @@ metrics:
 
 # Phase 03 Plan 11 (Task 1 only): Clean-state recette record
 
-**Reset the local stack once, re-ran every CPT-01..CPT-09 proof from that single clean state — sign-up through email confirmation, sign-in/sign-out, unauthenticated redirects, password reset with enumeration-safety diff, the support-access mechanism's full positive/negative/expiry matrix, profile-update privilege-escalation refusal, and RGPD export/deletion — then wrote `03-RECETTE.md` with a three-value verdict per requirement, an honest unproven-items list, a CIO handoff, and the eleven UI-SPEC criteria plus the fourteen autonomous-decision items queued for founder ratification. Tasks 2 and 3 (the two blocking human-verify checkpoints) were not executed — this run is headless and cannot open a browser or observe a click — and are recorded in the file as `not reviewed`, literally, with no verdict inferred from the automated evidence above them.**
+**Reset the local stack once, re-ran every CPT-01..CPT-09 proof from that single clean state — sign-up through email confirmation, sign-in/sign-out, unauthenticated redirects, password reset with enumeration-safety diff, the support-access mechanism's full positive/negative/expiry matrix, profile-update privilege-escalation refusal, and RGPD export/deletion — then wrote `03-RECETTE.md` with a three-value verdict per requirement, an honest unproven-items list, a CIO handoff, and the eleven UI-SPEC criteria plus the fourteen autonomous-decision items queued for founder ratification. Tasks 2 and 3 (the two blocking human-verify checkpoints) were skipped by this headless run — it cannot open a browser or observe a click — but were run directly by the founder on 2026-09-01: Task 2 approved 9/9 steps (steps 2 and 6 initially rejected, fixed by `65dea14`/`3eee9bc`/`2a1b518`, then reverified), Task 3 ratified 13 of 14 decisions (D-A1..D-A13) with D-14 rewritten as changed/not-accepted-as-was. Phase 03 is now complete.**
 
 ## What Was Done
 
@@ -78,11 +78,11 @@ None — this task ran the plan's own verification sequence and produced the rec
 - No headless-browser tool exists in this worktree. Every behavioural proof above was driven through `curl` against a temporary `next start` process (torn down after each round), including hand-carried PKCE code-verifier cookies to complete real email-confirmation and password-recovery round trips without a browser. Two UI-SPEC criteria (the `data-loading="true"` pending state, and the deletion checkbox's disabled→enabled transition on a real click) could not be exercised this way — their source-level guarantees were grep-confirmed, but no click was simulated. Recorded honestly in `03-RECETTE.md` as not observed this pass, and flagged as the reason Task 2 exists.
 - All test accounts and their data (Nadia, Sofia, Lea, Maya, Yasmine, Karim, plus their profil/acces_support/demande_suppression rows) live only in the local Supabase stack reset at the start of this run; nothing was seeded into a committed migration or fixture.
 
-## What Was Not Done — by design, per the run's own instructions
+## What Was Done by the Founder Directly (not by this headless run)
 
-**Tasks 2 and 3 of this plan — both `checkpoint:human-verify`, `gate="blocking"` — were not executed.** This run is headless: it cannot open a browser, click a checkbox, or judge whether new French copy "sounds right." `03-RECETTE.md` records both as `not reviewed`, literally, and states explicitly that no human gate was inferred from the automated evidence above it — the exact failure mode phase 02-04 had and threat `T-03-48` in this plan's own threat model exists to prevent.
+**Tasks 2 and 3 of this plan — both `checkpoint:human-verify`, `gate="blocking"` — were skipped by this headless run.** This run is headless: it cannot open a browser, click a checkbox, or judge whether new French copy "sounds right." Instead, the founder ran both checkpoints directly on 2026-09-01, against `next build && next start`. Task 2: 9/9 steps approved (seven on the first pass; steps 2 — email de confirmation — and 6 — réinitialisation — were rejected first, fixed by `65dea14`/`3eee9bc`/`2a1b518`, then reverified and approved on the second pass). Task 3: 13 of 14 decisions ratified (D-A1..D-A13), with D-14 rewritten as changed/not-accepted-as-was rather than simply ratified. Full proof in `ariba-cto/notes/2026-09-01-revue-fondateur-lot-3-tache-2.md` and `03-RECETTE.md`.
 
-**The phase is not closed.** Every requirement, UI-SPEC criterion, and `D-A` decision that depends on Task 2 or Task 3's ruling stays at `not reviewed` / awaiting ratification in the record. The founder still needs to: walk the nine steps of Task 2 against a running `npm run build && npm start`, and rule on the copy and the fourteen autonomous decisions in Task 3, per `03-11-PLAN.md`.
+**The phase is now closed.** Every requirement, UI-SPEC criterion, and `D-A` decision that depended on Task 2 or Task 3's ruling has been updated in `03-RECETTE.md`, `REQUIREMENTS.md` and `STATE.md` to reflect the founder's 2026-09-01 verdicts. Only hosted CIO dependencies (Google OAuth client, custom SMTP, private bucket, Lot 3 migrations) remain open — see `03-RECETTE.md` Section 3.
 
 ## Hosted / Cross-Plan Notes
 
@@ -90,7 +90,7 @@ None — this task ran the plan's own verification sequence and produced the rec
 
 ## Next Phase Readiness
 
-- The phase cannot be marked complete until the founder rules on Tasks 2 and 3 of this plan.
+- The founder ruled on Tasks 2 and 3 of this plan on 2026-09-01; phase 03 is complete. Next: Phase 04 (agenda-et-prise-de-rendez-vous).
 - No file under `src/app/globals.css`, `src/components/ui/`, or `src/components/layout/` was touched by this task — it only created `03-RECETTE.md`.
 - Working tree is clean and the branch is unchanged from the run's start.
 

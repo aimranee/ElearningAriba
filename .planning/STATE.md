@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 03, waves 1-4 complete (03-01..03-10); 03-11 not started -- it is a non-autonomous human-verification checkpoint and must not be run headless"
-last_updated: "2026-09-01T09:13:54.861Z"
+stopped_at: "Phase 03 complete -- founder ratified 03-11 Tasks 2 and 3 on 2026-09-01; only hosted CIO items remain open (Google OAuth client for CPT-02, custom SMTP, private bucket, Lot 3 migrations push)"
+last_updated: "2026-09-01T15:58:10.000Z"
 last_activity: 2026-09-01
 progress:
   total_phases: 11
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 40
-  completed_plans: 38
+  completed_plans: 39
   percent: 18
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 03 — comptes-connexion-et-espace-apprenant
+**Current focus:** Phase 04 — agenda-et-prise-de-rendez-vous
 
 ## Current Position
 
-Phase: 03 (comptes-connexion-et-espace-apprenant) — EXECUTING
-Plan: 03-01..03-10 complete (10 of 11); 03-11 not started — non-autonomous human-verification checkpoint, deliberately not run headless
-Status: Waves 1-4 delivered: profil/RLS schema, auth config + email templates, locale copy + auth components, session middleware, sign-up, sign-in + Google consent route, password reset, learner space + support documents, profile form, GDPR export/deletion. All local gates (typecheck/lint/build/content:check) green. Hosted deps (Google OAuth client, SMTP, private bucket, migration publish) still owed by CIO.
+Phase: 03 (comptes-connexion-et-espace-apprenant) — COMPLETE
+Plan: 03-01..03-11 all complete (11 of 11); founder ratified 03-11 Tasks 2/3 on 2026-09-01
+Status: Waves 1-4 delivered: profil/RLS schema, auth config + email templates, locale copy + auth components, session middleware, sign-up, sign-in + Google consent route, password reset, learner space + support documents, profile form, GDPR export/deletion. All local gates (typecheck/lint/build/content:check) green. Founder ruled on both 03-11 checkpoints: Task 2 approved 9/9 steps, Task 3 ratified 13/14 decisions with D-14 rewritten. Hosted deps (Google OAuth client, SMTP, private bucket, migration publish) still owed by CIO.
 Last activity: 2026-09-01
 
 Progress: [█████████░] 97%
@@ -135,7 +135,9 @@ Recent decisions affecting current work:
   `.planning/quick/260831-grv-refonte-visuelle-landing-run-2-en-tete-e/260831-grv-SUMMARY.md`
   for what changed. Still unreviewed by a human — do not treat as approved.
 
-- Plan 03-11 (checkpoint autonomous:false) intentionally not run headlessly per run instructions -- clean-database re-run and human sign-off on Lot 3 owed to the founder before phase 03 can close
+- **[Phase 03, resolved]** Founder ruled on both 03-11 checkpoints 2026-09-01 (Task 2 approved 9/9 after two fixed regressions, Task 3 ratified 13/14 decisions with D-14 rewritten); phase 03 is closed.
+
+- **[Phase 03, still open, hosted-only, CIO-owed]** CPT-02 (no Google OAuth client anywhere), custom SMTP for CPT-01/CPT-03 confirmation and reset emails, the private `supports` bucket for CPT-07, and the two Lot 3 migrations not yet pushed to either hosted Supabase project — all four per `03-RECETTE.md` Section 3.
 
 ## Quick Tasks Completed
 
