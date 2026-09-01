@@ -16,7 +16,7 @@ const CARD_ACCENTS: Record<string, string> = {
   "procure-to-pay": "var(--blue)",
   "source-to-pay": "var(--mint)",
   "rfq-rfp": "var(--amber)",
-  "gestion-catalogues": "var(--rose)",
+  "gestion-catalogues": "var(--indigo)",
   certification: "var(--sky)",
 };
 
