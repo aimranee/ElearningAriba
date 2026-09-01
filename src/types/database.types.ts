@@ -13,6 +13,33 @@ export type Json =
 export type Database = {
   app: {
     Tables: {
+      acces_support: {
+        Row: {
+          chemin_fichier: string
+          created_at: string
+          id: string
+          octets: number | null
+          titre: string
+          utilisateur_id: string
+        }
+        Insert: {
+          chemin_fichier: string
+          created_at?: string
+          id?: string
+          octets?: number | null
+          titre: string
+          utilisateur_id: string
+        }
+        Update: {
+          chemin_fichier?: string
+          created_at?: string
+          id?: string
+          octets?: number | null
+          titre?: string
+          utilisateur_id?: string
+        }
+        Relationships: []
+      }
       contact_message: {
         Row: {
           created_at: string
@@ -135,6 +162,72 @@ export type Database = {
           titre?: string
           titre_accent?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      demande_suppression: {
+        Row: {
+          demandee_le: string
+          id: string
+          statut: string
+          traitee_le: string | null
+          utilisateur_id: string
+        }
+        Insert: {
+          demandee_le?: string
+          id?: string
+          statut?: string
+          traitee_le?: string | null
+          utilisateur_id: string
+        }
+        Update: {
+          demandee_le?: string
+          id?: string
+          statut?: string
+          traitee_le?: string | null
+          utilisateur_id?: string
+        }
+        Relationships: []
+      }
+      profil: {
+        Row: {
+          created_at: string
+          email: string
+          nom: string
+          preference_actualites: boolean
+          preference_rappels: boolean
+          prenom: string
+          profil_professionnel: string
+          role: string
+          telephone: string | null
+          updated_at: string
+          utilisateur_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          nom?: string
+          preference_actualites?: boolean
+          preference_rappels?: boolean
+          prenom?: string
+          profil_professionnel?: string
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+          utilisateur_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          nom?: string
+          preference_actualites?: boolean
+          preference_rappels?: boolean
+          prenom?: string
+          profil_professionnel?: string
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+          utilisateur_id?: string
         }
         Relationships: []
       }
