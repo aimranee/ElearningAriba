@@ -14,6 +14,20 @@
     "signature": "Votre formateur, expert certifié SAP Ariba",
     "pied": "Cet email automatique confirme la création de votre compte ; vous n'avez rien à faire d'autre."
   },
+  "verificationAdresse": {
+    "objet": "Confirmez votre adresse email.",
+    "preheader": "Plus qu'une étape, {prenom} : confirmez votre adresse email.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Votre compte apprenant est créé. Il ne manque qu'une étape : confirmez votre adresse en cliquant ci-dessous."
+    ],
+    "action": {
+      "libelle": "Confirmer mon adresse email",
+      "contexte": "Ce lien confirme votre adresse email et vous connecte directement à votre espace apprenant."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Sans cette confirmation, vous ne pourrez pas vous connecter."
+  },
   "confirmationReservation": {
     "objet": "Votre réservation est confirmée pour le {dateHeure}.",
     "preheader": "Rendez-vous confirmé : {typeRendezVous}, {dateHeure}.",
