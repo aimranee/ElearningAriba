@@ -315,6 +315,42 @@ html {
     transition-delay: 0.45s;
   }
 
+  /* why (D-53, 2026-09-01): le filet d'accent d'une tuile de compétence se
+     trace de gauche à droite quand la tuile entre dans l'écran. Écrit ici et
+     non en ligne : la règle s'accroche à la classe `.in` que RevealScope
+     ajoute, qu'un attribut style JSX ne peut pas atteindre. Le délai reprend
+     l'étagement data-d de la tuile pour que les six filets se tracent en
+     séquence. */
+  .reveal [data-slot="competence-rule"] {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duration-reveal) var(--ease-brand);
+  }
+
+  .reveal.in [data-slot="competence-rule"] {
+    transform: scaleX(1);
+  }
+
+  .reveal[data-d="1"] [data-slot="competence-rule"] {
+    transition-delay: 0.34s;
+  }
+
+  .reveal[data-d="2"] [data-slot="competence-rule"] {
+    transition-delay: 0.43s;
+  }
+
+  .reveal[data-d="3"] [data-slot="competence-rule"] {
+    transition-delay: 0.52s;
+  }
+
+  .reveal[data-d="4"] [data-slot="competence-rule"] {
+    transition-delay: 0.61s;
+  }
+
+  .reveal[data-d="5"] [data-slot="competence-rule"] {
+    transition-delay: 0.70s;
+  }
+
   /* D-08 caret blink — declared here (not inline) because CSS @keyframes
      cannot be authored via a JSX style attribute; consumes --ease-brand
      rather than the maquette's ease-in-out (D-17: one curve, nowhere
@@ -348,6 +384,10 @@ html {
 
     .reveal {
       opacity: 1;
+      transform: none;
+    }
+
+    .reveal [data-slot="competence-rule"] {
       transform: none;
     }
 
