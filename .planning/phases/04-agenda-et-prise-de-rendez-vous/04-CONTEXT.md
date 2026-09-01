@@ -60,7 +60,8 @@ never materialised** — no generation job, no slot table.
 ### D-03 — `AGD-05` lock is a Postgres exclusion constraint on `tstzrange`
 On the reservation table (`btree_gist`, `&&`). The database refuses overlap; the
 application code does not have to be right. **The locked range includes the
-buffer.**
+buffer.** The 15-minute retention (D-27) is what the learner experiences; the
+exclusion constraint remains the final guardrail and the only source of truth.
 
 ### D-04 — Availability is declared as continuous ranges
 The trainer declares "mardi 9h–12h"; splitting happens at read time from the
@@ -94,9 +95,11 @@ erasure is served without making an appointment vanish from the trainer's agenda
 
 ### Learner journey
 
-### D-09 — Account required to book
-The visitor sees the calendar and free slots (`AGD-02`); the click sends to
-`/inscription` then returns to the chosen slot. One identity model, RLS unchanged.
+### D-09 — Account not required to browse; required to commit
+The visitor browses the calendar and chooses a type and a slot with no
+authentication at all. Sign-in or sign-up is requested at screen 3, at the
+moment of committing, and the chosen slot is retained across that detour
+(amended by D-28). One identity model, RLS unchanged.
 
 ### D-10 — Three screens: type → slot → recap to validate
 Screen 3 shows everything being booked (type, date in Europe/Paris, duration,
@@ -176,6 +179,98 @@ opens. **Measured reason, not theoretical:** Lot 2 grouped its reviews onto a
 final plan; `02-11` is still not done, four gates passed unreviewed, and
 PUB-01…PUB-07 have been waiting since. **Do not group the reviews onto a final
 plan.**
+
+### Contrat d'expérience
+
+Added 2026-09-01 at the founder's request: this phase is the product's core, and
+the initial brief said only "in-house UI" and "sober shell" about the
+experience. What follows is grounded in measured products, not general
+principles — the Cal.com Booker breakdown (open source), the Doctolib patient
+journey (the French market's reference), and booking-conversion literature.
+
+### D-27 — The slot is retained for 15 minutes once chosen
+The delay is visible, then the slot becomes free again — exactly what Doctolib
+does ("il est réservé pour vous pendant 15 minutes … passé ce délai, le
+créneau redevient disponible") and what Cal.com exposes via
+`onReserveSlotSuccess` / `onDeleteSlotSuccess`. **The retention is the
+experience; the exclusion constraint (D-03) remains the only source of truth**
+and the final guardrail. Cost: an expiry column and a sweep of expired
+retentions.
+
+### D-28 — Sign-in is requested at screen 3, not on slot click
+Amends D-09. The visitor chooses first, then identifies to commit.
+
+### D-29 — The calendar opens on the first day carrying slots
+Never on an empty month.
+
+### Parcours — ce qui est imposé
+
+- **Three screens, no more** (D-10). Every form field removed is worth
+  completion points; ask only what the booking requires.
+- **Only days carrying slots are active** in the grid — Cal.com's
+  `datePickerDatesActive`. A month where 80% of days are dimmed makes the
+  trainer look unavailable, not fully booked.
+- **5 to 8 slots at a time**, grouped morning / afternoon. Pouring out thirty
+  identical slots produces decision paralysis, not choice.
+- **A drawn loading state, not a void.** D-06 (static shell, client-side
+  availability) *creates* a loading instant: it must be a skeleton holding the
+  layout — Cal.com has a `booker-skeleton.tsx` for exactly this reason — not a
+  content jump.
+- **Trust signals at the slot step**, because that is where the silent
+  question sits — "will someone really be there?" — the trainer's photo, the
+  "immediate confirmation by email" promise, and **the modification rule
+  stated up front**, since there is no self-service cancellation (D-11):
+  saying so plainly at screen 3 beats letting the learner discover it after.
+- **The `.ics` is the "add to my calendar" button** — an appointment that
+  lives in the person's own calendar, not only their inbox, is an appointment
+  better honoured.
+- **Panel breakdown proven elsewhere** (Cal.com, to reproduce inside our
+  design system, not to import): event meta (trainer, duration, timezone) |
+  date picker | slot list | recap | confirmation.
+
+### Mobile — la contrainte, pas la variante
+
+Most bookings happen on a phone. Lot 2 already produced an overflow defect at
+375 px on the assembly card — the precedent is in this repo.
+
+- **Design at 375 px first**, validation floor at **320 px**.
+- **Touch targets 44 × 44 px minimum.**
+- **Input fields at 16 px minimum** — below that, iOS zooms on focus and
+  breaks the flow.
+- **No horizontal scroll**, ever.
+- **Primary action in the lower half of the screen**, within thumb reach.
+- **No critical information revealed on hover alone** — hover does not exist
+  on touch.
+
+### Culture et typographie françaises
+
+A "French" interface is not a translated interface. The rules below are
+checkable and must be checked against the rendered result.
+
+- **Sentence case, not title case.** "Prendre rendez-vous", never "Prendre
+  Rendez-Vous" — word-by-word capitalisation is an anglicism.
+- **French quotation marks « … »** with a non-breaking space inside, and a
+  **curly apostrophe** ' rather than the keyboard's straight apostrophe.
+- **Non-breaking space before `:`** and a narrow non-breaking space before
+  `;`, `!`, `?`.
+- **Non-breaking space before `€` and `%`** — `90 €`, never `90€`.
+- **Accented capitals**: `É`, `À`, `Ç`. The Académie française's position, and
+  better for screen readers.
+- **Vouvoiement**, consistent with all copy already delivered.
+- **Hours — two registers, and two missing formatters.** `timeFormatter`
+  produces `14:30`: the correct CLDR output for `fr-FR`, and right for dense
+  slot pills. But in prose — confirmation email, recap, `.ics` description —
+  written French reads **`14 h 30`**. A hand-written `" h"` at the call site
+  would be the same mistake as the hand-written `"€"` that `currencyFormatter`
+  exists to prevent: **a dedicated formatter is required**, on the
+  `hourFormatter` model.
+- **Dates with the day of the week.** `dateFormatter` is `dateStyle: "long"`
+  and does not produce the day — an agenda says "mardi 8 septembre", not
+  "8 septembre 2026". **A second formatter to add**, never a call-site
+  concatenation.
+- **Colour positioning**: institutional blue is Doctolib's territory in the
+  French public's mind, and reads as administrative. Our violet/indigo is the
+  differentiator — **do not drift toward blue** believing it reads "serious".
 
 ### Scope fence — hard rules for every plan
 
@@ -297,7 +392,8 @@ plan.**
 - Payment, formules, invoices → Lot 7 (the D-07 seam stays inert)
 - Group sessions → Lot 6 (Lot 1 copy already mentions them; text, not surfaces)
 - User and content administration, self-service deletion execution (`ADM-02`) → Lot 10
-- Booking without an account (D-09) → never
+- Committing a booking without an account → never; browsing without one is now
+  the norm (D-09, D-28)
 - Public distinction between "réservé" and "bloqué" (D-23) → never
 - Horizon and notice as back-office settings (D-13) → fixed values, not settings
 
