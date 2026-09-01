@@ -172,6 +172,7 @@ async function main() {
       eyebrow: landing.confiance.eyebrow,
       titre: splitTwoSentences(landing.confiance.titre).title,
       titre_accent: splitTwoSentences(landing.confiance.titre).titleAccent,
+      lead: landing.confiance.lead,
       position: 6,
     },
     {
