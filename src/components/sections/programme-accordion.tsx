@@ -15,6 +15,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
 import { formatHours } from "@/lib/i18n/fr";
 import common from "@/locales/fr/common.json";
+import landing from "@/locales/fr/landing.json";
 
 /**
  * PUB-04 — five programme modules read from `getModules()`, rendered through
@@ -23,10 +24,11 @@ import common from "@/locales/fr/common.json";
  * 02-08, D-24 label) and a primary reservation CTA (D-12 magnetic).
  */
 async function ProgrammeAccordion() {
-  const [sectionResult, modulesResult, itemsResult] = await Promise.all([
+  const [sectionResult, modulesResult, itemsResult, pdfResult] = await Promise.all([
     getSection("programme"),
     getModules(),
     getSectionItems("programme"),
+    getSectionItems("page-programme"),
   ]);
 
   if (!sectionResult.ok || !modulesResult.ok || !itemsResult.ok) {
@@ -41,9 +43,14 @@ async function ProgrammeAccordion() {
 
   const section = sectionResult.data;
   const modules = modulesResult.data;
-  const telechargerPdf = itemsResult.data.find(
-    (item) => item.cle === "telecharger-pdf",
-  )?.titre;
+  // why (2026-09-01): telecharger-pdf has no duree_heures, and getModules()
+  // rejects the whole section if any item lacks one — seeding it into
+  // "programme" would break the render. Its label lives in "page-programme"
+  // instead, and this query stays outside the error guard above so its own
+  // failure only hides the CTA, never blanks the section.
+  const telechargerPdf = pdfResult.ok
+    ? pdfResult.data.find((item) => item.cle === "telecharger-pdf")?.titre
+    : undefined;
 
   return (
     <Section tone="band">
@@ -67,7 +74,7 @@ async function ProgrammeAccordion() {
               className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] shadow-none transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[panel-open]:bg-white data-[panel-open]:border-[var(--hairline-2)]"
             >
               <AccordionHeader>
-                <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[300ms] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
+                <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
                   <span
                     aria-hidden="true"
                     className="flex size-[34px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,var(--violet),var(--deep))] font-heading text-[0.78rem] font-extrabold text-white tabular-nums"
@@ -83,7 +90,30 @@ async function ProgrammeAccordion() {
                 </AccordionTrigger>
               </AccordionHeader>
               <AccordionPanel className="text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
-                {module.description}
+                <p className="text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
+                  {module.description}
+                </p>
+                {module.contenu.length > 0 ? (
+                  <>
+                    <p className="mt-[1.1rem] text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--deep)]">
+                      {landing.programme.auProgramme}
+                    </p>
+                    <ul className="mt-[0.55rem] flex flex-col gap-[0.4rem]">
+                      {module.contenu.map((ligne) => (
+                        <li
+                          key={ligne}
+                          className="flex items-start gap-[0.6rem] text-[0.92rem] leading-[1.55] text-[var(--muted-ink)]"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-[0.55rem] size-1 shrink-0 rounded-full bg-[var(--violet)] opacity-60"
+                          />
+                          {ligne}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
               </AccordionPanel>
             </AccordionItem>
           </Reveal>
