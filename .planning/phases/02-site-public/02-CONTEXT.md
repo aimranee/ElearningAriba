@@ -281,6 +281,16 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   silhouette en cours de mouvement. Règle retenue : ce qui est grand bouge
   peu et lentement. Le décalage d'icône de 3px de `pour-qui.tsx` reste
   valide — petit élément, un seul axe, aucun bord qui le coupe.
+- **D-56** (2026-09-01, founder + CTO): l'accordéon Programme rend, sous le
+  résumé de chaque module, les puces `donnees.contenu` sous un libellé
+  « Au programme » ; les `objectifs` restent sur `/programme` parce que la
+  section 3 porte désormais les résultats. Le CTA « Télécharger le
+  programme en PDF » est rétabli sur la landing en lisant son libellé
+  depuis la section `page-programme` : la ligne `telecharger-pdf` n'a pas
+  de `duree_heures`, et `getModules()` refuse la section entière si un de
+  ses items en manque — la loger dans `programme` rendrait l'état
+  d'erreur. Sa requête reste **hors de la garde d'erreur** : son échec
+  masque le bouton, il ne blanchit pas la section.
 
 ### Claude's Discretion
 
