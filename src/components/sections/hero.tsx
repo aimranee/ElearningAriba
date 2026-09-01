@@ -22,20 +22,22 @@ const ASM_PILL_GRADIENTS = [
   "linear-gradient(135deg,var(--mint),#0E9F6E)",
 ] as const;
 
-// why: the H1 typewriter cycles the maquette's own short-form competency
-// labels (quoted verbatim from the founder-approved maquette's word-cycler
-// constant, D-04) — the "competences" section stores the full descriptive
-// sentences the "Ce que vous allez apprendre" cards render, which are too
-// long for a zero-CLS H1 word-cycler. Keyed by content_item.cle (not array
-// index) so a reorder in the database can't silently mismatch, mirroring
-// the COMPETENCE_PICTOS positional-mapping precedent in src/app/page.tsx.
+// why: post-2026-09-01, "Ce que vous allez apprendre" carries six
+// verb-first result headlines plus a permanently-visible sentence
+// (content_item.description) — the typewriter here cycles the short form of
+// the same competency term, not the sentence. Keyed by content_item.cle (not
+// array index) so a reorder in the database can't silently mismatch. The
+// first item's cle ("ecosysteme-ariba") is load-bearing: hero.tsx:83 takes
+// words[0] as the resting word that splits the signed accroche around
+// "SAP Ariba" — changing that item's cle or dropping its word regresses the
+// H1 split silently.
 const TYPEWRITER_WORDS: Record<string, string> = {
   "ecosysteme-ariba": "SAP Ariba",
   "procure-to-pay": "Procure-to-Pay",
   "source-to-pay": "Source-to-Pay",
   "rfq-rfp": "les RFQ et RFP",
   "gestion-catalogues": "les catalogues",
-  "contrats-workflows": "les workflows",
+  "certification": "la certification",
 };
 
 /**

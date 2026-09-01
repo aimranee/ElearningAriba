@@ -44,12 +44,36 @@
     "eyebrow": "Ce que vous allez apprendre",
     "titre": "Six compétences concrètes vous attendent. Chacune se pratique, pas seulement se regarde.",
     "items": [
-      "L'écosystème Ariba dans son ensemble",
-      "Le processus Procure-to-Pay",
-      "Le processus Source-to-Pay",
-      "Les appels d'offres RFQ et RFP",
-      "La gestion des catalogues",
-      "Les contrats et les workflows"
+      {
+        "titre": "Vous orienter dans l'écosystème Ariba",
+        "description": "Vous savez où vous êtes dans la plateforme et ce que l'étape suivante attend de vous.",
+        "picto": "ecosysteme-ariba"
+      },
+      {
+        "titre": "Dérouler un Procure-to-Pay complet",
+        "description": "Créer une demande, la faire valider, réceptionner, rapprocher la facture.",
+        "picto": "procure-to-pay"
+      },
+      {
+        "titre": "Piloter un Source-to-Pay de bout en bout",
+        "description": "Comparer sur des critères tenus, négocier, transformer la décision en contrat.",
+        "picto": "source-to-pay"
+      },
+      {
+        "titre": "Mener un appel d'offres jusqu'à la décision",
+        "description": "Poser les critères, diffuser la consultation RFQ ou RFP, défendre le choix final.",
+        "picto": "rfq-rfp"
+      },
+      {
+        "titre": "Tenir catalogues, contrats et workflows",
+        "description": "Un catalogue à jour, un contrat cadré, une validation qui ne bloque personne.",
+        "picto": "gestion-catalogues"
+      },
+      {
+        "titre": "Préparer la certification SAP Ariba",
+        "description": "Le vocabulaire et les processus que la certification met à l'épreuve.",
+        "picto": "certification"
+      }
     ]
   },
   "programme": {

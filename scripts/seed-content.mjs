@@ -60,19 +60,6 @@ function slugify(value) {
     .replace(/^-+|-+$/g, "");
 }
 
-// why: `competences.items` (landing.json) is a plain string array with no
-// per-item picto key — this is the same positional mapping page.tsx used
-// (COMPETENCE_PICTOS), moved here so the column becomes real data instead of
-// a hardcoded positional array at the call site.
-const COMPETENCE_PICTOS = [
-  "ecosysteme-ariba",
-  "procure-to-pay",
-  "source-to-pay",
-  "rfq-rfp",
-  "gestion-catalogues",
-  "contrats-workflows",
-];
-
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -239,11 +226,12 @@ async function main() {
     donnees: { accroche: profil.accroche },
   }));
 
-  const competenceItems = landing.competences.items.map((titre, index) => ({
+  const competenceItems = landing.competences.items.map((competence, index) => ({
     section_cle: "competences",
-    cle: COMPETENCE_PICTOS[index],
-    titre,
-    picto: COMPETENCE_PICTOS[index],
+    cle: competence.picto,
+    titre: competence.titre,
+    description: competence.description,
+    picto: competence.picto,
     position: index + 1,
   }));
 
@@ -383,6 +371,24 @@ async function main() {
     pageFormationFourniItem,
     ...pageAProposItems,
   ]);
+
+  // why (2026-09-01): upsertItems clé sur (section_cle, cle) et ne supprime
+  // jamais. La refonte fusionne « catalogues » et « contrats et workflows » en
+  // une compétence : sans retrait explicite la ligne retirée survit à chaque
+  // re-seed et rend une septième tuile. Retrait nominatif, jamais en masse.
+  const RETIRED_ITEMS = [{ section_cle: "competences", cle: "contrats-workflows" }];
+
+  for (const entry of RETIRED_ITEMS) {
+    const { error } = await supabase
+      .from("content_item")
+      .delete()
+      .eq("section_cle", entry.section_cle)
+      .eq("cle", entry.cle);
+    if (error) {
+      console.error(`content:seed: content_item retirement failed: ${error.message}`);
+      process.exit(1);
+    }
+  }
 
   console.log("content:seed: done");
 }
