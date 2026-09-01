@@ -59,6 +59,16 @@ début et en fin de passe).
   clic réel. Le code source garantit ces deux comportements (grep confirmé),
   mais aucun clic n'a été simulé cette passe. C'est exactement pour ces deux
   points que la Tâche 2 (revue humaine) existe.
+- Défaut résiduel non corrigé : `NEXT_PUBLIC_SITE_URL` fixe une seule origine
+  et le cookie `code_verifier` PKCE est posé sur l'hôte de **navigation** —
+  naviguer sur un hôte différent de celui du lien casse l'échange
+  (`/connexion?erreur=session`). Mesuré : inscription sur `127.0.0.1:3100` +
+  lien vers `localhost:3100` → échec ; parcours entièrement sur
+  `localhost:3100` → succès. Conséquence recette : tester sur
+  `localhost:3100`, jamais `127.0.0.1:3100`. Conséquence mise en ligne
+  (Lot 5) : si le site répond à la fois sur l'apex et sur `www`, un
+  apprenant inscrit sur l'hôte non canonique perdra sa session à la
+  confirmation — à traiter par une redirection canonique.
 
 ---
 
@@ -79,6 +89,12 @@ début et en fin de passe).
   suppression de `CPT-09`.
 - [ ] **Créer le bucket de stockage privé `supports`** sur les deux projets
   hébergés — débloque `CPT-07` en hébergé.
+- [ ] **Autoriser le vrai callback dans la liste hébergée** :
+  `https://<domaine>/api/auth/callback**` doit figurer dans la liste
+  d'autorisation de callback Google **hébergée** — `google/route.ts` vise la
+  même URL de callback que les deux parcours corrigés par
+  `65dea14`/`3eee9bc`/`2a1b518` ; sans cette entrée, le même défaut se
+  reproduira en production et Google échouera dès sa livraison.
 
 Deux dettes ouvertes qui touchent le Lot 3 sans en faire partie :
 
@@ -106,55 +122,66 @@ outils de preuve locale uniquement.
 
 | # | Critère | Verdict | Preuve / observation de cette passe |
 |---|---|---|---|
-| 1 | `git diff` de toute la phase ne touche aucune ligne de `globals.css`, des huit composants `ui/`, ni de `layout/*` | pass | `git diff --stat main -- ...` montre `1277` insertions — **mais `main` est resté au placeholder de la Phase 0 (`27ab022`) et ne contient ni le Lot 1 ni le Lot 2** (confirmé : `git log --oneline -1 main` = `27ab022`). La base réelle de cette phase est le point de fourche `c124a827` (`gsd/phase-02-site-public`), documenté dans `03-CONTEXT.md`. `git diff --stat c124a827 -- src/app/globals.css src/components/ui/{accordion,badge,button,card,empty-state,field,input,message}.tsx src/components/layout/` renvoie une sortie **vide** — zéro ligne changée sur toute la phase contre la bonne base. |
+| 1 | `git diff` de toute la phase ne touche aucune ligne de `globals.css`, des huit composants `ui/`, ni de `layout/*` | pass | `git diff --stat main -- ...` montre `1277` insertions — **mais `main` est resté au placeholder de la Phase 0 (`27ab022`) et ne contient ni le Lot 1 ni le Lot 2** (confirmé : `git log --oneline -1 main` = `27ab022`). La base réelle de cette phase est le point de fourche `c124a827` (`gsd/phase-02-site-public`), documenté dans `03-CONTEXT.md`. `git diff --stat c124a827 -- src/app/globals.css src/components/ui/{accordion,badge,button,card,empty-state,field,input,message}.tsx src/components/layout/` renvoie une sortie **vide** — zéro ligne changée sur toute la phase contre la bonne base. Précision : cette commande ne nomme que les huit composants `ui/` pré-existants ; un lecteur qui diffe le répertoire `ui/` entier voit en plus `src/components/ui/checkbox.tsx` (43 insertions) — c'est un **fichier neuf**, ajouté par `c862cad` pour la case d'accusé de suppression de compte, jamais une modification d'un des huit fichiers nommés par le critère. Le critère reste vrai. |
 | 2 | `next build` montre les 14 routes préexistantes toujours statiques ; les deux nouvelles routes de réinitialisation sont statiques aussi ; seul `/espace*` est dynamique | pass | Table de routes de cette passe : 14 `○` (`/`, `/_not-found`, `/a-propos`, `/agenda`, `/connexion`, `/contact`, `/formation`, `/inscription`, `/mot-de-passe-oublie`, `/nouveau-mot-de-passe`, `/paiement`, `/programme`, `/programme.pdf`, `/reservation`) ; `ƒ` sur `/espace`, `/espace/profil`, `/espace/donnees` et tous les `api/*`. |
 | 3 | Une recherche de chaîne française littérale dans `src/app/**` ou `src/components/**` ne renvoie rien de nouveau | pass | `grep -rnE '>[A-ZÀ-Ý][a-zà-ÿ]+ [a-zà-ÿ]+'` sur `src/app/{inscription,connexion,mot-de-passe-oublie,nouveau-mot-de-passe,espace}` et `src/components/{compte,espace}` (hors `locales/fr`) → aucune correspondance. |
 | 4 | `/espace` affiche le vrai prénom de l'apprenant ; `PRENOM_MAQUETTE` n'existe plus ; les six états vides sont identiques octet pour octet à `espace.json` | pass | `grep -rn 'PRENOM_MAQUETTE' src/` → vide. `/espace` avec session réelle → *« Bonjour Yasmine, heureux de vous revoir. »*. Les cinq libellés d'état vide observés cette passe correspondent mot pour mot à ceux cités ci-dessus (Section 1, `CPT-06`). |
 | 5 | Aucune route `/admin` ; aucun point d'entrée de réservation créé | pass | `find src/app -type d -name 'admin*'` → vide. Recherche de mots liés à la réservation dans les surfaces Lot 3 → vide (hors la chaîne existante `aucuneReservation`/« Voir les créneaux disponibles »). |
 | 6 | `/espace`, `/espace/profil`, `/espace/donnees` sans session → redirection vers `/connexion`, jamais une page à moitié rendue | pass | Les trois routes testées sans cookie cette passe → `307` vers `/connexion` ; corps de `/espace` : 10 octets (vide). |
 | 7 | Sur `/espace`, l'état vide *aucune réservation* reste hors de toute `Card`, en tête, avec le seul bouton d'accent de la page ; les six cartes de la grille résolvent à `variant="default"`, sans accent. Sur `/espace/donnees`, la carte de suppression est `variant="muted"`, son panneau de confirmation révélé est `variant="default"`, et aucune classe `destructive` n'apparaît avant que ce panneau soit révélé | pass | `src/app/espace/page.tsx` : l'`EmptyState` (ligne 37) est rendu avant la grille et hors de tout `<Card>` ; les six cartes de la grille utilisent `<Card key={key}>` sans prop `variant`, qui résout au défaut `"default"` (confirmé dans `card.tsx`). `src/app/espace/donnees/page.tsx` : carte export `variant="default"` (ligne 32), carte suppression `variant="muted"` (ligne 51) ; `src/components/compte/suppression-compte.tsx` : panneau révélé `variant="default"` (ligne 103), le seul `variant="destructive"` du fichier est sur le bouton de confirmation finale (ligne 129), rendu uniquement après révélation du panneau. |
-| 8 | Le bouton de confirmation de suppression de compte est inatteignable tant que la case d'accusé n'est pas cochée | pass (garantie source) | `grep -n 'disabled={'` sur `suppression-compte.tsx` → `disabled={!confirme || enEnvoi}`, lié à `onCheckedChange` de `Checkbox`. **La transition par clic réel (décochée → cochée → bouton actif) n'a pas été simulée cette passe**, faute d'outil de navigateur automatisé dans ce projet — c'est un des deux points que la Tâche 2 doit vérifier à l'œil. |
+| 8 | Le bouton de confirmation de suppression de compte est inatteignable tant que la case d'accusé n'est pas cochée | pass | `grep -n 'disabled={'` sur `suppression-compte.tsx` → `disabled={!confirme || enEnvoi}`, lié à `onCheckedChange` de `Checkbox`. Observation au clic réel (Tâche 2, fondateur, 2026-09-01, contre `next build && next start`) : case décochée → bouton de confirmation désactivé ; case cochée → bouton actif. |
 | 9 | Exactement une valeur `cubic-bezier` dans le code — aucune seconde courbe, aucune transition `ease`/`linear` nue ajoutée par le Lot 3 | pass | `grep -rn 'cubic-bezier' src/` → une seule occurrence, `--ease-brand` dans `globals.css:60`. |
-| 10 | Chaque formulaire rend les cinq états (idle, pending, erreur de champ, rejet serveur, succès) ; l'état de rejet serveur utilise `Field data-rejected="server"`, jamais une bordure rouge générique | pass pour idle/erreur de champ/rejet serveur/succès ; **non observé pour pending** | Idle, erreur de champ (`422` observés sur `/api/auth/inscription`, `/api/profil`), rejet serveur (`401`/`429`/`409` observés et mappés sur les clés existantes), succès (`200` observés sur chaque route) — tous rejoués en direct cette passe. `rejected="server"` confirmé présent dans le code des îlots clients. **L'état pending (`data-loading="true"` sur un clic réel) n'a pas été observé cette passe** — comportement client déclenché par interaction, non accessible par `curl`. |
+| 10 | Chaque formulaire rend les cinq états (idle, pending, erreur de champ, rejet serveur, succès) ; l'état de rejet serveur utilise `Field data-rejected="server"`, jamais une bordure rouge générique | pass | Idle, erreur de champ (`422` observés sur `/api/auth/inscription`, `/api/profil`), rejet serveur (`401`/`429`/`409` observés et mappés sur les clés existantes), succès (`200` observés sur chaque route) — tous rejoués en direct cette passe. `rejected="server"` confirmé présent dans le code des îlots clients. État pending observé au clic réel (Tâche 2, fondateur, 2026-09-01) : `data-loading="true"` posé avec `disabled` et `data-disabled` sur soumission. |
 | 11 | `npm run lint`, `npm run typecheck`, `next build` sortent en `0` ; `npm run content:check` sort toujours en `1` sur la clé unique non résolue | pass | Les quatre commandes rejouées cette passe : `typecheck` → `0`, `lint` → `0`, `build` → `0`, `content:check` → `1` avec `CADR-03: 72`, `CADR-01: 10` — identique au total de référence. |
 
 ### Les douze décisions D-A du UI-SPEC (exposées pour la ratification du fondateur — non tranchées ici)
 
 | # | Décision | Statut |
 |---|---|---|
-| D-A1 | Bande de navigation locale (`espace-nav.tsx`) pour `/espace`, `/espace/profil`, `/espace/donnees` et *Se déconnecter*, faute de conscience de session dans `header.tsx` (écriture interdite) | en attente de ratification |
-| D-A2 | Noms de route : `/mot-de-passe-oublie`, `/nouveau-mot-de-passe`, `/espace/profil`, `/espace/donnees` | en attente de ratification |
-| D-A3 | Corps de formulaire en îlots client, coquilles de page en composants serveur statiques | en attente de ratification |
-| D-A4 | Aucune modale : suppression de compte en confirmation intégrée à la page, en deux temps | en attente de ratification |
-| D-A5 | Boutons primaires et destructeurs à `className="h-11"` au site d'appel | en attente de ratification |
-| D-A6 | Trois nouveaux fichiers de langue plutôt que l'extension de `connexion.json`/`espace.json` | en attente de ratification |
-| D-A7 | Champs de profil `CPT-05` : prénom, nom, email (lecture seule), téléphone, profil professionnel, deux préférences — aucun champ société | en attente de ratification |
-| D-A8 | L'artefact d'export est nommé « fichier » ; l'accusé de suppression ne promet aucun délai | en attente de ratification |
-| D-A9 | *Mes documents* est la seule des six cartes `/espace` pouvant afficher du contenu au Lot 3 | en attente de ratification |
-| D-A10 | Le message de succès de réinitialisation est identique, adresse existante ou non | en attente de ratification |
-| D-A11 | `CPT-04` ne reçoit aucune surface au Lot 3 | en attente de ratification |
-| D-A12 | Hiérarchie du point focal déclarée pour `/espace` et `/espace/donnees` | en attente de ratification |
+| D-A1 | Bande de navigation locale (`espace-nav.tsx`) pour `/espace`, `/espace/profil`, `/espace/donnees` et *Se déconnecter*, faute de conscience de session dans `header.tsx` (écriture interdite) | acceptée |
+| D-A2 | Noms de route : `/mot-de-passe-oublie`, `/nouveau-mot-de-passe`, `/espace/profil`, `/espace/donnees` | acceptée |
+| D-A3 | Corps de formulaire en îlots client, coquilles de page en composants serveur statiques | acceptée |
+| D-A4 | Aucune modale : suppression de compte en confirmation intégrée à la page, en deux temps | acceptée |
+| D-A5 | Boutons primaires et destructeurs à `className="h-11"` au site d'appel | acceptée |
+| D-A6 | Trois nouveaux fichiers de langue plutôt que l'extension de `connexion.json`/`espace.json` | acceptée |
+| D-A7 | Champs de profil `CPT-05` : prénom, nom, email (lecture seule), téléphone, profil professionnel, deux préférences — aucun champ société | acceptée |
+| D-A8 | L'artefact d'export est nommé « fichier » ; l'accusé de suppression ne promet aucun délai | acceptée |
+| D-A9 | *Mes documents* est la seule des six cartes `/espace` pouvant afficher du contenu au Lot 3 | acceptée |
+| D-A10 | Le message de succès de réinitialisation est identique, adresse existante ou non | acceptée |
+| D-A11 | `CPT-04` ne reçoit aucune surface au Lot 3 | acceptée |
+| D-A12 | Hiérarchie du point focal déclarée pour `/espace` et `/espace/donnees` | acceptée |
 
 ### Autres éléments pour ratification
 
-- **Déviation `SubmitButton`** (plan 03-03) : la spécification prévoyait `useFormStatus` ; le composant livré utilise une prop `pending` explicite, parce qu'aucune action serveur n'existe dans ce dépôt (chaque mutation passe par un gestionnaire de route via `fetch`) et `useFormStatus` aurait silencieusement rapporté `pending: false` en permanence contre ce motif. Comportement visible identique. **En attente de ratification.**
-- **Issue D-14** (plan 03-06) : l'écart de schéma `http`/`https` dans `additional_redirect_urls` a été fermé par observation directe plutôt que par modification. Le poste local GoTrue accepte un `redirect_to` inter-origines forgé aussi facilement que le véritable — `config.toml:171` reste inchangé (`git diff supabase/config.toml` vide). Le comportement du rebond interne de fin de parcours Google reste inobservable sans identifiants Google réels. **En attente de ratification.**
-- **Nouvelle copie française en attente de validation (D-11) :** `src/locales/fr/mot-de-passe.json`, `src/locales/fr/profil.json`, `src/locales/fr/donnees.json` (nouveaux fichiers), plus les clés additives de `src/locales/fr/espace.json` (`nav.*`, `deconnexion`, `documents.expiration`, `documents.erreur`) et de `src/locales/fr/emails.json` (`suppressionCompteNotification`), ainsi que les deux gabarits d'email Supabase Auth francisés (`supabase/templates/confirmation.html`, `supabase/templates/recovery.html`). **Aucune de ces chaînes n'a été jugée par un humain à cette clôture.**
+- **Déviation `SubmitButton`** (plan 03-03) : la spécification prévoyait `useFormStatus` ; le composant livré utilise une prop `pending` explicite, parce qu'aucune action serveur n'existe dans ce dépôt (chaque mutation passe par un gestionnaire de route via `fetch`) et `useFormStatus` aurait silencieusement rapporté `pending: false` en permanence contre ce motif. Comportement visible identique. **Acceptée** (Tâche 3, fondateur, 2026-09-01).
+- **Issue D-14** (plan 03-06) : l'ancienne clôture était fausse — elle observait qu'un `redirect_to` **forgé** est accepté par le poste local GoTrue, alors que c'est le `redirect_to` **légitime** (`http://localhost:3100/api/auth/callback`) qui était refusé, du fait de l'écart de schéma `http`/`https` dans `additional_redirect_urls`. Corrigé par `65dea14` (allow-list le vrai callback dans `supabase/config.toml`). Statut final : **changée, non acceptée telle quelle** (Tâche 3, fondateur, 2026-09-01).
+- **Nouvelle copie française (D-11) :** `src/locales/fr/mot-de-passe.json`, `src/locales/fr/profil.json`, `src/locales/fr/donnees.json` (nouveaux fichiers), plus les clés additives de `src/locales/fr/espace.json` (`nav.*`, `deconnexion`, `documents.expiration`, `documents.erreur`) et de `src/locales/fr/emails.json` (`suppressionCompteNotification`), ainsi que les deux gabarits d'email Supabase Auth francisés (`supabase/templates/confirmation.html`, `supabase/templates/recovery.html`). **Approuvée** (Tâche 3, fondateur, 2026-09-01), avec les changements déjà livrés : nouvelle entrée `verificationAdresse`, sujet et corps de l'email de vérification, promesse d'email retirée de `donnees.json → suppression.accuseReception.message` ; `confirmationInscription` reste intact, réservé à un email de bienvenue ultérieur ; le libellé « Confirmer mon adresse email » est une décision CTO, ratifiée par le fondateur.
 
 ---
 
 ## Statut des portes humaines (Tâches 2 et 3)
 
-**Tâche 2 — Revue fondateur des six surfaces Lot 3 :** `not reviewed`.
-**Tâche 3 — Ratification fondateur de la copie française et des décisions
-autonomes :** `not reviewed`.
+**Tâche 2 — Revue fondateur des six surfaces Lot 3 :** `approuvée, 9/9 étapes`
+— menée par le fondateur le 2026-09-01 contre `next build && next start`
+(preuves : `ariba-cto/notes/2026-09-01-revue-fondateur-lot-3-tache-2.md`).
+Sept étapes approuvées du premier passage ; les étapes 2 (email de
+confirmation) et 6 (réinitialisation) ont d'abord été **rejetées**, puis
+corrigées par `65dea14`, `3eee9bc`, `2a1b518`, et **revérifiées** — approuvées
+au second passage. Après correctif : l'email porte
+`redirect_to=http://localhost:3100/api/auth/callback`, le lien suivi tel que
+délivré aboutit sur `/espace` avec le prénom réel rendu, le lien de
+récupération aboutit sur `/nouveau-mot-de-passe`, aucun code forgé ni échangé
+à la main.
 
-Ce siège est headless et ne peut ni ouvrir un navigateur ni observer un clic
-réel. Aucune inférence n'a été faite à partir de la preuve automatisée
-ci-dessus pour statuer sur ces deux portes — la preuve automatisée établit ce
-qu'une commande peut établir ; les critères 3, 8 et 9 du UI-SPEC (visuels et
-interactifs) et la ratification de la copie exigent un œil humain,
-explicitement.
+**Tâche 3 — Ratification fondateur de la copie française et des décisions
+autonomes :** `ratifiée` — 2026-09-01. Treize des quatorze décisions acceptées
+(D-A1 à D-A13, où D-A13 est la déviation SubmitButton). D-14 : changée, non
+acceptée telle quelle — voir l'entrée réécrite en Section 4. Copie française
+approuvée avec les changements déjà livrés (détail en Section 4).
+
+Les deux portes ont désormais été tranchées, par un humain, hors de cette
+passe headless — ce siège n'a rien observé lui-même sur ces deux points ; il
+enregistre ici les verdicts du fondateur.
 
 Toute exigence, tout critère d'acceptation du UI-SPEC, et toute décision `D-A`
 qui dépend de ces deux tâches reste à l'état d'attente tant qu'elles ne sont
