@@ -7,13 +7,10 @@ import {
   EmptyStateDescription,
   EmptyStateAction,
 } from "@/components/ui/empty-state";
+import { DocumentsList } from "@/components/espace/documents-list";
+import { requireLearner } from "@/lib/auth/session";
+import { listerSupports } from "@/lib/documents/queries";
 import espace from "@/locales/fr/espace.json";
-
-/* why: this route ships with no session in Lot 1 (D-11) — the placeholder
-   stands in for the learner's first name so the interpolation is proven
-   before Lot 3 replaces the source with the session's real value, not the
-   copy itself. */
-const PRENOM_MAQUETTE = "…";
 
 const SURFACES = [
   { key: "rendezVous", tone: "waiting" as const },
@@ -24,9 +21,12 @@ const SURFACES = [
   { key: "avancement", tone: "neutral" as const },
 ] as const;
 
-export default function Espace() {
+export default async function Espace() {
+  const learner = await requireLearner();
+  const supports = await listerSupports();
+
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-10 px-4 py-16">
+    <div className="flex flex-col gap-10 py-16">
       <div className="flex flex-col gap-2">
         <h1 className="font-heading text-3xl font-semibold text-foreground">
           {espace.titre}
@@ -50,7 +50,7 @@ export default function Espace() {
           grid — h1 -> h2 -> h3 (card titles), no level skipped, with no
           invented copy: the string is required content, not decoration. */}
       <h2 className="font-heading text-xl font-semibold text-foreground">
-        {espace.bienvenue.replace("{prenom}", PRENOM_MAQUETTE)}
+        {espace.bienvenue.replace("{prenom}", learner.prenom)}
       </h2>
 
       {/* why: the back-office reuses this component set at a tighter
@@ -67,12 +67,16 @@ export default function Espace() {
               <CardHeader>
                 <CardTitle>{surface.titre}</CardTitle>
               </CardHeader>
-              <EmptyState tone={tone} size="sm">
-                <EmptyStateTitle>{surface.vide.titre}</EmptyStateTitle>
-                <EmptyStateDescription>
-                  {surface.vide.message}
-                </EmptyStateDescription>
-              </EmptyState>
+              {key === "documents" ? (
+                <DocumentsList supports={supports.ok ? supports.data : []} />
+              ) : (
+                <EmptyState tone={tone} size="sm">
+                  <EmptyStateTitle>{surface.vide.titre}</EmptyStateTitle>
+                  <EmptyStateDescription>
+                    {surface.vide.message}
+                  </EmptyStateDescription>
+                </EmptyState>
+              )}
             </Card>
           );
         })}
