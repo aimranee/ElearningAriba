@@ -174,3 +174,7 @@ None from this plan directly. The phase-level hosted dependency stands unchanged
 ---
 *Phase: 03-comptes-connexion-et-espace-apprenant*
 *Completed: 2026-09-01*
+
+## Self-Check: PASSED
+
+All 7 created/modified plan-scoped files confirmed present on disk; all 3 task commits (45f7760, cadc830, 1a72fa0) confirmed in `git log`.
