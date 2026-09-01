@@ -281,30 +281,12 @@ async function main() {
 
   const confianceItems = landing.confiance.items.map((item, index) => ({
     section_cle: "confiance",
-    cle: slugify(item.titre),
+    cle: item.cle,
     titre: item.titre,
     description: item.description,
+    donnees: { preuve: item.preuve },
     position: index + 1,
   }));
-
-  const confiancePlaceholders = [
-    {
-      section_cle: "confiance",
-      cle: "temoignages",
-      titre: landing.confiance.temoignages.label,
-      description: landing.confiance.temoignages.placeholder,
-      statut: "placeholder",
-      position: confianceItems.length + 1,
-    },
-    {
-      section_cle: "confiance",
-      cle: "logos",
-      titre: landing.confiance.logos.label,
-      description: landing.confiance.logos.placeholder,
-      statut: "placeholder",
-      position: confianceItems.length + 2,
-    },
-  ];
 
   const faqItems = landing.faq.items.map((item, index) => ({
     section_cle: "faq",
@@ -362,7 +344,6 @@ async function main() {
     ...moduleItems,
     ...formatItems,
     ...confianceItems,
-    ...confiancePlaceholders,
     ...faqItems,
     ...pageProgrammeItems,
     pageProgrammeDownloadItem,
@@ -376,7 +357,14 @@ async function main() {
   // jamais. La refonte fusionne « catalogues » et « contrats et workflows » en
   // une compétence : sans retrait explicite la ligne retirée survit à chaque
   // re-seed et rend une septième tuile. Retrait nominatif, jamais en masse.
-  const RETIRED_ITEMS = [{ section_cle: "competences", cle: "contrats-workflows" }];
+  const RETIRED_ITEMS = [
+    { section_cle: "competences", cle: "contrats-workflows" },
+    { section_cle: "confiance", cle: "temoignages" },
+    { section_cle: "confiance", cle: "logos" },
+    { section_cle: "confiance", cle: "protection-des-donnees" },
+    { section_cle: "confiance", cle: "experts-sap-ariba-certifies" },
+    { section_cle: "confiance", cle: "contenus-regulierement-mis-a-jour" },
+  ];
 
   for (const entry of RETIRED_ITEMS) {
     const { error } = await supabase

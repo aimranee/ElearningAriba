@@ -166,28 +166,53 @@
   "confiance": {
     "eyebrow": "Confiance et sécurité",
     "titre": "La confiance se construit sur des faits. En voici trois.",
+    "lead": "Chacun se contrôle : une durée, un nom, un plafond. Ouvrez la preuve.",
+    "preuve": {
+      "voir": "Voir la preuve",
+      "masquer": "Masquer la preuve"
+    },
+    "formateur": {
+      "eyebrow": "Le formateur",
+      "nom": "Jean Dupont",
+      "initiales": "JD",
+      "intitule": "Consultant SAP Ariba",
+      "points": [
+        "Consultant sur l'écosystème Ariba",
+        "Certifié sur les modules clés de la plateforme",
+        "Pédagogie construite sur des cas d'usage réels"
+      ],
+      "lienLabel": "Voir le parcours complet"
+    },
     "items": [
       {
-        "titre": "Protection des données",
-        "description": "Vos informations restent hébergées et traitées dans un cadre sécurisé."
+        "cle": "appel-decouverte",
+        "titre": "Un appel découverte gratuit",
+        "description": "Trente minutes avec le formateur avant tout engagement.",
+        "preuve": {
+          "texte": "Trente minutes, sans frais et sans engagement : vous exposez votre contexte, le formateur vous dit si la formation y répond.",
+          "lienHref": "/contact",
+          "lienLabel": "Demander l'appel"
+        }
       },
       {
-        "titre": "Experts SAP Ariba certifiés",
-        "description": "Chaque session est animée par un formateur certifié sur l'écosystème Ariba."
+        "cle": "formateur-identifie",
+        "titre": "Un formateur identifié",
+        "description": "Jean Dupont, consultant SAP Ariba.",
+        "preuve": {
+          "texte": "Parcours, certifications et approche pédagogique sont détaillés sur la page À propos. Vous savez qui anime avant de réserver.",
+          "lienHref": "/a-propos",
+          "lienLabel": "Voir le parcours"
+        }
       },
       {
-        "titre": "Contenus régulièrement mis à jour",
-        "description": "Le programme suit les évolutions de la plateforme et de ses usages."
+        "cle": "groupe-limite",
+        "titre": "Groupe limité à 8 participants",
+        "description": "Chaque session live est plafonnée.",
+        "preuve": {
+          "texte": "Au-delà de 8 inscrits la session est fermée et un nouveau créneau est ouvert. C'est ce plafond qui permet de poser ses questions et de faire le cas pratique accompagné."
+        }
       }
-    ],
-    "temoignages": {
-      "label": "Témoignages",
-      "placeholder": "Les témoignages des premiers apprenants arrivent bientôt."
-    },
-    "logos": {
-      "label": "Entreprises",
-      "placeholder": "Les entreprises partenaires seront présentées ici."
-    }
+    ]
   },
   "faq": {
     "eyebrow": "Vous avez des questions",
