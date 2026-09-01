@@ -233,6 +233,31 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   ink must come from an AA-passing token. Also records the reference's second
   departure: cards link to `/programme`, not to a non-existent per-domain page
   (Lot 11+, unsold).
+- **D-51** (2026-09-01, founder): "Ce que vous allez apprendre" passe des
+  sujets aux **résultats** : six intitulés verbe-en-tête, chacun avec une
+  phrase portée par `content_item.description`, sans pastille numérotée. La
+  liste signée est rétablie à l'identique — « catalogues, contrats et
+  workflows » regroupés en une compétence, « préparer la certification SAP
+  Ariba » rétablie comme sixième. Motif : les six intitulés redisaient les
+  cinq modules du Programme un pour un, et l'item signé de certification
+  n'existait nulle part sur le site. La promesse reste celle de l'offre —
+  préparer, jamais garantir. **La `cle` du premier item est porteuse** : le
+  H1 du héros y prend son mot de repos.
+- **D-52** (2026-09-01, founder): le seed **retire nominativement** les
+  lignes de contenu retirées. `upsertItems` clé sur `(section_cle, cle)` et
+  ne supprime jamais : sans retrait explicite, une ligne retirée du JSON
+  survit à chaque re-seed et se rend encore. Retrait ligne par ligne sur les
+  deux colonnes, jamais en masse sur `section_cle`.
+- **D-53** (2026-09-01, founder): **le mur chromatique.** La section
+  abandonne l'objet « pastille + titre + phrase sur carte claire », déjà
+  porté par Pour qui, Format et modalités et Confiance : six tuiles pleines,
+  une teinte par compétence, lavage plafonné à 30 %, filigrane du pictogramme
+  coupé par le bord, filet d'accent à pleine saturation qui **se trace au
+  défilement**. Deux règles mesurées en font partie : **`--muted-ink` est
+  interdit sur ces lavages** (échec AA dès 16 % sur le violet et le bleu —
+  titre en `--ink`, phrase en `--ink-soft`), et **l'ordre des teintes est
+  calculé** pour que violet/indigo et bleu/ciel ne soient jamais adjacents,
+  à aucune largeur.
 
 ### Claude's Discretion
 
