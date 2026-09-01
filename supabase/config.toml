@@ -265,6 +265,18 @@ otp_expiry = 3600
 # subject = "You have been invited"
 # content_path = "./supabase/templates/invite.html"
 
+# D-23 — francised confirmation email; strings transcribed from
+# src/locales/fr/emails.json confirmationInscription.
+[auth.email.template.confirmation]
+subject = "Votre compte est confirmé. Vous pouvez réserver votre premier créneau."
+content_path = "./supabase/templates/confirmation.html"
+
+# D-23 — francised recovery email; strings transcribed from
+# src/locales/fr/emails.json reinitialisationMotDePasse.
+[auth.email.template.recovery]
+subject = "Réinitialisez votre mot de passe."
+content_path = "./supabase/templates/recovery.html"
+
 # Uncomment to customize notification email template
 # [auth.email.notification.password_changed]
 # enabled = true
