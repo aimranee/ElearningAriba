@@ -209,6 +209,25 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   production deploy and belongs to the CIO alone.
 - **D-48**: Ship green: `tsc` 0, `eslint` 0, `next build` 0, and the mock guard still
   exits 1 on an unresolved client-dependent key.
+- **D-49** (2026-09-01, founder): "Pour qui" moves to intention cards — a
+  first-person accroche (`content_item.donnees.accroche`, jsonb, no
+  migration) is the card headline, the five signed profile names move to the
+  card footer as a `/programme` link label, the description reveals on hover
+  via a two-block inverse-grid technique that keeps card and row height
+  constant, and the section tone flips to `band` (Competences flips to
+  `default` to preserve alternation). Two reference screenshots
+  (`Screenshot 2026-09-01 083648.png`/`083656.png`) set direction only, not
+  authority — see `D-50` and the AA contrast note below for the two measured
+  departures.
+- **D-50** (2026-09-01, CTO): extends `D-05`'s token set with `--blue-ink`
+  (`#3472d8`), `--mint-ink` (`#158568`), `--amber-ink` (`#996c29`) — measured,
+  not an oversight: `--blue`/`--mint`/`--amber` fail WCAG AA as ink-on-white-card
+  (3.68 / 2.16 / 1.77 against the 4.5 threshold) while these darkened variants
+  pass (4.62 / 4.58 / 4.63). Rule going forward: an accent token may decorate a
+  large/decorative surface (pastille fill, wash tint) at any ratio; card body
+  ink must come from an AA-passing token. Also records the reference's second
+  departure: cards link to `/programme`, not to a non-existent per-domain page
+  (Lot 11+, unsold).
 
 ### Claude's Discretion
 
