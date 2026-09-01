@@ -59,7 +59,7 @@ with no lot: it is the technical foundation the lots are built on.
 - [ ] **CPT-05**: Learner can fill their profile — identity, contact details, professional profile (acheteur, consultant, étudiant, entreprise), communication preferences
 - [ ] **CPT-06**: Learner sees their space — mes prochains rendez-vous et sessions, mon historique, mes documents, mes factures, mon avancement — with honest empty states for the surfaces filled by later lots
 - [ ] **CPT-07**: Enrolled learners can download supports through signed, time-limited, non-shareable links
-- [ ] **CPT-08**: Roles are learner and administrator, and database-level isolation makes it technically impossible for a learner to read another learner's data
+- [x] **CPT-08**: Roles are learner and administrator, and database-level isolation makes it technically impossible for a learner to read another learner's data
 - [ ] **CPT-09**: Learner can request deletion of their account and export of their data (GDPR)
 
 ### Agenda — Lot 4: agenda et prise de rendez-vous
@@ -205,7 +205,7 @@ offer.
 | CPT-05 | Phase 3 | Pending |
 | CPT-06 | Phase 3 | Pending |
 | CPT-07 | Phase 3 | Pending |
-| CPT-08 | Phase 3 | Pending |
+| CPT-08 | Phase 3 | Complete |
 | CPT-09 | Phase 3 | Pending |
 | AGD-01 | Phase 4 | Pending |
 | AGD-02 | Phase 4 | Pending |
