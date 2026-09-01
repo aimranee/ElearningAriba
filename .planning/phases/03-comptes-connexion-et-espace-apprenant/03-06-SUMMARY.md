@@ -123,3 +123,7 @@ Multiple parallel Lot 3 worktrees share this same local Supabase stack (one Dock
 ---
 *Phase: 03-comptes-connexion-et-espace-apprenant*
 *Completed: 2026-09-01*
+
+## Self-Check: PASSED
+
+All 4 created/modified files confirmed present on disk; all 4 commits (c7afa1c, 0683b7f, b253fdb, e817cee) confirmed in `git log`.
