@@ -98,6 +98,7 @@ export function ContactForm() {
 
   return (
     <form
+      method="post"
       onSubmit={handleSubmit}
       className="reveal-rise flex flex-col gap-5"
       aria-label={contact.titre}

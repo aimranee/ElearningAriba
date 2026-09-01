@@ -93,7 +93,7 @@ export function NouveauMotDePasseForm() {
   const isTransportError = status === "error" && !lienExpire && !hasFieldErrors;
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-5">
       <Field>
         <FieldLabel htmlFor="nouveau-mot-de-passe">
           {motDePasse.nouveau.champs.motDePasse}

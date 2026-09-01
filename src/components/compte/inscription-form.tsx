@@ -95,6 +95,7 @@ export function InscriptionForm() {
 
   return (
     <form
+      method="post"
       onSubmit={handleSubmit}
       className="flex flex-col gap-5"
       aria-label={inscription.titre}

@@ -83,7 +83,7 @@ export function MotDePasseOublieForm() {
   const isTransportError = status === "error" && !tropDeTentatives && !fieldErrors.email;
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-5">
       <Field>
         <FieldLabel htmlFor="mot-de-passe-email">{connexion.champs.email}</FieldLabel>
         <FieldControl

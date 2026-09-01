@@ -108,7 +108,7 @@ export function ConnexionForm() {
   const isSubmitting = status === "submitting";
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" aria-label={connexion.titre}>
+    <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-5" aria-label={connexion.titre}>
       <Field>
         <FieldLabel htmlFor="connexion-email">{connexion.champs.email}</FieldLabel>
         <FieldControl

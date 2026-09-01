@@ -87,7 +87,7 @@ export function ProfilForm({ profil: initialProfil }: ProfilFormProps) {
   return (
     <Card>
       <CardContent>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-8">
           {status === "success" ? (
             <Message variant="success">{profil.succes}</Message>
           ) : null}
