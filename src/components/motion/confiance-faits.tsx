@@ -61,34 +61,46 @@ function ConfianceFaits({ items, labels }: ConfianceFaitsProps) {
                   {isOpen ? labels.masquer : labels.voir}
                 </span>
               </button>
-              <div id={preuveId} className="mt-2 grid">
-                <p
+              <div id={preuveId} className="mt-2">
+                <div
                   aria-hidden={isOpen}
-                  className={
-                    isOpen
-                      ? "invisible col-start-1 row-start-1 text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]"
-                      : "visible col-start-1 row-start-1 text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]"
-                  }
+                  className="grid overflow-hidden"
+                  style={{
+                    gridTemplateRows: !isOpen ? "1fr" : "0fr",
+                    visibility: !isOpen ? "visible" : "hidden",
+                    transition:
+                      "grid-template-rows var(--duration-base) var(--ease-brand), visibility 0s linear var(--duration-base)",
+                  }}
                 >
-                  {item.description}
-                </p>
+                  <div className="min-h-0">
+                    <p className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
                 <div
                   aria-hidden={!isOpen}
-                  className={
-                    isOpen
-                      ? "visible col-start-1 row-start-1 text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]"
-                      : "invisible col-start-1 row-start-1 text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]"
-                  }
+                  className="grid overflow-hidden"
+                  style={{
+                    gridTemplateRows: isOpen ? "1fr" : "0fr",
+                    visibility: isOpen ? "visible" : "hidden",
+                    transition:
+                      "grid-template-rows var(--duration-base) var(--ease-brand), visibility 0s linear var(--duration-base)",
+                  }}
                 >
-                  <p>{item.preuveTexte}</p>
-                  {item.preuveLienHref && item.preuveLienLabel ? (
-                    <Link
-                      href={item.preuveLienHref}
-                      className="mt-2 inline-block text-[0.85rem] font-semibold text-[var(--violet)] underline underline-offset-2"
-                    >
-                      {item.preuveLienLabel}
-                    </Link>
-                  ) : null}
+                  <div className="min-h-0">
+                    <p className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
+                      {item.preuveTexte}
+                    </p>
+                    {item.preuveLienHref && item.preuveLienLabel ? (
+                      <Link
+                        href={item.preuveLienHref}
+                        className="mt-2 inline-block text-[0.85rem] font-semibold text-[var(--violet)] underline underline-offset-2"
+                      >
+                        {item.preuveLienLabel}
+                      </Link>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </Card>
