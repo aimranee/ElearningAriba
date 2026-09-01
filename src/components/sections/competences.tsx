@@ -36,7 +36,7 @@ async function Competences() {
         title={section.titre}
         titleAccent={section.titre_accent ?? undefined}
       />
-      <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 min-[1000px]:grid-cols-3">
+      <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item, index) => {
           const Picto = item.picto ? pictograms[item.picto as PictogramName] : null;
           return (
