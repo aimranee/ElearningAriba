@@ -139,3 +139,7 @@ None — both routes are fully wired against Supabase Auth; no placeholder data,
 ---
 *Phase: 03-comptes-connexion-et-espace-apprenant*
 *Completed: 2026-09-01*
+
+## Self-Check: PASSED
+
+All 6 created source files confirmed present on disk; all 3 commits (a46875a, c6d1962, 72d363a) confirmed in `git log`.
