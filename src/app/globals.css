@@ -56,13 +56,20 @@ html {
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
+  /* D-54 (2026-09-01): expo-out placed 49% of the motion in the first 10% of
+     the timeline and read as a jump, not a movement; easeOutCubic spreads
+     the deceleration across the full duration instead. */
   /* D-17: the only easing curve on the site. Never add a second one. */
-  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-brand: cubic-bezier(0.22, 0.61, 0.36, 1);
   --duration-base: 220ms;
   /* D-49: slower reveal for the "Pour qui" card hover expansion — 220ms read
      as too abrupt for a height change; --duration-base stays 220ms for its
      other 15 consumers. */
   --duration-reveal: 450ms;
+  /* D-54 (2026-09-01): --duration-entrance drives the .reveal entrance only —
+     distinct from --duration-reveal above, which drives the "Pour qui" card
+     hover expansion and the competence-rule trace, not entrance. */
+  --duration-entrance: 700ms;
 
   /* D-06: four paired shadow tiers — a 1px contact shadow plus a large soft
      one — plus a fifth accent tier for anything wearing the violet brand. */
@@ -286,8 +293,8 @@ html {
     opacity: 0;
     transform: translateY(34px);
     transition:
-      opacity 1s var(--ease-brand),
-      transform 1s var(--ease-brand);
+      opacity var(--duration-entrance) var(--ease-brand),
+      transform var(--duration-entrance) var(--ease-brand);
   }
 
   .reveal.in {
