@@ -307,6 +307,16 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   `--sky` et `--mint`, utilisés jusqu'ici, étaient mesurés à 2,14 et 2,16.
   Le glyphe de coche passe à `--mint-ink` (2,16 → 4,58) et les numéros
   inactifs du stepper à `--muted-ink` (3,02 → 5,41).
+- **D-59** (2026-09-01, fondateur): la tuile « Gestion des catalogues » passe
+  de `--indigo` à `--rose` (#c2185b). Le mur chromatique portait deux teintes
+  quasi-jumelles ; le rose les sépare. L'accent y est purement décoratif —
+  bordure 22 %, lavis 30 % dégradé vers blanc, filigrane 18 %, filet 3 px —
+  et ne passe jamais sous du texte : le titre (`--ink`) et la description
+  (`--ink-soft`) mesurent 9,26 et 7,20 sur le lavis rose à pleine opacité de
+  survol, contre 9,23 et 7,18 avec l'indigo. Le rose de 26academy (#EC4899)
+  a été écarté : 3,53 en blanc-sur, sous la barre AA. Le rose s'écarte une
+  seconde fois de CADR-05 (« palette bleu / blanc / vert »), après le violet
+  de D-02, sur décision du fondateur.
 
 ### Claude's Discretion
 
