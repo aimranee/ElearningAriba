@@ -31,7 +31,7 @@ async function ProgrammeAccordion() {
 
   if (!sectionResult.ok || !modulesResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="default">
+      <Section tone="band">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -46,7 +46,7 @@ async function ProgrammeAccordion() {
   )?.titre;
 
   return (
-    <Section tone="default">
+    <Section tone="band">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

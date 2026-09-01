@@ -31,7 +31,7 @@ async function Confiance() {
 
   if (!sectionResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="default">
+      <Section tone="band">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -44,7 +44,7 @@ async function Confiance() {
   const placeholders = itemsResult.data.filter((item) => item.statut === "placeholder");
 
   return (
-    <Section tone="default">
+    <Section tone="band">
       <div className="grid items-center gap-10 lg:grid-cols-2">
         <SectionHeader
           eyebrow={section.eyebrow ?? undefined}
