@@ -1,0 +1,33 @@
+{
+  "titre": "Votre profil. Ce que le formateur sait de vous, et rien de plus.",
+  "intro": "Ces informations personnalisent vos échanges, vos attestations et vos factures. Vous pouvez les modifier à tout moment.",
+  "sections": {
+    "identite": "Identité",
+    "contact": "Coordonnées",
+    "professionnel": "Profil professionnel",
+    "preferences": "Préférences de communication"
+  },
+  "champs": {
+    "telephone": "Téléphone"
+  },
+  "aideParChamp": {
+    "telephone": "Utilisé uniquement si le formateur doit vous joindre avant une session."
+  },
+  "emailNonModifiable": "Votre adresse email est votre identifiant de connexion. Écrivez au formateur pour en changer.",
+  "preferences": {
+    "rappels": {
+      "libelle": "Recevoir un rappel avant chaque rendez-vous.",
+      "aide": "Un seul email, envoyé la veille."
+    },
+    "actualites": {
+      "libelle": "Recevoir les nouveautés de la formation.",
+      "aide": "Quelques emails par an, jamais davantage. Vous pouvez vous désinscrire à tout moment."
+    }
+  },
+  "action": "Enregistrer mes informations",
+  "succes": "Vos informations ont été enregistrées.",
+  "erreurs": {
+    "telephoneInvalide": "Ce numéro de téléphone n'est pas valide.",
+    "rejetServeur": "Vos informations n'ont pas pu être enregistrées. Réessayez dans quelques instants."
+  }
+}

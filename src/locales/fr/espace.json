@@ -48,5 +48,15 @@
       "titre": "Votre progression n'a pas encore commencé.",
       "message": "Votre avancement se construira au fil de votre présence aux sessions."
     }
+  },
+  "nav": {
+    "apercu": "Mon espace",
+    "profil": "Mon profil",
+    "donnees": "Mes données"
+  },
+  "deconnexion": "Se déconnecter",
+  "documents": {
+    "expiration": "Vos liens de téléchargement sont personnels et expirent rapidement. Relancez le téléchargement si le vôtre n'est plus valide.",
+    "erreur": "Ce document n'a pas pu être ouvert. Réessayez dans quelques instants."
   }
 }
