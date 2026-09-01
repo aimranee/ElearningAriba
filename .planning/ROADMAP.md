@@ -210,7 +210,7 @@ Plans:
   4. The trainer can define weekly hours, open, grey out or block ranges, set holidays, and view, move, cancel, create on a learner's behalf, or export reservations
   5. A reservation carries an order/confirmation state that is inert until Phase 7 activates it, so the payment rule can be switched on without rewriting the booking flow
 
-**Plans**: 8 plans
+**Plans**: 9 plans
 
 Plans:
 **Wave 1**
@@ -238,6 +238,10 @@ Plans:
 **Wave 6** *(blocked on Wave 5)*
 
 - [ ] 04-08-PLAN.md — `/admin/reservations`: the table, per-row move and cancel, create-on-behalf and the export panel
+
+**Wave 7** *(blocked on Wave 6)*
+
+- [ ] 04-09-PLAN.md — `/admin/types-de-rendez-vous`: per-type edit of label, duration, buffer and price, PATCH-only write path, no create, no delete
 
 ### Phase 5: SEO, pages juridiques, RGPD et mise en ligne
 
