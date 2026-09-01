@@ -1,0 +1,41 @@
+<!--
+  Transcribed from src/locales/fr/emails.json → reinitialisationMotDePasse.
+  The Supabase container reads this file as static HTML and cannot import the
+  locale bundle — these strings are therefore DUPLICATED. If the locale copy
+  changes, this file must be changed with it (D-23).
+
+  The first-name placeholder used elsewhere in emails.json has no Supabase
+  Go-template equivalent guaranteed populated at recovery time, so the
+  interpolated salutation is rendered as the plain "Bonjour," instead of an
+  empty name or a literal, unresolved placeholder.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Réinitialisez votre mot de passe.</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f4f4f7;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:8px;padding:32px;">
+            <tr>
+              <td style="font-size:16px;line-height:24px;">
+                <p style="margin:0 0 16px;">Bonjour,</p>
+                <p style="margin:0 0 16px;">Vous avez demandé la réinitialisation de votre mot de passe.</p>
+                <p style="margin:0 0 24px;">Si vous n'êtes pas à l'origine de cette demande, ignorez cet email : votre mot de passe reste inchangé.</p>
+                <p style="margin:0 0 8px;">
+                  <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:12px 24px;background-color:#1a1a1a;color:#ffffff;text-decoration:none;border-radius:4px;">Réinitialiser mon mot de passe</a>
+                </p>
+                <p style="margin:0 0 24px;font-size:14px;color:#555555;">Ce lien vous mène vers un formulaire de nouveau mot de passe ; il expire après un délai de sécurité.</p>
+                <p style="margin:0 0 4px;">Votre formateur, expert certifié SAP Ariba</p>
+                <p style="margin:0;font-size:12px;color:#8a8a8a;">Cet email automatique ne contient aucune information sensible.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

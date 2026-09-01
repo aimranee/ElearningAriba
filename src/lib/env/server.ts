@@ -24,6 +24,13 @@ const serverEnvSchema = z.object({
    * time inside src/lib/email/resend.ts (D-34).
    */
   RESEND_API_KEY: z.string().min(1).optional(),
+  /**
+   * why: a bucket name, not a secret — defaulted rather than required so a
+   * missing value never breaks `next build`. CPT-07's signed-URL generation
+   * reads it; the hosted bucket itself is a CIO item (see
+   * <hosted_dependencies> in 03-CONTEXT.md).
+   */
+  SUPABASE_SUPPORTS_BUCKET: z.string().min(1).default("supports"),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
