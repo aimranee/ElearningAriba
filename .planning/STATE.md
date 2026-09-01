@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Waves 1-5 of phase 02 complete (02-01..02-10); 02-11 not started — it is the founder's batched visual review of the deferred human-verify checkpoints and must not be run headless"
-last_updated: "2026-08-31T00:00:00.000Z"
-last_activity: 2026-08-31
+status: verifying
+stopped_at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
+last_updated: "2026-09-01T15:04:12.019Z"
+last_activity: "2026-09-01 - Completed quick task 260901-iag: restore strict tone alternation across the landing (programme-accordion, format-modalites, confiance)"
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 29
   completed_plans: 28
-  percent: 97
+  percent: 18
 ---
 
 # Project State
@@ -134,6 +134,8 @@ Recent decisions affecting current work:
   `ariba-cto/notes/2026-08-31-maquette-lot2-landing-v2.html`. See
   `.planning/quick/260831-grv-refonte-visuelle-landing-run-2-en-tete-e/260831-grv-SUMMARY.md`
   for what changed. Still unreviewed by a human — do not treat as approved.
+
+- 260901-m2n: local Supabase stack unreachable (no supabase_db_ElearningAriba container) - npm run content:seed and content-verified build blocked. supabase start/stop/reset forbidden this run. Restart stack externally, then re-run content:seed + build + HTML verification.
 
 ## Quick Tasks Completed
 
