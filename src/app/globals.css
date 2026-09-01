@@ -122,6 +122,8 @@ html {
   --mint-ink: #158568;
   --amber-ink: #996c29;
   --sky-ink: #0f7ea6;
+  /* why (2026-09-01): the section-3 chromatic wall had six hues with two near-twins (--violet #635bff, --indigo #4338ca); --rose widens the range. Unlike --blue/--mint/--amber, which are decoration only, --rose is dark enough to double as ink (5.87 on white, 5.87 white-on) — no -ink variant needed. */
+  --rose: #c2185b;
   --lav: #f1f0ff;
   --lav2: #f6f5ff;
   --soft: #fbfbfe;
