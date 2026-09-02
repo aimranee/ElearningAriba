@@ -67,9 +67,9 @@ with no lot: it is the technical foundation the lots are built on.
 - [x] **AGD-01**: The data model holds recurring availabilities per day, exceptions, reservations, and handles the Europe/Paris timezone
 - [x] **AGD-02**: Visitor sees a public monthly calendar and a list of free slots, with past, blocked or already-taken slots automatically greyed out
 - [x] **AGD-03**: Administrator can configure appointment types — 30-minute discovery call, one-hour individual session — with configurable label, duration, buffer time and price
-- [ ] **AGD-04**: Learner books in three screens from their account — appointment type, slot, confirmation
+- [x] **AGD-04**: Learner books in three screens from their account — appointment type, slot, confirmation
 - [x] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
-- [ ] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
+- [x] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
 - [x] **AGD-07**: Administrator can define weekly working hours, open, grey out or block time ranges, and set holidays
 - [ ] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
 - [x] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
@@ -210,9 +210,9 @@ offer.
 | AGD-01 | Phase 4 | Complete |
 | AGD-02 | Phase 4 | Complete |
 | AGD-03 | Phase 4 | Complete |
-| AGD-04 | Phase 4 | Pending |
+| AGD-04 | Phase 4 | Complete |
 | AGD-05 | Phase 4 | Complete |
-| AGD-06 | Phase 4 | Pending |
+| AGD-06 | Phase 4 | Complete |
 | AGD-07 | Phase 4 | Complete |
 | AGD-08 | Phase 4 | Pending |
 | AGD-09 | Phase 4 | Complete |

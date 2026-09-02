@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-03 Tasks 1-2 complete: public /agenda static shell + client availability island. Task 3 (D-26 founder visual review, gate=\"blocking\") NOT approved — plan paused, do not start Wave 4 (04-04, 04-06)"
-last_updated: "2026-09-02T08:30:00.000Z"
+stopped_at: "04-04 complete: booking commit route, .ics builder, reservation emails — all 3 tasks committed and e2e-verified. Resuming at 04-05."
+last_updated: "2026-09-02T11:18:07.062Z"
 last_activity: 2026-09-02
 progress:
   total_phases: 11
   completed_phases: 3
   total_plans: 49
-  completed_plans: 41
-  percent: 84
+  completed_plans: 43
+  percent: 88
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 3 of 9
-Status: BLOCKED — Tasks 1-2 complete and committed; Task 3 (D-26 founder visual review) awaiting founder ruling before Wave 4 can start
+Plan: 5 of 9
+Status: Ready to execute
 Last activity: 2026-09-02
 
-Progress: [████████░░] 84%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Progress: [████████░░] 84%
 | Phase 04-agenda-et-prise-de-rendez-vous P01 | 70min | 3 tasks | 6 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P02 | 30min | 2 tasks | 11 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P03 (partial — Tasks 1-2 of 3, Task 3 founder gate pending) | 85min | 2 tasks | 12 files |
+| Phase 04-agenda-et-prise-de-rendez-vous P04 | 100min | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 04-03]: The D-24 public legend renders in the static server component (page.tsx), not inside the client island, so it is present in prerendered HTML rather than only after hydration
 - [Phase 04-03]: /api/creneaux/maintien returns machine-readable agenda.erreurs.* keys, not resolved French text, mirroring the contact route's field-error-map idiom — the client resolves the key against agenda.json
 - [Phase 04-03]: D-29's opening day/month is set inside the async fetch callback guarded by a ref, not a second effect reacting to state, to avoid eslint-plugin-react-hooks' set-state-in-effect warning
+- [Phase 04-04]: check-ics.mjs imports the real ics.ts via node --conditions=react-server rather than re-implementing its rules
+- [Phase 04-04]: GET .../ics sources the .ics ATTENDEE from a second getLearner() session read, not the reservation row (which carries no learner email)
+- [Phase 04-04]: E2E verification ran against a temporary next start server on port 3010 (port 3000 is squatted by an unrelated process); no dev server was started
 
 ### Pending Todos
 
@@ -173,9 +177,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-09-02T08:30:00.000Z
-Stopped at: 04-03 Tasks 1-2 complete (commits fd90b8c, 26aaa95), SUMMARY.md written (7f9fd97). Task 3 (D-26 founder visual review of /agenda, gate="blocking") awaiting founder ruling — see 04-03-SUMMARY.md § "Founder Review Required" for the checklist and the two rulings to confirm. Do not start Wave 4 (04-04, 04-06) until approved.
-Resume file: 04-03-PLAN.md (Task 3 only)
+Last session: 2026-09-02T11:16:57.595Z
+Stopped at: 04-04 complete: booking commit route, .ics builder, reservation emails — all 3 tasks committed and e2e-verified. Resuming at 04-05.
+Resume file: None
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
 review of the 02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).

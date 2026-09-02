@@ -187,10 +187,20 @@ None — all work is local-database and local-build only; nothing pushed, no CIO
 
 **Resume signal:** the founder types "approved" or describes what is wrong; if something is wrong, the next executor session fixes it in this same plan and re-presents this gate — the plan does not advance to Wave 4 until then.
 
+## Founder Ruling — Task 3 gate: APPROVED (2026-09-02)
+
+The founder approved this gate on the machine-verified evidence assembled above: the static route table (`○ /agenda`), the D-24 legend, type/price resolution traced to `app.type_rendez_vous` (not `agenda.json`), slot density measured at 45 min (30-minute call) / 75 min (60-minute session), zero institutional-blue tokens, and zero hand-written currency or hour signs. The browser-only observations listed in items 1–13 above (calendar opening day, slot list grouping, trust-signal placement, D-27/D-28 cross-tab behaviour, mobile targets, skeleton behaviour) were **not separately performed** — approval rests on the machine-verified evidence, not a browser walkthrough.
+
+Rulings on the three open items:
+
+1. **Slot density (item 14):** confirmed as planned — step is `duration + buffer`: 45 min for the 30-minute call, 75 min for the 60-minute session.
+2. **queryKeys/optimistic-update waiver (item 15):** confirmed. `@tanstack/react-query` is NOT added this phase. The `useState` status machine from `src/components/forms/contact-form.tsx` remains the pattern for this phase's client islands, waiving the CLAUDE.md queryKeys/optimistic-updates rule for Phase 04.
+3. **Retention rate limits (item 16):** confirmed as planned — 120 requests / 30 new holds / 60 hold-changes / 120 releases per IP per 10 minutes, release always attempted regardless of budget.
+
 ## Next Phase Readiness
 
-- **Blocked pending founder approval of this gate.** Do not start 04-04 or 04-06 (Wave 4, both depend on 04-03) until Task 3 is explicitly approved.
-- Everything Wave 4 needs structurally is in place: `CLE_CRENEAU_CHOISI` and its read/write/clear helpers (04-05's `/reservation` side reads through them), `formatHeureProse`/`formatDateAvecJour` (04-04's `.ics`/email prose, 04-05's recap), the retention route's four rate-limit numbers (pending ratification above).
+- **Unblocked.** Founder approved the Task 3 gate above; Wave 4 (04-04) may proceed.
+- Everything Wave 4 needs structurally is in place: `CLE_CRENEAU_CHOISI` and its read/write/clear helpers (04-05's `/reservation` side reads through them), `formatHeureProse`/`formatDateAvecJour` (04-04's `.ics`/email prose, 04-05's recap), the retention route's four rate-limit numbers (ratified above).
 
 ---
 *Phase: 04-agenda-et-prise-de-rendez-vous*
