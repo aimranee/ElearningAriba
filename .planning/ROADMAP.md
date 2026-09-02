@@ -223,7 +223,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2)*
 
-- [ ] 04-03-PLAN.md — Public `/agenda`: static shell, client availability island, monthly grid, slot list, three-state legend
+- [ ] 04-03-PLAN.md — Public `/agenda`: static shell, client availability island, monthly grid, slot list, three-state legend *(Tasks 1-2 complete and committed; Task 3, the D-26 blocking founder visual review, is pending — see 04-03-SUMMARY.md)*
 
 **Wave 4** *(blocked on Wave 3, run in parallel)*
 

@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-02 complete: idempotent agenda seed script and SQL proofs for free-slot expansion and holiday calendar"
-last_updated: "2026-09-02T08:07:31.244Z"
+stopped_at: "04-03 Tasks 1-2 complete: public /agenda static shell + client availability island. Task 3 (D-26 founder visual review, gate=\"blocking\") NOT approved — plan paused, do not start Wave 4 (04-04, 04-06)"
+last_updated: "2026-09-02T08:30:00.000Z"
 last_activity: 2026-09-02
 progress:
   total_phases: 11
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
 Plan: 3 of 9
-Status: Ready to execute
+Status: BLOCKED — Tasks 1-2 complete and committed; Task 3 (D-26 founder visual review) awaiting founder ruling before Wave 4 can start
 Last activity: 2026-09-02
 
 Progress: [████████░░] 84%
@@ -63,6 +63,7 @@ Progress: [████████░░] 84%
 | Phase 02-site-public P02 | 45min | 1 task | 8 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P01 | 70min | 3 tasks | 6 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P02 | 30min | 2 tasks | 11 files |
+| Phase 04-agenda-et-prise-de-rendez-vous P03 (partial — Tasks 1-2 of 3, Task 3 founder gate pending) | 85min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -94,6 +95,9 @@ Recent decisions affecting current work:
 - [Phase 04-02]: Fixed a missing service_role EXECUTE grant on app.paques via a new additive migration rather than editing the already-applied grants migration
 - [Phase 04-02]: Fixed app.creneaux_libres D-13 horizon (day-granular only, no instant-level upper bound) via a new create-or-replace migration, caught by this plan's own SQL proof
 - [Phase 04-02]: Converted plain type_rendez_vous inserts in the three 04-01 SQL test files to on-conflict-do-update, since agenda:seed now permanently seeds those ids outside any transaction
+- [Phase 04-03]: The D-24 public legend renders in the static server component (page.tsx), not inside the client island, so it is present in prerendered HTML rather than only after hydration
+- [Phase 04-03]: /api/creneaux/maintien returns machine-readable agenda.erreurs.* keys, not resolved French text, mirroring the contact route's field-error-map idiom — the client resolves the key against agenda.json
+- [Phase 04-03]: D-29's opening day/month is set inside the async fetch callback guarded by a ref, not a second effect reacting to state, to avoid eslint-plugin-react-hooks' set-state-in-effect warning
 
 ### Pending Todos
 
@@ -146,6 +150,8 @@ Recent decisions affecting current work:
 
 - **[Phase 03, still open, hosted-only, CIO-owed]** CPT-02 (no Google OAuth client anywhere), custom SMTP for CPT-01/CPT-03 confirmation and reset emails, the private `supports` bucket for CPT-07, and the two Lot 3 migrations not yet pushed to either hosted Supabase project — all four per `03-RECETTE.md` Section 3.
 
+- **[Phase 04-03, unreviewed gate — blocking]** Tasks 1-2 of `04-03-PLAN.md` are complete, committed (`fd90b8c`, `26aaa95`) and self-verified (lint/typecheck/build all 0, `/agenda` still `○` static, prerendered legend and price confirmed, D-27 retention route end-to-end tested against the local stack). Task 3 — the D-26 blocking founder visual review — has **not** been run or approved. Per the standing rule for this phase, the executor does not self-approve this gate. See `04-03-SUMMARY.md` § "Founder Review Required" for the full checklist, including two rulings to confirm (the CLAUDE.md queryKeys/optimistic-update waiver, and the four retention rate-limit numbers: 120 IP / 30 mint / 60 replace / 120 release-fails-open). **Wave 4 (04-04, 04-06) must not start until this gate is approved.**
+
 ## Quick Tasks Completed
 
 | Date | Task | Result |
@@ -167,10 +173,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-09-02T08:07:18.344Z
-Stopped at: 04-02 complete: idempotent agenda seed script and SQL proofs for free-slot expansion and holiday calendar
-service_role grants committed separately). 02-01, 02-02, 02-03, 02-04 all complete.
-Resume file: 04-03-PLAN.md
+Last session: 2026-09-02T08:30:00.000Z
+Stopped at: 04-03 Tasks 1-2 complete (commits fd90b8c, 26aaa95), SUMMARY.md written (7f9fd97). Task 3 (D-26 founder visual review of /agenda, gate="blocking") awaiting founder ruling — see 04-03-SUMMARY.md § "Founder Review Required" for the checklist and the two rulings to confirm. Do not start Wave 4 (04-04, 04-06) until approved.
+Resume file: 04-03-PLAN.md (Task 3 only)
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
 review of the 02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
