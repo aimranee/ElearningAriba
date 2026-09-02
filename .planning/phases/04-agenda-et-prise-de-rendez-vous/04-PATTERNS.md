@@ -20,6 +20,9 @@
 | `app.est_administrateur()` (inside the migration) | RPC helper | request-response | same as above | role-match |
 | `supabase/tests/lot4_verrou_creneau.sql` | test (SQL negative) | batch | `supabase/tests/lot3_rls_isolation.sql` | exact |
 | `supabase/tests/lot4_rls_reservation.sql` | test (SQL negative) | batch | `supabase/tests/lot3_rls_isolation.sql` | exact |
+| `supabase/tests/lot4_maintien_creneau.sql` **(D-27, added 2026-09-02)** | test (SQL negative) | batch | `supabase/tests/lot3_rls_isolation.sql`, then `lot4_verrou_creneau.sql` for the Lot 4 flavour | exact |
+| `supabase/migrations/2026…_lot4_admin_reservation.sql` (04-07) | migration | DDL | `supabase/migrations/20260831160000_lot3_comptes.sql` (header + reversion comment); the three RPC bodies mirror `app.reserver_creneau` from the first Lot 4 migration | role-match |
+| `app.maintien_creneau` + `app.maintenir_creneau()` / `app.liberer_creneau()` / `app.purger_maintiens_expires()` **(D-27)** | table + three `volatile security definer` RPCs | request-response (write) | `app.reserver_creneau()` in the same migration — same typed-outcome, `set search_path = ''`, exception-catching shape | role-match (no analog for a *policy-less, RLS-on* table anywhere in the repo — see § No Analog Found) |
 | `src/types/database.types.ts` (regenerated) | generated artifact | build | `scripts/gen-db-types.mjs` (`npm run db:types`) | exact |
 
 ### Bootstrap
@@ -44,6 +47,10 @@
 | `src/lib/agenda/ics.ts` (new) | utility | transform | — | **no analog** |
 | `src/lib/agenda/csv.ts` (new) | utility | transform | — | **no analog** |
 | `src/lib/agenda/creneaux.ts` (client grid helpers) | utility | transform | `src/lib/i18n/fr.ts` (formatter-only discipline) | partial |
+| `src/lib/validation/maintien.ts` (new, D-27) | validation | transform | `src/lib/validation/contact.ts` | exact |
+| `src/lib/rate-limit.ts` (widen `consume()` with a per-call-site budget, D-27) | middleware / guard | request-response | itself, `rate-limit.ts:17-31`; the additive-widening discipline from `src/lib/email/resend.ts` gaining `attachments?` | exact |
+| `src/lib/validation/types-rendez-vous.ts` (new, 04-09) | validation | transform | `src/lib/validation/contact.ts`, then `src/lib/validation/agenda-admin.ts` for the mirror-the-table's-`check`-constraints discipline | exact |
+| `src/lib/agenda/admin-queries.ts` (+ the 04-09 type read) | service / query | CRUD (read) | `src/lib/documents/queries.ts` | exact |
 
 ### Route handlers
 
@@ -51,6 +58,8 @@
 |---|---|---|---|---|
 | `src/app/api/reservation/route.ts` (POST) | route | request-response | `src/app/api/rgpd/suppression/route.ts` | exact |
 | `src/app/api/admin/**/route.ts` (writes) | route | CRUD | `src/app/api/rgpd/suppression/route.ts` + `src/app/api/contact/route.ts` | role-match |
+| `src/app/api/creneaux/maintien/route.ts` (POST + DELETE, **unauthenticated by design — D-27/D-28**) | route | request-response | `src/app/api/contact/route.ts` — the only other route in the repo that takes an untrusted body without a session, and the source of the zod-at-the-boundary + `consume()` opening | role-match (no analog for an unauthenticated route that *writes* server state) |
+| `src/app/api/admin/types-de-rendez-vous/route.ts` (PATCH only, 04-09) | route | CRUD (write) | `src/app/api/admin/disponibilites/route.ts` (04-06), itself modelled on `src/app/api/rgpd/suppression/route.ts` | role-match |
 | `src/app/api/admin/reservations/export/route.ts` (CSV) | route | file-I/O (download) | `src/app/api/documents/[id]/route.ts` | role-match |
 | `.ics` download route (screen 4 CTA) | route | file-I/O (download) | `src/app/api/documents/[id]/route.ts` | role-match |
 
@@ -65,7 +74,11 @@
 | `src/app/admin/layout.tsx` (new) | layout / guard | request-response | `src/app/espace/layout.tsx` | exact |
 | `src/app/admin/*/page.tsx` (horaires, jours fériés, réservations) | page (server) | CRUD | `src/app/espace/page.tsx` | role-match |
 | `src/components/agenda/agenda-booker.tsx` (client island) | component (client) | request-response | `src/components/forms/contact-form.tsx` (state machine) — **but no browser-Supabase analog exists** | partial |
-| `src/components/agenda/*` (grid, slot list, skeleton, stepper) | component | — | `src/app/agenda/page.tsx:65-96` (grid markup, maquette) | partial |
+| `src/components/agenda/*` (grid, slot list, stepper) | component | — | `src/app/agenda/page.tsx:65-96` (grid markup, maquette) | partial |
+| `src/components/agenda/booker-skeleton.tsx` (drawn loading state) | component | — | — | **no analog** — the repo has no skeleton anywhere; see § No Analog Found |
+| `src/components/reservation/compte-a-rebours-maintien.tsx` (D-27 countdown) | component (client) | — | `src/components/forms/contact-form.tsx` for the `useState` machine and the set-mount-time-values-in-an-effect hydration comment; the arithmetic itself comes from `maintienRestant()` in `creneaux.ts` | partial |
+| `src/app/admin/types-de-rendez-vous/page.tsx` + `src/components/admin/types-editeur.tsx` (04-09) | page (server) + editor (client) | CRUD | `src/app/admin/horaires/page.tsx` + `src/components/admin/horaires-editeur.tsx` (04-06) — the closest analog in the phase, same server-reads/client-edits/posts-to-a-route-handler split | exact |
+| `src/components/admin/admin-nav.tsx` — fourth entry (04-09) | component | — | itself, as built in 04-06 from a single array precisely so a fourth entry is an added element | exact |
 | `src/components/admin/*` (shell nav, editors, table) | component | CRUD | `src/components/espace/espace-nav.tsx`, `src/components/espace/documents-list.tsx` | role-match |
 | admin cancel / delete-override confirmation | component (client) | request-response | `src/components/compte/suppression-compte.tsx` | exact |
 
@@ -567,6 +580,113 @@ export async function requireLearner(): Promise<Learner> {
 ```
 
 **Note for the planner:** `role` is already on the `profil` row `getLearner()` returns — `requireAdministrator()` needs no second query, only a role check plus a redirect target decision (`/espace` vs `/connexion`). D-01 is the first surface to read this column.
+
+---
+
+### `src/lib/rate-limit.ts` — widen `consume()` with a per-call-site budget (guard, D-27)
+
+**Analog:** itself, `src/lib/rate-limit.ts:17-31`. **Discipline analog:** `src/lib/email/resend.ts`
+gaining an optional `attachments` field — the repo's established way of widening a shared utility
+without touching its callers.
+
+**What to copy:** the existing `Map<string, number[]>`, its cutoff pruning and its `why:` comment
+about being a per-instance best-effort limiter with no third-party store (D-35). Keep all of it.
+
+**What changes:** `consume(key: string)` becomes
+`consume(key: string, options?: { max?: number; windowMs?: number })`, with both defaulting to the
+existing `MAX_PER_WINDOW = 5` / `WINDOW_MS = 10 * 60 * 1000` module constants. The two existing
+callers — `src/app/api/contact/route.ts` and `src/app/api/rgpd/suppression/route.ts` — are then
+**byte-unchanged** and keep their current budget, which is the acceptance criterion.
+
+**Why it is needed at all:** the D-27 retention route cannot live on a 5-per-10-minutes budget. Every
+slot choice and every slot *change* is a `POST`, so a visitor comparing créneaux — the behaviour D-27
+exists to support — would be refused on the phase's primary conversion path, and a corporate NAT
+shares one egress IP across many visitors. Plan 04-03 splits the keying instead: minting a token is
+IP-keyed and tight (10/10 min), replacing a retention is **token**-keyed and generous (60/10 min,
+safe because `maintien_creneau_jeton_unique` means one token holds exactly one slot), and `DELETE` is
+not limited at all — refusing a release would leave a slot held.
+
+**Do not:** add a store, a dependency, an eviction policy, or a second limiter module.
+
+---
+
+### `src/app/api/creneaux/maintien/route.ts` (route, unauthenticated write — D-27/D-28)
+
+**Analog:** `src/app/api/contact/route.ts` — the only other route in the repo that accepts an
+untrusted body with no session. Copy its opening exactly: the method-surface comment naming which
+verbs the file exports, `consume()` before anything is parsed, zod at the boundary returning a
+field-error map with 422, and never returning a raw error.
+
+**Where the analog stops, and it is the important part:** `api/contact/route.ts` only *sends an
+email*; this route **writes server state that hides a slot from every other visitor.** There is no
+analog in the repo for that, so the plan compensates with four controls that must all be present:
+split mint/replace budgets (above), a server-generated opaque token the caller never chooses, a
+fifteen-minute ceiling that is a SQL literal inside `app.maintenir_creneau` and therefore
+unreachable from the body, and `Cache-Control: no-store` so no shared cache hands one visitor
+another's token.
+
+**Client used:** `src/lib/supabase/public.ts` — this is a server route, so the `server-only` fence is
+satisfied; the naming slip recorded against D-06 concerns *client components* only.
+
+**Do not:** call `getLearner()` or `requireLearner()` here. D-28 puts sign-in at screen 3, so the
+visitor retaining a slot has no session yet, and gating this route would restore the exact barrier
+D-28 removes.
+
+---
+
+### `supabase/tests/lot4_maintien_creneau.sql` (SQL negative test, D-27)
+
+**Analog:** `supabase/tests/lot3_rls_isolation.sql` for the harness — `begin;`, a positive control
+before every negative assertion, `raise exception` on failure and `raise notice` on success, closing
+`rollback;` — and `lot4_verrou_creneau.sql` for the Lot 4 fixture shape (seeding a type, a weekly
+rule and `auth.users` rows).
+
+**The one thing this file exists to prove, and it is not "the retention works":** that the retention
+**grants nothing**. D-03 and D-27 both keep the exclusion constraint as the only source of truth, so
+step 7 retains an instant with one token, then books it with a *forged* token and asserts the refusal
+comes from the constraint rather than from the retention. A file that only asserted the happy path
+would pass against an implementation that had quietly made the hold authoritative.
+
+**Order matters:** the early-morning `00:30` Europe/Paris assertion runs first, before the ordinary
+cases, so a green suite cannot come from never touching the `at time zone` boundary in
+`app.maintenir_creneau`.
+
+---
+
+### `src/components/agenda/booker-skeleton.tsx` (component, drawn loading state)
+
+**Analog:** none — there is no skeleton anywhere in the repo (see § No Analog Found). The nearest
+thing is `EmptyState`, which is a *content* state, not a *loading* one, and must not be reused here.
+
+**What to build:** the exact geometry of the panel it replaces — a seven-column grid of day-cell
+placeholders at the real cell height, and a matin/après-midi placeholder list at the real chip
+height. `04-CONTEXT.md` § Parcours is explicit that D-06's static-shell-plus-client-read *creates*
+this loading instant, so it is designed rather than tolerated: never a bare spinner, never an empty
+box, and no height change when the data lands.
+
+**Do not:** add a second animation curve. The codebase has exactly one `cubic-bezier`
+(`--ease-brand`) and this phase adds none.
+
+---
+
+### `src/components/reservation/compte-a-rebours-maintien.tsx` (client, D-27 countdown)
+
+**Analog:** `src/components/forms/contact-form.tsx` for the `useState` machine and for the
+hydration-safety comment at lines 38-46 explaining why mount-time values are set in an effect rather
+than during render — a countdown is exactly that case.
+
+**Arithmetic:** none of its own. It calls `maintienRestant(expireLe, now)` from
+`src/lib/agenda/creneaux.ts`, so `/agenda` and `/reservation` cannot drift apart on when a hold has
+lapsed.
+
+**The rule that outranks the component:** a lapsed countdown **must not disable the commit button.**
+Only the database knows whether the slot is gone; if nobody took it, the commit still succeeds.
+Binding the button's `disabled` to the timer would make the retention a second source of truth,
+which D-27 and D-03 both forbid. Use `--warning`/`muted` semantics on the lapse state, never
+`destructive`: an expired hold is not a system failure.
+
+**Cleanup:** one interval, cleared in the effect's return. `grep` for `setInterval` across
+`src/components/reservation/` must find it only here.
 
 ---
 
@@ -1315,6 +1435,10 @@ The planner should take these from `04-RESEARCH.md` (all empirically verified ag
 | Hand-written monthly calendar grid | component | — | Only the 7-badge maquette at `agenda/page.tsx:74-84`; no real grid, no `@base-ui/react` calendar primitive | `04-UI-SPEC.md` § New components; grid math via `Intl` `formatToParts` (`04-RESEARCH.md` § Code Examples) |
 | `requireAdministrator()` / any role-gated surface | guard | request-response | `profil.role` has existed since Lot 3 but **no surface reads it** (Lot 3 D-02, `lot3_comptes.sql:30`). D-01 is its first exposure. | Shape copied from `requireLearner()` (`session.ts:41-52`); the role check itself is new |
 | Admin side-nav shell at `data-density="compact"` | component | — | The attribute is declared in `globals.css:378-386` with **zero call sites** at `compact` today (`espace/page.tsx:60` sets `default`) | `04-UI-SPEC.md` D-U1; nav structure from `src/components/espace/espace-nav.tsx` |
+| A table with RLS **enabled and no policy at all** (`app.maintien_creneau`) | migration | DDL | Every RLS table in the repo carries at least one policy; a policy-less table reachable only through its own `security definer` RPCs has no precedent | `04-CONTEXT.md` D-27 + D-23: a readable retention table would publish "someone is about to take this", the activity signal D-23 withholds. Grants and policy both withheld; `service_role` only |
+| An **unauthenticated route that writes server state** (`/api/creneaux/maintien`) | route | request-response | `api/contact/route.ts` is the only sessionless route and it only sends mail; nothing in the repo lets an anonymous caller mutate a table | `04-CONTEXT.md` D-27 + D-28; controls enumerated in § Pattern Assignments for that file |
+| A **loading skeleton** of any kind | component | — | Zero skeletons in `src/components/`; `EmptyState` is a content state, not a loading one | `04-CONTEXT.md` § Parcours ("a drawn loading state, not a void"); geometry from the panel it replaces |
+| A **countdown / ticking display** | component (client) | — | No `setInterval` anywhere in `src/` | `contact-form.tsx` for the effect-not-render discipline; arithmetic from `maintienRestant()` |
 
 ---
 
@@ -1324,3 +1448,13 @@ The planner should take these from `04-RESEARCH.md` (all empirically verified ag
 **Files scanned:** 34 read in full or in targeted ranges; directory listings and greps across ~120 source files
 **Greps that produced negative findings (recorded because they define the gaps):** `supabase/client` (1 hit, a comment), `\.rpc\(` (0 hits), `export const revalidate|dynamic` (5 hits, all Lot 2 public pages)
 **Pattern extraction date:** 2026-09-01
+**Extended:** 2026-09-02, after the D-27/D-28/D-29 amendment to `04-CONTEXT.md` and the addition of
+plan 04-09. Added classifications and assignments for `src/lib/agenda/creneaux.ts`,
+`src/lib/validation/maintien.ts`, `src/lib/rate-limit.ts`, `src/app/api/creneaux/maintien/route.ts`,
+`supabase/tests/lot4_maintien_creneau.sql`, `supabase/migrations/2026…_lot4_admin_reservation.sql`,
+`src/components/agenda/booker-skeleton.tsx`,
+`src/components/reservation/compte-a-rebours-maintien.tsx`, and the seven plan-04-09 files
+(`src/lib/validation/types-rendez-vous.ts`, the admin type read, the `PATCH` route, the page, the
+editor and the fourth nav entry). Four new rows in § No Analog Found record the genuinely
+unprecedented shapes: a policy-less RLS table, an unauthenticated route that writes state, a loading
+skeleton, and a ticking display.

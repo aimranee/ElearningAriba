@@ -2,7 +2,7 @@
 
 **Researched:** 2026-09-01
 **Domain:** Postgres temporal modelling (recurring availability + exceptions), concurrency-safe booking, Europe/Paris DST correctness, Next.js 16 App Router static-shell/client-island split, RFC 5545 `.ics`, French back-office
-**Confidence:** HIGH on the data layer (proven empirically against this repo's own local Postgres 17.6), HIGH on the dependency question, MEDIUM on UI composition (no analog in repo), LOW on three upstream contradictions listed in Open Questions
+**Confidence:** HIGH on the data layer (proven empirically against this repo's own local Postgres 17.6), HIGH on the dependency question, MEDIUM on UI composition (no analog in repo). *The three upstream contradictions that were LOW are now resolved — see § Open Questions (RESOLVED); the 15-minute hold was confirmed in scope by the D-27/D-28/D-29 amendment to `04-CONTEXT.md`.*
 
 ---
 
@@ -137,6 +137,7 @@ Three findings dominate this phase, and all three cut against the shape the upst
 | Confirmation + trainer notification, `.ics` attachment (AGD-06) | Frontend Server (route handler) | External (Resend) | `RESEND_API_KEY` is server-only; `src/lib/email/resend.ts` is `server-only`. |
 | CSV export (D-19) | Frontend Server (route handler, admin-gated) | Database (query) | Streaming personal data must pass the role gate on the server, never assembled in the browser. |
 | Price/label source of truth (AGD-03) | Database (`type_rendez_vous`) | Static (`agenda.json` as seed input) | AGD-03 says "configurable"; D-24's fence says `agenda.json` is not edited. Seed DB *from* the JSON, exactly as `content:seed` does. |
+| 15-minute slot retention (D-27) — grant, hide, lapse, release | Database (`app.maintien_creneau` + three `security definer` RPCs) | Browser (countdown display only) | *Added after the CONTEXT amendment.* Same reasoning as the two rows above it: the window is a server-side `interval '15 minutes'` literal so no client can widen it, the anti-join lives inside `creneaux_libres` so a hidden slot is indistinguishable from a booked one (D-23), and release-on-commit happens in the booking transaction. Expiry is a read-side predicate plus an inline purge — lazy, no scheduled job (D-02). **The browser tier owns only the countdown pixels: a lapsed timer must never gate a commit**, because the retention is advisory and the exclusion constraint decides (D-03, D-27). Lot 8 will need this row: a synced calendar must not treat a retention as a booking. |
 
 ## Standard Stack
 
@@ -1088,9 +1089,34 @@ ASVS level 1, `security_block_on: high`.
 | A8 | The trainer video link is a server-only env var (not `NEXT_PUBLIC_`) since only the `.ics`/emails/recap need it | Runtime State Inventory | Low — if screen 3 must render it client-side, it becomes `NEXT_PUBLIC_` and is then public |
 | A9 | Booking-window bounds (24 h / 8 weeks) are enforced in SQL as literals, not as a settings table | Pattern 3 | Low — D-13 says "fixed values, not back-office settings" |
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> **All six resolved 2026-09-01/02.** Questions 1, 3 and 6 were answered by the founder's amendment
+> to `04-CONTEXT.md` (commit `4bafd24`, adding D-27, D-28, D-29 plus the mobile and typography
+> sections); 2, 4 and 5 were answered by planner ruling recorded in the plan set. Each resolution is
+> recorded inline below. Nothing here is outstanding and nothing blocks planning.
 
 1. **The 15-minute slot hold is in `04-UI-SPEC.md` but not in `04-CONTEXT.md`.**
+
+   **RESOLVED — in scope, by founder amendment.** `04-CONTEXT.md` now carries **D-27** (the slot is
+   retained for 15 minutes, visibly, then becomes free again), **D-28** (sign-in is requested at
+   screen 3, not on slot click — amending D-09) and **D-29** (the calendar opens on the first day
+   carrying slots). `04-UI-SPEC.md`'s hold-timer badge, hold-expired message and acceptance criterion
+   7 are therefore binding, and the whole of that document applies.
+   The shape chosen is the cheaper of the two this question named, and close to the recommendation
+   below: a **separate `app.maintien_creneau` table** — token, `plage tstzrange` generated,
+   `expire_le` — and **no fourth `statut` value**, so D-07's closed three-value `check` and "Lot 4
+   always writes `confirmee`" are untouched. Two deviations from the recommendation, both forced:
+   the exclusion constraint on that table is **unqualified**, because an exclusion predicate must be
+   `immutable` and `now()` is only `stable`; and expiry is therefore a **read-side predicate
+   (`expire_le > now()`) plus an inline `app.purger_maintiens_expires()`** called at the top of every
+   retention and booking transaction — lazy, no scheduled job, so D-02's "no generation job" holds.
+   It cost no extra plan: the schema and RPCs landed in plan 04-01, the anonymous route in 04-03, the
+   commit seam in 04-04 and the countdown in 04-05.
+   The load-bearing constraint the founder restated: **the retention is the experience, the exclusion
+   constraint remains the only source of truth.** A token grants no right to book — it is passed only
+   into the availability re-derivation's anti-join — and `supabase/tests/lot4_maintien_creneau.sql`
+   proves that with a forged token.
    - What we know: `04-UI-SPEC.md` requires a hold-timer badge, "Ce créneau vous est réservé pendant 15 minutes.", a hold-expired message, and acceptance criterion 7 tests it. It attributes this to "decision 27" and speaks of "29 founder decisions".
    - What's unclear: `04-CONTEXT.md` lists **D-01…D-26** and contains no hold. A hold is structurally significant: it is either a fourth `statut` value (contradicting D-07's closed three-value `check` and "Lot 4 always writes `confirmee`") or a separate `maintien_creneau` table with its own expiry and its own exclusion-constraint interaction (contradicting D-02's "no slot table" spirit) — plus an expiry mechanism, and D-02 forbids a scheduled job.
    - Recommendation: **escalate to the founder before planning locks.** The cheapest compatible shape, if it is confirmed in scope: a `app.maintien_creneau(utilisateur_id, plage, expire_le)` table with its own `exclude using gist (plage with &&) where (expire_le > now())` and lazy expiry (no job), plus a matching anti-join in `creneaux_libres`. That is roughly one extra plan. If it is **not** confirmed, the hold copy and acceptance criterion 7 must be struck from `04-UI-SPEC.md`.
@@ -1099,19 +1125,62 @@ ASVS level 1, `security_block_on: high`.
    - What we know: `src/lib/supabase/public.ts` line 1 is `import "server-only"`; importing it from a `"use client"` component is a build error. `src/lib/supabase/client.ts` is the browser factory, already typed `<Database, "app">`.
    - Recommendation: treat this as a naming slip in D-06, not a decision. Use `client.ts`; record the substitution in the plan so no reviewer reverts it. The **intent** of D-06 — anonymous, cookie-free-in-effect, `/agenda` stays static — is fully preserved.
 
+   **RESOLVED — recommendation adopted, and the split is finer than the question assumed.**
+   `src/lib/supabase/client.ts` for the **live free-slot read** from the browser island;
+   `src/lib/supabase/public.ts` — which is exactly what that module exists for — for the
+   **appointment-type read**, which happens server-side at build/revalidate time, cookie-free, and
+   for the server-side retention route. The substitution and its reason are carried as a
+   `scope_ruling` in plan 04-03 and as a code comment, so no reviewer reverts it. D-06's intent is
+   preserved: the route is still prerendered `○`.
+
 3. **"No new `Intl` formatters" (CONTEXT scope fence) vs. "two new `Intl` formatters required" (`04-UI-SPEC.md` D-U4).**
    - What we know: the fence reads "*No new `Intl` formatters — reuse those in `src/lib/i18n/fr.ts`*". D-U4 requires a prose hour-of-day formatter (`14 h 30`) and a weekday-bearing date formatter (`mardi 8 septembre`), **added to that same file**, and acceptance criterion 4 tests them.
    - Recommendation: read the fence as "no formatter authored outside `src/lib/i18n/fr.ts`, no hand-written `" h"`/`"€"` at a call site" — which is what its own in-file comments say it exists to prevent. Adding two to `fr.ts` honours the spirit. Low risk, but worth one line of acknowledgement in the plan.
+
+   **RESOLVED — recommendation adopted, and since confirmed by the founder.** The amended
+   `04-CONTEXT.md` § Culture et typographie françaises now names both formatters as **required** and
+   gives the reason directly: a hand-written `" h"` at a call site is the same defect as the
+   hand-written `"€"` that `currencyFormatter` exists to prevent, and a call-site weekday
+   concatenation is the second. Plan 04-03 Task 1 adds exactly two, inside `src/lib/i18n/fr.ts`,
+   named `heureProseFormatter` / `formatHeureProse` (`14 h 30`) and `dateAvecJourFormatter` /
+   `formatDateAvecJour` (`mardi 8 septembre`). The existing `timeFormatter` (`14:30`) stays the dense
+   register for slot pills; the two registers coexist and are never interchanged. Every consumer in
+   plans 04-04 through 04-09 imports one of the two identifiers.
 
 4. **CLAUDE.md's "use queryKeys factory, prefer optimistic updates" has no library behind it.**
    - What we know: `@tanstack/react-query` is not in `package.json`; the whole repo uses server components plus `fetch`-in-island. `04-UI-SPEC.md` sets a zero-new-dependency budget with exactly one named exception (the zoned-date library, which this research recommends **not** spending).
    - Recommendation: either (a) declare the rule not-applicable for this phase and record it, or (b) spend the one dependency slot on `@tanstack/react-query` instead of a date library. **(a) is recommended** — optimistic updates are actively wrong for a booking commit, where the whole point is that only the database knows whether the slot is still free.
 
+   **RESOLVED — (a), by planner ruling, recorded as a `scope_ruling` in plans 04-03, 04-04, 04-05,
+   04-06, 04-08 and 04-09.** The in-repo idiom is the `useState` status machine in
+   `src/components/forms/contact-form.tsx`. **Caveat, and it is deliberately not swept under the
+   ruling:** `04-CONTEXT.md`'s Claude's-Discretion list does not cover waiving a CLAUDE.md
+   instruction, so this is a project rule being set aside without the founder. It is therefore
+   surfaced for one-line ratification at the phase's first D-26 gate (plan 04-03 Task 3, item 12)
+   rather than left in the rulings alone. If the founder prefers (b), the dependency slot is still
+   unspent — this phase adds zero packages.
+
 5. **Does a new API route handler violate D-06's "the static route count does not move"?**
    - What we know: the phase needs at least `POST /api/reservation`, the admin write handlers, and `GET /api/admin/reservations/export`. Route handlers appear in the build route table.
    - Recommendation: read D-06 as scoped to the **public page routes** it is about (`/agenda` and the 13 prerendered pages stay `○`). Confirm at the first plan-check; the verification command should assert *the existing 13 remain static*, not *the total route count is unchanged*.
 
+   **RESOLVED — recommendation adopted.** Every surface plan asserts "the build output's count of `○`
+   routes is greater than or equal to the 13 recorded before this phase; no previously-static public
+   page has become `ƒ`", and plan 04-03 additionally asserts the line `○ /agenda` specifically, with
+   a falsification step (temporarily add a top-level `await cookies()`, watch the command fail,
+   remove it). New route handlers and the `ƒ` `/admin` and `/reservation` routes are therefore not a
+   D-06 violation. Note one consequence recorded late, in plan 04-09: `/reservation` became `ƒ` with
+   the D-28 change, so it has no cached render and must **not** be `revalidatePath`-ed.
+
 6. **`.ics` `METHOD` (assumption A4) and slot step (assumption A5)** — both are founder-visible product behaviour and belong on a D-26 review gate rather than being silently chosen by the executor.
+
+   **RESOLVED — both placed on gates, as recommended.** A5 (the `duration + buffer` step, and the
+   resulting slot density) is item 11 of plan 04-03's gate; A4 (`METHOD:REQUEST` with `ORGANIZER` and
+   `ATTENDEE`, which makes Gmail and Outlook render an RSVP invitation, versus `METHOD:PUBLISH`,
+   which renders a plain attachment but removes the seam Lot 8 uses to update against the same `UID`
+   with `SEQUENCE + 1`) is item 5b of plan 04-05's gate, stated with its trade-off. Two further
+   founder-visible items joined them from the same reasoning: the CLAUDE.md waiver and the retention
+   rate-limit numbers, both on plan 04-03's gate.
 
 ## Sources
 
@@ -1142,7 +1211,7 @@ ASVS level 1, `security_block_on: high`.
 - Dependency decision (zero new packages): **HIGH** — `Temporal` absence and `Intl` capability both measured on the pinned runtime
 - `.ics` and CSV shapes: **MEDIUM** — RFC/vendor-doc backed, but `METHOD` choice (A4) is a product decision
 - UI composition: **MEDIUM** — no analog exists in the repo for a calendar grid or an admin shell; `04-UI-SPEC.md` is the contract
-- Scope coherence: **LOW** — three upstream contradictions (Open Questions 1–3) must be resolved by a human before planning locks
+- Scope coherence: **HIGH as of 2026-09-02** — all six Open Questions are resolved and recorded inline. The three that were blocking (1–3) were settled by the founder's D-27/D-28/D-29 amendment to `04-CONTEXT.md` and by planner rulings carried in the plan set; the one remaining judgement call, waiving CLAUDE.md's queryKeys/optimistic-updates rule, is surfaced for ratification at the first D-26 gate rather than assumed
 
 **Research date:** 2026-09-01
 **Valid until:** 2026-10-01 (Postgres/RFC facts are stable indefinitely; re-verify the `Temporal` global and PostgREST's error map before Lot 8)
