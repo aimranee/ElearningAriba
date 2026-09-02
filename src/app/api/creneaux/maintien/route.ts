@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
-import agenda from "@/locales/fr/agenda.json";
 import {
   maintienPostSchema,
   maintienDeleteSchema,
   mapResultatMaintienToErreurKey,
+  type MaintienErreurKey,
 } from "@/lib/validation/maintien";
 import { consume } from "@/lib/rate-limit";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -28,7 +28,12 @@ function clientIp(request: Request): string {
   );
 }
 
-function erreurJson(cle: string, status: number) {
+/* why: the response carries the machine-readable agenda.erreurs.* key, not
+   the resolved French text — mirrors src/app/api/contact/route.ts's field-
+   error-map idiom. The client resolves the key against agenda.json itself,
+   so no English Zod message and no server-composed string ever reaches the
+   browser. */
+function erreurJson(cle: MaintienErreurKey, status: number) {
   return NextResponse.json(
     { erreur: cle },
     { status, headers: { "Cache-Control": "no-store" } },
@@ -53,14 +58,14 @@ export async function POST(request: Request) {
     windowMs: 600_000,
   });
   if (!ipCeiling.allowed) {
-    return erreurJson(agenda.erreurs.erreurGenerique, 429);
+    return erreurJson("erreurGenerique", 429);
   }
 
   // 2. Parse the body with zod; nothing before this point has read it.
   const body = await request.json().catch(() => null);
   const parsed = maintienPostSchema.safeParse(body);
   if (!parsed.success) {
-    return erreurJson(agenda.erreurs.champsInvalides, 422);
+    return erreurJson("champsInvalides", 422);
   }
   const { typeId, debut, jeton } = parsed.data;
 
@@ -73,7 +78,7 @@ export async function POST(request: Request) {
       windowMs: 600_000,
     });
     if (!mintCeiling.allowed) {
-      return erreurJson(agenda.erreurs.erreurGenerique, 429);
+      return erreurJson("erreurGenerique", 429);
     }
   } else {
     // A jeton is present: the compare/replace branch, generous, IP-prefixed
@@ -83,7 +88,7 @@ export async function POST(request: Request) {
       windowMs: 600_000,
     });
     if (!jetonCeiling.allowed) {
-      return erreurJson(agenda.erreurs.erreurGenerique, 429);
+      return erreurJson("erreurGenerique", 429);
     }
   }
 
@@ -99,14 +104,14 @@ export async function POST(request: Request) {
   if (error || !data || data.length === 0) {
     // 6. Never let a PostgrestError message, table name or column name
     // reach the response.
-    return erreurJson(agenda.erreurs.erreurGenerique, 502);
+    return erreurJson("erreurGenerique", 502);
   }
 
   const { resultat, jeton: jetonRetour, expire_le } = data[0];
 
   if (resultat !== "ok") {
     const cle = mapResultatMaintienToErreurKey(resultat) ?? "erreurGenerique";
-    return erreurJson(agenda.erreurs[cle], 409);
+    return erreurJson(cle, 409);
   }
 
   return NextResponse.json(
@@ -122,7 +127,7 @@ export async function DELETE(request: Request) {
   const body = await request.json().catch(() => null);
   const parsed = maintienDeleteSchema.safeParse(body);
   if (!parsed.success) {
-    return erreurJson(agenda.erreurs.champsInvalides, 422);
+    return erreurJson("champsInvalides", 422);
   }
 
   const releaseCeiling = consume(`maintien:liberation:${ip}`, {

@@ -26,16 +26,12 @@
     "expire": "Le délai est écoulé ; ce créneau est de nouveau proposé aux autres visiteurs."
   },
   "confiance": {
-    "photo": {
-      "label": "Photo · portrait du formateur",
-      "description": "Emplacement réel, dimensionné 1:1 et prêt pour next/image. Il reste déclaré tant qu'aucun fichier n'est fourni."
-    },
     "confirmation": "Une confirmation immédiate vous est envoyée par e-mail après la réservation.",
-    "modification": "Un changement de créneau se fait directement auprès du formateur ; il n'y a pas d'annulation en libre-service."
+    "modification": "Un changement de créneau se fait directement auprès du formateur ; il n’y a pas d’annulation en libre-service."
   },
   "erreurs": {
-    "creneauIndisponible": "Ce créneau vient d'être réservé par quelqu'un d'autre. Choisissez un autre horaire.",
-    "typeInconnu": "Ce type de rendez-vous n'est plus disponible.",
+    "creneauIndisponible": "Ce créneau vient d’être réservé par quelqu’un d’autre. Choisissez un autre horaire.",
+    "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
     "jetonInconnu": "Votre créneau retenu a expiré ; nous relançons la demande.",
     "champsInvalides": "La demande est invalide.",
     "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
