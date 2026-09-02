@@ -5,6 +5,7 @@
     { "file": "landing.json", "key": "hero.sousTitre", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "landing.json", "key": "ctaFinal.titre", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "landing.json", "key": "ctaFinal.supportLine", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "landing.json", "key": "ctaFinal.etapes", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "landing.json", "key": "pourQui.profils", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "landing.json", "key": "competences.items", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "landing.json", "key": "faq.items", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },

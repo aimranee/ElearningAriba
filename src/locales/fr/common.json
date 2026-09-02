@@ -53,19 +53,7 @@
     "aucunResultat": "Aucun résultat pour le moment."
   },
   "hero": {
-    "chips": ["Aucun prérequis SAP", "Expert certifié"],
-    "console": {
-      "url": "formation-sap-ariba.fr/reservation",
-      "liveLabel": "Session live",
-      "liveAnimator": "animée par un expert certifié",
-      "slotsLabel": "Créneaux disponibles",
-      "videoPlaceholder": "Emplacement vidéo de présentation — prêt à recevoir la vidéo",
-      "slots": [
-        { "date": "Mardi 8 septembre · 09:00", "places": "Places restantes : 4", "tag": "Confirmé" },
-        { "date": "Jeudi 10 septembre · 14:00", "places": "Places restantes : 7" },
-        { "date": "Lundi 14 septembre · 09:00", "places": "Places restantes : 9" }
-      ]
-    }
+    "chips": ["Aucun prérequis SAP", "Expert certifié"]
   },
   "formatModalitesAside": {
     "resume": "{modules} modules · {heures} de formation live"

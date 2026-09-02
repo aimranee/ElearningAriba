@@ -251,6 +251,23 @@
   "ctaFinal": {
     "eyebrow": "Votre prochaine étape",
     "titre": "Votre créneau vous attend. Réservez-le dès maintenant.",
-    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba."
+    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba.",
+    "etapes": {
+      "titre": "Ce qui se passe ensuite",
+      "items": [
+        {
+          "titre": "Un appel découverte gratuit",
+          "description": "Trente minutes avec le formateur, avant tout engagement."
+        },
+        {
+          "titre": "Votre session est planifiée avec vous",
+          "description": "Une date de session live fixée ensemble, selon vos disponibilités."
+        },
+        {
+          "titre": "Un groupe volontairement petit",
+          "description": "Assez peu de participants pour poser vos questions et faire le cas pratique accompagné."
+        }
+      ]
+    }
   }
 }
