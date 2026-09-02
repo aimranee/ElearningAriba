@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel, FieldControl, FieldError } from "@/components/ui/field";
 import common from "@/locales/fr/common.json";
 import connexion from "@/locales/fr/connexion.json";
+import { lireCreneauChoisi } from "@/lib/agenda/creneaux";
 
 type Status = "idle" | "submitting" | "error";
 
@@ -98,7 +99,13 @@ export function ConnexionForm() {
         return;
       }
 
-      router.push("/espace");
+      /* why (D-28): the same mechanism as before sign-in moved to screen 3 —
+         a pending slot in sessionStorage means the visitor arrived here from
+         the commit button, not from a slot click on /agenda, so they return
+         to /reservation with it intact rather than to /espace. Read through
+         the single-owner helper, never a second literal of the storage key,
+         and never from a query parameter (no open-redirect surface). */
+      router.push(lireCreneauChoisi() ? "/reservation" : "/espace");
     } catch {
       setSubmitError("rejetServeur");
       setStatus("error");

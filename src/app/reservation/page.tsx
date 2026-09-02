@@ -1,22 +1,33 @@
-import agenda from "@/locales/fr/agenda.json";
-import common from "@/locales/fr/common.json";
 import reservation from "@/locales/fr/reservation.json";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Message } from "@/components/ui/message";
-import { formatCurrency, formatDate, formatNumber, formatTime } from "@/lib/i18n/fr";
+import { EmptyState, EmptyStateTitle } from "@/components/ui/empty-state";
+import * as authSession from "@/lib/auth/session";
+import { getTypesRendezVous } from "@/lib/agenda/types-rendez-vous";
+import { serverEnv } from "@/lib/env/server";
+import { ParcoursReservation } from "@/components/reservation/parcours-reservation";
 
-/* why: Lot 4 owns the real booking transaction; this is the one slot the
-   maquette needs to show a filled-in recap, replaced wholesale in that lot */
-const creneauMaquette = {
-  type: agenda.typesRendezVous[1],
-  date: new Date("2026-09-14T09:00:00Z"),
-  heure: new Date("2026-09-14T09:00:00Z"),
-} as const;
+/*
+ * why (D-28): this page is deliberately NOT gated — the visitor chooses
+ * first (screens 1 and 2) and identifies only to commit (screen 3), so the
+ * session is read tolerantly here rather than required. The redirect-
+ * before-markup guard used elsewhere would fire before any markup renders,
+ * which is exactly the barrier D-28 removes. The confirmation surface,
+ * which holds personal data, keeps that stricter guard — see that route.
+ */
+export default async function Reservation() {
+  const learnerResult = await authSession.getLearner();
+  const estConnecte = learnerResult.ok;
 
-const etapesOrdre = ["typeRendezVous", "creneau", "confirmation"] as const;
+  const typesResult = await getTypesRendezVous();
 
-export default function Reservation() {
+  /* why (D-15, T-04-31c): FORMATEUR_LIEN_VISIO is the trainer's *permanent*
+     meeting room, not a per-meeting link — reading it here only when
+     estConnecte is true, and passing null otherwise, is what keeps it out
+     of the response body of every unauthenticated request against this
+     now-public route. An anonymous visitor at screen 3 is not committing,
+     they are being asked to identify, and sees the neutral
+     reservation.recapitulatif.lieuVisio sentence instead. */
+  const lieu = estConnecte ? (serverEnv.FORMATEUR_LIEN_VISIO ?? null) : null;
+
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6 md:py-14 lg:px-8">
       <header className="flex flex-col gap-2">
@@ -26,65 +37,13 @@ export default function Reservation() {
         <p className="text-muted-foreground">{reservation.intro}</p>
       </header>
 
-      <ol className="flex flex-wrap gap-2 text-sm">
-        {etapesOrdre.map((cle, index) => {
-          const active = index === etapesOrdre.length - 1;
-          return (
-            <li key={cle}>
-              <span
-                className={
-                  active
-                    ? "rounded-lg bg-primary/10 px-2.5 py-1 font-medium text-primary"
-                    : "text-muted-foreground px-2.5 py-1"
-                }
-                aria-current={active ? "step" : undefined}
-              >
-                {reservation.etapes[cle]}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
-
-      <Card>
-        <CardHeader>
-          <p className="font-heading text-base font-semibold">
-            {reservation.recapitulatif.type}
-          </p>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-          <div>
-            <p className="text-muted-foreground">{reservation.recapitulatif.type}</p>
-            <p>{creneauMaquette.type.libelle}</p>
-          </div>
-          <div>
-            <p className="text-muted-foreground">{reservation.recapitulatif.date}</p>
-            <p>{formatDate(creneauMaquette.date)}</p>
-          </div>
-          <div>
-            <p className="text-muted-foreground">{reservation.recapitulatif.heure}</p>
-            <p>{formatTime(creneauMaquette.heure)}</p>
-          </div>
-          <div>
-            <p className="text-muted-foreground">{reservation.recapitulatif.duree}</p>
-            <p>{formatNumber(creneauMaquette.type.dureeMinutes)}</p>
-          </div>
-          <div>
-            <p className="text-muted-foreground">{reservation.recapitulatif.prix}</p>
-            <p>{formatCurrency(creneauMaquette.type.prix)}</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <p className="text-muted-foreground text-sm">{reservation.conditions}</p>
-
-      <Button variant="default" className="w-fit">
-        {common.actions.reserver}
-      </Button>
-
-      <section aria-label={reservation.erreurs.creneauIndisponible} className="rounded-lg border p-4">
-        <Message variant="error">{reservation.erreurs.creneauIndisponible}</Message>
-      </section>
+      {typesResult.ok && typesResult.data.length > 0 ? (
+        <ParcoursReservation types={typesResult.data} estConnecte={estConnecte} lieu={lieu} />
+      ) : (
+        <EmptyState tone="error">
+          <EmptyStateTitle>{reservation.erreurs.erreurGenerique}</EmptyStateTitle>
+        </EmptyState>
+      )}
     </div>
   );
 }

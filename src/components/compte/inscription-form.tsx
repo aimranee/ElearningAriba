@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 
 import inscription from "@/locales/fr/inscription.json";
 import common from "@/locales/fr/common.json";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldLabel,
@@ -13,6 +15,7 @@ import {
   FieldError,
 } from "@/components/ui/field";
 import { SubmitButton } from "@/components/compte/submit-button";
+import { lireCreneauChoisi } from "@/lib/agenda/creneaux";
 
 const PROFIL_OPTIONS = Object.entries(inscription.champs.profil.options) as [
   keyof typeof inscription.champs.profil.options,
@@ -79,12 +82,32 @@ export function InscriptionForm() {
   }
 
   if (status === "success") {
+    /* why (D-28): sign-up requires email confirmation (enable_confirmations,
+       supabase/config.toml) — no session exists yet at this point, so there
+       is nothing to redirect into and the required "check your email" copy
+       above must stay on screen. A pending slot in sessionStorage still
+       survives untouched; this only offers a link back to /reservation for
+       once the visitor has confirmed and signed in, never an automatic
+       navigation away from the confirmation instructions. */
+    const creneauEnAttente = lireCreneauChoisi();
     return (
       <Card>
         <CardHeader>
           <CardTitle>{inscription.succes.titre}</CardTitle>
           <CardDescription>{inscription.succes.message}</CardDescription>
         </CardHeader>
+        {creneauEnAttente ? (
+          <CardContent>
+            <Button
+              render={<Link href="/reservation" />}
+              nativeButton={false}
+              variant="outline"
+              className="h-11"
+            >
+              {common.actions.continuer}
+            </Button>
+          </CardContent>
+        ) : null}
       </Card>
     );
   }

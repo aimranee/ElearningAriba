@@ -11,9 +11,36 @@
     "date": "Date",
     "heure": "Heure",
     "duree": "Durée",
-    "prix": "Montant"
+    "prix": "Montant",
+    "lieu": "Lieu",
+    "lieuVisio": "La réunion se tient en visioconférence ; le lien vous est communiqué à la confirmation."
   },
   "conditions": "En confirmant, vous acceptez nos conditions générales de vente.",
+  "actions": {
+    "continuerVersRecapitulatif": "Continuer vers le récapitulatif",
+    "validerReservation": "Valider ma réservation",
+    "ajouterAMonAgenda": "Ajouter à mon agenda",
+    "seConnecter": "Se connecter pour valider",
+    "sInscrire": "Créer un compte pour valider",
+    "choisirAutreHoraire": "Choisir un autre horaire",
+    "retourEspace": "Retour à mon espace"
+  },
+  "maintien": {
+    "restant": "Il vous reste {minutes} min {secondes} s avant l’expiration de ce créneau.",
+    "expireTitre": "Votre créneau n’est plus réservé.",
+    "expireMessage": "Choisissez un nouvel horaire."
+  },
+  "reglement": {
+    "gratuit": "Cet appel est gratuit.",
+    "payant": "Le règlement se fait directement avec le formateur."
+  },
+  "connexionRequise": {
+    "message": "Connectez-vous ou créez un compte pour valider votre réservation. Votre créneau reste réservé pendant ce temps."
+  },
+  "succes": {
+    "titre": "Réservation confirmée.",
+    "message": "Un e-mail de confirmation vous a été envoyé."
+  },
   "erreurs": {
     "creneauIndisponible": "Ce créneau vient d'être réservé par quelqu'un d'autre. Choisissez un autre horaire.",
     "appelDecouverteDejaReserve": "Vous avez déjà un appel découverte réservé. Retrouvez-le dans votre espace apprenant pour le consulter ou contacter le formateur.",
@@ -21,6 +48,7 @@
     "nonAuthentifie": "Votre session a expiré. Reconnectez-vous pour finaliser votre réservation.",
     "champsInvalides": "La demande est invalide.",
     "erreurGenerique": "Une erreur est survenue. Merci de réessayer.",
-    "icsIndisponible": "Ce fichier n’a pas pu être ouvert. Réessayez dans quelques instants."
+    "icsIndisponible": "Ce fichier n’a pas pu être ouvert. Réessayez dans quelques instants.",
+    "commitEchec": "Votre réservation n’a pas pu être validée. Merci de réessayer."
   }
 }
