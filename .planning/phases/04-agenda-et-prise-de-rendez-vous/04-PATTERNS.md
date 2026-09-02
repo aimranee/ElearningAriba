@@ -601,12 +601,25 @@ callers — `src/app/api/contact/route.ts` and `src/app/api/rgpd/suppression/rou
 **Why it is needed at all:** the D-27 retention route cannot live on a 5-per-10-minutes budget. Every
 slot choice and every slot *change* is a `POST`, so a visitor comparing créneaux — the behaviour D-27
 exists to support — would be refused on the phase's primary conversion path, and a corporate NAT
-shares one egress IP across many visitors. Plan 04-03 splits the keying instead: minting a token is
-IP-keyed and tight (10/10 min), replacing a retention is **token**-keyed and generous (60/10 min,
-safe because `maintien_creneau_jeton_unique` means one token holds exactly one slot), and `DELETE` is
-not limited at all — refusing a release would leave a slot held.
+shares one egress IP across many visitors.
 
-**Do not:** add a store, a dependency, an eviction policy, or a second limiter module.
+**The rule that governs the keying, and it is worth stating as a pattern because this is the repo's
+first unauthenticated write path:** on such a route the **client IP is the only identifier the caller
+does not control**, so a client-supplied value may *narrow* a budget but may never *replace* one.
+Plan 04-03 therefore applies an unconditional `maintien:ip:<ip>` ceiling of 120/10 min to every
+`POST` **before the body is read**, then narrows from the zod-validated body: `maintien:mint:<ip>` at
+30/10 min on the only branch that can create state, and `maintien:jeton:<ip>:<jeton>` at 60/10 min on
+the branch a slot-comparing visitor travels. `DELETE` carries a 120/10 min ceiling that **fails
+open** — the release is attempted anyway, because refusing to let go of a slot is the opposite of
+what the limiter is for. An earlier draft selected the budget *from* the `jeton` and was bypassable
+with a fresh uuid per request; do not reintroduce that shape.
+
+**One behavioural change beyond the signature:** the `hits` Map gains an amortised sweep (every 500th
+`consume()` call, drop entries whose newest timestamp predates the widest window seen). Entries were
+previously only ever `set`, which was fine for a handful of IPs and is not fine once an anonymous
+caller influences the key space.
+
+**Do not:** add a store, a dependency, or a second limiter module.
 
 ---
 
