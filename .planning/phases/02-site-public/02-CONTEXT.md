@@ -374,13 +374,18 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 - **D-69** (2026-09-02, CTO): une surface translucide posée sur le dégradé de
   clôture du CTA final doit s'assombrir, jamais s'éclaircir, car le dégradé y
   est à son extrémité la plus claire — un voile blanc (`bg-white/8`) fait
-  passer l'encre blanche sous AA (titre 4.59-4.79, description
-  `text-white/82` 3.64-3.77, les deux sous le seuil de 4.5), alors que le même
-  voile en noir passe (`bg-black/10` : titre 6.25, description 4.77 ;
-  `bg-black/15` : 6.79/5.14 ; `bg-black/20` : 7.39/5.54 — `bg-black/10` est
-  retenu comme valeur minimale passante). Quatrième occurrence de ce défaut
-  d'encre-sur-surface-teintée dans le projet (après D-50, D-53, D-58).
-  Correction : les lignes d'étapes de `cta-final.tsx` passent à `bg-black/10`.
+  passer la description sous AA : le titre passait de justesse (4.59-4.79),
+  la description `text-white/82` échouait (3.64-3.77, sous le seuil de 4.5),
+  alors que le même voile en noir passe (`bg-black/10` : titre 6.25,
+  description 4.77 ; `bg-black/15` : 6.79/5.14 ; `bg-black/20` : 7.39/5.54 —
+  `bg-black/10` est retenu comme valeur minimale passante). Quatrième
+  occurrence de ce défaut d'encre-sur-surface-teintée dans le projet (après
+  D-50, D-53, D-58). Correction : les lignes d'étapes de `cta-final.tsx`
+  passent à `bg-black/10`. Valeurs vérifiées au DOM après correction
+  (2026-09-02, CTO, dégradé rastérisé, échantillonné sous chaque ligne) :
+  étape 1 titre 6.52 / description 4.95 ; étape 2 titre 6.36 / description
+  4.84 ; étape 3 titre 6.25 / description 4.77 — les trois lignes passent AA,
+  le pire cas est 4.77.
 
 ### Claude's Discretion
 
