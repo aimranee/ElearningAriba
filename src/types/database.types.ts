@@ -441,6 +441,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      annuler_reservation: {
+        Args: { p_id: string }
+        Returns: {
+          resultat: string
+        }[]
+      }
       creneaux_libres: {
         Args: {
           p_au: string
@@ -451,6 +457,12 @@ export type Database = {
         Returns: {
           debut: string
           fin: string
+        }[]
+      }
+      deplacer_reservation: {
+        Args: { p_debut: string; p_id: string }
+        Returns: {
+          resultat: string
         }[]
       }
       est_administrateur: { Args: never; Returns: boolean }
@@ -474,6 +486,18 @@ export type Database = {
         Args: {
           p_debut: string
           p_jeton?: string
+          p_lieu: string
+          p_type_id: string
+        }
+        Returns: {
+          reservation_id: string
+          resultat: string
+        }[]
+      }
+      reserver_pour_apprenant: {
+        Args: {
+          p_debut: string
+          p_email: string
           p_lieu: string
           p_type_id: string
         }

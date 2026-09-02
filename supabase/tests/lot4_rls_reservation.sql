@@ -334,4 +334,315 @@ end $$;
 
 reset role;
 
+-- ============================================================================
+-- Plan 04-07: the three admin-only reservation RPCs
+-- (app.deplacer_reservation, app.annuler_reservation,
+-- app.reserver_pour_apprenant), extending the file rather than replacing it.
+-- ============================================================================
+
+-- 8. Setup: a fourth learner (D), used below as reserver_pour_apprenant's
+-- known-email target.
+insert into auth.users (
+  instance_id, id, aud, role, email, encrypted_password,
+  email_confirmed_at, raw_app_meta_data, raw_user_meta_data,
+  is_sso_user, is_anonymous, created_at, updated_at
+) values
+  ('00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-00000000002d',
+   'authenticated', 'authenticated', 'rls-d@example.test', 'x',
+   now(), '{}'::jsonb, '{}'::jsonb, false, false, now(), now());
+
+-- 9. As learner A: each of the three admin RPCs is executable but refuses
+-- with 'non_autorise' and writes nothing -- the grant is not the control,
+-- the in-body app.est_administrateur() check is.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002a","role":"authenticated"}';
+
+do $$
+declare
+  v_resultat text;
+  v_reservation_id uuid;
+  v_count_before int;
+  v_count_after int;
+  v_id_a uuid;
+begin
+  select id into v_id_a from app.reservation where utilisateur_id = '00000000-0000-0000-0000-00000000002a';
+
+  select resultat into v_resultat from app.deplacer_reservation(
+    v_id_a, ((current_date + 9) + time '15:00') at time zone 'Europe/Paris');
+  if v_resultat != 'non_autorise' then
+    raise exception 'RLS-RESERVATION LEAK: learner A invoked deplacer_reservation, got %', v_resultat;
+  end if;
+
+  select resultat into v_resultat from app.annuler_reservation(v_id_a);
+  if v_resultat != 'non_autorise' then
+    raise exception 'RLS-RESERVATION LEAK: learner A invoked annuler_reservation, got %', v_resultat;
+  end if;
+
+  select count(*) into v_count_before from app.reservation;
+  select resultat, reservation_id into v_resultat, v_reservation_id
+    from app.reserver_pour_apprenant('rls-b@example.test', 'individuelle',
+      ((current_date + 9) + time '15:00') at time zone 'Europe/Paris',
+      'https://meet.example.test/salle');
+  select count(*) into v_count_after from app.reservation;
+  if v_resultat != 'non_autorise' then
+    raise exception 'RLS-RESERVATION LEAK: learner A invoked reserver_pour_apprenant, got %', v_resultat;
+  end if;
+  if v_count_before != v_count_after then
+    raise exception 'RLS-RESERVATION LEAK: reserver_pour_apprenant wrote a row for a non-admin caller';
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 8 DENIED all three admin RPCs for a learner caller, writing nothing';
+end $$;
+
+-- 10. As the administrator: deplacer_reservation onto a free instant
+-- succeeds, bumps ics_sequence by exactly 1, and leaves ics_uid unchanged.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002c","role":"authenticated"}';
+
+do $$
+declare
+  v_id_a uuid;
+  v_uid_before text;
+  v_seq_before int;
+  v_uid_after text;
+  v_seq_after int;
+  v_resultat text;
+begin
+  select id, ics_uid, ics_sequence into v_id_a, v_uid_before, v_seq_before
+    from app.reservation where utilisateur_id = '00000000-0000-0000-0000-00000000002a';
+
+  select resultat into v_resultat from app.deplacer_reservation(
+    v_id_a, ((current_date + 9) + time '15:00') at time zone 'Europe/Paris');
+  if v_resultat != 'ok' then
+    raise exception 'RLS-RESERVATION: admin move onto a free instant failed, got %', v_resultat;
+  end if;
+
+  select ics_uid, ics_sequence into v_uid_after, v_seq_after
+    from app.reservation where id = v_id_a;
+  if v_uid_after != v_uid_before then
+    raise exception 'RLS-RESERVATION: deplacer_reservation changed ics_uid';
+  end if;
+  if v_seq_after != v_seq_before + 1 then
+    raise exception 'RLS-RESERVATION: deplacer_reservation did not bump ics_sequence by exactly 1 (before=%, after=%)', v_seq_before, v_seq_after;
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 9 ALLOWED admin move onto a free instant, ics_sequence +1, ics_uid unchanged';
+end $$;
+
+-- 11. As the administrator: deplacer_reservation onto an instant already
+-- held by another confirmed reservation (learner B's, 11:00) is refused and
+-- leaves the row untouched.
+do $$
+declare
+  v_id_a uuid;
+  v_debut_before timestamptz;
+  v_debut_after timestamptz;
+  v_resultat text;
+begin
+  select id, debut into v_id_a, v_debut_before
+    from app.reservation where utilisateur_id = '00000000-0000-0000-0000-00000000002a';
+
+  select resultat into v_resultat from app.deplacer_reservation(
+    v_id_a, ((current_date + 9) + time '11:00') at time zone 'Europe/Paris');
+  if v_resultat != 'creneau_indisponible' then
+    raise exception 'RLS-RESERVATION: admin move onto a taken instant should be refused, got %', v_resultat;
+  end if;
+
+  select debut into v_debut_after from app.reservation where id = v_id_a;
+  if v_debut_after != v_debut_before then
+    raise exception 'RLS-RESERVATION: refused move nonetheless changed debut';
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 10 DENIED admin move onto a taken instant, row untouched';
+end $$;
+
+-- 12. As the administrator: annuler_reservation sets statut = 'annulee', and
+-- a subsequent reserver_creneau by a learner on the freed instant succeeds.
+do $$
+declare
+  v_id_a uuid;
+  v_resultat text;
+begin
+  select id into v_id_a
+    from app.reservation where utilisateur_id = '00000000-0000-0000-0000-00000000002a';
+
+  select resultat into v_resultat from app.annuler_reservation(v_id_a);
+  if v_resultat != 'ok' then
+    raise exception 'RLS-RESERVATION: admin cancel failed, got %', v_resultat;
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 11a ALLOWED admin cancel, statut set to annulee';
+end $$;
+
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002b","role":"authenticated"}';
+
+do $$
+declare
+  v_resultat text;
+  v_new_id uuid;
+begin
+  select resultat, reservation_id into v_resultat, v_new_id
+    from app.reserver_creneau('individuelle',
+      ((current_date + 9) + time '15:00') at time zone 'Europe/Paris',
+      'https://meet.example.test/salle');
+  if v_resultat != 'ok' then
+    raise exception 'RLS-RESERVATION: learner booking the instant freed by an admin cancellation should succeed, got %', v_resultat;
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 11b ALLOWED learner booking on the instant freed by admin cancellation';
+end $$;
+
+reset role;
+
+-- 13. D-27 interaction: a visitor holds a retention on instant A; an
+-- administrator's deplacer_reservation onto A succeeds (the admin outranks
+-- the hold) and app.maintien_creneau is then empty for that instant -- the
+-- sold slot is not left hidden by a stale hold.
+set local role anon;
+
+do $$
+declare
+  v_resultat text;
+  v_jeton uuid;
+begin
+  select resultat, jeton into v_resultat, v_jeton
+    from app.maintenir_creneau('individuelle',
+      ((current_date + 11) + time '09:00') at time zone 'Europe/Paris');
+  if v_resultat != 'ok' then
+    raise exception 'RLS-RESERVATION: visitor retention setup failed, got %', v_resultat;
+  end if;
+  raise notice 'RLS-RESERVATION: step 12a a visitor holds a retention on instant A';
+end $$;
+
+reset role;
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002c","role":"authenticated"}';
+
+do $$
+declare
+  v_id_admin uuid;
+  v_resultat text;
+begin
+  select id into v_id_admin
+    from app.reservation where utilisateur_id = '00000000-0000-0000-0000-00000000002c';
+
+  select resultat into v_resultat from app.deplacer_reservation(
+    v_id_admin, ((current_date + 11) + time '09:00') at time zone 'Europe/Paris');
+  if v_resultat != 'ok' then
+    raise exception 'RLS-RESERVATION: admin move onto a visitor-held instant should succeed (admin outranks the hold), got %', v_resultat;
+  end if;
+  raise notice 'RLS-RESERVATION: step 12b ALLOWED admin move onto instant A despite the visitor''s hold';
+end $$;
+
+reset role;
+
+do $$
+declare
+  v_maintien_count int;
+begin
+  select count(*) into v_maintien_count from app.maintien_creneau
+    where plage && tstzrange(
+      ((current_date + 11) + time '09:00') at time zone 'Europe/Paris',
+      ((current_date + 11) + time '09:45') at time zone 'Europe/Paris', '[)');
+  if v_maintien_count != 0 then
+    raise exception 'RLS-RESERVATION: a stale retention is still present after the admin sold the slot (count=%)', v_maintien_count;
+  end if;
+  raise notice 'RLS-RESERVATION: step 12c the sold slot is not left hidden by a stale hold (app.maintien_creneau count 0)';
+end $$;
+
+-- 14. reserver_pour_apprenant: an unknown email refuses and creates
+-- nothing (D-18); a known email succeeds and the row belongs to the
+-- learner, not the administrator.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002c","role":"authenticated"}';
+
+do $$
+declare
+  v_resultat text;
+  v_reservation_id uuid;
+  v_count_before int;
+  v_count_after int;
+begin
+  select count(*) into v_count_before from app.reservation;
+  select resultat, reservation_id into v_resultat, v_reservation_id
+    from app.reserver_pour_apprenant('inconnu@example.test', 'individuelle',
+      ((current_date + 12) + time '09:00') at time zone 'Europe/Paris',
+      'https://meet.example.test/salle');
+  select count(*) into v_count_after from app.reservation;
+
+  if v_resultat != 'apprenant_introuvable' then
+    raise exception 'RLS-RESERVATION: reserver_pour_apprenant with an unknown email should refuse, got %', v_resultat;
+  end if;
+  if v_count_before != v_count_after then
+    raise exception 'RLS-RESERVATION LEAK: reserver_pour_apprenant created a row for an unknown email';
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 13a DENIED reserver_pour_apprenant for an unknown email, no row created';
+end $$;
+
+do $$
+declare
+  v_resultat text;
+  v_reservation_id uuid;
+  v_owner uuid;
+begin
+  select resultat, reservation_id into v_resultat, v_reservation_id
+    from app.reserver_pour_apprenant('rls-d@example.test', 'individuelle',
+      ((current_date + 12) + time '09:00') at time zone 'Europe/Paris',
+      'https://meet.example.test/salle');
+
+  if v_resultat != 'ok' or v_reservation_id is null then
+    raise exception 'RLS-RESERVATION: reserver_pour_apprenant with a known email should succeed, got %', v_resultat;
+  end if;
+
+  select utilisateur_id into v_owner from app.reservation where id = v_reservation_id;
+  if v_owner != '00000000-0000-0000-0000-00000000002d' then
+    raise exception 'RLS-RESERVATION: reserver_pour_apprenant assigned the reservation to % instead of the learner', v_owner;
+  end if;
+
+  raise notice 'RLS-RESERVATION: step 13b ALLOWED reserver_pour_apprenant for a known email, row owned by the learner not the admin';
+end $$;
+
+reset role;
+
+-- 15. profil_admin_select (added by this plan, supabase/migrations/
+-- 20260901182000_lot4_admin_reservation.sql): the administrator can read
+-- other learners' app.profil rows for the plan 04-07 export/read join; a
+-- learner still cannot.
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002c","role":"authenticated"}';
+
+do $$
+declare
+  v_profil_count int;
+begin
+  select count(*) into v_profil_count from app.profil
+    where utilisateur_id in (
+      '00000000-0000-0000-0000-00000000002a',
+      '00000000-0000-0000-0000-00000000002b',
+      '00000000-0000-0000-0000-00000000002d'
+    );
+  if v_profil_count != 3 then
+    raise exception 'RLS-RESERVATION: administrator could not read other learners'' profil rows via profil_admin_select (count=%)', v_profil_count;
+  end if;
+  raise notice 'RLS-RESERVATION: step 14 ALLOWED administrator read of other learners'' profil rows (profil_admin_select)';
+end $$;
+
+set local role authenticated;
+set local request.jwt.claims = '{"sub":"00000000-0000-0000-0000-00000000002a","role":"authenticated"}';
+
+do $$
+declare
+  v_leak int;
+begin
+  select count(*) into v_leak from app.profil where utilisateur_id = '00000000-0000-0000-0000-00000000002b';
+  if v_leak != 0 then
+    raise exception 'RLS-RESERVATION LEAK: learner A read % of learner B profil row(s) via profil_admin_select', v_leak;
+  end if;
+  raise notice 'RLS-RESERVATION: step 15 DENIED learner cross-read of profil (profil_admin_select is administrator-only)';
+end $$;
+
+reset role;
+
 rollback;
