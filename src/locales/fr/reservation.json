@@ -15,6 +15,12 @@
   },
   "conditions": "En confirmant, vous acceptez nos conditions générales de vente.",
   "erreurs": {
-    "creneauIndisponible": "Ce créneau vient d'être réservé par quelqu'un d'autre. Choisissez un autre horaire."
+    "creneauIndisponible": "Ce créneau vient d'être réservé par quelqu'un d'autre. Choisissez un autre horaire.",
+    "appelDecouverteDejaReserve": "Vous avez déjà un appel découverte réservé. Retrouvez-le dans votre espace apprenant pour le consulter ou contacter le formateur.",
+    "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
+    "nonAuthentifie": "Votre session a expiré. Reconnectez-vous pour finaliser votre réservation.",
+    "champsInvalides": "La demande est invalide.",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer.",
+    "icsIndisponible": "Ce fichier n’a pas pu être ouvert. Réessayez dans quelques instants."
   }
 }
