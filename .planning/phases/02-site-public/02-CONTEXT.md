@@ -371,6 +371,16 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   surfaces persistantes à une, la carte d'assemblage du héros. Le critère
   a toujours été un plafond (« max 2 »), pas un plancher. `--shadow-4`
   reste consommé dans la feuille compilée par le cadre du héros.
+- **D-69** (2026-09-02, CTO): une surface translucide posée sur le dégradé de
+  clôture du CTA final doit s'assombrir, jamais s'éclaircir, car le dégradé y
+  est à son extrémité la plus claire — un voile blanc (`bg-white/8`) fait
+  passer l'encre blanche sous AA (titre 4.59-4.79, description
+  `text-white/82` 3.64-3.77, les deux sous le seuil de 4.5), alors que le même
+  voile en noir passe (`bg-black/10` : titre 6.25, description 4.77 ;
+  `bg-black/15` : 6.79/5.14 ; `bg-black/20` : 7.39/5.54 — `bg-black/10` est
+  retenu comme valeur minimale passante). Quatrième occurrence de ce défaut
+  d'encre-sur-surface-teintée dans le projet (après D-50, D-53, D-58).
+  Correction : les lignes d'étapes de `cta-final.tsx` passent à `bg-black/10`.
 
 ### Claude's Discretion
 
