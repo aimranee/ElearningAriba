@@ -71,7 +71,7 @@ with no lot: it is the technical foundation the lots are built on.
 - [x] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
 - [x] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
 - [x] **AGD-07**: Administrator can define weekly working hours, open, grey out or block time ranges, and set holidays
-- [ ] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
+- [x] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
 - [x] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
 
 ### Mise en ligne — Lot 5: SEO, pages juridiques, RGPD et mise en ligne
@@ -214,7 +214,7 @@ offer.
 | AGD-05 | Phase 4 | Complete |
 | AGD-06 | Phase 4 | Complete |
 | AGD-07 | Phase 4 | Complete |
-| AGD-08 | Phase 4 | Pending |
+| AGD-08 | Phase 4 | Complete |
 | AGD-09 | Phase 4 | Complete |
 | GOL-01 | Phase 5 | Pending |
 | GOL-02 | Phase 5 | Pending |

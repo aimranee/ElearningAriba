@@ -228,12 +228,12 @@ Plans:
 **Wave 4** *(blocked on Wave 3, run in parallel)*
 
 - [x] 04-04-PLAN.md — Booking commit: video-link env var, `.ics` builder, Resend attachments, the POST route and the `.ics` download
-- [ ] 04-06-PLAN.md — `/admin` shell with the role gate, weekly hours, range exceptions and the holiday calendar
+- [x] 04-06-PLAN.md — `/admin` shell with the role gate, weekly hours, range exceptions and the holiday calendar
 
 **Wave 5** *(blocked on Wave 4, run in parallel)*
 
 - [x] 04-05-PLAN.md — The three booking screens, the success surface and the learner's appointments in `/espace`
-- [ ] 04-07-PLAN.md — Admin reservation RPCs (move, cancel, book on behalf) and the French-Excel CSV export
+- [x] 04-07-PLAN.md — Admin reservation RPCs (move, cancel, book on behalf) and the French-Excel CSV export
 
 **Wave 6** *(blocked on Wave 5)*
 
@@ -373,7 +373,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
 | 2. Site public | 10/11 | In Progress|  |
 | 3. Comptes, connexion et espace apprenant | 10/11 | In Progress|  |
-| 4. Agenda et prise de rendez-vous | 4/9 | In Progress|  |
+| 4. Agenda et prise de rendez-vous | 7/9 | In Progress|  |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
 | 6. Sessions live de groupe | 0/TBD | Not started | - |
 | 7. Paiement en ligne, formules et factures | 0/TBD | Not started | - |

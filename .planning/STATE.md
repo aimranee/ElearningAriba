@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-05 complete: three-screen booking flow, Task 3 founder gate approved. Resuming at 04-06."
-last_updated: "2026-09-02T11:18:07.062Z"
+stopped_at: "04-07 complete: admin reservation RPCs, RLS policy, CSV export, three route handlers -- all e2e verified. Resuming at 04-08."
+last_updated: "2026-09-02T23:06:32.530Z"
 last_activity: 2026-09-02
 progress:
   total_phases: 11
   completed_phases: 3
   total_plans: 49
-  completed_plans: 43
-  percent: 88
+  completed_plans: 46
+  percent: 27
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 6 of 9
+Plan: 7 of 9
 Status: Ready to execute
 Last activity: 2026-09-02
 
@@ -65,6 +65,7 @@ Progress: [█████████░] 88%
 | Phase 04-agenda-et-prise-de-rendez-vous P02 | 30min | 2 tasks | 11 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P03 (partial — Tasks 1-2 of 3, Task 3 founder gate pending) | 85min | 2 tasks | 12 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P04 | 100min | 3 tasks | 13 files |
+| Phase 04-agenda-et-prise-de-rendez-vous P07 | 95min | - tasks | - files |
 
 ## Accumulated Context
 
@@ -102,6 +103,9 @@ Recent decisions affecting current work:
 - [Phase 04-04]: check-ics.mjs imports the real ics.ts via node --conditions=react-server rather than re-implementing its rules
 - [Phase 04-04]: GET .../ics sources the .ics ATTENDEE from a second getLearner() session read, not the reservation row (which carries no learner email)
 - [Phase 04-04]: E2E verification ran against a temporary next start server on port 3010 (port 3000 is squatted by an unrelated process); no dev server was started
+- [Phase ?]: [Phase 04-07]: profil_admin_select RLS policy added (Rule 2) -- Lot 3 shipped only profil_self_select; without it every learner's reservation, not just erased accounts, would render compte supprime in the admin export/read
+- [Phase ?]: [Phase 04-07]: reserver_pour_apprenant resolves email against auth.users, not app.profil; unknown email creates no account (D-18)
+- [Phase ?]: [Phase 04-07]: cancellation notice reuses the single move/cancel email template from plan 04-04 rather than adding a second one; a fixed French sentence fills the shared dateHeureNouvelle slot for the cancel case
 
 ### Pending Todos
 
@@ -179,8 +183,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-09-02T11:16:57.595Z
-Stopped at: 04-04 complete: booking commit route, .ics builder, reservation emails — all 3 tasks committed and e2e-verified. Resuming at 04-05.
+Last session: 2026-09-02T23:06:32.516Z
+Stopped at: 04-07 complete: admin reservation RPCs, RLS policy, CSV export, three route handlers -- all e2e verified. Resuming at 04-08.
 Resume file: None
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
