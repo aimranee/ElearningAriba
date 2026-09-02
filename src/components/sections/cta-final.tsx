@@ -1,27 +1,28 @@
 import Link from "next/link";
-import { Calendar, Play } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 import { Section } from "@/components/sections/section";
 import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
-import { getModules, getSection } from "@/lib/content/queries";
-import { formatHours } from "@/lib/i18n/fr";
+import { getSection } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
+import landing from "@/locales/fr/landing.json";
 
 /**
  * PUB-07 (final CTA half) — the outer gradient panel keeps `--shadow-brand`
- * only; the `.asm` assembly card (right column) is now the section's sole
- * `--shadow-4` consumer, so the page-wide niveau-3 count stays at exactly
- * two persistent surfaces (hero console, this card — D-23/AC-2). No price,
- * no formula, no payment provider name (D-45) — the closing support line
- * and the assembly card both restate the left column's own signed content,
- * nothing new is authored.
+ * only; the hero's assembly card is the page's sole `--shadow-4` consumer
+ * (D-68 caps niveau 3 at one persistent surface). The right column is
+ * "Ce qui se passe ensuite" (D-67): three steps built entirely from content
+ * already signed elsewhere on the page — no new fact is authored. The
+ * former console (invented dates, place counts, video placeholder) is
+ * retired for good (D-66): no price, no formula, no payment provider name
+ * (D-45).
  */
 async function CtaFinal() {
-  const [sectionResult, modulesResult] = await Promise.all([getSection("cta-final"), getModules()]);
+  const sectionResult = await getSection("cta-final");
 
-  if (!sectionResult.ok || !modulesResult.ok) {
+  if (!sectionResult.ok) {
     return (
       <Section tone="default">
         <EmptyState tone="error">
@@ -32,7 +33,7 @@ async function CtaFinal() {
   }
 
   const section = sectionResult.data;
-  const liveModule = modulesResult.data[1] ?? modulesResult.data[0];
+  const etapes = landing.ctaFinal.etapes;
 
   return (
     <Section tone="default">
@@ -86,63 +87,29 @@ async function CtaFinal() {
                 {common.actions.voirProgramme}
               </Button>
             </div>
-            <p className="mt-6 text-[0.87rem] text-white/68">{common.hero.chips.join(" · ")}</p>
           </div>
 
-          <div
-            aria-hidden="true"
-            className="relative overflow-hidden rounded-[20px] bg-white text-[var(--ink)] shadow-[var(--shadow-4)]"
-          >
-            <div className="flex items-center gap-[6px] border-b border-[var(--border2)] bg-[linear-gradient(180deg,#fff,#FBFBFE)] px-[14px] py-[11px]">
-              <span className="size-[10px] shrink-0 rounded-full bg-[#FF5F57]" />
-              <span className="size-[10px] shrink-0 rounded-full bg-[#FEBC2E]" />
-              <span className="size-[10px] shrink-0 rounded-full bg-[#28C840]" />
-              <span className="ml-[0.6rem] font-sans text-[0.72rem] text-[var(--muted2)]">
-                {common.hero.console.url}
-              </span>
-            </div>
-            <div className="flex flex-col gap-[0.85rem] p-[1.15rem]">
-              <div className="flex items-center gap-[0.7rem] rounded-[13px] bg-[var(--lav2)] px-[0.85rem] py-[0.7rem]">
-                <span
-                  aria-hidden="true"
-                  className="size-2 shrink-0 animate-pulse rounded-full bg-[#EF4444]"
-                />
-                <div className="flex flex-1 flex-col gap-[0.1rem]">
-                  <strong className="text-[0.9rem] tracking-[-0.015em]">
-                    {liveModule.titre}
-                  </strong>
-                  <span className="text-[0.78rem] text-[var(--muted-ink)]">
-                    {common.hero.console.liveLabel} · {formatHours(liveModule.dureeHeures)} ·{" "}
-                    {common.hero.console.liveAnimator}
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-[0.5rem] pt-[0.15rem]">
-                <Calendar className="size-[15px] text-[var(--deep)]" />
-                <span className="text-[0.78rem] font-bold tracking-[0.1em] text-[var(--deep)] uppercase">
-                  {common.hero.console.slotsLabel}
-                </span>
-              </div>
-              {common.hero.console.slots.map((slot) => (
+          <div>
+            <h3 className="text-[0.95rem] font-bold tracking-[-0.01em] text-white">
+              {etapes.titre}
+            </h3>
+            <div className="mt-4 flex flex-col gap-[0.75rem]">
+              {etapes.items.map((etape, index) => (
                 <div
-                  key={slot.date}
-                  className="flex items-center justify-between gap-[0.75rem] rounded-[13px] border-[1.5px] border-[var(--border)] bg-white px-[0.85rem] py-[0.7rem]"
+                  key={etape.titre}
+                  className="flex items-start gap-[0.85rem] rounded-[15px] border border-white/15 bg-white/8 px-[1rem] py-[0.9rem]"
                 >
-                  <div className="flex flex-1 flex-col gap-[0.05rem]">
-                    <span className="text-[0.92rem] font-bold tabular-nums">{slot.date}</span>
-                    <span className="text-[0.76rem] text-[var(--muted-ink)]">{slot.places}</span>
-                  </div>
-                  {"tag" in slot && slot.tag ? (
-                    <span className="text-[0.72rem] font-semibold text-[var(--mint)]">
-                      {slot.tag}
+                  <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-white text-[0.95rem] font-bold text-[var(--deep)]">
+                    {index + 1}
+                  </span>
+                  <div className="flex flex-col gap-[0.15rem] pt-[0.1rem]">
+                    <strong className="text-[0.92rem] font-bold text-white">{etape.titre}</strong>
+                    <span className="text-[0.85rem] leading-[1.5] text-white/82">
+                      {etape.description}
                     </span>
-                  ) : null}
+                  </div>
                 </div>
               ))}
-              <div className="flex items-center gap-[0.6rem] rounded-[13px] border-[1.5px] border-dashed border-[#D6D3F0] px-[0.85rem] py-[0.75rem] text-[0.82rem] text-[var(--muted-ink)]">
-                <Play className="size-4 shrink-0 text-[var(--violet)]" />
-                {common.hero.console.videoPlaceholder}
-              </div>
             </div>
           </div>
         </div>
