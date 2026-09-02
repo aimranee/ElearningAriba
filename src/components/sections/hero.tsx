@@ -122,7 +122,7 @@ async function Hero() {
           <Reveal
             as="p"
             dataD={2}
-            className="max-w-[62ch] text-[var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]"
+            className="max-w-[62ch] text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]"
           >
             {sousTitre}
           </Reveal>

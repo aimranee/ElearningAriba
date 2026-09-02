@@ -94,6 +94,14 @@ html {
   --text-section--line-height: 1.3;
   --text-lead: 1.125rem;
   --text-lead--line-height: 1.6;
+  --text-card: 1.25rem;
+  --text-card--line-height: 1.3;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.5;
 }
 
 :root {
@@ -119,14 +127,31 @@ html {
   --amber: #ffb444;
   /* why (2026-09-01): --blue/--mint/--amber serve as pastille and wash tint in "Pour qui", but fail AA as ink-on-white-card (3.68 / 2.16 / 1.77). These darkened variants keep the hue and pass (4.62 / 4.58 / 4.63). The accent decorates, the ink reads. --sky fails the same way as a white-number pastille fill (2.14) — --sky-ink passes (4.61 both ways). */
   --blue-ink: #3472d8;
-  --mint-ink: #158568;
-  --amber-ink: #996c29;
+  --mint-ink: #02765a;
+  --amber-ink: #8f5d02;
   --sky-ink: #0f7ea6;
   --lav: #f1f0ff;
   --lav2: #f6f5ff;
   --soft: #fbfbfe;
   --paper: #fcfcff;
   --border2: #f0f2f8;
+
+  --violet-wash: #f2f4ff;
+  --violet-soft: #bec6ff;
+  --violet-ink: #585dbe;
+  --azur-wash: #e6f8ff;
+  --azur-soft: #7cd9fa;
+  --azur-ink: #02718c;
+  --mint-wash: #e7faf2;
+  --mint-soft: #84e0bf;
+  --amber-wash: #fef3e5;
+  --amber-soft: #f3c180;
+  --magenta-wash: #feeffc;
+  --magenta-soft: #f0b3ea;
+  --magenta-ink: #9b4795;
+  --coral-wash: #fff1ef;
+  --coral-soft: #feb5ad;
+  --coral-ink: #b3413c;
 
   /* shadcn surface aliases re-mapped onto the maquette palette (F-11) — the
      ~15 live consumers of --primary/--success/--muted etc. keep working. */

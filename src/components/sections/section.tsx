@@ -62,7 +62,7 @@ function SectionHeader({ eyebrow, title, titleAccent, lead, className }: Section
           {eyebrow}
         </span>
       ) : null}
-      <h2 className="mt-3 font-heading text-[var(--text-title)] leading-[var(--text-title--line-height)] font-semibold text-balance">
+      <h2 className="mt-3 font-heading text-[length:var(--text-title)] leading-[var(--text-title--line-height)] font-semibold text-balance">
         {title}
         {titleAccent ? (
           <span className="bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent">
@@ -72,7 +72,7 @@ function SectionHeader({ eyebrow, title, titleAccent, lead, className }: Section
         ) : null}
       </h2>
       {lead ? (
-        <p className="mx-auto mt-4 max-w-[62ch] text-[var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]">
+        <p className="mx-auto mt-4 max-w-[62ch] text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]">
           {lead}
         </p>
       ) : null}
