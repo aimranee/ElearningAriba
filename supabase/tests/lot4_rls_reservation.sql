@@ -14,8 +14,18 @@ begin;
 
 -- 1. Control: two learners plus one administrator, each with one
 -- reservation, all demonstrably present on the bypass path.
+-- on conflict/do update, not a plain insert: plan 04-02's agenda:seed now
+-- permanently seeds this id outside any transaction, so a plain insert
+-- collides (23505) once the environment has been bootstrapped. The upsert
+-- forces this file's own duree_minutes/tampon_minutes/prix_centimes for the
+-- duration of this transaction; rollback restores the seeded row afterward.
 insert into app.type_rendez_vous (id, libelle, duree_minutes, tampon_minutes, prix_centimes)
-values ('individuelle', 'Session individuelle', 30, 15, 9000);
+values ('individuelle', 'Session individuelle', 30, 15, 9000)
+on conflict (id) do update set
+  libelle = excluded.libelle,
+  duree_minutes = excluded.duree_minutes,
+  tampon_minutes = excluded.tampon_minutes,
+  prix_centimes = excluded.prix_centimes;
 
 -- every isodow, so step 7b's anon read of app.creneaux_libres has a
 -- guaranteed non-empty result within the 8-week horizon regardless of what

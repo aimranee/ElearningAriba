@@ -15,10 +15,20 @@ begin;
 -- 1. Control: seed a type, two auth.users rows (learner A and B, reusing the
 -- Lot 3 column list), one weekly rule, and one confirmed reservation as
 -- superuser. Assert it exists.
+-- on conflict/do update, not a plain insert: plan 04-02's agenda:seed now
+-- permanently seeds these two ids outside any transaction, so a plain insert
+-- collides (23505) once the environment has been bootstrapped. The upsert
+-- forces this file's own duree_minutes/tampon_minutes/prix_centimes for the
+-- duration of this transaction; rollback restores the seeded row afterward.
 insert into app.type_rendez_vous (id, libelle, duree_minutes, tampon_minutes, prix_centimes)
 values
   ('decouverte', 'Appel decouverte', 30, 15, 0),
-  ('individuelle', 'Session individuelle', 30, 15, 9000);
+  ('individuelle', 'Session individuelle', 30, 15, 9000)
+on conflict (id) do update set
+  libelle = excluded.libelle,
+  duree_minutes = excluded.duree_minutes,
+  tampon_minutes = excluded.tampon_minutes,
+  prix_centimes = excluded.prix_centimes;
 -- why individuelle for the lock/RLS/DST/erasure steps below: 'decouverte' is
 -- reserved for step 6's D-12 proof alone, so the two concerns (the
 -- exclusion constraint vs. the one-discovery-call rule) do not interfere.

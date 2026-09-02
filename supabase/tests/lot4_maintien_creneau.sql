@@ -16,8 +16,18 @@ begin;
 -- 1. Control: seed a type, a weekly rule and two auth.users rows. Assert
 -- app.creneaux_libres returns a non-zero count over a window two days out,
 -- and capture one free instant as the subject.
+-- on conflict/do update, not a plain insert: plan 04-02's agenda:seed now
+-- permanently seeds this id outside any transaction, so a plain insert
+-- collides (23505) once the environment has been bootstrapped. The upsert
+-- forces this file's own duree_minutes/tampon_minutes for the duration of
+-- this transaction; rollback restores the seeded row afterward.
 insert into app.type_rendez_vous (id, libelle, duree_minutes, tampon_minutes, prix_centimes)
-values ('individuelle', 'Session individuelle', 30, 15, 9000);
+values ('individuelle', 'Session individuelle', 30, 15, 9000)
+on conflict (id) do update set
+  libelle = excluded.libelle,
+  duree_minutes = excluded.duree_minutes,
+  tampon_minutes = excluded.tampon_minutes,
+  prix_centimes = excluded.prix_centimes;
 
 insert into app.disponibilite_hebdomadaire (jour_semaine, heure_debut, heure_fin)
 select d, '09:00', '17:00' from generate_series(1, 7) d;
