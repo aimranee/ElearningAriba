@@ -424,6 +424,32 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   `height: 0`. Ce n'est pas un défaut produit. Les mesures d'animation et
   de largeur passent par Playwright (`visibilityState: visible`, rAF
   actif, viewport réellement redimensionnable).
+- **D-75** (2026-09-02, fondateur): la palette proposée est approuvée — six
+  teintes réparties sur le cercle OKLCH, trois paliers wash (L .968 / C
+  .022), soft (L .840 / C .100) et ink (résolu à 5,5:1 sur --paper, C
+  .150). Les jetons sont posés au run 1 ; aucun consommateur n'est migré
+  avant les runs 2 à 4.
+- **D-76** (2026-09-02, fondateur): le mur chromatique reste à six teintes,
+  D-53 maintenue. Le plafond de distinguabilité mesuré (delta E 8,5 entre
+  tuiles voisines pour un seuil de 15) est accepté en connaissance de
+  cause : chaque tuile porte un titre et un pictogramme, la couleur rythme
+  et n'identifie pas.
+- **D-77** (2026-09-02, fondateur): l'encre marine #0A2540 est conservée.
+  L'option de sortir du couple Stripe en ramenant l'encre sur la teinte de
+  la marque est refusée — --ink, --ink-soft, --muted-ink et --border ne
+  bougent pas.
+- **D-78** (2026-09-02, fondateur): restyler d'abord, réviser ensuite. Les
+  quatre portes human-verify non revues (02-04 T3, 02-05 T4, 02-09 T3,
+  02-10 T3) passent après les runs 1 à 4, en une seule fois, sur l'état
+  final.
+- **D-79** (2026-09-02, CTO): un jeton de TAILLE ne se lit jamais en
+  text-[var(--x)]. Tailwind v4 tranche l'ambiguïté pour la couleur et
+  compile la classe en color: var(--x) ; une valeur qui n'est pas une
+  couleur est jetée silencieusement à l'analyse et l'élément garde la
+  taille héritée, tandis que la règle voisine
+  leading-[var(--x--line-height)] passe. La forme obligatoire est
+  text-[length:var(--x)], et la preuve se prend sur la valeur calculée
+  dans le navigateur, jamais par grep sur la source.
 
 ### Claude's Discretion
 
