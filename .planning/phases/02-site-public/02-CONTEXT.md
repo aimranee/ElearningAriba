@@ -450,6 +450,28 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   leading-[var(--x--line-height)] passe. La forme obligatoire est
   text-[length:var(--x)], et la preuve se prend sur la valeur calculée
   dans le navigateur, jamais par grep sur la source.
+- **D-80** (2026-09-02, fondateur): le mur des six compétences passe en
+  aplat soft plein — la tuile entière prend le soft de sa teinte. C'est le
+  palier du milieu qui manque à la page : l'audit mesure 0,7 % de pixels
+  pastel contre 22,9 % chez OpenClassrooms, et la page passait du
+  presque-blanc au saturé sans transition.
+- **D-81** (2026-09-02, fondateur): le pictogramme de tuile porte l'encre
+  de sa propre teinte, à même l'aplat, mesuré entre 3,31 et 3,58. Cela
+  échoue le seuil de 4,5 du texte et franchit le plancher 3,0 des objets
+  graphiques — accepté en connaissance de cause, le pictogramme étant
+  décoratif et doublé par le titre.
+- **D-82** (2026-09-02, fondateur): la règle de 3px en haut de tuile est
+  retirée. Sur un aplat coloré elle répète l'information que le fond porte
+  déjà ; elle n'existait que parce que la tuile était blanche.
+- **D-83** (2026-09-02, fondateur): la typographie du mur passe sur les
+  crans du run 1 dans le même run que sa couleur — titre sur --text-card,
+  description sur --text-small. Le mur est fini en une passe ; le run 3
+  couvre les sept autres sections.
+- **D-84** (2026-09-02, CTO): sur un aplat soft, le texte est --ink
+  (9,13-9,91) ou --ink-soft (7,10-7,71). --muted-ink y échoue (3,18-3,45)
+  et l'encre de la teinte aussi (3,31-3,58) ; cette dernière n'est admise
+  que sur un objet graphique, plancher 3,0. Mesuré sur les six soft de la
+  palette, pas estimé.
 
 ### Claude's Discretion
 
