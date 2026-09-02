@@ -81,3 +81,46 @@ export function formatTime(date: Date): string {
 export function formatHours(value: number): string {
   return hourFormatter.format(value);
 }
+
+/* why: French prose never writes clock time in the CLDR "14:30" shape — it
+   reads "14 h 30". A hand-written " h" at a call site is the same class of
+   defect as the hand-written "€" that currencyFormatter exists to prevent,
+   which is why this lives here and not in the component that needed it
+   first. timeFormatter ("14:30") stays correct and unchanged for dense slot
+   chips — the two registers coexist by design and are never interchanged.
+   Prose surfaces (recap, confirmation email, .ics description, admin rows)
+   take formatHeureProse; dense slot pills take timeFormatter. */
+export const heureProseFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  LOCALE,
+  {
+    timeZone: TIME_ZONE,
+    hourCycle: "h23",
+    hour: "numeric",
+    minute: "numeric",
+  },
+);
+
+export function formatHeureProse(value: Date): string {
+  const parts = heureProseFormatter.formatToParts(value);
+  const hour = parts.find((part) => part.type === "hour")?.value ?? "";
+  const minute = parts.find((part) => part.type === "minute")?.value ?? "";
+  return `${hour} h ${minute}`;
+}
+
+/* why: dateFormatter (dateStyle: "long") omits the weekday, which an agenda
+   cannot — an agenda says "mardi 8 septembre", not "8 septembre 2026". A
+   call-site concatenation of a weekday onto formatDate is forbidden; the
+   weekday must come from Intl like every other part. */
+export const dateAvecJourFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  LOCALE,
+  {
+    timeZone: TIME_ZONE,
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  },
+);
+
+export function formatDateAvecJour(value: Date): string {
+  return dateAvecJourFormatter.format(value);
+}
