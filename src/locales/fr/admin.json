@@ -1,0 +1,22 @@
+{
+  "titre": "Espace administrateur",
+  "intro": "Gérez l’agenda, les jours fériés et les réservations depuis un seul endroit.",
+  "nav": {
+    "horaires": "Horaires",
+    "joursFeries": "Jours fériés",
+    "reservations": "Réservations"
+  },
+  "joursFeries": {
+    "jourDeLAn": "Jour de l’an",
+    "lundiDePaques": "Lundi de Pâques",
+    "feteDuTravail": "Fête du Travail",
+    "victoire1945": "Victoire 1945",
+    "ascension": "Ascension",
+    "lundiDePentecote": "Lundi de Pentecôte",
+    "feteNationale": "Fête nationale",
+    "assomption": "Assomption",
+    "toussaint": "Toussaint",
+    "armistice": "Armistice",
+    "noel": "Noël"
+  }
+}
