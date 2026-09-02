@@ -656,8 +656,9 @@ rule and `auth.users` rows).
 
 **The one thing this file exists to prove, and it is not "the retention works":** that the retention
 **grants nothing**. D-03 and D-27 both keep the exclusion constraint as the only source of truth, so
-step 7 retains an instant with one token, then books it with a *forged* token and asserts the refusal
-comes from the constraint rather than from the retention. A file that only asserted the happy path
+step 9 retains an instant with one token, then books it with a *forged* token and asserts the refusal
+comes from the constraint rather than from the retention. Step 3 proves the neighbouring and distinct
+property that a never-minted token cannot *create* a retention at all. A file that only asserted the happy path
 would pass against an implementation that had quietly made the hold authoritative.
 
 **Order matters:** the early-morning `00:30` Europe/Paris assertion runs first, before the ordinary
