@@ -72,6 +72,67 @@ export const exceptionSuppressionSchema = z.object({
   id: z.uuid(),
 });
 
+/**
+ * The move boundary (PATCH /api/admin/reservations/[id]) — the reservation
+ * id itself comes from the URL param, validated separately with a bare
+ * z.uuid() at the route, matching src/app/api/documents/[id]/route.ts's
+ * idiom.
+ */
+export const deplacementSchema = z.object({
+  debut: z.iso.datetime({ offset: true }),
+});
+
+export type DeplacementInput = z.infer<typeof deplacementSchema>;
+
+/**
+ * The create-on-behalf boundary (POST /api/admin/reservations) — a schema
+ * factory taking the active app.type_rendez_vous id set at request time,
+ * exactly like src/lib/validation/reservation.ts's buildReservationSchema:
+ * never a hard-coded list, never src/locales/fr/agenda.json (bootstrap seed
+ * input the administrator does not own). No `lieu` field — the trainer's
+ * fixed video link is read server-side from serverEnv.FORMATEUR_LIEN_VISIO,
+ * the same D-15 discipline the booking route already applies.
+ */
+export function buildCreationPourApprenantSchema(typeIdsActifs: readonly string[]) {
+  return z.object({
+    email: z.email(),
+    typeId: z.enum(typeIdsActifs as [string, ...string[]]),
+    debut: z.iso.datetime({ offset: true }),
+  });
+}
+
+export type CreationPourApprenantInput = z.infer<
+  ReturnType<typeof buildCreationPourApprenantSchema>
+>;
+
+/**
+ * The export boundary (GET /api/admin/reservations/export) — both bounds
+ * are required and the span is capped (T-04-48) so a single request cannot
+ * stream the whole table. ISO date strings compare correctly with plain
+ * string `>=` (YYYY-MM-DD is lexically ordered).
+ */
+const EXPORT_SPAN_MAX_JOURS = 366;
+
+export const exportSchema = z
+  .object({
+    du: z.iso.date(),
+    au: z.iso.date(),
+  })
+  .refine((value) => value.au >= value.du, {
+    error: "jourInvalide",
+    path: ["au"],
+  })
+  .refine(
+    (value) => {
+      const jours =
+        (new Date(value.au).getTime() - new Date(value.du).getTime()) / (1000 * 60 * 60 * 24);
+      return jours <= EXPORT_SPAN_MAX_JOURS;
+    },
+    { error: "champsInvalides", path: ["au"] },
+  );
+
+export type ExportInput = z.infer<typeof exportSchema>;
+
 /** Matches the leaf keys of `admin.erreurs` in src/locales/fr/admin.json. */
 export type AdminAgendaErreurKey =
   | "jourSemaineInvalide"
@@ -82,6 +143,12 @@ export type AdminAgendaErreurKey =
   | "heuresIncompletes"
   | "champsInvalides"
   | "nonAutorise"
+  | "introuvable"
+  | "dejaAnnulee"
+  | "creneauIndisponible"
+  | "apprenantIntrouvable"
+  | "typeInconnu"
+  | "appelDecouverteDejaReserve"
   | "erreurGenerique";
 
 /**
@@ -109,4 +176,85 @@ export function mapAgendaAdminIssueToErreurKey(
     }
   }
   return "champsInvalides";
+}
+
+/**
+ * app.deplacer_reservation's typed outcome union (plan 04-07, migration
+ * 20260901182000_lot4_admin_reservation.sql).
+ */
+export type ResultatDeplacement =
+  | "ok"
+  | "non_autorise"
+  | "introuvable"
+  | "reservation_annulee"
+  | "creneau_indisponible";
+
+/**
+ * Maps app.deplacer_reservation's outcome to an admin.erreurs.* key.
+ * 'reservation_annulee' (attempting to move an already-cancelled row) and
+ * 'deja_annulee' (app.annuler_reservation's own already-cancelled outcome,
+ * below) share the same French key: both describe the identical state to
+ * the administrator.
+ */
+export function mapResultatDeplacementToErreurKey(
+  resultat: string,
+): AdminAgendaErreurKey | undefined {
+  switch (resultat) {
+    case "non_autorise":
+      return "nonAutorise";
+    case "introuvable":
+      return "introuvable";
+    case "reservation_annulee":
+      return "dejaAnnulee";
+    case "creneau_indisponible":
+      return "creneauIndisponible";
+    default:
+      return undefined;
+  }
+}
+
+/** app.annuler_reservation's typed outcome union. */
+export type ResultatAnnulation = "ok" | "non_autorise" | "introuvable" | "deja_annulee";
+
+export function mapResultatAnnulationToErreurKey(
+  resultat: string,
+): AdminAgendaErreurKey | undefined {
+  switch (resultat) {
+    case "non_autorise":
+      return "nonAutorise";
+    case "introuvable":
+      return "introuvable";
+    case "deja_annulee":
+      return "dejaAnnulee";
+    default:
+      return undefined;
+  }
+}
+
+/** app.reserver_pour_apprenant's typed outcome union. */
+export type ResultatCreationPourApprenant =
+  | "ok"
+  | "non_autorise"
+  | "apprenant_introuvable"
+  | "type_inconnu"
+  | "creneau_indisponible"
+  | "appel_decouverte_deja_reserve";
+
+export function mapResultatCreationPourApprenantToErreurKey(
+  resultat: string,
+): AdminAgendaErreurKey | undefined {
+  switch (resultat) {
+    case "non_autorise":
+      return "nonAutorise";
+    case "apprenant_introuvable":
+      return "apprenantIntrouvable";
+    case "type_inconnu":
+      return "typeInconnu";
+    case "creneau_indisponible":
+      return "creneauIndisponible";
+    case "appel_decouverte_deja_reserve":
+      return "appelDecouverteDejaReserve";
+    default:
+      return undefined;
+  }
 }

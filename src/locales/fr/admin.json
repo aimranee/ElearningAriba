@@ -98,6 +98,38 @@
     "reserve": "Réservé",
     "bloque": "Bloqué"
   },
+  "reservations": {
+    "titre": "Réservations",
+    "intro": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant.",
+    "colonnes": {
+      "date": "Date",
+      "type": "Type",
+      "duree": "Durée",
+      "apprenant": "Apprenant",
+      "email": "Email",
+      "statut": "Statut"
+    },
+    "compteSupprime": "Compte supprimé",
+    "statuts": {
+      "confirmee": "Confirmée",
+      "enAttentePaiement": "En attente de paiement",
+      "annulee": "Annulée"
+    },
+    "export": {
+      "titre": "Exporter au format CSV",
+      "colonnesAnnonce": "L’export contient exactement six colonnes, dans cet ordre : date, type, durée, apprenant, email, statut.",
+      "bouton": "Exporter la période"
+    },
+    "creation": {
+      "titre": "Réserver pour un apprenant",
+      "intro": "Cette réservation est rattachée à un compte apprenant existant ; aucun compte n’est créé depuis cet écran."
+    },
+    "annulation": {
+      "confirmationTitre": "Annuler cette réservation ?",
+      "confirmationMessage": "L’apprenant sera averti par e-mail de cette annulation.",
+      "dateHeureNouvelle": "Annulé — aucun nouveau rendez-vous n’est prévu."
+    }
+  },
   "erreurs": {
     "jourSemaineInvalide": "Le jour de la semaine est invalide.",
     "heureInvalide": "L’heure est invalide.",
@@ -107,6 +139,12 @@
     "heuresIncompletes": "Renseignez à la fois l’heure de début et l’heure de fin, ou aucune des deux.",
     "champsInvalides": "La demande est invalide.",
     "nonAutorise": "Vous n’êtes pas autorisé à effectuer cette action.",
+    "introuvable": "Cette réservation est introuvable.",
+    "dejaAnnulee": "Cette réservation est déjà annulée.",
+    "creneauIndisponible": "Ce créneau n’est plus disponible.",
+    "apprenantIntrouvable": "Aucun compte n’existe pour cette adresse e-mail. Aucun compte n’est créé depuis le back-office.",
+    "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
+    "appelDecouverteDejaReserve": "Cet apprenant a déjà réservé un appel découverte.",
     "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
   }
 }
