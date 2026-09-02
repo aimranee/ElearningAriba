@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-01 complete: Lot 4 data model, exclusion constraint, seven RPCs, D-27 retention and three SQL negative test files all applied and passing"
-last_updated: "2026-09-02T07:51:28.432Z"
+stopped_at: "04-02 complete: idempotent agenda seed script and SQL proofs for free-slot expansion and holiday calendar"
+last_updated: "2026-09-02T08:07:31.244Z"
 last_activity: 2026-09-02
 progress:
   total_phases: 11
   completed_phases: 3
   total_plans: 49
-  completed_plans: 40
-  percent: 27
+  completed_plans: 41
+  percent: 84
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 2 of 9
+Plan: 3 of 9
 Status: Ready to execute
 Last activity: 2026-09-02
 
-Progress: [█████████░] 97%
+Progress: [████████░░] 84%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Progress: [█████████░] 97%
 | Phase 02-site-public P04 | 45min | 2 tasks | 8 files |
 | Phase 02-site-public P02 | 45min | 1 task | 8 files |
 | Phase 04-agenda-et-prise-de-rendez-vous P01 | 70min | 3 tasks | 6 files |
+| Phase 04-agenda-et-prise-de-rendez-vous P02 | 30min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,9 @@ Recent decisions affecting current work:
 - [Phase 02-02]: Seed script normalizes every row to the full column set before a batched upsert — PostgREST's bulk upsert sends an explicit `NULL` for any column a given row omits when other rows in the same batch carry it, so relying on the table's column default inside a heterogeneous batch silently fails.
 - [Phase ?]: [Phase 04-01] Seeded a full 1-7 isodow weekly rule in every test file's control section rather than a single weekday, so no test's pass/fail depends on what day of the week the suite happens to run
 - [Phase ?]: [Phase 04-01] Reserved the 'decouverte' type_id exclusively for the D-12 one-discovery-call proof and used 'individuelle' for every other lock/RLS/DST/erasure test step
+- [Phase 04-02]: Fixed a missing service_role EXECUTE grant on app.paques via a new additive migration rather than editing the already-applied grants migration
+- [Phase 04-02]: Fixed app.creneaux_libres D-13 horizon (day-granular only, no instant-level upper bound) via a new create-or-replace migration, caught by this plan's own SQL proof
+- [Phase 04-02]: Converted plain type_rendez_vous inserts in the three 04-01 SQL test files to on-conflict-do-update, since agenda:seed now permanently seeds those ids outside any transaction
 
 ### Pending Todos
 
@@ -163,10 +167,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-09-02T07:51:28.408Z
-Stopped at: 04-01 complete: Lot 4 data model, exclusion constraint, seven RPCs, D-27 retention and three SQL negative test files all applied and passing
+Last session: 2026-09-02T08:07:18.344Z
+Stopped at: 04-02 complete: idempotent agenda seed script and SQL proofs for free-slot expansion and holiday calendar
 service_role grants committed separately). 02-01, 02-02, 02-03, 02-04 all complete.
-Resume file: 04-02-PLAN.md
+Resume file: 04-03-PLAN.md
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
 review of the 02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
