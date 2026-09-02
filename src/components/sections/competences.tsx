@@ -11,13 +11,13 @@ import common from "@/locales/fr/common.json";
  * per competency, on the `default` (untinted) tone that alternates against
  * the tinted PourQui/ProgrammeAccordion sections either side of it (D-49).
  */
-const CARD_ACCENTS: Record<string, string> = {
-  "ecosysteme-ariba": "var(--violet)",
-  "procure-to-pay": "var(--blue)",
-  "source-to-pay": "var(--mint)",
-  "rfq-rfp": "var(--amber)",
-  "gestion-catalogues": "var(--indigo)",
-  certification: "var(--sky)",
+const CARD_TEINTES: Record<string, { soft: string; ink: string }> = {
+  "ecosysteme-ariba": { soft: "var(--violet-soft)", ink: "var(--violet-ink)" },
+  "procure-to-pay": { soft: "var(--azur-soft)", ink: "var(--azur-ink)" },
+  "source-to-pay": { soft: "var(--mint-soft)", ink: "var(--mint-ink)" },
+  "rfq-rfp": { soft: "var(--amber-soft)", ink: "var(--amber-ink)" },
+  "gestion-catalogues": { soft: "var(--magenta-soft)", ink: "var(--magenta-ink)" },
+  certification: { soft: "var(--coral-soft)", ink: "var(--coral-ink)" },
 };
 
 // why (CADR-04): un badge est une marque générique — le registre de
@@ -58,7 +58,10 @@ async function Competences() {
       />
       <ul className="mt-10 grid grid-cols-1 gap-[1.25rem] sm:grid-cols-2 lg:grid-cols-3 grid-auto-rows-[1fr]">
         {items.map((item, index) => {
-          const accent = CARD_ACCENTS[item.cle] ?? "var(--violet)";
+          const teinte = CARD_TEINTES[item.cle] ?? {
+            soft: "var(--violet-soft)",
+            ink: "var(--violet-ink)",
+          };
           const Picto = resolvePictogram(item.cle);
 
           return (
@@ -69,39 +72,17 @@ async function Competences() {
               className="h-full"
             >
               <div
-                className="rounded-[20px] overflow-hidden p-[1.6rem] min-h-[13.5rem] h-full relative group bg-white border border-[color-mix(in_srgb,var(--card-accent)_22%,transparent)] transition-transform duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:-translate-y-[2px]"
-                style={{ "--card-accent": accent } as React.CSSProperties}
+                className="rounded-[20px] overflow-hidden p-[1.6rem] min-h-[13.5rem] h-full flex flex-col gap-[0.9rem] bg-[var(--tuile-soft)] transition-transform duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:-translate-y-[2px]"
+                style={{ "--tuile-soft": teinte.soft, "--tuile-ink": teinte.ink } as React.CSSProperties}
               >
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 pointer-events-none opacity-[0.73] transition-opacity duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(150deg, color-mix(in srgb, var(--card-accent) 30%, white) 0%, white 72%)",
-                  }}
-                />
-                {/* why (D-55, 2026-09-01): the tile rose 2px while its own
-                    watermark dropped 6px — opposing vectors that visibly
-                    detached the icon from its card — and the element is
-                    clipped by the tile's edge, so any offset re-cropped it
-                    and changed its silhouette mid-motion. A 150px shape
-                    blooms; it doesn't travel. */}
                 {Picto ? (
-                  <Picto
-                    aria-hidden="true"
-                    className="absolute -bottom-7 -right-7 size-[150px] pointer-events-none text-[var(--card-accent)] opacity-[0.18] transition-opacity duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:opacity-[0.26]"
-                  />
+                  <Picto aria-hidden="true" className="size-7 shrink-0 text-[var(--tuile-ink)]" />
                 ) : null}
-                <div
-                  data-slot="competence-rule"
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-[3px] bg-[var(--card-accent)]"
-                />
-                <div className="relative z-[1]">
-                  <p className="font-heading text-[1.08rem] leading-[1.3] font-bold tracking-[-0.02em] text-[var(--ink)]">
+                <div>
+                  <p className="font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
                     {item.titre}
                   </p>
-                  <p className="text-[0.92rem] leading-[1.55] text-[var(--ink-soft)] mt-[0.5rem]">
+                  <p className="mt-[0.5rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--ink-soft)]">
                     {item.description}
                   </p>
                 </div>
