@@ -14,7 +14,8 @@
     "db:types": "node scripts/gen-db-types.mjs",
     "content:check": "node scripts/check-mock-content.mjs",
     "content:seed": "node --env-file-if-exists=.env.local scripts/seed-content.mjs",
-    "agenda:seed": "node --env-file-if-exists=.env.local scripts/seed-agenda.mjs"
+    "agenda:seed": "node --env-file-if-exists=.env.local scripts/seed-agenda.mjs",
+    "ics:check": "node --experimental-strip-types --conditions=react-server scripts/check-ics.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

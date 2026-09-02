@@ -31,6 +31,17 @@ const serverEnvSchema = z.object({
    * <hosted_dependencies> in 03-CONTEXT.md).
    */
   SUPABASE_SUPPORTS_BUCKET: z.string().min(1).default("supports"),
+  /**
+   * why (D-15): the trainer's fixed video-conferencing link, injected into
+   * the `.ics` LOCATION, the two AGD-06 emails and the screen-3 recap.
+   * Optional here so `next build` stays green while the CIO provisions it
+   * per environment — src/app/api/reservation/route.ts re-validates it
+   * strictly at request time, the same optional-at-boot/strict-at-use split
+   * RESEND_API_KEY already uses (D-48). Server-only: it must never be
+   * prefixed NEXT_PUBLIC_, or an unauthenticated visitor could read the
+   * trainer's permanent meeting room out of the client bundle.
+   */
+  FORMATEUR_LIEN_VISIO: z.url().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
