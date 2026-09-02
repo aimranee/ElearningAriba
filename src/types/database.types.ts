@@ -189,6 +189,113 @@ export type Database = {
         }
         Relationships: []
       }
+      disponibilite_hebdomadaire: {
+        Row: {
+          actif: boolean
+          created_at: string
+          heure_debut: string
+          heure_fin: string
+          id: string
+          jour_semaine: number
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          created_at?: string
+          heure_debut: string
+          heure_fin: string
+          id?: string
+          jour_semaine: number
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          created_at?: string
+          heure_debut?: string
+          heure_fin?: string
+          id?: string
+          jour_semaine?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      exception_agenda: {
+        Row: {
+          created_at: string
+          heure_debut: string | null
+          heure_fin: string | null
+          id: string
+          jour: string
+          libelle: string | null
+          motif: string
+          ouvert: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          heure_debut?: string | null
+          heure_fin?: string | null
+          id?: string
+          jour: string
+          libelle?: string | null
+          motif?: string
+          ouvert?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          heure_debut?: string | null
+          heure_fin?: string | null
+          id?: string
+          jour?: string
+          libelle?: string | null
+          motif?: string
+          ouvert?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      maintien_creneau: {
+        Row: {
+          created_at: string
+          debut: string
+          expire_le: string
+          fin_avec_tampon: string
+          id: string
+          jeton: string
+          plage: unknown
+          type_id: string
+        }
+        Insert: {
+          created_at?: string
+          debut: string
+          expire_le: string
+          fin_avec_tampon: string
+          id?: string
+          jeton: string
+          plage?: unknown
+          type_id: string
+        }
+        Update: {
+          created_at?: string
+          debut?: string
+          expire_le?: string
+          fin_avec_tampon?: string
+          id?: string
+          jeton?: string
+          plage?: unknown
+          type_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintien_creneau_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "type_rendez_vous"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profil: {
         Row: {
           created_at: string
@@ -231,12 +338,150 @@ export type Database = {
         }
         Relationships: []
       }
+      reservation: {
+        Row: {
+          annulee_le: string | null
+          created_at: string
+          debut: string
+          fin: string
+          fin_avec_tampon: string
+          ics_sequence: number
+          ics_uid: string
+          id: string
+          lieu: string
+          paiement_requis: boolean
+          plage: unknown
+          statut: string
+          type_id: string
+          updated_at: string
+          utilisateur_id: string | null
+        }
+        Insert: {
+          annulee_le?: string | null
+          created_at?: string
+          debut: string
+          fin: string
+          fin_avec_tampon: string
+          ics_sequence?: number
+          ics_uid: string
+          id?: string
+          lieu: string
+          paiement_requis?: boolean
+          plage?: unknown
+          statut?: string
+          type_id: string
+          updated_at?: string
+          utilisateur_id?: string | null
+        }
+        Update: {
+          annulee_le?: string | null
+          created_at?: string
+          debut?: string
+          fin?: string
+          fin_avec_tampon?: string
+          ics_sequence?: number
+          ics_uid?: string
+          id?: string
+          lieu?: string
+          paiement_requis?: boolean
+          plage?: unknown
+          statut?: string
+          type_id?: string
+          updated_at?: string
+          utilisateur_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservation_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "type_rendez_vous"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      type_rendez_vous: {
+        Row: {
+          actif: boolean
+          created_at: string
+          duree_minutes: number
+          id: string
+          libelle: string
+          ordre: number
+          prix_centimes: number
+          tampon_minutes: number
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          created_at?: string
+          duree_minutes: number
+          id: string
+          libelle: string
+          ordre?: number
+          prix_centimes?: number
+          tampon_minutes?: number
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          created_at?: string
+          duree_minutes?: number
+          id?: string
+          libelle?: string
+          ordre?: number
+          prix_centimes?: number
+          tampon_minutes?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      creneaux_libres: {
+        Args: {
+          p_au: string
+          p_du: string
+          p_jeton?: string
+          p_type_id: string
+        }
+        Returns: {
+          debut: string
+          fin: string
+        }[]
+      }
+      est_administrateur: { Args: never; Returns: boolean }
+      liberer_creneau: {
+        Args: { p_jeton: string }
+        Returns: {
+          resultat: string
+        }[]
+      }
+      maintenir_creneau: {
+        Args: { p_debut: string; p_jeton?: string; p_type_id: string }
+        Returns: {
+          expire_le: string
+          jeton: string
+          resultat: string
+        }[]
+      }
+      paques: { Args: { annee: number }; Returns: string }
+      purger_maintiens_expires: { Args: never; Returns: number }
+      reserver_creneau: {
+        Args: {
+          p_debut: string
+          p_jeton?: string
+          p_lieu: string
+          p_type_id: string
+        }
+        Returns: {
+          reservation_id: string
+          resultat: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
