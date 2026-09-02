@@ -386,6 +386,44 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   étape 1 titre 6.52 / description 4.95 ; étape 2 titre 6.36 / description
   4.84 ; étape 3 titre 6.25 / description 4.77 — les trois lignes passent AA,
   le pire cas est 4.77.
+- **D-70** (2026-09-02, fondateur + CTO): la FAQ adopte l'échelle de
+  `programme-accordion.tsx`, son frère de la même page. Les défauts
+  d'administration (`text-sm` shadcn 14 px, lignes de 46 px,
+  `hover:bg-muted`) quittent la landing. La première ligne s'ouvre au
+  chargement via `defaultValue`, comme le programme le fait déjà. Aucune
+  nouvelle valeur de design n'est inventée : tout est repris littéralement
+  du frère.
+- **D-71** (2026-09-02, fondateur + CTO): les sept questions sont
+  reconstruites autour de ce qu'un visiteur demande vraiment. Cinq des sept
+  actuelles partent : le direct, l'appel découverte et l'inscription sont
+  déjà répondus par les sections 05, 06 et 07 ; le support PDF est absorbé
+  par la question des supports. La question de l'annulation revient au lot
+  5, quand la politique de remboursement sera publiée — pas avant, parce
+  que la réponse actuelle renvoie à une page que le pied de page rend
+  délibérément non navigante.
+- **D-72** (2026-09-02, fondateur + CTO): le prix est demandé et répondu
+  sans chiffre. La question figure en première ligne ; la réponse nomme
+  les trois formes de parcours et renvoie à l'appel découverte gratuit de
+  trente minutes, où le montant est confirmé. Aucun montant sur la landing
+  tant que le client n'a pas donné ses tarifs réels.
+- **D-73** (2026-09-02, fondateur + CTO): trois questions partent en mocks
+  CADR-03 — accès SAP personnel, attestation, financement CPF/OPCO.
+  `landing.faq.items` est déjà une entrée unique de `_mocks.public.json`
+  couvrant tout le tableau : la porte du lot 5 les bloque sans qu'aucune
+  entrée soit ajoutée. La réponse sur le financement n'affirme aucune
+  éligibilité — ni CPF, ni OPCO, ni Qualiopi n'apparaissent nulle part dans
+  le repo ni dans le cahier, et en France cette éligibilité suppose
+  Qualiopi et un numéro de déclaration d'activité. Elle oriente vers
+  l'appel découverte, rien de plus.
+- **D-74** (2026-09-02, CTO): un état animé se mesure dans un navigateur
+  dont `document.visibilityState` vaut `visible`. Un onglet piloté par
+  extension et resté `hidden` produit 0 frame de `requestAnimationFrame`
+  en 2 secondes, donc Base UI ne retire jamais `data-starting-style` du
+  panneau et la règle `data-[starting-style]:h-0 opacity-0` le fige — un
+  accordéon parfaitement sain y rapporte `aria-expanded="true"` avec
+  `height: 0`. Ce n'est pas un défaut produit. Les mesures d'animation et
+  de largeur passent par Playwright (`visibilityState: visible`, rAF
+  actif, viewport réellement redimensionnable).
 
 ### Claude's Discretion
 
