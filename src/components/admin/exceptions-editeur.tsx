@@ -248,7 +248,7 @@ export function ExceptionsEditeur({ exceptions }: { exceptions: ExceptionAgenda[
               </Field>
 
               <Field className="min-w-40">
-                <FieldLabel htmlFor="exception-motif">Motif</FieldLabel>
+                <FieldLabel htmlFor="exception-motif">{admin.exceptions.champs.motif}</FieldLabel>
                 <FieldControl
                   id="exception-motif"
                   className="text-base"

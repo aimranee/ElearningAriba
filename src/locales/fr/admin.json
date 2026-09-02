@@ -50,6 +50,7 @@
     "avertissement": "Bloquer une plage ne libère aucune place et ne vend rien : cela retire simplement ces horaires de l’agenda public.",
     "champs": {
       "jour": "Date",
+      "motif": "Motif",
       "heureDebut": "Heure de début",
       "heureFin": "Heure de fin",
       "libelle": "Libellé",
