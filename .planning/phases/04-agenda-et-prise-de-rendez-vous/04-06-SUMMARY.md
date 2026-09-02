@@ -184,9 +184,20 @@ None beyond what this plan's own `<threat_model>` already registers (T-04-35 thr
 
 None — all verification is local-database and local-build only; nothing pushed, no CIO dependency for this plan.
 
+## Task 3 — Founder Review Gate: APPROVED
+
+**Approved on the machine-verified evidence above; the browser-only observations described in the plan's Task 3 were NOT separately performed.** The approval rests on: the three-way role gate proven by curl (signed out → 307 `/connexion`; learner → 307 `/espace`; seeded administrator → 200 with `data-density="compact"` exactly once and zero institutional-blue tokens); the weekly-range add/deactivate measured against `app.creneaux_libres` (36 → 38 → 36); the whole-day block (4 → 0 instants) and the partial block (exactly the one overlapping instant removed, the other three untouched); the `ferie` reopen/close flip (0 → 4 → 0) with the `ferie` row count stable at 23 throughout; the `ferie` DELETE refusal (403 `nonAutorise`); the learner refusal on `GET /admin` and `POST /api/admin/disponibilites` with `app.disponibilite_hebdomadaire` unchanged at 11; the five Lot 4 SQL test files clean; and lint, typecheck and build all exit 0.
+
+**Explicitly NOT covered by this approval — carried over to the 04-08 Task 2 gate** (which reviews this same admin shell with `/admin/reservations` added): the 375px and 320px no-sideways-scroll check, 44×44px tap targets, 16px minimum input font size, the hover-only-affordance check, and icon-only button labels.
+
+**The three items this summary raised are ratified:**
+1. Tasks 1 and 2 landing in a single commit (`bdffca1`) instead of two is **accepted** — the executor's handling was correct; history will not be rewritten to manufacture a second task commit after the fact.
+2. The three grep-versus-code mismatches (`requireAdministrator` per-handler counts, the English word "any" in prose comments, accented-character grep false positives under a non-UTF-8 locale) are **accepted as mismatches, not defects** — the code is correct in all three cases; the standing verification-defect rule worked as intended.
+3. The holiday-horizon observation is **understood, no action needed** — no seeded French holiday falls inside the D-13 eight-week booking horizon as of 2026-09-02 (nearest is Toussaint, 2026-11-01), so the reopen/close proof legitimately used a temporary inserted `ferie` row, cleaned up afterward. This is a fact about the calendar, not a defect.
+
 ---
 *Phase: 04-agenda-et-prise-de-rendez-vous*
-*Completed: 2026-09-02 (Tasks 1–2; Task 3 pending founder review)*
+*Completed: 2026-09-02 (Tasks 1–3; Task 3 founder gate approved)*
 
 ## Self-Check: PASSED
 
