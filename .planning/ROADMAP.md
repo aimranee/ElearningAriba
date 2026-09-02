@@ -215,7 +215,7 @@ Plans:
 Plans:
 **Wave 1**
 
-- [ ] 04-01-PLAN.md — Availability and reservation model, the exclusion-constraint lock, the read and write RPCs, applied migrations and regenerated types
+- [x] 04-01-PLAN.md — Availability and reservation model, the exclusion-constraint lock, the read and write RPCs, applied migrations and regenerated types
 
 **Wave 2** *(blocked on Wave 1)*
 
@@ -373,7 +373,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
 | 2. Site public | 10/11 | In Progress|  |
 | 3. Comptes, connexion et espace apprenant | 10/11 | In Progress|  |
-| 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
+| 4. Agenda et prise de rendez-vous | 1/9 | In Progress|  |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
 | 6. Sessions live de groupe | 0/TBD | Not started | - |
 | 7. Paiement en ligne, formules et factures | 0/TBD | Not started | - |

@@ -64,15 +64,15 @@ with no lot: it is the technical foundation the lots are built on.
 
 ### Agenda — Lot 4: agenda et prise de rendez-vous
 
-- [ ] **AGD-01**: The data model holds recurring availabilities per day, exceptions, reservations, and handles the Europe/Paris timezone
+- [x] **AGD-01**: The data model holds recurring availabilities per day, exceptions, reservations, and handles the Europe/Paris timezone
 - [ ] **AGD-02**: Visitor sees a public monthly calendar and a list of free slots, with past, blocked or already-taken slots automatically greyed out
-- [ ] **AGD-03**: Administrator can configure appointment types — 30-minute discovery call, one-hour individual session — with configurable label, duration, buffer time and price
+- [x] **AGD-03**: Administrator can configure appointment types — 30-minute discovery call, one-hour individual session — with configurable label, duration, buffer time and price
 - [ ] **AGD-04**: Learner books in three screens from their account — appointment type, slot, confirmation
-- [ ] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
+- [x] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
 - [ ] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
 - [ ] **AGD-07**: Administrator can define weekly working hours, open, grey out or block time ranges, and set holidays
 - [ ] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
-- [ ] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
+- [x] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
 
 ### Mise en ligne — Lot 5: SEO, pages juridiques, RGPD et mise en ligne
 
@@ -207,15 +207,15 @@ offer.
 | CPT-07 | Phase 3 | Complete (03-11) |
 | CPT-08 | Phase 3 | Complete (03-11) |
 | CPT-09 | Phase 3 | Complete (03-11) |
-| AGD-01 | Phase 4 | Pending |
+| AGD-01 | Phase 4 | Complete |
 | AGD-02 | Phase 4 | Pending |
-| AGD-03 | Phase 4 | Pending |
+| AGD-03 | Phase 4 | Complete |
 | AGD-04 | Phase 4 | Pending |
-| AGD-05 | Phase 4 | Pending |
+| AGD-05 | Phase 4 | Complete |
 | AGD-06 | Phase 4 | Pending |
 | AGD-07 | Phase 4 | Pending |
 | AGD-08 | Phase 4 | Pending |
-| AGD-09 | Phase 4 | Pending |
+| AGD-09 | Phase 4 | Complete |
 | GOL-01 | Phase 5 | Pending |
 | GOL-02 | Phase 5 | Pending |
 | GOL-03 | Phase 5 | Pending |

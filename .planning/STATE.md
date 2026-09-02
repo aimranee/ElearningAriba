@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
-last_updated: "2026-09-02T00:24:55.669Z"
-last_activity: 2026-09-02 -- Phase 04 planning complete
+stopped_at: "04-01 complete: Lot 4 data model, exclusion constraint, seven RPCs, D-27 retention and three SQL negative test files all applied and passing"
+last_updated: "2026-09-02T07:51:28.432Z"
+last_activity: 2026-09-02
 progress:
   total_phases: 11
   completed_phases: 3
   total_plans: 49
-  completed_plans: 39
+  completed_plans: 40
   percent: 27
 ---
 
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 
 ## Current Position
 
-Phase: 03 (comptes-connexion-et-espace-apprenant) — COMPLETE
-Plan: 03-01..03-11 all complete (11 of 11); founder ratified 03-11 Tasks 2/3 on 2026-09-01
+Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
+Plan: 2 of 9
 Status: Ready to execute
-Last activity: 2026-09-02 -- Phase 04 planning complete
+Last activity: 2026-09-02
 
 Progress: [█████████░] 97%
 
@@ -61,6 +61,7 @@ Progress: [█████████░] 97%
 | Phase 02-site-public P03 | 22min | 3 tasks | 6 files |
 | Phase 02-site-public P04 | 45min | 2 tasks | 8 files |
 | Phase 02-site-public P02 | 45min | 1 task | 8 files |
+| Phase 04-agenda-et-prise-de-rendez-vous P01 | 70min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [Phase 02-02]: `src/lib/supabase/public.ts` is a cookieless anon client (`createClient` from `@supabase/supabase-js`, not `createServerClient`) so public content reads never force dynamic rendering; `src/lib/supabase/server.ts` is untouched for Lot 3's session-aware path.
 - [Phase 02-02]: `service_role` needed an explicit `grant usage on schema app` plus table grants beyond RLS bypass — added as a second additive migration (`20260830093000_grant_service_role_content.sql`) rather than editing the already-applied `20260830090000`. Not yet pushed to hosted; local-only so far.
 - [Phase 02-02]: Seed script normalizes every row to the full column set before a batched upsert — PostgREST's bulk upsert sends an explicit `NULL` for any column a given row omits when other rows in the same batch carry it, so relying on the table's column default inside a heterogeneous batch silently fails.
+- [Phase ?]: [Phase 04-01] Seeded a full 1-7 isodow weekly rule in every test file's control section rather than a single weekday, so no test's pass/fail depends on what day of the week the suite happens to run
+- [Phase ?]: [Phase 04-01] Reserved the 'decouverte' type_id exclusively for the D-12 one-discovery-call proof and used 'individuelle' for every other lock/RLS/DST/erasure test step
 
 ### Pending Todos
 
@@ -160,10 +163,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-30T17:17:32.000Z
-Stopped at: 02-02 complete (Task 3 executed against the local stack, deviation fix for
+Last session: 2026-09-02T07:51:28.408Z
+Stopped at: 04-01 complete: Lot 4 data model, exclusion constraint, seven RPCs, D-27 retention and three SQL negative test files all applied and passing
 service_role grants committed separately). 02-01, 02-02, 02-03, 02-04 all complete.
-Resume file: None — resume with 02-05-PLAN.md. CIO still owes a hosted push of
+Resume file: 04-02-PLAN.md
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
 review of the 02-04 header/footer/nav chrome (see unreviewed-gate note in Blockers/Concerns).
