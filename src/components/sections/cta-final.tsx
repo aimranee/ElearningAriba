@@ -97,7 +97,7 @@ async function CtaFinal() {
               {etapes.items.map((etape, index) => (
                 <div
                   key={etape.titre}
-                  className="flex items-start gap-[0.85rem] rounded-[15px] border border-white/15 bg-white/8 px-[1rem] py-[0.9rem]"
+                  className="flex items-start gap-[0.85rem] rounded-[15px] border border-white/15 bg-black/10 px-[1rem] py-[0.9rem]"
                 >
                   <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-white text-[0.95rem] font-bold text-[var(--deep)]">
                     {index + 1}

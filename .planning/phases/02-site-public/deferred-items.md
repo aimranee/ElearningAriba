@@ -19,3 +19,16 @@ Out-of-scope discoveries logged during execution, not fixed (per SCOPE BOUNDARY)
   the phase-level grep-for-cubic-bezier check is unaffected. Flagging so a
   later 02-site-public plan closes the same gap in these three files if it
   proves visible in the built stylesheet.
+
+## 260902-21a
+
+- `npx tsc --noEmit` fails: `src/app/layout.tsx(23,50): error TS2304: Cannot find
+  name 'LayoutProps'`. Not caused by this task's files (`cta-final.tsx`,
+  02-11-PLAN.md, 02-CONTEXT.md) — `layout.tsx` was last modified by unrelated
+  scroll-progress-bar/scroll-reveal/atmosphere-layer commits. Out of scope; not
+  fixed.
+- `npm run build` fails: `Invalid environment variables — NEXT_PUBLIC_SUPABASE_URL
+  / NEXT_PUBLIC_SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY: expected string,
+  received undefined` (src/lib/env/server.ts). Local worktree environment issue
+  (missing `.env` values), unrelated to this task's changes. Out of scope; not
+  fixed.
