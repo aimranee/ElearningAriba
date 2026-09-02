@@ -232,7 +232,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4, run in parallel)*
 
-- [ ] 04-05-PLAN.md — The three booking screens, the success surface and the learner's appointments in `/espace`
+- [x] 04-05-PLAN.md — The three booking screens, the success surface and the learner's appointments in `/espace`
 - [ ] 04-07-PLAN.md — Admin reservation RPCs (move, cancel, book on behalf) and the French-Excel CSV export
 
 **Wave 6** *(blocked on Wave 5)*

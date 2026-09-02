@@ -180,13 +180,23 @@ None — all verification ran against the local stack with `FORMATEUR_LIEN_VISIO
 
 **Resume signal:** the founder types "approved" or describes what is wrong; if something is wrong, the next executor session fixes it in this same plan and re-presents this gate — the plan does not advance to plan 04-06 until then.
 
+## Founder Ruling — Task 3 gate: APPROVED (2026-09-02)
+
+The founder approved this gate. Three items were ratified rather than left open:
+
+1. The `.ics` keeps `METHOD:REQUEST` with `ORGANIZER`/`ATTENDEE` — the RSVP framing in Gmail/Outlook is wanted, and it preserves the Lot 8 update seam against a stable UID with `SEQUENCE + 1`. `METHOD:PUBLISH` rejected.
+2. `inscription-form.tsx`'s conditional link back to `/reservation` (instead of a `router.push`) is accepted as built — sign-up requires email confirmation, `signUp()` returns no session, there is nothing to redirect into.
+3. The pre-existing `useSearchParams()` in `connexion-form.tsx` is accepted as a known, unrelated condition — it predates this phase, reads `?erreur=session` from the Lot 3 auth callback, and the D-28 redirect target comes only from `sessionStorage`. Not a defect; not restructured.
+
+- **Unblocked.** Founder approved the Task 3 gate above; Wave 5 (04-06 and later) may proceed.
+
 ## Next Phase Readiness
 
-- **Blocked on the Task 3 founder gate above.** Everything else plan 04-06 and later plans in Wave 5+ need is in place and self-verified: the booking commit path, the success surface, `/espace`'s reservation list, and the D-27/D-28 mechanics all work end-to-end against the local stack.
+- Unblocked. Everything plan 04-06 and later plans in Wave 5+ need is in place and self-verified: the booking commit path, the success surface, `/espace`'s reservation list, and the D-27/D-28 mechanics all work end-to-end against the local stack.
 
 ---
 *Phase: 04-agenda-et-prise-de-rendez-vous*
-*Completed: 2026-09-02 (Tasks 1–2; Task 3 pending founder review)*
+*Completed: 2026-09-02 (all 3 tasks — Task 3 founder gate approved)*
 
 ## Self-Check: PASSED
 

@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-04 complete: booking commit route, .ics builder, reservation emails — all 3 tasks committed and e2e-verified. Resuming at 04-05."
+stopped_at: "04-05 complete: three-screen booking flow, Task 3 founder gate approved. Resuming at 04-06."
 last_updated: "2026-09-02T11:18:07.062Z"
 last_activity: 2026-09-02
 progress:
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 5 of 9
+Plan: 6 of 9
 Status: Ready to execute
 Last activity: 2026-09-02
 
@@ -154,7 +154,9 @@ Recent decisions affecting current work:
 
 - **[Phase 03, still open, hosted-only, CIO-owed]** CPT-02 (no Google OAuth client anywhere), custom SMTP for CPT-01/CPT-03 confirmation and reset emails, the private `supports` bucket for CPT-07, and the two Lot 3 migrations not yet pushed to either hosted Supabase project — all four per `03-RECETTE.md` Section 3.
 
-- **[Phase 04-03, unreviewed gate — blocking]** Tasks 1-2 of `04-03-PLAN.md` are complete, committed (`fd90b8c`, `26aaa95`) and self-verified (lint/typecheck/build all 0, `/agenda` still `○` static, prerendered legend and price confirmed, D-27 retention route end-to-end tested against the local stack). Task 3 — the D-26 blocking founder visual review — has **not** been run or approved. Per the standing rule for this phase, the executor does not self-approve this gate. See `04-03-SUMMARY.md` § "Founder Review Required" for the full checklist, including two rulings to confirm (the CLAUDE.md queryKeys/optimistic-update waiver, and the four retention rate-limit numbers: 120 IP / 30 mint / 60 replace / 120 release-fails-open). **Wave 4 (04-04, 04-06) must not start until this gate is approved.**
+- **[Phase 04-03, resolved]** Founder approved the Task 3 D-26 gate 2026-09-02 on the machine-verified evidence assembled by the executor (see `04-03-SUMMARY.md` § "Founder Ruling"). Wave 4 (04-04) proceeded.
+
+- **[Phase 04-05, resolved]** Founder approved the Task 3 D-26 gate 2026-09-02, ratifying three items: the `.ics` keeps `METHOD:REQUEST`; `inscription-form.tsx`'s conditional link (not a redirect) is accepted as built; the pre-existing `useSearchParams()` in `connexion-form.tsx` is accepted as a known, unrelated condition (see `04-05-SUMMARY.md` § "Founder Ruling"). Wave 5 (04-06 onward) may proceed.
 
 ## Quick Tasks Completed
 
