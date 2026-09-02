@@ -351,6 +351,26 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   1683 px malgré la suppression de 461 px d'encarts en pointillés. Le
   décalage à l'ouverture est accepté parce que l'accordéon Programme
   (D-56) le produit déjà.
+- **D-66** (2026-09-02, fondateur + CTO): la console du CTA final est
+  retirée, du rendu comme des données. Les dates, les compteurs de places,
+  l'étiquette « Confirmé », le nom de domaine et l'emplacement vidéo
+  quittent la page, et `hero.console` est supprimé de `common.json`. Trois
+  raisons cumulées : elle contredisait le plafond du D-62 (« Places
+  restantes : 9 » contre « Groupe limité à 8 participants ») ; elle
+  n'était enregistrée nulle part, donc invisible à `npm run content:check`
+  et à la porte du lot 5 ; et elle survivait au héros qui l'avait
+  abandonnée, avec un unique consommateur. Aucune disponibilité chiffrée
+  ne revient sur la landing avant que le lot 4 ne livre l'agenda réel.
+- **D-67** (2026-09-02, fondateur + CTO): la colonne droite du CTA final
+  devient « Ce qui se passe ensuite », trois étapes ordonnées composées de
+  contenu déjà signé sur la page. Aucun fait nouveau n'est écrit. La
+  clôture d'une page sans prix doit répondre à la dernière objection
+  réelle — « qu'est-ce qui se passe si je clique ? » — pas rejouer le
+  héros.
+- **D-68** (2026-09-02, CTO): AC-2 est amendé — le niveau 3 passe de deux
+  surfaces persistantes à une, la carte d'assemblage du héros. Le critère
+  a toujours été un plafond (« max 2 »), pas un plancher. `--shadow-4`
+  reste consommé dans la feuille compilée par le cadre du héros.
 
 ### Claude's Discretion
 
@@ -430,15 +450,15 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 1. The surface map is verifiable **section by section**: **niveau 1** on
    compétences, the programme and FAQ accordions, and the Format parcours rows;
    **niveau 2** on the Pour-qui tiles, the Confiance tiles, and the parcours' side
-   frame; **niveau 3** on **exactly two persistent surfaces** page-wide (hero
-   assembly card, CTA-final console frame) — the ceiling counts rendered
-   elements that carry the niveau-3 rest/hover treatment (raised Card variant
-   or an equivalent hand-styled surface), not a `Button` primary variant's
+   frame; **niveau 3** on **exactly one persistent surface** page-wide (hero
+   assembly card) — the ceiling counts rendered elements that carry the
+   niveau-3 rest/hover treatment (raised Card variant or an equivalent
+   hand-styled surface), not a `Button` primary variant's
    `hover:shadow-[var(--shadow-4)]` hover micro-interaction, which is excluded
-   from the count. The criterion is the **ceiling on niveau 3** (max 2), not a
-   floor on total card count.
+   from the count. The criterion is the **ceiling on niveau 3** (max 2, D-68
+   amends the observed count to 1), not a floor on total card count.
 2. `--shadow-4` appears in the **compiled CSS output** — consumed by the hero visual
-   frame and the final CTA — not only declared in `globals.css`.
+   frame — not only declared in `globals.css`.
 3. The atmosphere layer is behind **all seven** landing sections, verifiable by mounting
    it once at the root rather than per section.
 4. A search of the codebase for `cubic-bezier` returns **exactly one distinct value**. A
