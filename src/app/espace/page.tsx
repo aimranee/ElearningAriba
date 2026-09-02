@@ -8,8 +8,10 @@ import {
   EmptyStateAction,
 } from "@/components/ui/empty-state";
 import { DocumentsList } from "@/components/espace/documents-list";
+import { ReservationsList } from "@/components/espace/reservations-list";
 import { requireLearner } from "@/lib/auth/session";
 import { listerSupports } from "@/lib/documents/queries";
+import { listerReservationsApprenant } from "@/lib/agenda/queries";
 import espace from "@/locales/fr/espace.json";
 
 const SURFACES = [
@@ -24,6 +26,7 @@ const SURFACES = [
 export default async function Espace() {
   const learner = await requireLearner();
   const supports = await listerSupports();
+  const reservations = await listerReservationsApprenant();
 
   return (
     <div className="flex flex-col gap-10 py-16">
@@ -69,6 +72,10 @@ export default async function Espace() {
               </CardHeader>
               {key === "documents" ? (
                 <DocumentsList supports={supports.ok ? supports.data : []} />
+              ) : key === "rendezVous" ? (
+                <ReservationsList
+                  reservations={reservations.ok ? reservations.data : []}
+                />
               ) : (
                 <EmptyState tone={tone} size="sm">
                   <EmptyStateTitle>{surface.vide.titre}</EmptyStateTitle>

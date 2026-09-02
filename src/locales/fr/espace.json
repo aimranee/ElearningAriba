@@ -15,6 +15,7 @@
   },
   "rendezVous": {
     "titre": "Mes prochains rendez-vous",
+    "statutConfirme": "Confirmé",
     "vide": {
       "titre": "Aucun rendez-vous à venir.",
       "message": "Réservez un créneau pour le voir apparaître ici."
