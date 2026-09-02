@@ -219,34 +219,38 @@
     "titre": "Les questions les plus fréquentes trouvent leur réponse ici.",
     "items": [
       {
-        "question": "Faut-il déjà connaître SAP Ariba pour commencer ?",
-        "reponse": "Non, aucun prérequis SAP n'est nécessaire pour suivre cette formation."
+        "question": "Combien coûte la formation ?",
+        "reponse": "Le tarif dépend du parcours choisi — programme complet, session en groupe ou session individuelle. L'appel découverte de trente minutes est gratuit : le montant exact vous y est confirmé avant tout engagement."
       },
       {
-        "question": "La formation est-elle animée en direct ?",
-        "reponse": "Oui, chaque session est animée en direct par un expert certifié."
+        "question": "Faut-il déjà connaître SAP Ariba pour commencer ?",
+        "reponse": "Non. Aucun prérequis SAP n'est nécessaire : la formation part des fondamentaux, et chaque module se pratique."
+      },
+      {
+        "question": "Ai-je besoin de mon propre accès SAP Ariba ?",
+        "reponse": "Cette question est traitée pendant l'appel découverte : le formateur vous indique ce dont vous avez besoin avant la première session."
+      },
+      {
+        "question": "Les sessions sont-elles enregistrées ?",
+        "reponse": "Non. Chaque session est animée en direct — c'est le format même de la formation. Des compléments vidéo sont à l'étude pour une prochaine étape."
       },
       {
         "question": "Combien de temps ai-je accès aux supports ?",
-        "reponse": "La durée d'accès est précisée sur la page Formation."
+        "reponse": "L'accès aux supports court pendant toute la durée de votre parcours. Chaque module dispose de son support PDF téléchargeable, ainsi que du cas pratique corrigé."
       },
       {
-        "question": "Puis-je réserver un appel découverte gratuit ?",
-        "reponse": "Oui, un appel découverte gratuit est proposé avant tout engagement."
+        "question": "Vais-je recevoir une attestation ?",
+        "reponse": "Une attestation de suivi est remise à l'issue du parcours complet."
       },
       {
-        "question": "Comment se déroule l'inscription ?",
-        "reponse": "La création d'un compte est nécessaire, y compris pour l'appel découverte gratuit."
-      },
-      {
-        "question": "Un support PDF est-il fourni pour chaque module ?",
-        "reponse": "Oui, chaque module dispose de son propre support téléchargeable."
-      },
-      {
-        "question": "Que se passe-t-il si je dois annuler ma réservation ?",
-        "reponse": "Le créneau est libéré et vous êtes prévenu selon la politique de remboursement publiée."
+        "question": "La formation est-elle finançable (CPF, OPCO) ?",
+        "reponse": "Posez la question pendant l'appel découverte : votre situation est examinée et la réponse vous est donnée par écrit avant toute inscription."
       }
-    ]
+    ],
+    "cloture": {
+      "question": "Une question qui n'est pas dans cette liste ?",
+      "lien": "Écrivez-nous"
+    }
   },
   "ctaFinal": {
     "eyebrow": "Votre prochaine étape",
