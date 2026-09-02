@@ -50,3 +50,24 @@ export async function requireLearner(): Promise<Learner> {
   }
   return result.data;
 }
+
+/**
+ * why: this is the first surface to read profil.role (Lot 3 D-02 created and
+ * isolated the column with no consumer). No second query — role is already
+ * on the row getLearner() returns. Redirect happens before any markup is
+ * produced by the caller, same discipline as requireLearner(). A signed-out
+ * or broken session goes to /connexion; a signed-in learner who guesses the
+ * /admin URL goes back to their own space, not to a login form. This UI gate
+ * is the first of three layers — RLS (dispo_admin_all, exception_admin_all)
+ * and the withheld table privileges are the non-bypassable ones (T-04-35).
+ */
+export async function requireAdministrator(): Promise<Learner> {
+  const result = await getLearner();
+  if (!result.ok) {
+    redirect("/connexion");
+  }
+  if (result.data.role !== "administrator") {
+    redirect("/espace");
+  }
+  return result.data;
+}

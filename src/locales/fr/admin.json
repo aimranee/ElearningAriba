@@ -4,9 +4,83 @@
   "nav": {
     "horaires": "Horaires",
     "joursFeries": "Jours fériés",
+    "typesDeRendezVous": "Types de rendez-vous",
     "reservations": "Réservations"
   },
+  "accueil": {
+    "titre": "Bienvenue dans votre espace administrateur",
+    "intro": "Choisissez une section ci-dessous pour gérer vos disponibilités et vos rendez-vous.",
+    "sections": {
+      "horaires": "Déclarez vos horaires hebdomadaires et vos exceptions.",
+      "joursFeries": "Consultez et réouvrez les jours fériés français.",
+      "typesDeRendezVous": "Section à venir.",
+      "reservations": "Section à venir."
+    }
+  },
+  "horaires": {
+    "titre": "Horaires",
+    "intro": "Déclarez vos plages horaires continues par jour de semaine ; la répartition en créneaux se fait automatiquement selon la durée et le tampon du type de rendez-vous choisi.",
+    "champs": {
+      "jour": "Jour",
+      "heureDebut": "Heure de début",
+      "heureFin": "Heure de fin"
+    },
+    "actions": {
+      "ajouterPlage": "Ajouter une plage",
+      "enregistrer": "Enregistrer",
+      "desactiver": "Désactiver",
+      "reactiver": "Réactiver"
+    },
+    "jours": {
+      "1": "Lundi",
+      "2": "Mardi",
+      "3": "Mercredi",
+      "4": "Jeudi",
+      "5": "Vendredi",
+      "6": "Samedi",
+      "7": "Dimanche"
+    },
+    "aucunePlage": "Aucune plage déclarée ce jour-là.",
+    "succes": "Horaires mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
+  "exceptions": {
+    "titre": "Exceptions",
+    "intro": "Bloquez une journée entière, une plage partielle, ou ouvrez une plage supplémentaire en dehors des horaires habituels.",
+    "avertissement": "Bloquer une plage ne libère aucune place et ne vend rien : cela retire simplement ces horaires de l’agenda public.",
+    "champs": {
+      "jour": "Date",
+      "heureDebut": "Heure de début",
+      "heureFin": "Heure de fin",
+      "libelle": "Libellé",
+      "journeeEntiere": "Journée entière"
+    },
+    "actions": {
+      "bloquerJournee": "Bloquer la journée",
+      "bloquerPlage": "Bloquer une plage",
+      "ouvrirPlage": "Ouvrir une plage",
+      "enregistrer": "Enregistrer",
+      "supprimer": "Supprimer",
+      "confirmerSuppression": "Confirmer la suppression"
+    },
+    "suppression": {
+      "titre": "Supprimer cette exception ?",
+      "message": "Cette action retire définitivement l’exception de l’agenda."
+    },
+    "aucuneException": "Aucune exception sur la période affichée.",
+    "succes": "Exception enregistrée.",
+    "erreurSuppression": "La suppression a échoué. Merci de réessayer.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
   "joursFeries": {
+    "titre": "Jours fériés",
+    "intro": "Les onze jours fériés français sont fermés par défaut ; réouvrez-les au cas par cas.",
+    "actions": {
+      "reouvrir": "Réouvrir",
+      "fermer": "Fermer"
+    },
+    "succes": "Jour férié mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer.",
     "jourDeLAn": "Jour de l’an",
     "lundiDePaques": "Lundi de Pâques",
     "feteDuTravail": "Fête du Travail",
@@ -18,5 +92,20 @@
     "toussaint": "Toussaint",
     "armistice": "Armistice",
     "noel": "Noël"
+  },
+  "legende": {
+    "reserve": "Réservé",
+    "bloque": "Bloqué"
+  },
+  "erreurs": {
+    "jourSemaineInvalide": "Le jour de la semaine est invalide.",
+    "heureInvalide": "L’heure est invalide.",
+    "heureFinAvantDebut": "L’heure de fin doit être après l’heure de début.",
+    "jourInvalide": "La date est invalide.",
+    "motifInvalide": "Le motif est invalide.",
+    "heuresIncompletes": "Renseignez à la fois l’heure de début et l’heure de fin, ou aucune des deux.",
+    "champsInvalides": "La demande est invalide.",
+    "nonAutorise": "Vous n’êtes pas autorisé à effectuer cette action.",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
   }
 }

@@ -25,5 +25,5 @@ export default async function middleware(request: NextRequest) {
 // regress Lot 2's recette criterion. /api/auth/* is intentionally excluded:
 // those handlers write their own cookies through src/lib/supabase/server.ts.
 export const config = {
-  matcher: ["/espace", "/espace/:path*"],
+  matcher: ["/espace", "/espace/:path*", "/admin", "/admin/:path*"],
 };
