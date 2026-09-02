@@ -69,3 +69,47 @@ export function renderSuppressionNotification(values: {
 }): RenderedEmail {
   return renderEntry(emails.suppressionCompteNotification as EmailEntry, values);
 }
+
+/**
+ * The learner's booking confirmation (AGD-06). Every date, hour, price and
+ * duration value must arrive pre-formatted by src/lib/i18n/fr.ts at the call
+ * site — formatDateAvecJour/formatHeureProse for {dateHeure}, formatCurrency
+ * for {montant}, formatNumber/formatHours for {duree}. Nothing is assembled
+ * here.
+ */
+export function renderReservationConfirmation(values: {
+  prenom: string;
+  typeRendezVous: string;
+  dateHeure: string;
+  duree: string;
+  montant: string;
+  lieu: string;
+}): RenderedEmail {
+  return renderEntry(emails.confirmationReservation as EmailEntry, values);
+}
+
+/** The trainer's immediate notification of a new booking (AGD-06). */
+export function renderReservationNotification(values: {
+  prenom: string;
+  nom: string;
+  email: string;
+  typeRendezVous: string;
+  dateHeure: string;
+  duree: string;
+  lieu: string;
+}): RenderedEmail {
+  return renderEntry(emails.reservationNotification as EmailEntry, values);
+}
+
+/** The learner's notice of an administrator cancellation or move (plan 04-07). */
+export function renderReservationAnnulationOuDeplacementNotice(values: {
+  prenom: string;
+  dateHeurePrecedente: string;
+  dateHeureNouvelle: string;
+  contactEmail: string;
+}): RenderedEmail {
+  return renderEntry(
+    emails.reservationAnnulationOuDeplacementNotice as EmailEntry,
+    values,
+  );
+}

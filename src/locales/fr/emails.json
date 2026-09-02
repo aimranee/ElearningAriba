@@ -30,11 +30,12 @@
   },
   "confirmationReservation": {
     "objet": "Votre réservation est confirmée pour le {dateHeure}.",
-    "preheader": "Rendez-vous confirmé : {typeRendezVous}, {dateHeure}.",
+    "preheader": "Rendez-vous confirmé : {typeRendezVous}, {dateHeure}.",
     "salutation": "Bonjour {prenom},",
     "corps": [
-      "Votre réservation est confirmée : {typeRendezVous}, le {dateHeure}, pour une durée de {duree}.",
-      "Le montant de {montant} a été réglé pour cette réservation."
+      "Votre réservation est confirmée : {typeRendezVous}, le {dateHeure}, pour une durée de {duree}.",
+      "Le montant indiqué, {montant}, n’est pas réglé en ligne : le règlement s’effectue directement auprès du formateur, et l’appel découverte reste gratuit.",
+      "Le rendez-vous se déroule au lien suivant : {lieu}."
     ],
     "action": {
       "libelle": "Voir ma réservation",
@@ -79,8 +80,8 @@
     "salutation": "Bonjour,",
     "corps": [
       "Un message a été soumis via le formulaire de contact du site.",
-      "Nom : {nom}",
-      "Email : {email}",
+      "Nom : {nom}",
+      "Email : {email}",
       "Téléphone : {telephone}",
       "Profil : {profil}",
       "Message : {message}"
@@ -113,9 +114,9 @@
     "salutation": "Bonjour,",
     "corps": [
       "Un apprenant a demandé la suppression de son compte.",
-      "Prénom : {prenom}",
-      "Nom : {nom}",
-      "Email : {email}",
+      "Prénom : {prenom}",
+      "Nom : {nom}",
+      "Email : {email}",
       "Date de la demande : {date}"
     ],
     "action": {
@@ -124,5 +125,42 @@
     },
     "signature": "Votre formateur, expert certifié SAP Ariba",
     "pied": "Cet email automatique transmet une demande de suppression de compte."
+  },
+  "reservationNotification": {
+    "objet": "Nouvelle réservation : {typeRendezVous} le {dateHeure}.",
+    "preheader": "{prenom} {nom} a réservé {typeRendezVous} pour le {dateHeure}.",
+    "salutation": "Bonjour,",
+    "corps": [
+      "Une nouvelle réservation vient d’être enregistrée.",
+      "Prénom : {prenom}",
+      "Nom : {nom}",
+      "Email : {email}",
+      "Type de rendez-vous : {typeRendezVous}",
+      "Date et heure : {dateHeure}",
+      "Durée : {duree}",
+      "Lien de la session : {lieu}"
+    ],
+    "action": {
+      "libelle": "Consulter le site",
+      "contexte": "Ce lien vous ramène au site pendant que la réservation est traitée."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique confirme une nouvelle réservation reçue via le site."
+  },
+  "reservationAnnulationOuDeplacementNotice": {
+    "objet": "Votre rendez-vous a été modifié.",
+    "preheader": "Le rendez-vous du {dateHeurePrecedente} a changé.",
+    "salutation": "Bonjour {prenom},",
+    "corps": [
+      "Votre rendez-vous initialement prévu le {dateHeurePrecedente} a été modifié par le formateur.",
+      "Nouvelle date et heure : {dateHeureNouvelle}.",
+      "Pour toute question, contactez directement le formateur à {contactEmail}."
+    ],
+    "action": {
+      "libelle": "Voir ma réservation",
+      "contexte": "Ce lien ouvre le récapitulatif de votre rendez-vous dans votre espace apprenant."
+    },
+    "signature": "Votre formateur, expert certifié SAP Ariba",
+    "pied": "Cet email automatique vous informe d’un changement apporté à votre rendez-vous."
   }
 }

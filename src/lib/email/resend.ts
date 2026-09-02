@@ -23,14 +23,26 @@ export class EmailTransportError extends Error {
   }
 }
 
+interface SendEmailAttachment {
+  filename: string;
+  content: string;
+  content_type?: string;
+}
+
 interface SendEmailInput {
   to: string;
   subject: string;
   text: string;
+  /** why (AGD-06): optional and spread in only when present, so the two
+   * pre-existing callers (api/contact, api/rgpd/suppression) stay
+   * byte-unchanged. `content` is base64 (Resend's ceiling is 40 MB per
+   * email after base64); `content_type` is derived from `filename` by
+   * Resend when omitted. */
+  attachments?: SendEmailAttachment[];
 }
 
 /** Sends one plain-text email over fetch. No SDK — one POST does not warrant a dependency (§2.13). */
-export async function sendEmail({ to, subject, text }: SendEmailInput): Promise<void> {
+export async function sendEmail({ to, subject, text, attachments }: SendEmailInput): Promise<void> {
   const parsedKey = resendKeySchema.safeParse(serverEnv.RESEND_API_KEY);
   if (!parsedKey.success) {
     throw new EmailTransportError("RESEND_API_KEY is not configured");
@@ -47,6 +59,7 @@ export async function sendEmail({ to, subject, text }: SendEmailInput): Promise<
       to,
       subject,
       text,
+      ...(attachments ? { attachments } : {}),
     }),
   });
 
