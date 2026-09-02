@@ -10,6 +10,7 @@
 --   revoke execute on function app.maintenir_creneau(text, timestamptz, uuid) from anon, authenticated;
 --   revoke execute on function app.reserver_creneau(text, timestamptz, text, uuid) from authenticated;
 --   revoke execute on function app.creneaux_libres(text, date, date, uuid) from anon, authenticated;
+--   revoke execute on function app.est_administrateur() from authenticated;
 --   revoke update on app.type_rendez_vous from authenticated;
 --   revoke insert, update, delete on app.disponibilite_hebdomadaire, app.exception_agenda from authenticated;
 --   revoke select on app.reservation, app.disponibilite_hebdomadaire, app.exception_agenda from authenticated;
@@ -47,6 +48,13 @@ revoke execute on function app.purger_maintiens_expires() from public;
 revoke execute on function app.maintenir_creneau(text, timestamptz, uuid) from public;
 revoke execute on function app.liberer_creneau(uuid) from public;
 revoke execute on function app.reserver_creneau(text, timestamptz, text, uuid) from public;
+
+-- why: reservation_admin_all, dispo_admin_all, exception_admin_all and
+-- type_admin_update all call app.est_administrateur() inside their USING /
+-- WITH CHECK clauses -- the querying role needs EXECUTE on that function for
+-- the policy to evaluate at all, independently of what the function itself
+-- is allowed to read.
+grant execute on function app.est_administrateur() to authenticated;
 
 grant execute on function app.creneaux_libres(text, date, date, uuid) to anon, authenticated;
 

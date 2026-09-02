@@ -345,11 +345,15 @@ begin
     -- mint: the only path that may create a token.
     v_jeton := gen_random_uuid();
   else
-    if exists (select 1 from app.maintien_creneau where jeton = p_jeton and expire_le > now()) then
+    -- table-qualified: this function's own OUT column is also named
+    -- `jeton` (returns table (resultat, jeton, expire_le)), so an
+    -- unqualified `jeton` here is ambiguous between the OUT variable and
+    -- app.maintien_creneau.jeton.
+    if exists (select 1 from app.maintien_creneau m where m.jeton = p_jeton and m.expire_le > now()) then
       -- replace: reuse the live token, drop its previous retention so one
       -- visitor never holds two slots.
       v_jeton := p_jeton;
-      delete from app.maintien_creneau where jeton = p_jeton;
+      delete from app.maintien_creneau where app.maintien_creneau.jeton = p_jeton;
     else
       -- why: refusing an unrecognised token is what makes minting
       -- identifiable from outside this function. Accepting it verbatim
