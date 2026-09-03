@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-07 complete: admin reservation RPCs, RLS policy, CSV export, three route handlers -- all e2e verified. Resuming at 04-08."
-last_updated: "2026-09-02T23:06:32.530Z"
-last_activity: 2026-09-02
+stopped_at: "04-08 delivered and approved: founder gate approved 2026-09-03 on machine evidence plus a Playwright pass; three known defects (calendar overflow, touch targets, field font floor) routed to a separate bounded fix. 04-09 awaits that bounded calendar fix."
+last_updated: "2026-09-03T07:20:59.975Z"
+last_activity: 2026-09-03 -- Phase 04 execution started
 progress:
   total_phases: 11
   completed_phases: 3
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 ## Current Position
 
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 7 of 9
-Status: Ready to execute
-Last activity: 2026-09-02
+Plan: 8 of 9
+Status: Gate 04-08 approved by the founder 2026-09-03; 04-09 not yet started
+Last activity: 2026-09-03 -- Phase 04 execution started
 
 Progress: [█████████░] 88%
 
@@ -162,6 +162,8 @@ Recent decisions affecting current work:
 
 - **[Phase 04-05, resolved]** Founder approved the Task 3 D-26 gate 2026-09-02, ratifying three items: the `.ics` keeps `METHOD:REQUEST`; `inscription-form.tsx`'s conditional link (not a redirect) is accepted as built; the pre-existing `useSearchParams()` in `connexion-form.tsx` is accepted as a known, unrelated condition (see `04-05-SUMMARY.md` § "Founder Ruling"). Wave 5 (04-06 onward) may proceed.
 
+- **[Phase 04-08, resolved, follow-up owed]** Founder approved the Task 2 D-26 gate 2026-09-03 on machine evidence plus a Playwright pass across `/admin`'s four screens (see `04-08-SUMMARY.md` § "Task 2 — Founder Review Gate"). The approval covers Task 1's functional work only. Of the five checks deferred by `04-06`, two now pass (no hover-only affordance; icon-only buttons all named) and three fail: sideways scroll on `/admin/reservations` at 375/320px (409px scrollWidth, inherited from the 04-03 calendar, which already overflows the public `/agenda`); touch targets measured at 28px against a 44px target (a design-system decision, out of Lot 4); four fields at 12.8px under the 16px floor (iOS zoom-on-focus). All three are routed to a separate bounded fix covering both `/admin/reservations` and `/agenda`; 04-09 should not start until the founder rules on the 320px cell-size/layout tradeoff it requires. Four review reservations and three learner accounts remain seeded in the local database and must be purged before the phase closes. The two Chief-of-Staff items (D-24 public legend, Lot 1 `confirmationReservation` copy) remain open, closing on 04-09.
+
 ## Quick Tasks Completed
 
 | Date | Task | Result |
@@ -184,7 +186,7 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-09-02T23:06:32.516Z
-Stopped at: 04-07 complete: admin reservation RPCs, RLS policy, CSV export, three route handlers -- all e2e verified. Resuming at 04-08.
+Stopped at: 04-08 delivered and approved: founder gate approved 2026-09-03 on machine evidence plus a Playwright pass; three known defects (calendar overflow, touch targets, field font floor) routed to a separate bounded fix. 04-09 awaits that bounded calendar fix.
 Resume file: None
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
