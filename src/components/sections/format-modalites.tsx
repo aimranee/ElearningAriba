@@ -82,7 +82,7 @@ async function FormatModalites() {
         lead={section.lead ?? undefined}
       />
       {introItem?.description ? (
-        <p className="mx-auto mt-5 max-w-[52ch] text-center text-[0.98rem] leading-[1.6] text-[var(--muted-ink)]">
+        <p className="mx-auto mt-5 max-w-[52ch] text-center text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
           {introItem.description}
         </p>
       ) : null}
