@@ -17,14 +17,14 @@ import common from "@/locales/fr/common.json";
  * grows with the hovered card and content below shifts down; this is
  * intentional.
  */
-const FALLBACK = { accent: "var(--violet)", ink: "var(--violet)" };
+const FALLBACK = { accent: "var(--violet-wash)", ink: "var(--violet-ink)" };
 
 const PROFIL_ACCENTS: Record<string, { accent: string; ink: string }> = {
-  acheteur: { accent: "var(--violet)", ink: "var(--violet)" },
-  "category-manager": { accent: "var(--blue)", ink: "var(--blue-ink)" },
-  "supply-chain": { accent: "var(--mint)", ink: "var(--mint-ink)" },
-  consultant: { accent: "var(--indigo)", ink: "var(--indigo)" },
-  etudiant: { accent: "var(--amber)", ink: "var(--amber-ink)" },
+  acheteur: { accent: "var(--violet-wash)", ink: "var(--violet-ink)" },
+  "category-manager": { accent: "var(--azur-wash)", ink: "var(--azur-ink)" },
+  "supply-chain": { accent: "var(--mint-wash)", ink: "var(--mint-ink)" },
+  consultant: { accent: "var(--magenta-wash)", ink: "var(--magenta-ink)" },
+  etudiant: { accent: "var(--amber-wash)", ink: "var(--amber-ink)" },
 };
 
 async function PourQui() {
@@ -81,10 +81,10 @@ async function PourQui() {
               >
                 <Card
                   variant="default"
-                  className="h-full p-[1.7rem] duration-[var(--duration-reveal)] group-hover:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)] group-focus-within:bg-[linear-gradient(160deg,color-mix(in_srgb,var(--card-accent)_10%,white)_0%,white_62%)]"
+                  className="h-full p-[1.7rem] duration-[var(--duration-reveal)] group-hover:bg-[linear-gradient(160deg,var(--card-wash)_0%,white_62%)] group-focus-within:bg-[linear-gradient(160deg,var(--card-wash)_0%,white_62%)]"
                   style={
                     {
-                      "--card-accent": accentInk.accent,
+                      "--card-wash": accentInk.accent,
                       "--card-ink": accentInk.ink,
                     } as React.CSSProperties
                   }
@@ -92,24 +92,24 @@ async function PourQui() {
                   {Picto ? (
                     <span
                       aria-hidden="true"
-                      className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[color-mix(in_srgb,var(--card-accent)_14%,white)] text-[var(--card-ink)] transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
+                      className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[var(--card-wash)] text-[var(--card-ink)] transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
                     >
                       <Picto className="size-6" />
                     </span>
                   ) : null}
-                  <CardTitle className="mt-3 font-heading text-[1.05rem] leading-[1.3] font-bold tracking-[-0.02em] text-[var(--ink)]">
+                  <CardTitle className="mt-3 font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
                     {accroche}
                   </CardTitle>
                   <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] [@media(hover:none)]:grid-rows-[1fr]">
                     <div className="overflow-hidden">
-                      <CardDescription className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
+                      <CardDescription className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
                         {profil.description}
                       </CardDescription>
                     </div>
                   </div>
                   {hasAccroche ? (
                     <div className="mt-1 flex items-center justify-between">
-                      <span className="font-semibold text-[0.9rem] text-[var(--card-ink)]">
+                      <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
                         {titre}
                       </span>
                       <ArrowRight
