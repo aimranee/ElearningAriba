@@ -77,32 +77,32 @@ async function ProgrammeAccordion() {
                 <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
                   <span
                     aria-hidden="true"
-                    className="flex size-[34px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,var(--violet),var(--deep))] font-heading text-[0.78rem] font-extrabold text-white tabular-nums"
+                    className="flex size-[34px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,var(--violet),var(--deep))] font-heading text-[length:var(--text-micro)] font-extrabold text-white tabular-nums"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1 text-[1.02rem] font-bold tracking-[-0.015em]">
+                  <span className="flex-1 text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.015em]">
                     {module.titre}
                   </span>
-                  <span className="hidden shrink-0 rounded-full bg-[var(--lav)] px-[0.7rem] py-[0.32rem] text-[0.8rem] font-semibold text-[var(--deep)] tabular-nums sm:inline-block">
+                  <span className="hidden shrink-0 rounded-full bg-[var(--lav)] px-[0.7rem] py-[0.32rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--deep)] tabular-nums sm:inline-block">
                     {formatHours(module.dureeHeures)}
                   </span>
                 </AccordionTrigger>
               </AccordionHeader>
-              <AccordionPanel className="text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
-                <p className="text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
+              <AccordionPanel className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
+                <p className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
                   {module.description}
                 </p>
                 {module.contenu.length > 0 ? (
                   <>
-                    <p className="mt-[1.1rem] text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--deep)]">
+                    <p className="mt-[1.1rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold uppercase tracking-[0.14em] text-[var(--deep)]">
                       {landing.programme.auProgramme}
                     </p>
                     <ul className="mt-[0.55rem] flex flex-col gap-[0.4rem]">
                       {module.contenu.map((ligne) => (
                         <li
                           key={ligne}
-                          className="flex items-start gap-[0.6rem] text-[0.92rem] leading-[1.55] text-[var(--muted-ink)]"
+                          className="flex items-start gap-[0.6rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]"
                         >
                           <span
                             aria-hidden="true"
