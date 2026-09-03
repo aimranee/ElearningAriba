@@ -152,6 +152,7 @@ html {
   --coral-wash: #fff1ef;
   --coral-soft: #feb5ad;
   --coral-ink: #b3413c;
+  --violet-band: #e7ebff;
 
   /* shadcn surface aliases re-mapped onto the maquette palette (F-11) — the
      ~15 live consumers of --primary/--success/--muted etc. keep working. */

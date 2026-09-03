@@ -23,8 +23,7 @@ function Section({ className, tone = "default", children, ...props }: SectionPro
       data-tone={tone}
       className={cn(
         "relative py-[clamp(4.5rem,9vw,7.5rem)]",
-        tone === "band" &&
-          "bg-[linear-gradient(180deg,rgba(241,240,255,0),var(--lav2)_18%,var(--lav2)_82%,rgba(241,240,255,0))]",
+        tone === "band" && "bg-[var(--violet-band)]",
         className
       )}
       {...props}
@@ -57,7 +56,7 @@ function SectionHeader({ eyebrow, title, titleAccent, lead, className }: Section
   return (
     <div className={cn("mx-auto max-w-3xl text-center", className)}>
       {eyebrow ? (
-        <span className="inline-flex items-center gap-2 text-[0.72rem] leading-none font-bold tracking-[0.18em] text-[var(--deep)] uppercase">
+        <span className="inline-flex items-center gap-2 text-[length:var(--text-micro)] leading-none font-bold tracking-[0.18em] text-[var(--deep)] uppercase">
           <span aria-hidden="true" className="inline-block h-0.5 w-[22px] bg-[linear-gradient(90deg,var(--violet),var(--blue))]" />
           {eyebrow}
         </span>
@@ -65,7 +64,7 @@ function SectionHeader({ eyebrow, title, titleAccent, lead, className }: Section
       <h2 className="mt-3 font-heading text-[length:var(--text-title)] leading-[var(--text-title--line-height)] font-semibold text-balance">
         {title}
         {titleAccent ? (
-          <span className="bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent">
+          <span className="bg-[linear-gradient(100deg,var(--indigo)_0%,var(--deep)_42%,var(--azur-ink)_100%)] bg-clip-text text-transparent">
             {" "}
             {titleAccent}
           </span>
