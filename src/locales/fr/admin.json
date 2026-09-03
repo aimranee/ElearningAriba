@@ -14,7 +14,7 @@
       "horaires": "Déclarez vos horaires hebdomadaires et vos exceptions.",
       "joursFeries": "Consultez et réouvrez les jours fériés français.",
       "typesDeRendezVous": "Section à venir.",
-      "reservations": "Section à venir."
+      "reservations": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant."
     }
   },
   "horaires": {
@@ -110,19 +110,36 @@
       "statut": "Statut"
     },
     "compteSupprime": "Compte supprimé",
+    "vide": "Aucune réservation sur la période affichée.",
     "statuts": {
       "confirmee": "Confirmée",
       "enAttentePaiement": "En attente de paiement",
       "annulee": "Annulée"
     },
+    "actions": {
+      "deplacer": "Déplacer",
+      "annuler": "Annuler ce rendez-vous",
+      "confirmerAnnulation": "Confirmer l’annulation",
+      "choisirNouveauCreneau": "Choisir un nouveau créneau"
+    },
     "export": {
       "titre": "Exporter au format CSV",
       "colonnesAnnonce": "L’export contient exactement six colonnes, dans cet ordre : date, type, durée, apprenant, email, statut.",
-      "bouton": "Exporter la période"
+      "bouton": "Exporter la période",
+      "champs": {
+        "du": "Du",
+        "au": "Au"
+      }
     },
     "creation": {
       "titre": "Réserver pour un apprenant",
-      "intro": "Cette réservation est rattachée à un compte apprenant existant ; aucun compte n’est créé depuis cet écran."
+      "intro": "Cette réservation est rattachée à un compte apprenant existant ; aucun compte n’est créé depuis cet écran.",
+      "succes": "Rendez-vous créé.",
+      "champs": {
+        "email": "E-mail de l’apprenant",
+        "type": "Type de rendez-vous",
+        "creneau": "Créneau"
+      }
     },
     "annulation": {
       "confirmationTitre": "Annuler cette réservation ?",
