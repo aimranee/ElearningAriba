@@ -103,7 +103,7 @@ async function Hero() {
           <Reveal
             as="h1"
             dataD={1}
-            className="relative font-heading text-[clamp(2.5rem,4.6vw,3.9rem)] leading-[1.04] font-extrabold tracking-[-0.032em] text-balance"
+            className="relative font-heading text-[length:var(--text-display)] leading-[var(--text-display--line-height)] font-extrabold tracking-[-0.032em] text-balance"
           >
             <span className="sr-only">{accroche}</span>
             {hasValidSplit ? (
@@ -151,7 +151,7 @@ async function Hero() {
             {common.hero.chips.map((chip) => (
               <li
                 key={chip}
-                className="inline-flex items-center gap-[0.45rem] rounded-full border border-[var(--border)] bg-white px-[0.9rem] py-[0.45rem] text-[0.82rem] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-1)]"
+                className="inline-flex items-center gap-[0.45rem] rounded-full border border-[var(--border)] bg-white px-[0.9rem] py-[0.45rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-1)]"
               >
                 <Check className="size-3.5 text-[var(--mint)]" />
                 {chip}
@@ -169,7 +169,7 @@ async function Hero() {
               <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
-              <span className="ml-2 truncate text-[0.72rem] font-semibold text-[var(--muted-ink)]">
+              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">
                 {assemblage.frameLabel}
               </span>
             </div>
@@ -183,7 +183,7 @@ async function Hero() {
                   return (
                     <div
                       key={pill.cle}
-                      className="flex items-center gap-[0.6rem] rounded-[14px] border border-[var(--hairline)] bg-white px-[0.8rem] py-[0.65rem] text-[0.84rem] font-bold tracking-[-0.01em] text-[var(--ink)] shadow-[var(--contact),var(--inset-hi)]"
+                      className="flex items-center gap-[0.6rem] rounded-[14px] border border-[var(--hairline)] bg-white px-[0.8rem] py-[0.65rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold tracking-[-0.01em] text-[var(--ink)] shadow-[var(--contact),var(--inset-hi)]"
                     >
                       <span
                         aria-hidden="true"
@@ -202,7 +202,7 @@ async function Hero() {
                 className="relative z-[1] min-w-0 rounded-[18px] p-[1.15rem] text-white shadow-[var(--shadow-brand)]"
                 style={{ background: "linear-gradient(135deg,var(--violet),var(--indigo))" }}
               >
-                <span className="mb-[0.7rem] inline-flex items-center gap-[0.35rem] rounded-full bg-white/18 px-[0.6rem] py-[0.28rem] text-[0.6rem] font-extrabold tracking-[0.1em] uppercase">
+                <span className="mb-[0.7rem] inline-flex items-center gap-[0.35rem] rounded-full bg-white/18 px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tracking-[0.1em] uppercase">
                   <GraduationCap aria-hidden="true" className="size-[10px]" />
                   {assemblage.badge}
                 </span>

@@ -56,7 +56,7 @@ async function Confiance() {
         />
         <Reveal as="aside" dataD={2}>
           <Card variant="default" className="flex h-full flex-col gap-4 p-[1.7rem]">
-            <span className="text-[0.68rem] font-bold tracking-[0.14em] text-[var(--violet)] uppercase">
+            <span className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tracking-[0.14em] text-[var(--violet)] uppercase">
               {formateur.eyebrow}
             </span>
             <div className="flex items-center gap-4">
@@ -65,20 +65,20 @@ async function Confiance() {
                   photo exists (D-63); no photo can be added this run. */}
               <span
                 aria-hidden="true"
-                className="flex size-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--violet)] text-[1.1rem] font-extrabold text-white"
+                className="flex size-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--violet)] text-[length:var(--text-card)] font-extrabold text-white"
               >
                 {formateur.initiales}
               </span>
               <div>
-                <p className="text-[1.02rem] font-bold text-[var(--ink)]">{formateur.nom}</p>
-                <p className="text-[0.88rem] text-[var(--muted-ink)]">{formateur.intitule}</p>
+                <p className="text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold text-[var(--ink)]">{formateur.nom}</p>
+                <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">{formateur.intitule}</p>
               </div>
             </div>
             <ul className="flex flex-col gap-2">
               {formateur.points.map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-2 text-[0.88rem] text-[var(--ink-soft)]"
+                  className="flex items-start gap-2 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--ink-soft)]"
                 >
                   <Check aria-hidden="true" className="mt-[3px] size-4 shrink-0 text-[var(--mint-ink)]" />
                   {point}
@@ -87,7 +87,7 @@ async function Confiance() {
             </ul>
             <Link
               href="/a-propos"
-              className="mt-auto inline-flex w-fit items-center text-[0.85rem] font-semibold text-[var(--violet)] underline underline-offset-2"
+              className="mt-auto inline-flex w-fit items-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
             >
               {formateur.lienLabel}
             </Link>

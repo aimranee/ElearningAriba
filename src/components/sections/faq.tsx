@@ -77,12 +77,12 @@ async function Faq() {
             >
               <AccordionHeader>
                 <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
-                  <span className="flex-1 text-[1.02rem] font-bold tracking-[-0.015em]">
+                  <span className="flex-1 text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.015em]">
                     {entry.question}
                   </span>
                 </AccordionTrigger>
               </AccordionHeader>
-              <AccordionPanel className="text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
+              <AccordionPanel className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
                 {entry.reponse}
               </AccordionPanel>
             </AccordionItem>
@@ -90,11 +90,11 @@ async function Faq() {
         ))}
       </Accordion>
 
-      <p className="mx-auto mt-8 max-w-[880px] text-center text-[0.96rem] leading-[1.65] text-[var(--muted-ink)]">
+      <p className="mx-auto mt-8 max-w-[880px] text-center text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
         {landing.faq.cloture.question}{" "}
         <Link
           href="/contact"
-          className="font-semibold text-[var(--deep)] underline underline-offset-4 hover:text-[var(--violet)]"
+          className="font-semibold text-[var(--deep)] underline underline-offset-4 hover:text-[var(--violet-ink)]"
         >
           {landing.faq.cloture.lien}
         </Link>

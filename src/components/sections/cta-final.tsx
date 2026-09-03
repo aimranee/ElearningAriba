@@ -52,17 +52,17 @@ async function CtaFinal() {
             {section.eyebrow ? (
               <span
                 data-eyebrow={section.eyebrow}
-                className="inline-flex items-center gap-2 text-[0.72rem] leading-none font-bold tracking-[0.18em] text-white/85 uppercase"
+                className="inline-flex items-center gap-2 text-[length:var(--text-micro)] leading-none font-bold tracking-[0.18em] text-white/85 uppercase"
               >
                 {section.eyebrow}
               </span>
             ) : null}
-            <h2 className="mt-4 font-heading text-[clamp(2rem,4vw,3rem)] leading-[1.08] font-extrabold tracking-[-0.028em] text-balance">
+            <h2 className="mt-4 font-heading text-[length:var(--text-title)] leading-[var(--text-title--line-height)] font-extrabold tracking-[-0.028em] text-balance">
               {section.titre}
               {section.titre_accent ? <> {section.titre_accent}</> : null}
             </h2>
             {section.lead ? (
-              <p className="mt-[0.9rem] max-w-[52ch] text-[1.1rem] leading-[1.6] text-white/82">
+              <p className="mt-[0.9rem] max-w-[52ch] text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)] text-white/82">
                 {section.lead}
               </p>
             ) : null}
@@ -90,7 +90,7 @@ async function CtaFinal() {
           </div>
 
           <div>
-            <h3 className="text-[0.95rem] font-bold tracking-[-0.01em] text-white">
+            <h3 className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold tracking-[-0.01em] text-white">
               {etapes.titre}
             </h3>
             <div className="mt-4 flex flex-col gap-[0.75rem]">
@@ -99,12 +99,12 @@ async function CtaFinal() {
                   key={etape.titre}
                   className="flex items-start gap-[0.85rem] rounded-[15px] border border-white/15 bg-black/10 px-[1rem] py-[0.9rem]"
                 >
-                  <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-white text-[0.95rem] font-bold text-[var(--deep)]">
+                  <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-white text-[length:var(--text-small)] font-bold text-[var(--deep)]">
                     {index + 1}
                   </span>
                   <div className="flex flex-col gap-[0.15rem] pt-[0.1rem]">
-                    <strong className="text-[0.92rem] font-bold text-white">{etape.titre}</strong>
-                    <span className="text-[0.85rem] leading-[1.5] text-white/82">
+                    <strong className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold text-white">{etape.titre}</strong>
+                    <span className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-white/82">
                       {etape.description}
                     </span>
                   </div>
