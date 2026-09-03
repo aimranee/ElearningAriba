@@ -472,6 +472,27 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   et l'encre de la teinte aussi (3,31-3,58) ; cette dernière n'est admise
   que sur un objet graphique, plancher 3,0. Mesuré sur les six soft de la
   palette, pas estimé.
+- **D-85** (2026-09-03, fondateur): les titres d'accordéon et de carte des
+  sept sections passent sur --text-card (20 px), +23 % sur les deux
+  accordéons, croissance verticale acceptée.
+- **D-86** (2026-09-03, fondateur): les six tailles de surtitre passent
+  toutes sur --text-micro sans exemption ; la maquette du héros s'ajuste par
+  sa géométrie, pas par sa typo.
+- **D-87** (2026-09-03, fondateur): le h2 du CTA final descend de 48 à 40 px
+  — une seule taille par rang de titre.
+- **D-88** (2026-09-03, fondateur): la bande devient un aplat plein
+  --violet-band #E7EBFF. --violet-wash a été mesuré à ΔE 2,56 du papier,
+  sous le seuil du perceptible ; #E7EBFF est à 5,42 et le plancher AA de
+  --muted-ink (4,57) interdit d'aller plus bas.
+- **D-89** (2026-09-03, fondateur): les cinq accents de pour-qui migrent sur
+  la nouvelle palette ; le médaillon prend le wash en aplat direct et les
+  deux color-mix disparaissent.
+- **D-90** (2026-09-03, CTO): le dégradé bg-clip-text du mot accentué
+  échouait à AA sur sa borne --blue (3,59 sur --paper) avant ce run, sur les
+  sept sections et les pages internes. Remplacé par --indigo → --deep →
+  --azur-ink (6,67 / 5,31 / 4,74 sur la bande).
+- **D-91** (2026-09-03, fondateur): la géométrie — 28 paddings, 22
+  gouttières, 13 rayons — reste hors du run 3 ; c'est le run 4.
 
 ### Claude's Discretion
 
