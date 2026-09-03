@@ -165,3 +165,92 @@ None — all verification is local-database and local-build only; nothing pushed
 ## Self-Check: PASSED
 
 All 5 created files and this SUMMARY.md confirmed present on disk; commit `e2ee7ba` confirmed present in `git log --oneline --all`.
+
+## Task 2 — Founder Review Gate : APPROVED (2026-09-03)
+
+**Approuvé sur deux corpus de preuves** : les preuves machine de
+l'exécuteur, déjà consignées plus haut dans ce résumé (redirection non
+authentifiée, création pour apprenant connu et refus d'un e-mail inconnu
+sans création de compte, déplacement accepté puis refusé en
+`creneauIndisponible`, annulation, rendu « Compte supprimé » après
+effacement réel, octets du CSV — BOM, CRLF, `;`) ; **et** une passe
+navigateur du CTO sous Playwright (Chrome), serveur `next start` sur
+`:3015`, base semée de quatre réservations de revue, aux largeurs 1440,
+375 et 320 px sur les quatre écrans `/admin`.
+
+**L'approbation porte sur le travail fonctionnel de la tâche 1.** Elle
+**ne blanchit pas** les trois défauts mesurés ci-dessous : ils sont
+enregistrés comme connus, et routés vers un correctif borné distinct
+parce qu'ils vivent hors du périmètre de ce plan.
+
+### Les cinq vérifications reportées par `04-06` — jouées, avec leurs résultats
+
+Reportées explicitement du gate `04-06` (« Explicitly NOT covered by this
+approval »). Elles portaient sur la coquille admin et ses deux écrans
+autant que sur `/admin/reservations`. **Elles ne sont plus reportées.**
+
+1. **Pas de défilement latéral à 375 et 320 px — ÉCHEC sur un écran sur
+   quatre.** `/admin`, `/admin/horaires`, `/admin/jours-feries` :
+   `scrollWidth` égal au viewport aux deux largeurs, aucun débordement.
+   `/admin/reservations` : `scrollWidth` **409 px** à 375 comme à 320 —
+   34 px puis 89 px de trop. **Cause : le calendrier hérité de `04-03`,
+   pas le tableau.** Le même composant déborde déjà le `/agenda` public
+   (388 px à 375 et à 320), sous deux gates D-26 approuvés. Détail et
+   arithmétique : `ariba-cto/notes/2026-09-03-le-calendrier-ne-tient-pas-
+   en-320-et-agenda-le-savait-deja.md`.
+2. **Cibles tactiles 44 × 44 px — ÉCHEC, et pas au Lot 4.** Contrôles
+   mesurés à **28 px** de haut sur les écrans `/admin` (Déplacer 77 × 28,
+   Annuler 169 × 28, navigation 331 × 28, Ajouter une plage 130 × 28,
+   Désactiver 87 × 28). Le bouton par défaut de l'application mesure
+   **32 px** — mesuré sur `/connexion`, écran du Lot 3, déconnecté — et la
+   densité compacte de la coquille admin le comprime à 28. **Décision de
+   design system, routée hors de ce plan.**
+3. **Police des champs ≥ 16 px — ÉCHEC sur `/admin/reservations`.** Quatre
+   champs à **12,8 px** : e-mail de l'apprenant, sélecteur de type, et les
+   deux dates du panneau d'export. iOS zoome à la mise au point. Les deux
+   écrans de `04-06` n'ont aucun champ sous le plancher.
+4. **Aucune affordance au survol seul — CONFORME.** Vérifié à la source :
+   **zéro occurrence de `hover:`** dans les huit composants de
+   `src/components/admin/`. Rien n'est masqué puis révélé au survol ;
+   la question ne se pose pas sur ces écrans.
+5. **Libellés des boutons à icône seule — CONFORME.** Aucun contrôle sans
+   nom accessible sur aucun des quatre écrans, aux trois largeurs.
+   ⚠ Une première sonde en avait signalé 22 sur `jours-feries` et 3 sur
+   `reservations` : elle ne lisait que `aria-label`, `innerText` et
+   `title`, jamais le `<label for>` associé. Sonde corrigée avec
+   `el.labels` : zéro. **Le défaut était dans l'instrument.** Ces
+   vingt-cinq signalements sont retirés, non corrigés.
+
+### Ce que l'approbation ne couvre pas, et où cela part
+
+- **Le débordement du calendrier** (points 1) — hérité de `04-03`, actif
+  en public sur `/agenda`. Correctif borné distinct, couvrant les deux
+  surfaces. Arbitrage requis du fondateur : à 320 px, 7 × 44 = 308 px ne
+  laissent que 12 px pour toutes les gouttières et tout le rembourrage ;
+  il faut soit descendre la cellule à ≈ 42 px, soit changer de disposition
+  sous 375. À 375, les 44 px tiennent (gouttière 4, rembourrage 12 → 356).
+- **Le plancher de 16 px sur les quatre champs** (point 3) — à joindre au
+  même correctif.
+- **La hauteur de 28/32 px des contrôles** (point 2) — décision de design
+  system, hors Lot 4.
+- **La moitié interactive du gate reste au fondateur** : refus de
+  déplacement dans l'interface, révélation en place de l'annulation,
+  réception de l'e-mail par l'apprenant, ouverture du CSV dans Excel FR.
+  L'exécuteur les a prouvées au niveau API, avec assertions d'octets.
+
+### Deux servitudes de la revue
+
+- **Les quatre réservations de revue restent en base** (deux confirmées
+  dont un apprenant nommé `=Marc Lefèvre` pour le test d'injection de
+  formule, une annulée, une dont le compte a été effacé) ainsi que trois
+  comptes apprenants. **À purger avant la clôture de la phase.**
+- **Le plafond de connexions partagé par IP** (5 par 10 min, clé IP seule,
+  les succès comptent) a invalidé deux passes de mesure en silence :
+  Playwright reste sur `/connexion` et mesure la page déconnectée. Toute
+  sonde doit asserter `location.pathname`.
+
+### Les deux items du Chief of Staff restent ouverts
+
+La légende publique D-24 (Libre / Indisponible / Passé) et la réécriture de
+la ligne `confirmationReservation` du Lot 1 qui annonçait un paiement
+encaissé. La phase se clôt sur `04-09`, pas ici.
