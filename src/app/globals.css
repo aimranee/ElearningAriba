@@ -308,16 +308,6 @@ html {
     transition-delay: 0.70s;
   }
 
-  /* D-08 caret blink — declared here (not inline) because CSS @keyframes
-     cannot be authored via a JSX style attribute; consumes --ease-brand
-     rather than the maquette's ease-in-out (D-17: one curve, nowhere
-     else). */
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
-
   /* D-17 assembly-connector comet — consumes --ease-brand rather than the
      maquette's ease-in-out (one curve, nowhere else). */
   @keyframes comet {

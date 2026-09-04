@@ -1,18 +1,18 @@
 "use client";
-/* why (D-08/D-09/D-10): timings and the width-lock/resync mechanics are
-   measured verbatim from the founder-approved maquette's own script — direct
-   DOM node mutation (refs), not React state per keystroke, keeps every
-   interval exactly on the measured cadence and avoids a parent re-render on
-   every character. `words` always arrives as a prop; this island never holds
-   its own copy of the competencies (D-25/PUB-13). */
+/* why (D-08/D-09/D-10/D-101/D-104): whole-word crossfade, not per-character
+   typing — the old caret-typing cadence left a fragment or a blank word a
+   measured 41.8% of the time. Two stacked spans occupy the same grid cell;
+   only their opacity/transform are mutated directly via refs (D-08), never
+   React state per frame. The width lock (D-09) is no longer just useful, it
+   is required (D-104): both words coexist during the 180ms overlap, so an
+   unlocked box would reflow mid-crossfade. `words` always arrives as a
+   prop; this island never holds its own copy of the competencies
+   (D-25/PUB-13). */
 
 import { useEffect, useRef } from "react";
 
-const TYPE_MS = 26;
-const HOLD_MS = 1050;
-const ERASE_MS = 15;
-const BETWEEN_WORDS_MS = 140;
-const FIRST_ERASE_DELAY_MS = 1400;
+const HOLD_MS = 2200;
+const OVERLAP_MS = 180;
 const RESIZE_DEBOUNCE_MS = 180;
 
 interface TypewriterProps {
@@ -21,19 +21,22 @@ interface TypewriterProps {
 
 function Typewriter({ words }: TypewriterProps) {
   const boxRef = useRef<HTMLSpanElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
+  const frontRef = useRef<HTMLSpanElement>(null);
+  const backRef = useRef<HTMLSpanElement>(null);
   const sizerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const box = boxRef.current;
-    const text = textRef.current;
+    const front = frontRef.current;
+    const back = backRef.current;
     const sizer = sizerRef.current;
-    if (!box || !text || !sizer || words.length === 0) {
+    if (!box || !front || !back || !sizer || words.length === 0) {
       return;
     }
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let index = 0;
+    let activeIsFront = true;
     let timer: ReturnType<typeof setTimeout> | null = null;
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -44,8 +47,9 @@ function Typewriter({ words }: TypewriterProps) {
       }
     }
 
-    // D-09: width lock — measure every word through the hidden sizer span,
-    // then fix the box at the widest + 4px so the H1 never reflows (CLS).
+    // D-09/D-104: measure every word through the hidden sizer span, then fix
+    // the box at the widest + 4px so the H1 never reflows (CLS) while the
+    // two spans coexist during the crossfade.
     function lockWidth() {
       let max = 0;
       for (const word of words) {
@@ -58,56 +62,63 @@ function Typewriter({ words }: TypewriterProps) {
       }
     }
 
-    function typeWord(i: number) {
-      index = i;
-      const word = words[i];
-      if (reduce) {
-        text!.textContent = word;
-        return;
-      }
-      text!.textContent = "";
-      let c = 1;
-      const add = () => {
-        text!.textContent = word.slice(0, c);
-        if (c < word.length) {
-          c++;
-          timer = setTimeout(add, TYPE_MS);
-        } else {
-          timer = setTimeout(eraseWord, HOLD_MS);
-        }
-      };
-      add();
+    // instantly (no transition) place a span at its fully-visible resting
+    // position, showing `word`.
+    function settleEntered(el: HTMLSpanElement, word: string) {
+      el.style.transitionDuration = "0s";
+      el.textContent = word;
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+      void el.offsetWidth;
+      el.style.transitionDuration = "";
     }
 
-    function eraseWord() {
-      const current = text!.textContent ?? "";
-      let c = current.length;
-      const del = () => {
-        text!.textContent = current.slice(0, c);
-        if (c > 0) {
-          c--;
-          timer = setTimeout(del, ERASE_MS);
-        } else {
-          timer = setTimeout(nextWord, BETWEEN_WORDS_MS);
-        }
-      };
-      del();
+    // instantly (no transition) place a span at its hidden, below-baseline
+    // resting position, ready to enter.
+    function settleIdle(el: HTMLSpanElement) {
+      el.style.transitionDuration = "0s";
+      el.style.opacity = "0";
+      el.style.transform = "translateY(0.22em)";
+      void el.offsetWidth;
+      el.style.transitionDuration = "";
     }
 
-    function nextWord() {
-      typeWord((index + 1) % words.length);
+    function crossfadeToNext() {
+      const nextIndex = (index + 1) % words.length;
+      const outgoing = activeIsFront ? front! : back!;
+      const incoming = activeIsFront ? back! : front!;
+
+      incoming.textContent = words[nextIndex];
+      settleIdle(incoming);
+
+      requestAnimationFrame(() => {
+        outgoing.style.opacity = "0";
+        outgoing.style.transform = "translateY(-0.22em)";
+        incoming.style.opacity = "1";
+        incoming.style.transform = "translateY(0)";
+      });
+
+      timer = setTimeout(() => {
+        index = nextIndex;
+        activeIsFront = !activeIsFront;
+        settleIdle(outgoing);
+        timer = setTimeout(crossfadeToNext, HOLD_MS);
+      }, OVERLAP_MS);
     }
 
-    // D-10: resync on visibilitychange — background tabs throttle
-    // setTimeout, so on return we restore the WHOLE current word (never a
-    // slice) and restart the cycle from the hold, not mid-letter.
+    // D-10: resync on visibilitychange — background tabs throttle timers, so
+    // on return we restore the WHOLE current word (never mid-crossfade) and
+    // restart the cycle from the hold.
     function onVisibilityChange() {
       if (document.visibilityState !== "visible" || reduce) {
         return;
       }
       clearTimer();
-      text!.textContent = words[index];
-      timer = setTimeout(eraseWord, HOLD_MS);
+      const activeEl = activeIsFront ? front! : back!;
+      const idleEl = activeIsFront ? back! : front!;
+      settleEntered(activeEl, words[index]);
+      settleIdle(idleEl);
+      timer = setTimeout(crossfadeToNext, HOLD_MS);
     }
 
     function onResize() {
@@ -126,9 +137,10 @@ function Typewriter({ words }: TypewriterProps) {
       document.fonts.ready.then(lockWidth);
     }
 
-    text.textContent = words[0];
+    settleEntered(front, words[0]);
+    settleIdle(back);
     if (!reduce) {
-      timer = setTimeout(eraseWord, FIRST_ERASE_DELAY_MS);
+      timer = setTimeout(crossfadeToNext, HOLD_MS);
     }
 
     return () => {
@@ -144,15 +156,15 @@ function Typewriter({ words }: TypewriterProps) {
   return (
     <span
       ref={boxRef}
-      className="inline-block align-baseline whitespace-nowrap text-left"
+      className="inline-grid align-baseline whitespace-nowrap text-left"
     >
       <span
-        ref={textRef}
-        className="bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent"
+        ref={frontRef}
+        className="[grid-area:1/1] bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent transition-[opacity,transform] duration-[180ms] ease-[var(--ease-brand)]"
       />
       <span
-        aria-hidden="true"
-        className="ml-[3px] inline-block h-[0.86em] w-[3px] animate-[blink_1.05s_steps(1)_infinite] rounded-[2px] bg-[var(--violet)] align-[-0.06em]"
+        ref={backRef}
+        className="[grid-area:1/1] bg-[linear-gradient(100deg,var(--violet)_0%,var(--deep)_42%,var(--blue)_100%)] bg-clip-text text-transparent transition-[opacity,transform] duration-[180ms] ease-[var(--ease-brand)]"
       />
       <span
         ref={sizerRef}
