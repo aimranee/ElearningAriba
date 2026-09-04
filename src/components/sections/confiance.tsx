@@ -33,7 +33,7 @@ async function Confiance() {
 
   if (!sectionResult.ok || !faitsResult.ok) {
     return (
-      <Section tone="band">
+      <Section tone="wash">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -45,7 +45,7 @@ async function Confiance() {
   const { formateur } = landing.confiance;
 
   return (
-    <Section tone="band">
+    <Section tone="wash">
       <div className="grid items-start gap-10 lg:grid-cols-2">
         <SectionHeader
           eyebrow={section.eyebrow ?? undefined}
