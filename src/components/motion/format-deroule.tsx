@@ -103,15 +103,15 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                     <span
                       aria-hidden="true"
                       style={{ backgroundColor: ETAPE_TEINTES[index] }}
-                      className="flex size-[42px] shrink-0 items-center justify-center rounded-[14px] text-[0.8rem] font-extrabold tabular-nums text-white"
+                      className="flex size-[42px] shrink-0 items-center justify-center rounded-[14px] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tabular-nums text-white"
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <p
                       className={
                         isSelected
-                          ? "text-[0.98rem] leading-[1.55] font-semibold text-[var(--ink)]"
-                          : "text-[0.98rem] leading-[1.55] text-[var(--muted-ink)]"
+                          ? "text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-semibold text-[var(--ink)]"
+                          : "text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]"
                       }
                     >
                       {etape}
@@ -128,8 +128,8 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                 <span
                   className={
                     selected === index
-                      ? "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--ink)] bg-[var(--ink)] text-[0.68rem] font-bold tabular-nums text-white"
-                      : "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--hairline)] bg-white text-[0.68rem] font-bold tabular-nums text-[var(--muted-ink)]"
+                      ? "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--ink)] bg-[var(--ink)] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tabular-nums text-white"
+                      : "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--hairline)] bg-white text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tabular-nums text-[var(--muted-ink)]"
                   }
                 >
                   {String(n).padStart(2, "0")}
@@ -154,36 +154,36 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
               <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
-              <span className="ml-2 truncate text-[0.72rem] font-semibold text-[var(--muted-ink)]">
+              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">
                 {apercu.frameLabel}
               </span>
             </div>
 
             <div className="p-[1.15rem]">
               <span
-                className="inline-flex items-center rounded-full px-[0.6rem] py-[0.28rem] text-[0.6rem] font-extrabold tracking-[0.1em] text-white uppercase"
+                className="inline-flex items-center rounded-full px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tracking-[0.1em] text-white uppercase"
                 style={{ backgroundColor: ETAPE_TEINTES[selected] }}
               >
                 {pilule}
               </span>
-              <p className="mt-3 text-[1.02rem] font-bold tracking-[-0.02em]">{panneau.titre}</p>
+              <p className="mt-3 text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold tracking-[-0.02em]">{panneau.titre}</p>
 
               <div className="mt-4">
                 {selected === 0 ? (
                   <div className="flex flex-col gap-3">
-                    <div className="flex items-center gap-2 text-[0.86rem] font-semibold text-[var(--ink)]">
+                    <div className="flex items-center gap-2 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink)]">
                       <Calendar aria-hidden="true" className="size-4 text-[var(--muted-ink)]" />
                       <span className="tabular-nums">{apercu.creneauExemple}</span>
                     </div>
-                    <p className="text-[0.9rem] font-semibold text-[var(--ink)]">{premierModuleTitre}</p>
+                    <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink)]">{premierModuleTitre}</p>
                     <span
-                      className="inline-flex w-fit items-center rounded-full px-[0.6rem] py-[0.28rem] text-[0.68rem] font-bold text-[var(--mint-ink)]"
+                      className="inline-flex w-fit items-center rounded-full px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold text-[var(--mint-ink)]"
                       style={{ background: "var(--success-muted)" }}
                     >
                       {apercu.confirme}
                     </span>
                     <div
-                      className="rounded-[13px] px-4 py-3 text-center text-[0.88rem] font-bold text-white"
+                      className="rounded-[13px] px-4 py-3 text-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold text-white"
                       style={{ backgroundColor: ETAPE_TEINTES[0] }}
                     >
                       {apercu.rejoindre}
@@ -202,10 +202,10 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                         >
                           <User aria-hidden="true" className="size-5 text-white" />
                         </span>
-                        <span className="text-[0.78rem] font-semibold text-[var(--muted-ink)]">{apercu.formateur}</span>
+                        <span className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">{apercu.formateur}</span>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-[0.72rem] font-semibold text-[var(--muted-ink)]">{apercu.participants}</span>
+                        <span className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">{apercu.participants}</span>
                         <div className="flex gap-2">
                           {[0, 1, 2].map((i) => (
                             <span
@@ -219,7 +219,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                         </div>
                       </div>
                     </div>
-                    <span className="inline-flex w-fit items-center gap-[0.4rem] rounded-full bg-[var(--tint)] px-[0.6rem] py-[0.28rem] text-[0.68rem] font-bold text-[var(--muted-ink)]">
+                    <span className="inline-flex w-fit items-center gap-[0.4rem] rounded-full bg-[var(--tint)] px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold text-[var(--muted-ink)]">
                       <span aria-hidden="true" className="size-[7px] rounded-full bg-[var(--mint-ink)]" />
                       {apercu.enDirect}
                     </span>
@@ -247,7 +247,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                       <span className="h-2 w-[45%] rounded-full bg-[var(--border2)]" />
                       <span className="h-2 w-[90%] rounded-full bg-[var(--border2)]" />
                     </div>
-                    <span className="inline-flex w-fit items-center rounded-full bg-[var(--tint)] px-[0.6rem] py-[0.28rem] text-[0.68rem] font-bold text-[var(--muted-ink)]">
+                    <span className="inline-flex w-fit items-center rounded-full bg-[var(--tint)] px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold text-[var(--muted-ink)]">
                       {apercu.ecranPartage}
                     </span>
                   </div>
@@ -274,7 +274,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                         <span className="h-2 flex-1 rounded-full bg-[var(--border2)]" />
                       </div>
                     ))}
-                    <div className="mt-1 flex items-center gap-2 text-[0.84rem] text-[var(--muted-ink)]">
+                    <div className="mt-1 flex items-center gap-2 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
                       <span
                         aria-hidden="true"
                         className="flex size-6 shrink-0 items-center justify-center rounded-full"
@@ -289,7 +289,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
 
                 {selected === 4 ? (
                   <div className="flex flex-col gap-3">
-                    <span className="text-[0.72rem] font-semibold text-[var(--muted-ink)]">{apercu.vosQuestions}</span>
+                    <span className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">{apercu.vosQuestions}</span>
                     {[0, 1].map((row) => (
                       <div key={row} className="flex items-center gap-3 rounded-[13px] bg-[var(--tint)] px-3 py-2">
                         <MessageCircle aria-hidden="true" className="size-4 shrink-0 text-[var(--muted-ink)]" />
@@ -298,19 +298,19 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                     ))}
                     <div className="flex items-center gap-3 rounded-[13px] border border-[var(--hairline)] px-3 py-2">
                       <Download aria-hidden="true" className="size-4 shrink-0" style={{ color: ETAPE_TEINTES[4] }} />
-                      <span className="text-[0.84rem] font-semibold text-[var(--ink)]">{apercu.supportModule}</span>
+                      <span className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink)]">{apercu.supportModule}</span>
                     </div>
                   </div>
                 ) : null}
               </div>
             </div>
           </div>
-          <p className="mt-2 text-center text-[0.72rem] text-[var(--muted-ink)]">{apercu.nonContractuel}</p>
+          <p className="mt-2 text-center text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">{apercu.nonContractuel}</p>
         </div>
       </div>
 
       <div className="mt-12 border-t border-[var(--hairline)] pt-8">
-        <p className="text-[0.72rem] font-semibold tracking-[0.14em] text-[var(--deep)] uppercase">
+        <p className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold tracking-[0.14em] text-[var(--deep)] uppercase">
           {apercu.ceQuiEstFourni}
         </p>
         <div className="mt-4 grid gap-[0.6rem] sm:grid-cols-2 lg:grid-cols-3">
@@ -319,8 +319,8 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
               key={ligne.texte}
               className={
                 ligne.coche
-                  ? "flex items-start gap-[0.65rem] rounded-[13px] border border-[var(--hairline)] bg-white px-[0.85rem] py-[0.7rem] text-[0.88rem]"
-                  : "flex items-start gap-[0.65rem] rounded-[13px] bg-[var(--tint)] px-[0.85rem] py-[0.7rem] text-[0.88rem] text-[var(--muted-ink)]"
+                  ? "flex items-start gap-[0.65rem] rounded-[13px] border border-[var(--hairline)] bg-white px-[0.85rem] py-[0.7rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)]"
+                  : "flex items-start gap-[0.65rem] rounded-[13px] bg-[var(--tint)] px-[0.85rem] py-[0.7rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]"
               }
             >
               {ligne.coche ? (
@@ -340,7 +340,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
             </div>
           ))}
         </div>
-        <div className="mt-4 flex items-center gap-2 text-[0.8rem] text-[var(--muted-ink)]">
+        <div className="mt-4 flex items-center gap-2 text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">
           <GraduationCap aria-hidden="true" className="size-[14px] text-[var(--violet)]" />
           <span>{resume}</span>
         </div>

@@ -203,17 +203,17 @@ function AssemblyCard({
   return (
     <div ref={cardRef} className="flex flex-col gap-[0.7rem]">
       <div ref={titleBoxRef} className="relative">
-        <p ref={titleRef} className="font-heading text-[1.05rem] leading-[1.2] font-bold">
+        <p ref={titleRef} className="font-heading text-[length:var(--text-body)] leading-[1.2] font-bold">
           {first.titre}
         </p>
         <p
           ref={titleSizerRef}
           aria-hidden="true"
-          className="invisible absolute inset-x-0 top-0 font-heading text-[1.05rem] leading-[1.2] font-bold"
+          className="invisible absolute inset-x-0 top-0 font-heading text-[length:var(--text-body)] leading-[1.2] font-bold"
         />
       </div>
 
-      <div ref={idLineRef} className="text-[0.78rem] text-white/78">
+      <div ref={idLineRef} className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-white/78">
         {moduleLigne(moduleLigneTemplate, first)}
       </div>
 
@@ -225,7 +225,7 @@ function AssemblyCard({
             style={{ width: `${(first.position / modules.length) * 100}%` }}
           />
         </div>
-        <span ref={labelRef} className="text-[0.68rem] font-semibold text-white/70">
+        <span ref={labelRef} className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-white/70">
           {progressionLabel(progressionTemplate, first, modules.length)}
         </span>
       </div>
@@ -248,7 +248,7 @@ function AssemblyCard({
             >
               <Check className="size-[9px]" />
             </span>
-            <span data-role="label" className="text-[0.78rem] font-semibold text-white/75">
+            <span data-role="label" className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-white/75">
               {pill.label}
             </span>
           </li>
