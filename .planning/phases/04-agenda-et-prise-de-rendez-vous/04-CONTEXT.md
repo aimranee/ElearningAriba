@@ -238,6 +238,13 @@ conservé. Résidu de 5 px sur `/admin/reservations` après D-34 (« Mois
 suivant » à 99,38 px dans un `CardHeader` en `justify-between` niché dans la
 coquille admin).
 
+### D-36 — La cellule de 21 px est acceptée
+Décision du fondateur, 2026-09-04. La cellule de jour mesure 21,14 × 44 px
+sur `/admin/reservations` à 320 px. Rien n'est tronqué, la hauteur tactile de
+44 px est conservée, et une largeur de 44 px est arithmétiquement hors
+d'atteinte dans un carton de 230 px. Détail et options écartées :
+`ariba-cto/notes/2026-09-04-decision-la-cellule-de-21px-est-acceptee.md`.
+
 ### Parcours — ce qui est imposé
 
 - **Three screens, no more** (D-10). Every form field removed is worth
