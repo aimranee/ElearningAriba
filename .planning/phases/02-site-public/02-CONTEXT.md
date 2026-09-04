@@ -493,6 +493,27 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   --azur-ink (6,67 / 5,31 / 4,74 sur la bande).
 - **D-91** (2026-09-03, fondateur): la géométrie — 28 paddings, 22
   gouttières, 13 rayons — reste hors du run 3 ; c'est le run 4.
+- **D-92** (2026-09-04, fondateur): les trois composants
+  `components/motion/` (`format-deroule.tsx`, `confiance-faits.tsx`,
+  `assembly-card.tsx`) migrent vers les jetons typographiques ; l'inventaire
+  du run 3 scopait `components/sections/` et traitait une section comme son
+  propre fichier, manquant ces trois-là, que les sections délèguent pour le
+  rendu.
+- **D-93** (2026-09-04, fondateur): le titre de fait de
+  `confiance-faits.tsx` (ligne 57) passe à `--text-card` (20px) — c'est un
+  accordion trigger, même rôle que les titres de module et questions FAQ
+  déjà envoyés vers `--text-card` au run 3.
+- **D-94** (2026-09-04, fondateur): le titre d'`assembly-card.tsx`
+  (lignes 206/212) passe à `--text-body` (16px) mais garde `leading-[1.2]`
+  — seule exemption de ce run. Aucun jeton n'associe un leading serré de 1.2
+  à une taille de 16px, et la ligne 212 est le sizer qui réserve la boîte du
+  titre de la carte animée ; l'associer à `--text-body--line-height`
+  ferait grossir cette boîte d'environ 20px à 26px dans une carte à
+  géométrie contrainte.
+- **D-95** (2026-09-04, fondateur): un `leading-` jeton ne cohabite jamais
+  avec un `leading-` littéral sur le même élément — la migration remplace
+  toujours la paire taille+leading ensemble, jamais la taille seule (sauf
+  l'exemption nommée de D-94).
 
 ### Claude's Discretion
 

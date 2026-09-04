@@ -54,10 +54,10 @@ function ConfianceFaits({ items, labels }: ConfianceFaitsProps) {
                 onClick={() => setOpen((prev) => ({ ...prev, [item.id]: !prev[item.id] }))}
                 className="w-full text-left"
               >
-                <span className="mt-3 block text-[1.08rem] leading-[1.3] font-bold tracking-[-0.02em]">
+                <span className="mt-3 block text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em]">
                   {item.titre}
                 </span>
-                <span className="mt-2 inline-block text-[0.78rem] font-semibold text-[var(--violet)] underline underline-offset-2">
+                <span className="mt-2 inline-block text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2">
                   {isOpen ? labels.masquer : labels.voir}
                 </span>
               </button>
@@ -73,7 +73,7 @@ function ConfianceFaits({ items, labels }: ConfianceFaitsProps) {
                   }}
                 >
                   <div className="min-h-0">
-                    <p className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
+                    <p className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
                       {item.description}
                     </p>
                   </div>
@@ -89,13 +89,13 @@ function ConfianceFaits({ items, labels }: ConfianceFaitsProps) {
                   }}
                 >
                   <div className="min-h-0">
-                    <p className="text-[0.94rem] leading-[1.6] text-[var(--muted-ink)]">
+                    <p className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
                       {item.preuveTexte}
                     </p>
                     {item.preuveLienHref && item.preuveLienLabel ? (
                       <Link
                         href={item.preuveLienHref}
-                        className="mt-2 inline-block text-[0.85rem] font-semibold text-[var(--violet)] underline underline-offset-2"
+                        className="mt-2 inline-block text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
                       >
                         {item.preuveLienLabel}
                       </Link>
