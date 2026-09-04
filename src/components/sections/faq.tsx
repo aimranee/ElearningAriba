@@ -39,7 +39,7 @@ async function Faq() {
 
   if (!sectionResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="band">
+      <Section tone="default">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -58,7 +58,7 @@ async function Faq() {
   }
 
   return (
-    <Section tone="band">
+    <Section tone="default">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

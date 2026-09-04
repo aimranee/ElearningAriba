@@ -135,7 +135,7 @@ export default async function Programme() {
         </div>
       </Section>
 
-      <Section tone="band">
+      <Section tone="wash">
         <div className="flex flex-wrap justify-center gap-3">
           {telechargerPdf ? (
             <Button

@@ -4,6 +4,7 @@ import { Section, SectionHeader } from "@/components/sections/section";
 import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
+import { CardSpotlight } from "@/components/motion/card-spotlight";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems, profilDonneesSchema } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
@@ -11,20 +12,20 @@ import common from "@/locales/fr/common.json";
 /**
  * PUB-02 — five intention cards read from `pour-qui`. Uniform-width 3+2 grid
  * at lg (64rem) (D-49), two equal columns below lg, one below 640px.
- * `tone="band"` tints the section (D-49) — Compétences flips to `default` to
- * preserve the alternation after the 2026-09-01 stats-band removal. Cards are
- * compact at rest and expand on hover/focus (D-49, 2026-09-01) — the row
- * grows with the hovered card and content below shifts down; this is
+ * `tone="default"` since D-96 — the section stays white, saturated colour now
+ * concentrates in each card's gradient icon tile instead of the surface.
+ * Cards are compact at rest and expand on hover/focus (D-49, 2026-09-01) —
+ * the row grows with the hovered card and content below shifts down; this is
  * intentional.
  */
-const FALLBACK = { accent: "var(--violet-wash)", ink: "var(--violet-ink)" };
+const FALLBACK = { tileA: "var(--violet)", tileB: "var(--indigo)", ink: "var(--violet-ink)" };
 
-const PROFIL_ACCENTS: Record<string, { accent: string; ink: string }> = {
-  acheteur: { accent: "var(--violet-wash)", ink: "var(--violet-ink)" },
-  "category-manager": { accent: "var(--azur-wash)", ink: "var(--azur-ink)" },
-  "supply-chain": { accent: "var(--mint-wash)", ink: "var(--mint-ink)" },
-  consultant: { accent: "var(--magenta-wash)", ink: "var(--magenta-ink)" },
-  etudiant: { accent: "var(--amber-wash)", ink: "var(--amber-ink)" },
+const PROFIL_ACCENTS: Record<string, { tileA: string; tileB: string; ink: string }> = {
+  acheteur: { tileA: "var(--violet)", tileB: "var(--indigo)", ink: "var(--violet-ink)" },
+  "category-manager": { tileA: "var(--sky-ink)", tileB: "var(--azur-ink)", ink: "var(--azur-ink)" },
+  "supply-chain": { tileA: "var(--mint-ink)", tileB: "var(--azur-ink)", ink: "var(--mint-ink)" },
+  consultant: { tileA: "var(--magenta-ink)", tileB: "var(--violet-ink)", ink: "var(--magenta-ink)" },
+  etudiant: { tileA: "var(--amber-ink)", tileB: "var(--coral-ink)", ink: "var(--amber-ink)" },
 };
 
 async function PourQui() {
@@ -35,7 +36,7 @@ async function PourQui() {
 
   if (!sectionResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="band">
+      <Section tone="default">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -47,7 +48,7 @@ async function PourQui() {
   const profils = itemsResult.data;
 
   return (
-    <Section tone="band">
+    <Section tone="default">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}
@@ -81,18 +82,22 @@ async function PourQui() {
               >
                 <Card
                   variant="default"
-                  className="h-full p-[1.7rem] duration-[var(--duration-reveal)] group-hover:bg-[linear-gradient(160deg,var(--card-wash)_0%,white_62%)] group-focus-within:bg-[linear-gradient(160deg,var(--card-wash)_0%,white_62%)]"
+                  className="relative h-full p-[1.7rem] rounded-[22px] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] duration-[var(--duration-reveal)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
                   style={
                     {
-                      "--card-wash": accentInk.accent,
+                      "--tuile-a": accentInk.tileA,
+                      "--tuile-b": accentInk.tileB,
                       "--card-ink": accentInk.ink,
+                      "--carte-ombre-1": "color-mix(in srgb, var(--tuile-b) 8%, transparent)",
+                      "--carte-ombre-2": "color-mix(in srgb, var(--tuile-b) 42%, transparent)",
                     } as React.CSSProperties
                   }
                 >
+                  <CardSpotlight />
                   {Picto ? (
                     <span
                       aria-hidden="true"
-                      className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[var(--card-wash)] text-[var(--card-ink)] transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
+                      className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,var(--tuile-a)_0%,var(--tuile-b)_100%)] text-white transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
                     >
                       <Picto className="size-6" />
                     </span>

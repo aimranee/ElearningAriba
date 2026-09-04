@@ -514,6 +514,11 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   avec un `leading-` littéral sur le même élément — la migration remplace
   toujours la paire taille+leading ensemble, jamais la taille seule (sauf
   l'exemption nommée de D-94).
+- **D-96** (2026-09-04, fondateur) — le lavis pâle sur les surfaces est abandonné ; la couleur saturée se concentre dans la tuile d'icône, le fond reste blanc.
+- **D-97** (2026-09-04, fondateur) — AC-3 est retirée : l'atmosphère est supprimée par décision du fondateur.
+- **D-98** (2026-09-04, fondateur) — aucun jeton `-soft` ne peut porter un glyphe blanc ; les six dégradés sont bâtis sur la famille `-ink`, valeurs mesurées au brief.
+- **D-99** (2026-09-04, fondateur) — l'ombre de carte est teintée par `--tuile-b` via `color-mix`, usage autorisé parce qu'aucune encre n'est lue par-dessus.
+- **D-100** (2026-09-04, fondateur) — `card-spotlight` suit la règle AC-7 du héros : absent, pas figé, sous reduce-motion.
 
 ### Claude's Discretion
 
