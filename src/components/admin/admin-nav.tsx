@@ -18,6 +18,8 @@ import admin from "@/locales/fr/admin.json";
 const LIENS = [
   { href: "/admin/horaires", label: admin.nav.horaires },
   { href: "/admin/jours-feries", label: admin.nav.joursFeries },
+  { href: "/admin/types-de-rendez-vous", label: admin.nav.typesDeRendezVous },
+  { href: "/admin/reservations", label: admin.nav.reservations },
 ] as const;
 
 export function AdminNav() {
