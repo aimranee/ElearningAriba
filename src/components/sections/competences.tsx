@@ -2,22 +2,22 @@ import { Award } from "lucide-react";
 import { Section, SectionHeader } from "@/components/sections/section";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
+import { CardSpotlight } from "@/components/motion/card-spotlight";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
 
 /**
- * PUB-03 — the chromatic wall (D-53). Six full-color result tiles, one hue
- * per competency, on the `default` (untinted) tone that alternates against
- * the tinted PourQui/ProgrammeAccordion sections either side of it (D-49).
+ * PUB-03 — six white cards, one gradient icon tile per competency (D-96).
+ * Saturated colour concentrates in the pastille, the card body stays white.
  */
-const CARD_TEINTES: Record<string, { soft: string; ink: string }> = {
-  "ecosysteme-ariba": { soft: "var(--violet-soft)", ink: "var(--violet-ink)" },
-  "procure-to-pay": { soft: "var(--azur-soft)", ink: "var(--azur-ink)" },
-  "source-to-pay": { soft: "var(--mint-soft)", ink: "var(--mint-ink)" },
-  "rfq-rfp": { soft: "var(--amber-soft)", ink: "var(--amber-ink)" },
-  "gestion-catalogues": { soft: "var(--magenta-soft)", ink: "var(--magenta-ink)" },
-  certification: { soft: "var(--coral-soft)", ink: "var(--coral-ink)" },
+const CARD_TEINTES: Record<string, { a: string; b: string }> = {
+  "ecosysteme-ariba": { a: "var(--violet)", b: "var(--indigo)" },
+  "procure-to-pay": { a: "var(--sky-ink)", b: "var(--azur-ink)" },
+  "source-to-pay": { a: "var(--mint-ink)", b: "var(--azur-ink)" },
+  "rfq-rfp": { a: "var(--amber-ink)", b: "var(--coral-ink)" },
+  "gestion-catalogues": { a: "var(--magenta-ink)", b: "var(--violet-ink)" },
+  certification: { a: "var(--coral-ink)", b: "var(--magenta-ink)" },
 };
 
 // why (CADR-04): un badge est une marque générique — le registre de
@@ -58,10 +58,7 @@ async function Competences() {
       />
       <ul className="mt-10 grid grid-cols-1 gap-[1.25rem] sm:grid-cols-2 lg:grid-cols-3 grid-auto-rows-[1fr]">
         {items.map((item, index) => {
-          const teinte = CARD_TEINTES[item.cle] ?? {
-            soft: "var(--violet-soft)",
-            ink: "var(--violet-ink)",
-          };
+          const teinte = CARD_TEINTES[item.cle] ?? { a: "var(--violet)", b: "var(--indigo)" };
           const Picto = resolvePictogram(item.cle);
 
           return (
@@ -72,11 +69,25 @@ async function Competences() {
               className="h-full"
             >
               <div
-                className="rounded-[20px] overflow-hidden p-[1.6rem] min-h-[13.5rem] h-full flex flex-col gap-[0.9rem] bg-[var(--tuile-soft)] transition-transform duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:-translate-y-[2px]"
-                style={{ "--tuile-soft": teinte.soft, "--tuile-ink": teinte.ink } as React.CSSProperties}
+                data-slot="card"
+                className="relative flex h-full min-h-[13.5rem] flex-col gap-[0.9rem] rounded-[22px] border border-[var(--hairline)] bg-white p-[1.6rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
+                style={
+                  {
+                    "--tuile-a": teinte.a,
+                    "--tuile-b": teinte.b,
+                    "--carte-ombre-1": "color-mix(in srgb, var(--tuile-b) 8%, transparent)",
+                    "--carte-ombre-2": "color-mix(in srgb, var(--tuile-b) 42%, transparent)",
+                  } as React.CSSProperties
+                }
               >
+                <CardSpotlight />
                 {Picto ? (
-                  <Picto aria-hidden="true" className="size-7 shrink-0 text-[var(--tuile-ink)]" />
+                  <span
+                    aria-hidden="true"
+                    className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,var(--tuile-a)_0%,var(--tuile-b)_100%)]"
+                  >
+                    <Picto className="size-6 text-white" />
+                  </span>
                 ) : null}
                 <div>
                   <p className="font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
