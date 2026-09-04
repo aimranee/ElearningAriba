@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Section, SectionHeader } from "@/components/sections/section";
 import { CardTitle, CardDescription } from "@/components/ui/card";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
@@ -69,11 +69,7 @@ async function PourQui() {
               key={profil.id}
               as="li"
               dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-              className={
-                index === 3
-                  ? "lg:col-span-2 lg:col-start-2"
-                  : "lg:col-span-2"
-              }
+              className={index < 3 ? "lg:col-span-2" : "lg:col-span-3"}
             >
               <Link
                 href="/programme"
@@ -112,17 +108,15 @@ async function PourQui() {
                       </CardDescription>
                     </div>
                   </div>
-                  {hasAccroche ? (
-                    <div className="mt-1 flex items-center justify-between">
-                      <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
-                        {titre}
-                      </span>
-                      <ArrowRight
-                        aria-hidden="true"
-                        className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:translate-x-[3px] group-focus-within:translate-x-[3px]"
-                      />
-                    </div>
-                  ) : null}
+                  <div className="mt-1 flex items-center justify-between [@media(hover:none)]:hidden">
+                    <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
+                      {hasAccroche ? titre : common.actions.enSavoirPlus}
+                    </span>
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:rotate-180 group-focus-within:rotate-180"
+                    />
+                  </div>
                 </div>
               </Link>
             </Reveal>

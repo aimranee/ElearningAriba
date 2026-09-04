@@ -44,7 +44,8 @@
     "telecharger": "Télécharger",
     "reessayer": "Réessayer",
     "annuler": "Annuler",
-    "continuer": "Continuer"
+    "continuer": "Continuer",
+    "enSavoirPlus": "En savoir plus"
   },
   "etats": {
     "chargement": "Chargement en cours…",
