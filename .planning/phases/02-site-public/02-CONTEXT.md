@@ -523,6 +523,16 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 - **D-102** (2026-09-04, fondateur) — le H1 n'a qu'un seul accent, le dégradé du mot cyclé ; le violet plat de l'accroche est retiré.
 - **D-103** (2026-09-04, fondateur) — la ligne de preuve mélange un fait dérivé de la base (modules et heures) et deux placeholders enregistrés au registre de mocks ; aucune preuve sociale nominative n'est fabriquée.
 - **D-104** (2026-09-04, fondateur) — le verrou de largeur D-09 survit au changement de mécanisme : en fondu croisé les deux mots coexistent, le verrou devient nécessaire et non plus seulement utile.
+- **D-105** (2026-09-04, fondateur) — la deuxième rangée de "Pour qui" devient deux
+  cartes de 3 colonnes ; les six colonnes sont consommées sur les deux rangées ;
+  `lg:col-start-2` est retiré.
+- **D-106** (2026-09-04, fondateur) — le mécanisme de repli au survol est conservé
+  (décision fondateur) mais la carte porte désormais un repère permanent (libellé +
+  chevron) qui pivote à l'ouverture ; le repère est masqué là où le survol n'existe pas,
+  puisque la description y est déjà toujours ouverte.
+- **D-107** (2026-09-04, fondateur) — le pied de carte n'est plus conditionné à
+  `donnees.accroche` ; il s'affiche toujours, et ne montre `titre` que lorsqu'une
+  accroche distincte existe, pour éviter de dupliquer le titre.
 
 ### Claude's Discretion
 
