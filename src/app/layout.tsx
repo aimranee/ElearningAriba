@@ -4,8 +4,6 @@ import "./globals.css";
 import common from "@/locales/fr/common.json";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { AtmosphereLayer } from "@/components/atmosphere/atmosphere-layer";
-import { MeshDrift } from "@/components/atmosphere/mesh-drift";
 import { RevealScope } from "@/components/motion/reveal";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 
@@ -27,8 +25,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AtmosphereLayer />
-        <MeshDrift />
         <RevealScope />
         <ScrollProgress />
         <a

@@ -81,7 +81,7 @@ export default async function APropos() {
         </div>
       </Section>
 
-      <Section tone="band">
+      <Section tone="wash">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {blocks.map((block, index) => {
             const Icon = BLOCK_ICONS[block.cle] ?? Compass;

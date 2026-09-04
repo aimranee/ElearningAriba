@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-type SectionTone = "default" | "band";
+type SectionTone = "default" | "wash";
 
 interface SectionProps extends ComponentProps<"section"> {
   tone?: SectionTone;
@@ -10,11 +10,10 @@ interface SectionProps extends ComponentProps<"section"> {
 
 /**
  * The shared shell every landing block and internal page reuses. `default`
- * is fully transparent so the root atmosphere layer (mounted in plan 02-03,
- * D-20) reads through it; `band` applies the maquette's --lav2 gradient band
- * so sections alternate transparent / tinted (D-21). The per-section blob
- * and grain spans this file used to mount are gone — that mount point moves
- * to the root, not to every section (Lot 1 reached 2 of 8).
+ * is fully transparent — the root atmosphere layer that used to read through
+ * it was removed 2026-09-04 (D-97); `wash` renders a soft one-off vertical
+ * gradient (`--wash-ground`) instead of the old flat `band` tint (D-96) —
+ * `band` no longer exists as a tone.
  */
 function Section({ className, tone = "default", children, ...props }: SectionProps) {
   return (
@@ -23,7 +22,8 @@ function Section({ className, tone = "default", children, ...props }: SectionPro
       data-tone={tone}
       className={cn(
         "relative py-[clamp(4.5rem,9vw,7.5rem)]",
-        tone === "band" && "bg-[var(--violet-band)]",
+        tone === "wash" &&
+          "bg-[linear-gradient(180deg,transparent_0%,var(--wash-ground)_50%,transparent_100%)]",
         className
       )}
       {...props}

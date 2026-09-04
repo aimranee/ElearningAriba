@@ -148,7 +148,7 @@ export default async function Formation() {
         </div>
       </Section>
 
-      <Section tone="band">
+      <Section tone="wash">
         <SectionHeader title="Le déroulé d'une session" />
         <ol className="mx-auto mt-10 flex max-w-2xl flex-col gap-3">
           {deroule.map((etape, index) => (
