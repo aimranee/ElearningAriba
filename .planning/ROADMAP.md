@@ -37,7 +37,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups (completed 2026-08-29)
 - [ ] **Phase 2: Site public** - Lot 2 — landing page in seven sections, internal pages, contact form, navigation
 - [ ] **Phase 3: Comptes, connexion et espace apprenant** - Lot 3 — accounts, Google sign-in, learner space, data isolation, GDPR rights
-- [ ] **Phase 4: Agenda et prise de rendez-vous** - Lot 4 — availabilities, public agenda, three-screen booking, agenda back-office
+- [x] **Phase 4: Agenda et prise de rendez-vous** - Lot 4 — availabilities, public agenda, three-screen booking, agenda back-office (completed 2026-09-04)
 - [ ] **Phase 5: SEO, pages juridiques, RGPD et mise en ligne** - Lot 5 — the site goes live on its domain, indexable, legal and compliant
 - [ ] **Phase 6: Sessions live de groupe** - Lot 6 — group sessions, public listing, enrolment, seat management
 - [ ] **Phase 7: Paiement en ligne, formules et factures** - Lot 7 — hosted payment, four sale formulas, orders, invoices
@@ -237,11 +237,11 @@ Plans:
 
 **Wave 6** *(blocked on Wave 5)*
 
-- [ ] 04-08-PLAN.md — `/admin/reservations`: the table, per-row move and cancel, create-on-behalf and the export panel
+- [x] 04-08-PLAN.md — `/admin/reservations`: the table, per-row move and cancel, create-on-behalf and the export panel
 
 **Wave 7** *(blocked on Wave 6)*
 
-- [ ] 04-09-PLAN.md — `/admin/types-de-rendez-vous`: per-type edit of label, duration, buffer and price, PATCH-only write path, no create, no delete
+- [x] 04-09-PLAN.md — `/admin/types-de-rendez-vous`: per-type edit of label, duration, buffer and price, PATCH-only write path, no create, no delete
 
 ### Phase 5: SEO, pages juridiques, RGPD et mise en ligne
 
@@ -373,7 +373,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
 | 2. Site public | 10/11 | In Progress|  |
 | 3. Comptes, connexion et espace apprenant | 10/11 | In Progress|  |
-| 4. Agenda et prise de rendez-vous | 7/9 | In Progress|  |
+| 4. Agenda et prise de rendez-vous | 9/9 | Complete   | 2026-09-04 |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
 | 6. Sessions live de groupe | 0/TBD | Not started | - |
 | 7. Paiement en ligne, formules et factures | 0/TBD | Not started | - |

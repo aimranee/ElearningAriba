@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "04-08 delivered and approved: founder gate approved 2026-09-03 on machine evidence plus a Playwright pass; three known defects (calendar overflow, touch targets, field font floor) routed to a separate bounded fix. 04-09 awaits that bounded calendar fix."
-last_updated: "2026-09-03T07:20:59.975Z"
-last_activity: 2026-09-03 -- Phase 04 execution started
+stopped_at: "Phase 04 COMPLETE: gate D-26 04-09 approved 2026-09-04 on machine evidence plus a Playwright pass; AGD-01 through AGD-09 delivered. D-36 (21,14 x 44 px reservation cell, accepted by the founder) consigned in 04-CONTEXT.md. Next: Phase 05 (SEO, pages juridiques, RGPD et mise en ligne)."
+last_updated: "2026-09-04T00:00:00.000Z"
+last_activity: 2026-09-04 -- Phase 04 closed, all nine plans delivered
 progress:
   total_phases: 11
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 49
-  completed_plans: 46
-  percent: 27
+  completed_plans: 47
+  percent: 29
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 04 — agenda-et-prise-de-rendez-vous
+**Current focus:** Phase 05 — SEO, pages juridiques, RGPD et mise en ligne
 
 ## Current Position
 
-Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
-Plan: 8 of 9
-Status: Gate 04-08 approved by the founder 2026-09-03; 04-09 not yet started
-Last activity: 2026-09-04 - Completed quick task 260904-nge: correctif 2 — grid-cols-1 supprime le débordement de /agenda et /admin/reservations, boutons de mois icône seule sous sm (scrollWidth === innerWidth vérifié à 1440/375/320)
+Phase: 04 (agenda-et-prise-de-rendez-vous) — COMPLETE
+Plan: 9 of 9
+Status: All five D-26 founder gates signed off (04-03, 04-05, 04-06, 04-08, 04-09); AGD-01 through AGD-09 delivered
+Last activity: 2026-09-04 - Closed gate D-26 04-09 and Phase 04 (documentary close; source landed in d6c67a3/d796e89)
 
-Progress: [█████████░] 88%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -196,6 +196,8 @@ Recent decisions affecting current work:
 
 - **[Phase 04-08, resolved, follow-up owed]** Founder approved the Task 2 D-26 gate 2026-09-03 on machine evidence plus a Playwright pass across `/admin`'s four screens (see `04-08-SUMMARY.md` § "Task 2 — Founder Review Gate"). The approval covers Task 1's functional work only. Of the five checks deferred by `04-06`, two now pass (no hover-only affordance; icon-only buttons all named) and three fail: sideways scroll on `/admin/reservations` at 375/320px (409px scrollWidth, inherited from the 04-03 calendar, which already overflows the public `/agenda`); touch targets measured at 28px against a 44px target (a design-system decision, out of Lot 4); four fields at 12.8px under the 16px floor (iOS zoom-on-focus). All three are routed to a separate bounded fix covering both `/admin/reservations` and `/agenda`; 04-09 should not start until the founder rules on the 320px cell-size/layout tradeoff it requires. Four review reservations and three learner accounts remain seeded in the local database and must be purged before the phase closes. The two Chief-of-Staff items (D-24 public legend, Lot 1 `confirmationReservation` copy) remain open, closing on 04-09.
 
+- **[Phase 04-09, resolved — phase 04 closed]** Founder approved the Task 3 D-26 gate 2026-09-04 on machine evidence plus a Playwright pass (see `04-09-SUMMARY.md` § "Task 3 — Founder Review Gate"). All seven plan truths verified individually; two run-reported gaps ruled non-issues (four nav entries is correct, not two; the "strictly decreases 15→30" criterion was wrong, the mechanism proves out at buffer 90). The confirmation-email price and the English-formatted price-input prefill are explicitly out of this approval's scope — the latter the founder chose not to fix now. D-36 accepts the 21,14 × 44 px reservation cell at 320px, closing the tradeoff `04-08` left open. This was the fifth and last D-26 gate of the phase: AGD-01 through AGD-09 are delivered, Lot 4 is complete.
+
 ## Quick Tasks Completed
 
 | Date | Task | Result |
@@ -217,8 +219,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-09-02T23:06:32.516Z
-Stopped at: 04-08 delivered and approved: founder gate approved 2026-09-03 on machine evidence plus a Playwright pass; three known defects (calendar overflow, touch targets, field font floor) routed to a separate bounded fix. 04-09 awaits that bounded calendar fix.
+Last session: 2026-09-04T00:00:00.000Z
+Stopped at: Phase 04 COMPLETE: gate D-26 04-09 approved 2026-09-04; AGD-01 through AGD-09 delivered. Next: Phase 05 (SEO, pages juridiques, RGPD et mise en ligne).
 Resume file: None
 `20260830093000_grant_service_role_content.sql` (see Blockers/Concerns) but that does not block
 02-05..02-11, which read against the local stack. Separately, plan 02-11 owes a real human
