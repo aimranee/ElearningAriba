@@ -78,7 +78,7 @@ async function PourQui() {
               >
                 <div
                   data-slot="card"
-                  className="relative h-full rounded-[22px] border border-[var(--hairline)] bg-white p-[1.7rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
+                  className="relative flex h-full flex-col rounded-[22px] border border-[var(--hairline)] bg-white p-[1.7rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
                   style={
                     {
                       "--tuile-a": accentInk.tileA,
@@ -108,7 +108,7 @@ async function PourQui() {
                       </CardDescription>
                     </div>
                   </div>
-                  <div className="mt-1 flex items-center justify-between [@media(hover:none)]:hidden">
+                  <div className="mt-auto flex items-center justify-between [@media(hover:none)]:hidden">
                     <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
                       {hasAccroche ? titre : common.actions.enSavoirPlus}
                     </span>
