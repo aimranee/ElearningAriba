@@ -10,7 +10,9 @@ import { AssemblyConnectors } from "@/components/motion/assembly-connectors";
 import { HeroSpotlight } from "@/components/motion/hero-spotlight";
 import { Magnetic } from "@/components/motion/magnetic";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
+import { formatHours, formatNumber } from "@/lib/i18n/fr";
 import common from "@/locales/fr/common.json";
+import landing from "@/locales/fr/landing.json";
 
 /* why: the three pills/checklist rows share icon + gradient, indexed the
    same way as format-modalites' STEP_GRADIENTS — matched verbatim from the
@@ -91,10 +93,20 @@ async function Hero() {
 
   const assemblage = common.assemblage;
 
+  // D-103: entry 1 is derived from the database (never hand-typed), entries
+  // 2 and 3 are registered placeholders (CADR-03) — the mocks registry is
+  // what keeps them from shipping unseen at go-live.
+  const moduleCount = modulesResult.data.length;
+  const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
+  const preuveModules = landing.hero.preuve.modules
+    .replace("{modules}", formatNumber(moduleCount))
+    .replace("{heures}", formatHours(totalHours));
+  const preuve = [preuveModules, landing.hero.preuve.formateur, landing.hero.preuve.groupe];
+
   return (
     <section
       data-slot="hero"
-      className="relative overflow-hidden py-[clamp(7.5rem,13vw,10.5rem)]"
+      className="relative overflow-hidden py-[clamp(5rem,9vw,7rem)]"
     >
       <HeroSpotlight />
       <Magnetic />
@@ -108,7 +120,7 @@ async function Hero() {
             <span className="sr-only">{accroche}</span>
             {hasValidSplit ? (
               <span aria-hidden="true">
-                <span className="text-[var(--violet)]">{accrocheLead}</span>{" "}
+                <span className="text-[var(--ink)]">{accrocheLead}</span>{" "}
                 {accrochePrefix}
                 <br />
                 <Typewriter words={words} />
@@ -147,7 +159,15 @@ async function Hero() {
             </Button>
           </Reveal>
 
-          <Reveal as="ul" dataD={4} className="flex flex-wrap gap-[0.6rem]">
+          <Reveal
+            as="p"
+            dataD={4}
+            className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]"
+          >
+            {preuve.join(" · ")}
+          </Reveal>
+
+          <Reveal as="ul" dataD={5} className="flex flex-wrap gap-[0.6rem]">
             {common.hero.chips.map((chip) => (
               <li
                 key={chip}

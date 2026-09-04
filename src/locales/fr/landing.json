@@ -1,7 +1,12 @@
 {
   "hero": {
     "titre": "Formez-vous en direct. Maîtrisez SAP Ariba",
-    "sousTitre": "Prenez en main l'écosystème Ariba, du premier appel d'offres jusqu'à la certification."
+    "sousTitre": "Prenez en main l'écosystème Ariba, du premier appel d'offres jusqu'à la certification.",
+    "preuve": {
+      "modules": "{modules} modules · {heures} en direct",
+      "formateur": "Animé par un expert certifié SAP Ariba",
+      "groupe": "6 participants maximum par session"
+    }
   },
   "pourQui": {
     "eyebrow": "Pour qui",
