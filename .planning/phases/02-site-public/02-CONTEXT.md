@@ -519,6 +519,10 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 - **D-98** (2026-09-04, fondateur) — aucun jeton `-soft` ne peut porter un glyphe blanc ; les six dégradés sont bâtis sur la famille `-ink`, valeurs mesurées au brief.
 - **D-99** (2026-09-04, fondateur) — l'ombre de carte est teintée par `--tuile-b` via `color-mix`, usage autorisé parce qu'aucune encre n'est lue par-dessus.
 - **D-100** (2026-09-04, fondateur) — `card-spotlight` suit la règle AC-7 du héros : absent, pas figé, sous reduce-motion.
+- **D-101** (2026-09-04, fondateur) — le carrousel du H1 passe en fondu croisé de mots entiers ; la frappe caractère par caractère laissait un fragment 32,9 % du temps et un vide 8,9 % (mesuré, 146 échantillons).
+- **D-102** (2026-09-04, fondateur) — le H1 n'a qu'un seul accent, le dégradé du mot cyclé ; le violet plat de l'accroche est retiré.
+- **D-103** (2026-09-04, fondateur) — la ligne de preuve mélange un fait dérivé de la base (modules et heures) et deux placeholders enregistrés au registre de mocks ; aucune preuve sociale nominative n'est fabriquée.
+- **D-104** (2026-09-04, fondateur) — le verrou de largeur D-09 survit au changement de mécanisme : en fondu croisé les deux mots coexistent, le verrou devient nécessaire et non plus seulement utile.
 
 ### Claude's Discretion
 
