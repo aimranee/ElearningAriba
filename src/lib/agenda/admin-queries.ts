@@ -82,6 +82,30 @@ export async function listerExceptions(
   return { ok: true, data };
 }
 
+/**
+ * The administrator's read of app.type_rendez_vous — every row, ordered by
+ * ordre, no `actif` filter. The public reader
+ * (src/lib/agenda/types-rendez-vous.ts) filters on actif; this one does not,
+ * because the administrator must be able to see and edit a type they have
+ * deactivated. Same RLS-is-the-filter discipline as the exports above: no
+ * application-level predicate stands in for type_public_select/
+ * type_admin_update, guarded by supabase/tests/lot4_rls_reservation.sql.
+ */
+export async function listerTypesRendezVousAdmin(): Promise<
+  QueryResult<TypeRendezVousRow[]>
+> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("type_rendez_vous")
+    .select("*")
+    .order("ordre", { ascending: true });
+
+  if (error || !data) {
+    return { ok: false };
+  }
+  return { ok: true, data };
+}
+
 /** The seeded `motif = 'ferie'` rows for one calendar year (D-17). */
 export async function listerJoursFeries(
   annee: number,

@@ -13,7 +13,7 @@
     "sections": {
       "horaires": "Déclarez vos horaires hebdomadaires et vos exceptions.",
       "joursFeries": "Consultez et réouvrez les jours fériés français.",
-      "typesDeRendezVous": "Section à venir.",
+      "typesDeRendezVous": "Configurez le libellé, la durée, le tampon et le prix de chaque type de rendez-vous.",
       "reservations": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant."
     }
   },
@@ -98,6 +98,22 @@
     "reserve": "Réservé",
     "bloque": "Bloqué"
   },
+  "typesRendezVous": {
+    "titre": "Types de rendez-vous",
+    "intro": "Configurez le libellé, la durée, le tampon et le prix de chaque type de rendez-vous.",
+    "consequence": "Une nouvelle durée ou un nouveau tampon modifie les créneaux proposés à partir de maintenant ; les rendez-vous déjà réservés conservent la durée et le prix enregistrés au moment de la réservation.",
+    "champs": {
+      "libelle": "Libellé",
+      "dureeMinutes": "Durée en minutes",
+      "tamponMinutes": "Temps tampon en minutes",
+      "prix": "Prix"
+    },
+    "actions": {
+      "enregistrer": "Enregistrer"
+    },
+    "succes": "Type de rendez-vous mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
   "reservations": {
     "titre": "Réservations",
     "intro": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant.",
@@ -162,6 +178,10 @@
     "apprenantIntrouvable": "Aucun compte n’existe pour cette adresse e-mail. Aucun compte n’est créé depuis le back-office.",
     "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
     "appelDecouverteDejaReserve": "Cet apprenant a déjà réservé un appel découverte.",
+    "libelleInvalide": "Le libellé est invalide.",
+    "dureeInvalide": "La durée doit être un nombre entier de minutes supérieur à zéro.",
+    "tamponInvalide": "Le temps tampon doit être un nombre entier de minutes positif ou nul.",
+    "prixInvalide": "Le prix est invalide.",
     "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
   }
 }
