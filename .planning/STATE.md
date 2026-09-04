@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
 Plan: 8 of 9
 Status: Gate 04-08 approved by the founder 2026-09-03; 04-09 not yet started
-Last activity: 2026-09-03 -- Phase 04 execution started
+Last activity: 2026-09-04 - Completed quick task 260904-mpc: correctif borné calendrier/champs/densité admin (Section E measurement partially blocked — local Docker/Supabase down)
 
 Progress: [█████████░] 88%
 
@@ -111,7 +111,26 @@ Recent decisions affecting current work:
 
 *(none — 00-06 Task 4 closed; see `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`)*
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Status | Directory |
+|---|-------------|------|--------|--------|-----------|
+| 260904-mpc | Correctif borné — calendrier fluide, plancher 16px, densité admin 44px | 2026-09-04 | bd36dd5 | Needs Review | [260904-mpc-correctif-borne-calendrier-champs-densite](./quick/260904-mpc-correctif-borne-calendrier-champs-densite/) |
+
 ### Blockers/Concerns
+
+- **[Quick task 260904-mpc, local Docker/Supabase down]** The three source
+  fixes (calendar fluid cells, 16px field floor, 44px control floor in admin
+  compact density) are committed and `lint`/`typecheck` pass clean, but
+  `npm run build` fails because the local Supabase stack is unreachable —
+  Docker Desktop's backend API returns 500, `com.docker.service` is stopped,
+  and this session has no privilege to restart it. The brief's mandatory
+  Section E browser-measurement protocol (build + `next start` on :3016,
+  seeded data, admin login) could not run for the same reason; only
+  `/connexion` (the one route needing no Supabase call) was measured live via
+  Playwright/Chrome. See `260904-mpc-SUMMARY.md` for what was and wasn't
+  proven. **Re-run Section E once Docker/Supabase is back up before treating
+  this fix as gate-ready.**
 
 - **[Phase 02, hosted content is stale]** The CIO seeded both hosted projects on 2026-08-30 with the seed script as it stood at commit 879069c — 39 content items and no eyebrow or titre_accent on any section. Five later commits (425aaf2, 73a06a0, 81a337d, 36375bd, fab7474) extended the seed: local now holds 47 items and 10 of 11 sections carry eyebrow and titre_accent. A hosted build today would render section headers without their eyebrow and accent and the Formation and A-propos pages without their items. The seed is idempotent, so the fix is simply to re-run npm run content:seed against both hosted refs; it is requested from the CIO.
 
