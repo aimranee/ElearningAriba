@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-08-27)
 Phase: 04 (agenda-et-prise-de-rendez-vous) — EXECUTING
 Plan: 8 of 9
 Status: Gate 04-08 approved by the founder 2026-09-03; 04-09 not yet started
-Last activity: 2026-09-04 - Completed quick task 260904-mpc: correctif borné calendrier/champs/densité admin (Section E measurement partially blocked — local Docker/Supabase down)
+Last activity: 2026-09-04 - Completed quick task 260904-nge: correctif 2 — grid-cols-1 supprime le débordement de /agenda et /admin/reservations, boutons de mois icône seule sous sm (scrollWidth === innerWidth vérifié à 1440/375/320)
 
 Progress: [█████████░] 88%
 
@@ -116,21 +116,34 @@ Recent decisions affecting current work:
 | # | Description | Date | Commit | Status | Directory |
 |---|-------------|------|--------|--------|-----------|
 | 260904-mpc | Correctif borné — calendrier fluide, plancher 16px, densité admin 44px | 2026-09-04 | bd36dd5 | Needs Review | [260904-mpc-correctif-borne-calendrier-champs-densite](./quick/260904-mpc-correctif-borne-calendrier-champs-densite/) |
+| 260904-nge | Correctif 2 — piste de grille implicite (grid-cols-1) et boutons de mois icône seule sous sm | 2026-09-04 | d8e78b0 | Verified | [260904-nge-correctif-2-piste-de-grille-implicite-et](./quick/260904-nge-correctif-2-piste-de-grille-implicite-et/) |
 
 ### Blockers/Concerns
 
-- **[Quick task 260904-mpc, local Docker/Supabase down]** The three source
+- **[Quick task 260904-mpc, superseded by 260904-nge]** The three source
   fixes (calendar fluid cells, 16px field floor, 44px control floor in admin
-  compact density) are committed and `lint`/`typecheck` pass clean, but
-  `npm run build` fails because the local Supabase stack is unreachable —
-  Docker Desktop's backend API returns 500, `com.docker.service` is stopped,
-  and this session has no privilege to restart it. The brief's mandatory
-  Section E browser-measurement protocol (build + `next start` on :3016,
-  seeded data, admin login) could not run for the same reason; only
-  `/connexion` (the one route needing no Supabase call) was measured live via
-  Playwright/Chrome. See `260904-mpc-SUMMARY.md` for what was and wasn't
-  proven. **Re-run Section E once Docker/Supabase is back up before treating
-  this fix as gate-ready.**
+  compact density) landed and are unregressed, but the Docker/Supabase outage
+  that blocked this task's Section E measurement is now moot: 260904-nge's
+  own Section E run (below) exercised the same seeded stack successfully and
+  found the calendar-overflow defect this task couldn't measure — D-30's
+  diagnosis (calendar cell floor) was wrong; see
+  `ariba-cto/notes/2026-09-04-le-calendrier-n-etait-pas-le-coupable-min-width-auto.md`.
+  260904-mpc's own three source fixes remain accepted as-is.
+
+- **[Quick task 260904-nge, resolved]** Corrects D-30. The overflow on
+  `/agenda` and `/admin/reservations` was never the calendar — it was the
+  implicit grid track on the two `grid gap-4 md:grid-cols-2` containers
+  (`agenda-booker.tsx:270`, `reservation-actions.tsx:115`), whose grid item
+  carries `min-width: auto` and refuses to shrink below its min-content.
+  Fixed with `grid-cols-1`; month-nav buttons switched to icon-only under
+  `sm:` with a permanent `aria-label`. Measured on a production build
+  (`next start` on :3016) via Playwright: `scrollWidth === innerWidth` on
+  both surfaces at 1440/375/320, month buttons ≥44×44 with a non-empty
+  accessible name at every width. See `260904-nge-SUMMARY.md`. D-34/D-35
+  consigned in `04-CONTEXT.md`. This closes the calendar-overflow item of the
+  three 04-08 defects routed here; the founder still needs to rule on 04-08's
+  other two (28px touch targets, flagged there as a design-system decision
+  out of Lot 4) before 04-09 is declared unblocked.
 
 - **[Phase 02, hosted content is stale]** The CIO seeded both hosted projects on 2026-08-30 with the seed script as it stood at commit 879069c — 39 content items and no eyebrow or titre_accent on any section. Five later commits (425aaf2, 73a06a0, 81a337d, 36375bd, fab7474) extended the seed: local now holds 47 items and 10 of 11 sections carry eyebrow and titre_accent. A hosted build today would render section headers without their eyebrow and accent and the Formation and A-propos pages without their items. The seed is idempotent, so the fix is simply to re-run npm run content:seed against both hosted refs; it is requested from the CIO.
 
