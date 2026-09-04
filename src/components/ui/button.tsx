@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-[transform,box-shadow,border-color,background-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] outline-none select-none in-data-[density=compact]:h-7 in-data-[density=compact]:text-[0.8rem] focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40" +
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-[transform,box-shadow,border-color,background-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] outline-none select-none in-data-[density=compact]:h-11 in-data-[density=compact]:text-[0.8rem] focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40" +
     /* why: no boolean `loading` prop — a `data-loading` attribute is the API,
        matching this file's existing data-* idiom, and it never leaks an
        unknown attribute into the DOM the way a boolean prop would */
