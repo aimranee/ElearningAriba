@@ -34,14 +34,21 @@ function CardSpotlight() {
           const rect = card.getBoundingClientRect();
           glow.style.left = `${event.clientX - rect.left}px`;
           glow.style.top = `${event.clientY - rect.top}px`;
+          glow.style.opacity = "0.1";
           pending = false;
         });
       }
     };
 
+    const onMouseLeave = () => {
+      glow.style.opacity = "0";
+    };
+
     card.addEventListener("mousemove", onMouseMove, { passive: true });
+    card.addEventListener("mouseleave", onMouseLeave, { passive: true });
     return () => {
       card.removeEventListener("mousemove", onMouseMove);
+      card.removeEventListener("mouseleave", onMouseLeave);
       cancelAnimationFrame(frameId);
     };
   }, []);
@@ -55,7 +62,7 @@ function CardSpotlight() {
     >
       <span
         ref={glowRef}
-        className="absolute size-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10"
+        className="absolute size-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-[var(--duration-base)] ease-[var(--ease-brand)]"
         style={{
           background: "radial-gradient(circle, var(--tuile-a) 0%, transparent 62%)",
         }}
