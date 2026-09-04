@@ -203,6 +203,23 @@ Amends D-09. The visitor chooses first, then identifies to commit.
 ### D-29 — The calendar opens on the first day carrying slots
 Never on an empty month.
 
+### D-30 — Le calendrier mensuel passe en cellules fluides
+`min-w-11` retiré, `h-11` conservé. Sous 375 px la cible perd en largeur ce
+qu'elle garde en hauteur ; arbitrage du fondateur du 2026-09-04 entre la règle
+des 44 × 44 et le plancher de validation à 320 px, que l'arithmétique rend
+incompatibles dans ce composant (7 × 44 = 308).
+
+### D-31 — La densité compacte monte ses hauteurs de contrôle à 44 px
+Comme `data-density="compact"` n'est posé qu'à la racine de `/admin`, la
+correction est bornée à ces écrans sans toucher les surfaces du Lot 3.
+
+### D-32 — Le plancher de 16 px est appliqué dans la variante compacte de `input.tsx`
+Pas au point d'usage : une classe locale perd contre la variante parce que
+`tailwind-merge` ne les met pas en conflit.
+
+### D-33 — La base `text-sm` (14 px) des champs hors `/admin` est constatée et laissée en l'état
+Elle sort du périmètre borné de ce run.
+
 ### Parcours — ce qui est imposé
 
 - **Three screens, no more** (D-10). Every form field removed is worth
