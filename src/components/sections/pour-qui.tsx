@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Section, SectionHeader } from "@/components/sections/section";
-import { Card, CardTitle, CardDescription } from "@/components/ui/card";
+import { CardTitle, CardDescription } from "@/components/ui/card";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { CardSpotlight } from "@/components/motion/card-spotlight";
@@ -80,9 +80,9 @@ async function PourQui() {
                 className="group block h-full"
                 aria-label={hasAccroche ? `${accroche} — ${titre}` : titre}
               >
-                <Card
-                  variant="default"
-                  className="relative h-full p-[1.7rem] rounded-[22px] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] duration-[var(--duration-reveal)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
+                <div
+                  data-slot="card"
+                  className="relative h-full rounded-[22px] border border-[var(--hairline)] bg-white p-[1.7rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
                   style={
                     {
                       "--tuile-a": accentInk.tileA,
@@ -123,7 +123,7 @@ async function PourQui() {
                       />
                     </div>
                   ) : null}
-                </Card>
+                </div>
               </Link>
             </Reveal>
           );
