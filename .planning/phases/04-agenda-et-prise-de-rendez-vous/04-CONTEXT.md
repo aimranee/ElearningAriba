@@ -220,6 +220,24 @@ Pas au point d'usage : une classe locale perd contre la variante parce que
 ### D-33 — La base `text-sm` (14 px) des champs hors `/admin` est constatée et laissée en l'état
 Elle sort du périmètre borné de ce run.
 
+### D-34 — Corrige D-30 : la cause du débordement était la piste de grille implicite, pas le calendrier
+Les deux conteneurs `grid gap-4 md:grid-cols-2` (`agenda-booker.tsx:270`,
+`reservation-actions.tsx:115`) n'ont aucune colonne explicite sous `md:` ; la
+piste implicite `auto` hérite du `min-width: auto` de son élément et refuse
+de descendre sous son min-content (372,234 px mesurés dans une boîte de
+343 px). Les cellules fluides livrées sous D-30 restent (hauteur 44 px
+conservée, largeur suit le conteneur) mais n'étaient pas la cause. Remède :
+`grid-cols-1` (émet `repeat(1, minmax(0,1fr))`) sur les deux conteneurs.
+Mesuré, pas déduit — voir
+`ariba-cto/notes/2026-09-04-le-calendrier-n-etait-pas-le-coupable-min-width-auto.md`.
+
+### D-35 — Les deux boutons de navigation de mois passent en icône seule sous `sm:`
+`ChevronLeft`/`ChevronRight` de `lucide-react`, libellé texte à partir de
+`sm:` inchangé, `aria-label` permanent aux deux largeurs, `h-11 min-w-11`
+conservé. Résidu de 5 px sur `/admin/reservations` après D-34 (« Mois
+suivant » à 99,38 px dans un `CardHeader` en `justify-between` niché dans la
+coquille admin).
+
 ### Parcours — ce qui est imposé
 
 - **Three screens, no more** (D-10). Every form field removed is worth
