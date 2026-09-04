@@ -66,7 +66,7 @@ export function CalendrierMois({
           {agenda.moisSuivant}
         </Button>
       </CardHeader>
-      <CardContent className="grid grid-cols-7 gap-2">
+      <CardContent className="grid grid-cols-7 gap-1 px-3 sm:gap-2 sm:px-4">
         {JOURS_SEMAINE.map((label, index) => (
           <span
             key={`entete-${index}`}
@@ -90,7 +90,7 @@ export function CalendrierMois({
                 aria-disabled="true"
                 aria-label={passe ? agenda.legende.passe : agenda.legende.indisponible}
                 className={cn(
-                  "text-muted-foreground bg-muted flex h-11 min-w-11 items-center justify-center rounded-lg text-sm",
+                  "text-muted-foreground bg-muted flex h-11 w-full items-center justify-center rounded-lg text-sm",
                   !estDansMois && "opacity-40",
                 )}
               >
@@ -107,7 +107,7 @@ export function CalendrierMois({
               aria-pressed={selectionne}
               aria-label={`${jourDuMois} — ${agenda.legende.libre}`}
               className={cn(
-                "flex h-11 min-w-11 items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                "flex h-11 w-full items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
                 selectionne
                   ? "bg-primary text-primary-foreground"
                   : "bg-primary/10 text-primary hover:bg-primary/20 focus-visible:bg-primary/20",
