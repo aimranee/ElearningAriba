@@ -50,6 +50,7 @@
   },
   "etats": {
     "chargement": "Chargement en cours…",
+    "preparationFormulaire": "Préparation du formulaire…",
     "erreurGenerique": "Une erreur est survenue. Merci de réessayer.",
     "champRequis": "Ce champ est requis.",
     "aucunResultat": "Aucun résultat pour le moment."

@@ -35,6 +35,14 @@ export function ContactForm() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const renduInputRef = useRef<HTMLInputElement>(null);
 
+  /* why (FUITE-02): see src/components/compte/submit-button.tsx — this
+     form's submit button is rendered inline, so the same hydration gate is
+     repeated here rather than through a shared component. */
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   /* why: set on mount, not during render — "use client" components still
      render once on the server, so writing Date.now() to the hidden input's
      DOM node inside an effect (not as a React-controlled value) avoids a
@@ -195,10 +203,15 @@ export function ContactForm() {
         type="submit"
         className="self-start"
         data-loading={isSubmitting ? "true" : undefined}
-        disabled={isSubmitting}
+        disabled={!hydrated || isSubmitting}
       >
         {common.actions.envoyer}
       </Button>
+      {!hydrated ? (
+        <p className="text-muted-foreground text-xs">
+          {common.etats.preparationFormulaire}
+        </p>
+      ) : null}
     </form>
   );
 }

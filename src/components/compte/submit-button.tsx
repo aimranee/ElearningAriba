@@ -1,9 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import common from "@/locales/fr/common.json";
 
 /* why (deliberate deviation from 03-UI-SPEC.md, flagged for founder review
    at recette): the spec describes this as a useFormStatus wrapper, but
@@ -26,14 +27,34 @@ export function SubmitButton({
   children,
   className,
 }: SubmitButtonProps) {
+  /*
+   * why (FUITE-02): server-rendered HTML has no onSubmit handler attached
+   * yet, so a submission on a slow connection posts straight to the page
+   * route and comes back empty. Rendering disabled until the effect below
+   * fires — which only happens after hydration — makes that submission
+   * impossible rather than silent; `pending` still governs disabling once
+   * hydrated, so the click behaviour above is unchanged.
+   */
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   return (
-    <Button
-      type="submit"
-      data-loading={pending ? "true" : undefined}
-      disabled={pending}
-      className={cn("h-11", className)}
-    >
-      {children}
-    </Button>
+    <div className="flex flex-col gap-2">
+      <Button
+        type="submit"
+        data-loading={pending ? "true" : undefined}
+        disabled={!hydrated || pending}
+        className={cn("h-11", className)}
+      >
+        {children}
+      </Button>
+      {!hydrated ? (
+        <p className="text-muted-foreground text-xs">
+          {common.etats.preparationFormulaire}
+        </p>
+      ) : null}
+    </div>
   );
 }
