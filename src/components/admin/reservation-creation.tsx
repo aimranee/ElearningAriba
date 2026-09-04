@@ -106,7 +106,6 @@ export function ReservationCreation({ types }: { types: TypeRendezVous[] }) {
             </FieldLabel>
             <FieldControl
               id="creation-type"
-              className="text-base"
               value={typeId}
               onChange={(event) => onChangerType(event.target.value)}
               render={
