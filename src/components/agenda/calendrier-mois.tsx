@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import agenda from "@/locales/fr/agenda.json";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -50,8 +51,10 @@ export function CalendrierMois({
           size="sm"
           className="h-11 min-w-11"
           onClick={onMoisPrecedent}
+          aria-label={agenda.moisPrecedent}
         >
-          {agenda.moisPrecedent}
+          <ChevronLeft aria-hidden="true" className="size-4 sm:hidden" />
+          <span className="sr-only sm:not-sr-only">{agenda.moisPrecedent}</span>
         </Button>
         <p className="font-heading text-sm font-semibold capitalize">
           {moisAffiche}
@@ -62,8 +65,10 @@ export function CalendrierMois({
           size="sm"
           className="h-11 min-w-11"
           onClick={onMoisSuivant}
+          aria-label={agenda.moisSuivant}
         >
-          {agenda.moisSuivant}
+          <ChevronRight aria-hidden="true" className="size-4 sm:hidden" />
+          <span className="sr-only sm:not-sr-only">{agenda.moisSuivant}</span>
         </Button>
       </CardHeader>
       <CardContent className="grid grid-cols-7 gap-1 px-3 sm:gap-2 sm:px-4">
