@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { inscriptionSchema, inscriptionIssuesToFieldErrors } from "@/lib/validation/auth";
-import { consume } from "@/lib/rate-limit";
+import { peek, record } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 import { serverEnv } from "@/lib/env/server";
 
@@ -20,11 +20,27 @@ export async function POST(request: Request) {
   }
 
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  const { allowed } = consume(ip);
+  const rateLimitKey = `inscription:${ip}`;
+
+  /*
+   * why (DEBIT-02, DEBIT-01): a refused sign-up must say so — the previous
+   * success-shaped 200 here told a visitor with no account to check a
+   * mailbox that would never receive anything. This mirrors connexion's own
+   * tropDeTentatives shape (connexion/route.ts), on the email field since
+   * inscription has no motDePasse-shaped rejection slot free. Unlike
+   * contact's disguise (api/contact/route.ts:39-43), inscription is not a
+   * public form flooded by bots that must learn nothing — it is a learner's
+   * own attempt to create the one account this whole platform runs on.
+   *
+   * Only a failed attempt spends this budget (DEBIT-01), so the check below
+   * is a peek, not a consume.
+   */
+  const { allowed } = peek(rateLimitKey);
   if (!allowed) {
-    // why: same success shape a real submission gets — no signal that the
-    // guard fired, mirroring api/contact/route.ts:39-43.
-    return NextResponse.json({ ok: true }, { status: 200 });
+    return NextResponse.json(
+      { errors: { email: "tropDeTentatives" } },
+      { status: 429 },
+    );
   }
 
   const { prenom, nom, email, motDePasse, profil } = parsed.data;
@@ -72,11 +88,13 @@ export async function POST(request: Request) {
     // provider's English message. Anything else is a form-level rejection —
     // never the provider's text.
     if (error.code === "weak_password") {
+      record(rateLimitKey);
       return NextResponse.json(
         { errors: { motDePasse: "motDePasseFaible" } },
         { status: 422 },
       );
     }
+    record(rateLimitKey);
     return NextResponse.json({ errors: {} }, { status: 502 });
   }
 

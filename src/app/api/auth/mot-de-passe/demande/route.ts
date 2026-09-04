@@ -12,7 +12,7 @@ import { serverEnv } from "@/lib/env/server";
  */
 export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  const { allowed } = consume(ip);
+  const { allowed } = consume(`motdepasse:${ip}`);
   if (!allowed) {
     // why (D-08): reuses connexion.erreurs.tropDeTentatives verbatim — no
     // new string authored for the same throttled-request meaning.

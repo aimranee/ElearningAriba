@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   }
 
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  const { allowed } = consume(ip);
+  const { allowed } = consume(`contact:${ip}`);
   if (!allowed) {
     return NextResponse.json({ ok: true }, { status: 200 });
   }

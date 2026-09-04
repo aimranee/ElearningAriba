@@ -35,13 +35,7 @@ function purgerEntreesPerimees(now: number): void {
   }
 }
 
-export function consume(
-  key: string,
-  options?: { max?: number; windowMs?: number },
-): { allowed: boolean } {
-  const max = options?.max ?? MAX_PER_WINDOW;
-  const windowMs = options?.windowMs ?? WINDOW_MS;
-
+function preparerAppel(windowMs: number): number {
   if (windowMs > fenetreLaPlusLarge) {
     fenetreLaPlusLarge = windowMs;
   }
@@ -52,10 +46,23 @@ export function consume(
     appelsDepuisPurge = 0;
     purgerEntreesPerimees(now);
   }
+  return now;
+}
 
+function recentsNonPerimes(key: string, now: number, windowMs: number): number[] {
   const cutoff = now - windowMs;
   const previous = hits.get(key) ?? [];
-  const recent = previous.filter((timestamp) => timestamp > cutoff);
+  return previous.filter((timestamp) => timestamp > cutoff);
+}
+
+export function consume(
+  key: string,
+  options?: { max?: number; windowMs?: number },
+): { allowed: boolean } {
+  const max = options?.max ?? MAX_PER_WINDOW;
+  const windowMs = options?.windowMs ?? WINDOW_MS;
+  const now = preparerAppel(windowMs);
+  const recent = recentsNonPerimes(key, now, windowMs);
 
   if (recent.length >= max) {
     hits.set(key, recent);
@@ -65,4 +72,34 @@ export function consume(
   recent.push(now);
   hits.set(key, recent);
   return { allowed: true };
+}
+
+/*
+ * why (DEBIT-01): connexion and inscription must gate on the budget without
+ * spending it — a caller may be under-budget yet still fail the attempt
+ * (bad password, weak password, ...), and only failures should spend it.
+ * peek() reads the same pruned window consume() would but never appends a
+ * timestamp, so calling it repeatedly on a success path costs nothing.
+ */
+export function peek(
+  key: string,
+  options?: { max?: number; windowMs?: number },
+): { allowed: boolean } {
+  const max = options?.max ?? MAX_PER_WINDOW;
+  const windowMs = options?.windowMs ?? WINDOW_MS;
+  const now = preparerAppel(windowMs);
+  const recent = recentsNonPerimes(key, now, windowMs);
+  hits.set(key, recent);
+  return { allowed: recent.length < max };
+}
+
+/* why (DEBIT-01): the counterpart to peek() — call only on the branch that
+   should spend the budget (a failed attempt), after the attempt is known to
+   have failed. */
+export function record(key: string, options?: { windowMs?: number }): void {
+  const windowMs = options?.windowMs ?? WINDOW_MS;
+  const now = preparerAppel(windowMs);
+  const recent = recentsNonPerimes(key, now, windowMs);
+  recent.push(now);
+  hits.set(key, recent);
 }

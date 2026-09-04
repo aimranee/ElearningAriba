@@ -63,7 +63,7 @@ export function InscriptionForm() {
         body: JSON.stringify(payload),
       });
 
-      if (response.status === 422) {
+      if (response.status === 422 || response.status === 429) {
         const body = (await response.json()) as { errors?: FieldErrors };
         setFieldErrors(body.errors ?? {});
         setStatus("error");

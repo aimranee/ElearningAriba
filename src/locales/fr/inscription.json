@@ -31,7 +31,8 @@
     "emailInvalide": "Cette adresse email n'est pas valide.",
     "motDePasseFaible": "Ce mot de passe est trop faible.",
     "confirmationDifferente": "Les deux mots de passe ne correspondent pas.",
-    "rejetServeur": "Votre inscription n'a pas pu être validée. Vérifiez vos informations et réessayez."
+    "rejetServeur": "Votre inscription n'a pas pu être validée. Vérifiez vos informations et réessayez.",
+    "tropDeTentatives": "Trop de tentatives. Réessayez dans quelques minutes."
   },
   "succes": {
     "titre": "Vérifiez votre boîte mail. Un lien de confirmation vous attend.",

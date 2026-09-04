@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { connexionSchema, connexionIssuesToFieldErrors } from "@/lib/validation/auth";
-import { consume } from "@/lib/rate-limit";
+import { peek, record } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 
 /*
@@ -27,7 +27,14 @@ export async function POST(request: Request) {
    * human-challenge widget, no third-party dependency (D-08).
    */
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  const { allowed } = consume(ip);
+  const rateLimitKey = `connexion:${ip}`;
+
+  /*
+   * why (DEBIT-01): a successful sign-in must not spend this budget — only a
+   * failed one does, so the budget is checked here (peek, no write) and only
+   * spent below on the branches that actually reject the attempt.
+   */
+  const { allowed } = peek(rateLimitKey);
   if (!allowed) {
     return NextResponse.json(
       { errors: { motDePasse: "tropDeTentatives" } },
@@ -56,6 +63,7 @@ export async function POST(request: Request) {
       error.code === "over_email_send_rate_limit";
 
     if (isAuthServerThrottle) {
+      record(rateLimitKey);
       return NextResponse.json(
         { errors: { motDePasse: "tropDeTentatives" } },
         { status: 429 },
@@ -63,12 +71,14 @@ export async function POST(request: Request) {
     }
 
     if (error.status === 400 || error.status === 401) {
+      record(rateLimitKey);
       return NextResponse.json(
         { errors: { motDePasse: "identifiantsInvalides" } },
         { status: 401 },
       );
     }
 
+    record(rateLimitKey);
     return NextResponse.json({ errors: { motDePasse: "rejetServeur" } }, { status: 502 });
   }
 
