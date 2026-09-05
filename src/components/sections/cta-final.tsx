@@ -72,7 +72,7 @@ async function CtaFinal() {
                 nativeButton={false}
                 size="lg"
                 data-magnetic="true"
-                className="bg-white text-[var(--deep)] shadow-[0_20px_40px_-18px_rgba(0,0,0,.45)] hover:bg-white hover:shadow-[0_28px_54px_-20px_rgba(0,0,0,.5)] hover:-translate-y-[2px]"
+                className="min-h-11 bg-white text-[var(--deep)] shadow-[0_20px_40px_-18px_rgba(0,0,0,.45)] hover:bg-white hover:shadow-[0_28px_54px_-20px_rgba(0,0,0,.5)] hover:-translate-y-[2px]"
               >
                 <Calendar aria-hidden="true" />
                 {common.actions.reserver}
@@ -82,7 +82,7 @@ async function CtaFinal() {
                 nativeButton={false}
                 variant="outline"
                 size="lg"
-                className="border-white/40 bg-white/8 text-white backdrop-blur-[8px] hover:bg-white/16 hover:text-white hover:-translate-y-[2px]"
+                className="min-h-11 border-white/40 bg-white/8 text-white backdrop-blur-[8px] hover:bg-white/16 hover:text-white hover:-translate-y-[2px]"
               >
                 {common.actions.voirProgramme}
               </Button>

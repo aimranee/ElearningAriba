@@ -126,6 +126,7 @@ async function ProgrammeAccordion() {
             variant="ghost"
             render={<a href="/programme.pdf" />}
             nativeButton={false}
+            className="min-h-11"
           >
             <Download aria-hidden="true" />
             {telechargerPdf}
@@ -135,6 +136,7 @@ async function ProgrammeAccordion() {
           render={<Link href="/reservation" />}
           nativeButton={false}
           data-magnetic="true"
+          className="min-h-11"
         >
           {common.actions.reserver}
         </Button>

@@ -95,7 +95,7 @@ function ConfianceFaits({ items, labels }: ConfianceFaitsProps) {
                     {item.preuveLienHref && item.preuveLienLabel ? (
                       <Link
                         href={item.preuveLienHref}
-                        className="mt-2 inline-block text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
+                        className="mt-2 inline-flex min-h-11 items-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
                       >
                         {item.preuveLienLabel}
                       </Link>

@@ -87,7 +87,7 @@ async function Confiance() {
             </ul>
             <Link
               href="/a-propos"
-              className="mt-auto inline-flex w-fit items-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
+              className="mt-auto inline-flex w-fit min-h-11 items-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
             >
               {formateur.lienLabel}
             </Link>
