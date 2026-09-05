@@ -54,8 +54,10 @@ export async function getSectionItems(
 }
 
 /* why: `donnees` is jsonb — validated at the boundary (CLAUDE.md) rather than
-   trusted as an unchecked value. Missing arrays default to empty instead of
-   failing the whole section on one malformed row. */
+   trusted as an unchecked value. The schema itself defaults missing
+   `objectifs`/`contenu` arrays to empty; the loop in getModules() below is
+   stricter on purpose and drops the whole section on one malformed row
+   (deliberate block-fail policy, not an inconsistency with this schema). */
 const moduleDonneesSchema = z.object({
   objectifs: z.array(z.string()).default([]),
   contenu: z.array(z.string()).default([]),
@@ -174,6 +176,15 @@ export async function getConfianceFaits(): Promise<QueryResult<ConfianceFait[]>>
   for (const item of result.data) {
     const parsedDonnees = confianceDonneesSchema.safeParse(item.donnees);
     if (!parsedDonnees.success || item.titre === null || item.description === null) {
+      console.error("getConfianceFaits: rejecting section 'confiance'", {
+        cle: item.cle,
+        issues: parsedDonnees.success ? undefined : parsedDonnees.error.issues,
+        missingIdentityField: parsedDonnees.success
+          ? item.titre === null
+            ? "titre"
+            : "description"
+          : undefined,
+      });
       return { ok: false };
     }
     faits.push({
@@ -200,6 +211,15 @@ export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
   for (const item of result.data) {
     const parsedDonnees = moduleDonneesSchema.safeParse(item.donnees);
     if (!parsedDonnees.success || item.titre === null || item.duree_heures === null) {
+      console.error("getModules: rejecting section 'programme'", {
+        cle: item.cle,
+        issues: parsedDonnees.success ? undefined : parsedDonnees.error.issues,
+        missingIdentityField: parsedDonnees.success
+          ? item.titre === null
+            ? "titre"
+            : "duree_heures"
+          : undefined,
+      });
       return { ok: false };
     }
     modules.push({
