@@ -71,7 +71,7 @@ async function ProgrammeAccordion() {
           >
             <AccordionItem
               value={module.id}
-              className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] shadow-none transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[panel-open]:bg-white data-[panel-open]:border-[var(--hairline-2)]"
+              className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] shadow-none transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[open]:bg-white data-[open]:border-[var(--hairline-2)]"
             >
               <AccordionHeader>
                 <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
