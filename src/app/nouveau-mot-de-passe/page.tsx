@@ -1,6 +1,5 @@
 import { AuthShell } from "@/components/compte/auth-shell";
 import { NouveauMotDePasseForm } from "@/components/compte/nouveau-mot-de-passe-form";
-import { Card, CardContent } from "@/components/ui/card";
 import motDePasse from "@/locales/fr/mot-de-passe.json";
 
 /*
@@ -13,11 +12,7 @@ import motDePasse from "@/locales/fr/mot-de-passe.json";
 export default function NouveauMotDePasse() {
   return (
     <AuthShell titre={motDePasse.nouveau.titre} intro={motDePasse.nouveau.intro}>
-      <Card>
-        <CardContent>
-          <NouveauMotDePasseForm />
-        </CardContent>
-      </Card>
+      <NouveauMotDePasseForm />
     </AuthShell>
   );
 }

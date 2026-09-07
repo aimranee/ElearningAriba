@@ -431,4 +431,13 @@ html {
     --spacing: 0.2rem;
     --radius: 0.5rem;
   }
+
+  /* Auth v2 (brief §C-01): compact the night panel on short/mid viewports so
+     the sticky panel and form column both fit without scrolling the panel
+     itself — keyed on the two auth-shell data-slot hooks, no new token. */
+  @media (min-width: 1024px) and (max-width: 1279px), (min-width: 1024px) and (max-height: 860px) {
+    [data-slot="auth-panel"] h1 { font-size: 1.75rem; }
+    [data-slot="auth-panel-inner"] { padding-top: 2rem; padding-bottom: 2rem; }
+    [data-slot="fenetre-puces"] { display: none; }
+  }
 }

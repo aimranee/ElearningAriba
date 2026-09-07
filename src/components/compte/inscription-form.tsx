@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import inscription from "@/locales/fr/inscription.json";
 import common from "@/locales/fr/common.json";
+import { GoogleMark } from "@/components/icons/google-mark";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -123,6 +124,22 @@ export function InscriptionForm() {
       className="flex flex-col gap-5"
       aria-label={inscription.titre}
     >
+      <Button
+        render={<Link href="/api/auth/google" prefetch={false} />}
+        nativeButton={false}
+        variant="outline"
+        className="h-11 w-full"
+      >
+        <GoogleMark className="size-[18px]" />
+        {inscription.google}
+      </Button>
+
+      <div className="flex items-center gap-3" aria-hidden="true">
+        <span className="h-px flex-1 bg-border" />
+        <span className="text-sm text-muted-foreground">{common.formulaires.ou}</span>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <Field>
           <FieldLabel htmlFor="inscription-prenom">
@@ -132,6 +149,7 @@ export function InscriptionForm() {
             id="inscription-prenom"
             name="prenom"
             autoComplete="given-name"
+            className="h-11"
             data-loading={isSubmitting ? "true" : undefined}
             aria-invalid={fieldErrors.prenom ? "true" : undefined}
           />
@@ -151,6 +169,7 @@ export function InscriptionForm() {
             id="inscription-nom"
             name="nom"
             autoComplete="family-name"
+            className="h-11"
             data-loading={isSubmitting ? "true" : undefined}
             aria-invalid={fieldErrors.nom ? "true" : undefined}
           />
@@ -172,6 +191,7 @@ export function InscriptionForm() {
           name="email"
           type="email"
           autoComplete="email"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.email ? "true" : undefined}
         />
@@ -193,6 +213,7 @@ export function InscriptionForm() {
             name="motDePasse"
             type="password"
             autoComplete="new-password"
+            className="h-11"
             data-loading={isSubmitting ? "true" : undefined}
             aria-invalid={fieldErrors.motDePasse ? "true" : undefined}
           />
@@ -213,6 +234,7 @@ export function InscriptionForm() {
             name="confirmation"
             type="password"
             autoComplete="new-password"
+            className="h-11"
             data-loading={isSubmitting ? "true" : undefined}
             aria-invalid={fieldErrors.confirmation ? "true" : undefined}
           />
@@ -232,6 +254,7 @@ export function InscriptionForm() {
         <FieldControl
           id="inscription-profil"
           name="profil"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.profil ? "true" : undefined}
           render={
