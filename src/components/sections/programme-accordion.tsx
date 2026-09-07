@@ -53,7 +53,7 @@ async function ProgrammeAccordion() {
     : undefined;
 
   return (
-    <Section tone="wash">
+    <Section tone="wash" data-section="programme">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

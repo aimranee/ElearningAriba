@@ -36,7 +36,7 @@ async function CtaFinal() {
   const etapes = landing.ctaFinal.etapes;
 
   return (
-    <Section tone="default">
+    <Section tone="default" data-section="reservation">
       <Reveal
         className="relative overflow-hidden rounded-[34px] px-[clamp(1.5rem,5vw,4rem)] py-[clamp(3rem,6vw,5rem)] text-white shadow-[var(--shadow-brand)]"
         style={{

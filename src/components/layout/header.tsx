@@ -103,7 +103,7 @@ export function Header() {
               1000px, otherwise the burger is pushed past the viewport edge
               at 375px. */}
           <Button
-            render={<Link href="/inscription" />}
+            render={<Link href="/reservation" />}
             nativeButton={false}
             data-magnetic="true"
             className="h-11 gap-[0.7rem] rounded-full pr-1.5 pl-5 text-sm font-bold"

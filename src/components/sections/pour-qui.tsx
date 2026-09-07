@@ -48,7 +48,7 @@ async function PourQui() {
   const profils = itemsResult.data;
 
   return (
-    <Section tone="default">
+    <Section tone="default" data-section="pour-qui">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

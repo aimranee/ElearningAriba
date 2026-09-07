@@ -58,7 +58,7 @@ async function Faq() {
   }
 
   return (
-    <Section tone="default">
+    <Section tone="default" data-section="faq">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

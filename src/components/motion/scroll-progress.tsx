@@ -22,6 +22,11 @@ export function ScrollProgress() {
       const percent = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
       bar!.style.width = `${percent}%`;
 
+      // why (D-39): rail-sections.tsx's line-fill reads this custom property
+      // instead of mounting its own scroll listener — one listener, two
+      // consumers, same `percent` value.
+      document.documentElement.style.setProperty("--scroll-p", `${percent}%`);
+
       // why: data-scrolled carries the value "true", not mere presence, so
       // Tailwind's data-[scrolled=true]: variant on the header can select it.
       if (window.scrollY > 12) {

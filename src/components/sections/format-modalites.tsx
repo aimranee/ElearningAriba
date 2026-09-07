@@ -74,7 +74,7 @@ async function FormatModalites() {
   ];
 
   return (
-    <Section tone="default">
+    <Section tone="default" data-section="format">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}

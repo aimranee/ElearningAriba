@@ -45,7 +45,7 @@ async function Confiance() {
   const { formateur } = landing.confiance;
 
   return (
-    <Section tone="wash">
+    <Section tone="wash" data-section="confiance">
       <div className="grid items-start gap-10 lg:grid-cols-2">
         <SectionHeader
           eyebrow={section.eyebrow ?? undefined}

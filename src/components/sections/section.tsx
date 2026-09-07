@@ -79,7 +79,10 @@ function SectionHeader({ eyebrow, title, titleAccent, lead, className }: Section
   return (
     <div className={cn("mx-auto max-w-3xl text-center", className)}>
       {eyebrow ? (
-        <span className="inline-flex items-center gap-2 text-[length:var(--text-micro)] leading-none font-bold tracking-[0.18em] text-[var(--deep)] uppercase in-data-[tone=night]:text-[var(--azur-soft)]">
+        <span
+          data-slot="eyebrow"
+          className="inline-flex items-center gap-2 text-[length:var(--text-micro)] leading-none font-bold tracking-[0.18em] text-[var(--deep)] uppercase in-data-[tone=night]:text-[var(--azur-soft)]"
+        >
           <span
             aria-hidden="true"
             className="inline-block h-0.5 w-[22px] bg-[linear-gradient(90deg,var(--violet),var(--blue))] in-data-[tone=night]:bg-[linear-gradient(90deg,var(--violet-l),var(--azur-soft))]"

@@ -50,7 +50,7 @@ async function Competences() {
   const items = itemsResult.data;
 
   return (
-    <Section tone="default">
+    <Section tone="default" data-section="competences">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}
