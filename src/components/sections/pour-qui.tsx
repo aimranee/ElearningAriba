@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Section, SectionHeader } from "@/components/sections/section";
 import { CardTitle, CardDescription } from "@/components/ui/card";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
-import { CardSpotlight } from "@/components/motion/card-spotlight";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems, profilDonneesSchema } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
@@ -78,7 +77,7 @@ async function PourQui() {
               >
                 <div
                   data-slot="card"
-                  className="relative flex h-full flex-col rounded-[22px] border border-[var(--hairline)] bg-white p-[1.7rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
+                  className="relative flex h-full flex-col rounded-[22px] border border-[var(--hairline)] bg-white p-[1.5rem_1.5rem_1.4rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow,border-color] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:border-[color-mix(in_srgb,var(--tuile-b)_40%,transparent)] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
                   style={
                     {
                       "--tuile-a": accentInk.tileA,
@@ -89,32 +88,48 @@ async function PourQui() {
                     } as React.CSSProperties
                   }
                 >
-                  <CardSpotlight />
-                  {Picto ? (
+                  <div className="relative rounded-[18px] bg-[var(--tint)] p-[1rem_1.1rem_1.05rem] transition-colors duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:bg-[color-mix(in_srgb,var(--tuile-a)_9%,white)]">
                     <span
                       aria-hidden="true"
-                      className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,var(--tuile-a)_0%,var(--tuile-b)_100%)] text-white transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
+                      className="absolute top-[-0.55rem] right-3 font-heading text-[3rem] leading-none text-[color-mix(in_srgb,var(--tuile-a)_35%,transparent)]"
                     >
-                      <Picto className="size-6" />
+                      &ldquo;
                     </span>
-                  ) : null}
-                  <CardTitle className="mt-3 font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
-                    {accroche}
-                  </CardTitle>
+                    <CardTitle className="relative font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
+                      {accroche}
+                    </CardTitle>
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-[-9px] left-[26px] size-[18px] bg-inherit [clip-path:polygon(0_0,100%_0,0_100%)]"
+                    />
+                  </div>
+                  <div className="mt-[1.15rem] flex items-center gap-[0.85rem]">
+                    {Picto ? (
+                      <span
+                        aria-hidden="true"
+                        className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,var(--tuile-a)_0%,var(--tuile-b)_100%)] text-white transition-transform duration-[500ms] ease-[var(--ease-brand)] group-hover:scale-[1.08] group-hover:-rotate-[4deg] group-focus-within:scale-[1.08] group-focus-within:-rotate-[4deg]"
+                      >
+                        <Picto className="size-6" />
+                      </span>
+                    ) : null}
+                    <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
+                      {titre}
+                    </span>
+                  </div>
                   <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr] [@media(hover:none)]:grid-rows-[1fr]">
                     <div className="overflow-hidden">
-                      <CardDescription className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
+                      <CardDescription className="pt-[0.85rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
                         {profil.description}
                       </CardDescription>
                     </div>
                   </div>
-                  <div className="mt-auto flex items-center justify-between [@media(hover:none)]:hidden">
+                  <div className="mt-auto flex items-center justify-between pt-4 [@media(hover:none)]:hidden">
                     <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
                       {hasAccroche ? titre : common.actions.enSavoirPlus}
                     </span>
-                    <ChevronDown
+                    <ArrowRight
                       aria-hidden="true"
-                      className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:rotate-180 group-focus-within:rotate-180"
+                      className="size-4 text-[var(--card-ink)] transition-transform duration-[var(--duration-reveal)] ease-[var(--ease-brand)] group-hover:translate-x-1 group-focus-within:translate-x-1"
                     />
                   </div>
                 </div>
