@@ -533,6 +533,24 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 - **D-107** (2026-09-04, fondateur) — le pied de carte n'est plus conditionné à
   `donnees.accroche` ; il s'affiche toujours, et ne montre `titre` que lorsqu'une
   accroche distincte existe, pour éviter de dupliquer le titre.
+- **D-108** (2026-09-07, fondateur) — la refonte v3 « Le parcours » remplace la
+  landing v2 section par section ; la maquette de référence est
+  `2026-09-07-maquette-landing-v3.html`, portée en trois runs (socle+héros,
+  milieu de page, bas de page).
+- **D-109** (2026-09-07, fondateur) — le fond reste structuré (grille de
+  points, mur de nuit, panneau violet), jamais diffus ; D-97 tient, cette
+  fois pour le v3.
+- **D-110** (2026-09-07, fondateur) — un seul CTA primaire, partout, pointe
+  vers `/reservation` (jamais `/inscription`) : le visiteur choisit un
+  créneau avant de créer un compte, `/reservation` n'étant pas gardée par la
+  connexion (D-28).
+- **D-111** (2026-09-07, fondateur) — le rail de sections et la barre de
+  réservation collante sont des mécanismes de conversion, pas de la
+  décoration ; ils vivent dans `page.tsx`, pas `layout.tsx` — concern
+  landing seule.
+- **D-112** (2026-09-07, fondateur) — les illustrations du v3 sont des
+  composants SVG serveur, `aria-hidden`, sans fait nouveau (aucun prix,
+  aucune date, aucun effectif inventé).
 
 ### Claude's Discretion
 
