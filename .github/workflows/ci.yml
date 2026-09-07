@@ -9,13 +9,19 @@ name: CI
 # all. A prefix list only ever guards the prefixes someone thought of.
 #
 # `'**'` matches every branch, slashes included, and — unlike a bare `push:` —
-# excludes tags. The blocking gate is still the pull_request trigger below:
-# `branches: [main]` filters the PR's target, not its source, so a PR from any
-# branch into main is checked. That gate was seen refusing on run 33403822473
-# (2026-08-31). The push trigger is observation, not a second gate.
+# excludes tags. The blocking gate is the pull_request trigger below: it filters
+# the PR's target, not its source, so a PR from any branch into the trunk is
+# checked. That gate was seen refusing on run 33403822473 (2026-08-31).
+#
+# The target is listed as BOTH `main` and `master` on purpose. The remote trunk
+# was renamed from `main` to `master` on 2026-09-07, and the rename did not
+# carry: GitHub moved branch protection with it, but this filter kept pointing
+# at a branch that no longer existed, which silently disarmed the merge gate.
+# Naming both survives the rename in either direction. Do not trim this to one
+# name without checking `git ls-remote --heads origin` first.
 on:
   pull_request:
-    branches: [main]
+    branches: [main, master]
   push:
     branches: ['**']
   workflow_dispatch:
