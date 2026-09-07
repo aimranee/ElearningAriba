@@ -75,5 +75,8 @@
   "photoSlot": {
     "label": "Photo · portrait du formateur",
     "description": "Emplacement réel, dimensionné 16/9 et prêt pour next/image. Il reste déclaré tant qu'aucun fichier n'est fourni."
+  },
+  "formulaires": {
+    "ou": "ou"
   }
 }

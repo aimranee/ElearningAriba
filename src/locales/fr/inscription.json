@@ -1,6 +1,7 @@
 {
   "titre": "Créez votre compte apprenant. Une seule inscription pour tout le parcours SAP Ariba.",
   "intro": "Un compte suffit pour réserver un appel découverte, une session individuelle ou une formation en groupe.",
+  "google": "Continuer avec Google",
   "champs": {
     "prenom": "Prénom",
     "nom": "Nom",
