@@ -56,7 +56,7 @@
     "aucunResultat": "Aucun résultat pour le moment."
   },
   "hero": {
-    "chips": ["Aucun prérequis SAP", "Expert certifié"]
+    "chips": ["Aucun prérequis SAP", "Expert certifié", "Cas pratiques à chaque module"]
   },
   "formatModalitesAside": {
     "resume": "{modules} modules · {heures} de formation live"

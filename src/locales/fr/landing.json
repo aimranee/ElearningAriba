@@ -1,7 +1,7 @@
 {
   "hero": {
-    "titre": "Formez-vous en direct. Maîtrisez SAP Ariba",
-    "sousTitre": "Prenez en main l'écosystème Ariba, du premier appel d'offres jusqu'à la certification.",
+    "titre": "En direct, avec un expert. Maîtrisez SAP Ariba",
+    "sousTitre": "Des sessions en visio, en petit groupe, avec de vrais cas pratiques : vous repartez capable de dérouler un achat de bout en bout, et prêt pour la certification.",
     "preuve": {
       "modules": "{modules} modules · {heures} en direct",
       "formateur": "Animé par un expert certifié SAP Ariba",
@@ -13,36 +13,36 @@
   },
   "pourQui": {
     "eyebrow": "Pour qui",
-    "titre": "Cette formation s'adresse à des profils précis. Trouvez le vôtre.",
-    "reassurance": "Même sans expérience SAP, vous avez votre place ici.",
+    "titre": "Vous vous reconnaîtrez dans l'un de ces cinq profils. Lequel est le vôtre ?",
+    "reassurance": "Débutant sur SAP ou déjà en poste : la formation part de zéro et va jusqu'au geste métier.",
     "profils": [
       {
         "titre": "Acheteurs",
-        "description": "Structurez vos processus d'achat et gagnez en autonomie sur Ariba au quotidien.",
+        "description": "Créez, validez et suivez vos demandes d'achat sans dépendre de personne. Ariba devient votre outil, pas votre obstacle.",
         "picto": "acheteur",
-        "accroche": "« Je veux structurer mes achats, pas les subir »"
+        "accroche": "« Je veux passer moins de temps à chercher, plus à négocier »"
       },
       {
         "titre": "Category managers",
-        "description": "Pilotez vos catégories d'achat avec les bons outils Source-to-Pay.",
+        "description": "Pilotez vos catégories avec les bons critères, du sourcing au contrat, et documentez chaque choix.",
         "picto": "category-manager",
-        "accroche": "« Je veux piloter mes catégories avec les bons outils »"
+        "accroche": "« Je veux des décisions d'achat que je peux défendre »"
       },
       {
         "titre": "Professionnels supply chain et achats",
-        "description": "Reliez vos flux d'approvisionnement aux processus Procure-to-Pay.",
+        "description": "Reliez approvisionnement, réception et facturation dans un Procure-to-Pay sans rupture.",
         "picto": "supply-chain",
-        "accroche": "« Je veux relier mes flux au bon processus »"
+        "accroche": "« Je veux que mes flux et mes commandes parlent la même langue »"
       },
       {
         "titre": "Consultants SAP Ariba juniors ou en reconversion",
-        "description": "Construisez une expertise opérationnelle reconnue sur le marché.",
+        "description": "Construisez une pratique opérationnelle d'Ariba, module par module, et préparez la certification.",
         "picto": "consultant",
         "accroche": "« Je veux une expertise que le marché reconnaît »"
       },
       {
         "titre": "Étudiants et jeunes diplômés",
-        "description": "Ajoutez une compétence recherchée à votre profil, sans prérequis SAP.",
+        "description": "Ajoutez SAP Ariba à votre profil sans prérequis : une compétence recherchée dès l'entretien.",
         "picto": "etudiant",
         "accroche": "« Je veux une compétence rare avant mon premier poste »"
       }
@@ -50,16 +50,16 @@
   },
   "competences": {
     "eyebrow": "Ce que vous allez apprendre",
-    "titre": "Six compétences concrètes vous attendent. Chacune se pratique, pas seulement se regarde.",
+    "titre": "Six compétences que vous pratiquez en direct. Pas des slides à regarder, des gestes à faire.",
     "items": [
       {
-        "titre": "Vous orienter dans l'écosystème Ariba",
-        "description": "Vous savez où vous êtes dans la plateforme et ce que l'étape suivante attend de vous.",
+        "titre": "Vous repérer dans Ariba en quelques clics",
+        "description": "Modules, rôles, flux : vous savez où vous êtes et ce que l'étape suivante attend de vous.",
         "picto": "ecosysteme-ariba"
       },
       {
         "titre": "Dérouler un Procure-to-Pay complet",
-        "description": "Créer une demande, la faire valider, réceptionner, rapprocher la facture.",
+        "description": "De la demande d'achat à la facture rapprochée, sans oublier une validation.",
         "picto": "procure-to-pay"
       },
       {
@@ -78,48 +78,48 @@
         "picto": "gestion-catalogues"
       },
       {
-        "titre": "Préparer la certification SAP Ariba",
-        "description": "Le vocabulaire et les processus que la certification met à l'épreuve.",
+        "titre": "Aborder la certification SAP Ariba avec sérénité",
+        "description": "Le vocabulaire et les processus que l'examen met à l'épreuve, vus et pratiqués.",
         "picto": "certification"
       }
     ]
   },
   "programme": {
     "eyebrow": "Programme détaillé",
-    "titre": "Le programme se déroule en cinq modules. Chacun construit sur le précédent.",
+    "titre": "Cinq modules, dans l'ordre d'un vrai cycle d'achat. Chacun s'appuie sur le précédent.",
     "telechargerPdf": "Télécharger le programme en PDF",
     "auProgramme": "Au programme",
     "modules": [
       {
         "titre": "Découverte de l'écosystème Ariba",
         "duree": 3,
-        "resume": "Panorama de la plateforme, des rôles et des flux principaux."
+        "resume": "Vous prenez vos repères : modules, rôles, et les deux grands flux que vous allez pratiquer."
       },
       {
         "titre": "Procure-to-Pay au quotidien",
         "duree": 4,
-        "resume": "De la demande d'achat au paiement fournisseur, étape par étape."
+        "resume": "Vous déroulez un achat complet, de la demande au paiement, comme au poste."
       },
       {
         "titre": "Source-to-Pay et stratégie achats",
         "duree": 4,
-        "resume": "Sourcing, négociation et intégration au cycle achats."
+        "resume": "Vous sourcez, comparez et négociez, puis vous raccordez la décision au cycle achats."
       },
       {
         "titre": "Appels d'offres RFQ et RFP",
         "duree": 3,
-        "resume": "Construire, diffuser et analyser un appel d'offres sur Ariba."
+        "resume": "Vous montez un appel d'offres, le diffusez et analysez les réponses jusqu'au choix."
       },
       {
         "titre": "Catalogues, contrats et workflows",
         "duree": 3,
-        "resume": "Configurer les catalogues et automatiser les circuits de validation."
+        "resume": "Vous configurez catalogues et contrats, et automatisez les validations qui traînent."
       }
     ]
   },
   "formatModalites": {
     "eyebrow": "Format et modalités",
-    "titre": "Le format tient en quelques repères clairs. Voici comment se déroule la formation.",
+    "titre": "Une session live, cinq temps, zéro spectateur. Voici comment se passe chaque module.",
     "apercu": {
       "etapeLabel": "Étape {n}",
       "panneaux": [
@@ -146,7 +146,7 @@
     "items": [
       {
         "titre": "Formations live",
-        "description": "Des sessions animées en direct par un expert certifié, pas des enregistrements."
+        "description": "Des sessions animées en direct par un expert certifié : vous posez vos questions au moment où elles se posent."
       },
       {
         "titre": "Supports PDF",
@@ -173,8 +173,8 @@
   },
   "confiance": {
     "eyebrow": "Confiance et sécurité",
-    "titre": "La confiance se construit sur des faits. En voici trois.",
-    "lead": "Chacun se contrôle : une durée, un nom, un plafond. Ouvrez la preuve.",
+    "titre": "Pas de promesses, des faits que vous pouvez vérifier. En voici trois.",
+    "lead": "Une durée, un nom, un plafond : chacun se contrôle. Ouvrez la preuve.",
     "preuve": {
       "voir": "Voir la preuve",
       "masquer": "Masquer la preuve"
@@ -262,8 +262,8 @@
   },
   "ctaFinal": {
     "eyebrow": "Votre prochaine étape",
-    "titre": "Votre créneau vous attend. Réservez-le dès maintenant.",
-    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba.",
+    "titre": "Commencez par un appel de trente minutes. Réservez votre créneau.",
+    "supportLine": "Vous exposez votre contexte, le formateur vous dit si la formation y répond, et vous choisissez ensemble la date de votre première session.",
     "etapes": {
       "titre": "Ce qui se passe ensuite",
       "items": [
