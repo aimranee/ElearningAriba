@@ -19,6 +19,14 @@ const CONFIANCE_ICONS: Record<string, LucideIcon> = {
   "groupe-limite": Users,
 };
 
+/* why: maquette `.tile` gradient pair per fact (`--ta`/`--tb`), keyed by the
+   same `cle` the icon map already uses. */
+const CONFIANCE_TEINTES: Record<string, { ta: string; tb: string }> = {
+  "appel-decouverte": { ta: "var(--violet)", tb: "var(--indigo)" },
+  "formateur-identifie": { ta: "var(--sky-ink)", tb: "var(--azur-ink)" },
+  "groupe-limite": { ta: "var(--mint-ink)", tb: "var(--azur-ink)" },
+};
+
 /**
  * PUB-06 — three verifiable trust facts (D-62), each with a click-to-reveal
  * proof (D-64), plus a code-composed formateur card replacing the old
@@ -45,7 +53,7 @@ async function Confiance() {
   const { formateur } = landing.confiance;
 
   return (
-    <Section tone="wash" data-section="confiance">
+    <Section tone="default" data-section="confiance">
       <div className="grid items-start gap-10 lg:grid-cols-2">
         <SectionHeader
           eyebrow={section.eyebrow ?? undefined}
@@ -55,7 +63,7 @@ async function Confiance() {
           className="mx-0 max-w-none text-left"
         />
         <Reveal as="aside" dataD={2}>
-          <Card variant="default" className="flex h-full flex-col gap-4 p-[1.7rem]">
+          <Card variant="default" className="flex h-full flex-col gap-4 rounded-[22px] p-[1.7rem]">
             <span className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tracking-[0.14em] text-[var(--violet)] uppercase">
               {formateur.eyebrow}
             </span>
@@ -65,7 +73,7 @@ async function Confiance() {
                   photo exists (D-63); no photo can be added this run. */}
               <span
                 aria-hidden="true"
-                className="flex size-16 shrink-0 items-center justify-center rounded-[18px] bg-[var(--violet)] text-[length:var(--text-card)] font-extrabold text-white"
+                className="flex size-16 shrink-0 items-center justify-center rounded-[18px] bg-[linear-gradient(135deg,var(--violet),var(--indigo))] text-[length:var(--text-card)] font-extrabold text-white"
               >
                 {formateur.initiales}
               </span>
@@ -97,15 +105,21 @@ async function Confiance() {
       <ConfianceFaits
         items={faitsResult.data.map((fait) => {
           const Icon = CONFIANCE_ICONS[fait.cle];
+          // D-28: the discovery-call proof link points to the booking flow
+          // (/reservation), not /contact — a call-site override, the
+          // seed/JSON value is left untouched.
+          const preuveLienHref =
+            fait.cle === "appel-decouverte" ? "/reservation" : fait.preuveLienHref;
           return {
             id: fait.id,
             cle: fait.cle,
             titre: fait.titre,
             description: fait.description,
             preuveTexte: fait.preuveTexte,
-            preuveLienHref: fait.preuveLienHref,
+            preuveLienHref,
             preuveLienLabel: fait.preuveLienLabel,
             icon: Icon ? <Icon className="size-6" /> : null,
+            gradient: CONFIANCE_TEINTES[fait.cle] ?? CONFIANCE_TEINTES["appel-decouverte"],
           };
         })}
         labels={{ voir: landing.confiance.preuve.voir, masquer: landing.confiance.preuve.masquer }}
