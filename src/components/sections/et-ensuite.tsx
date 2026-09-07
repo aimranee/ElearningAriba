@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarCheck, PhoneCall, Users } from "lucide-react";
 
 import { Section } from "@/components/sections/section";
 import { Reveal } from "@/components/motion/reveal";
 import common from "@/locales/fr/common.json";
 import landing from "@/locales/fr/landing.json";
+
+// why (brief §J3, maquette `.step .pic`): decorative step pictograms, paired
+// 1:1 by index with `landing.ctaFinal.etapes.items` — chrome only, no new
+// string.
+const STEP_ICONS = [PhoneCall, CalendarCheck, Users] as const;
 
 /**
  * "Ce qui se passe ensuite" (brief §C-01b, maquette `.next`): a white
@@ -43,7 +48,9 @@ function EtEnsuite() {
             className="pointer-events-none absolute top-[22px] right-[calc(16.66%+22px)] left-[calc(16.66%+22px)] hidden h-0.5 [background:repeating-linear-gradient(90deg,var(--violet-soft)_0_8px,transparent_8px_16px)] md:block"
           />
           <ol className="grid gap-5 md:grid-cols-3 md:gap-8">
-            {etapes.items.map((item, index) => (
+            {etapes.items.map((item, index) => {
+              const Icon = STEP_ICONS[index];
+              return (
               <li
                 key={item.titre}
                 className="relative flex gap-4 md:flex-col md:items-center md:text-center"
@@ -51,6 +58,14 @@ function EtEnsuite() {
                 <span className="relative z-[1] flex size-11 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--violet),var(--indigo))] font-heading text-[1rem] font-extrabold text-white shadow-[0_10px_22px_-10px_rgba(99,91,255,.8)]">
                   {index + 1}
                 </span>
+                {Icon ? (
+                  <span
+                    aria-hidden="true"
+                    className="mt-3 hidden size-16 items-center justify-center rounded-[20px] bg-[var(--lav)] text-[var(--deep)] md:flex"
+                  >
+                    <Icon className="size-[30px]" strokeWidth={1.6} />
+                  </span>
+                ) : null}
                 <div>
                   <strong className="block font-heading text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold tracking-[-0.015em]">
                     {item.titre}
@@ -60,7 +75,8 @@ function EtEnsuite() {
                   </span>
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ol>
         </div>
       </Reveal>

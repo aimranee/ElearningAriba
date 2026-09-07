@@ -125,7 +125,7 @@ async function PourQui() {
                   </div>
                   <div className="mt-auto flex items-center justify-between pt-4 [@media(hover:none)]:hidden">
                     <span className="font-semibold text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--card-ink)]">
-                      {hasAccroche ? titre : common.actions.enSavoirPlus}
+                      {common.actions.voirProgramme}
                     </span>
                     <ArrowRight
                       aria-hidden="true"
