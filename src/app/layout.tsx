@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             column — otherwise every page's own flex-1 would compete with
             them for the remaining space. pt-[76px] offsets the now-fixed
             header (D-18) so no route's content renders underneath it. */}
-        <main id="contenu-principal" className="flex-1 pt-[76px]">
+        <main id="contenu-principal" className="relative z-[1] flex-1 pt-[76px]">
           {children}
         </main>
         <Footer />

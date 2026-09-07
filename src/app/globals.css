@@ -367,6 +367,21 @@ html {
     }
   }
 
+  /* v3 landing (brief §J1): the page-wide atmosphere layer's two auroras
+     drift slowly in alternation — curve-agnostic keyframes, --ease-brand
+     lives on the consuming `animation` shorthand in atmosphere.tsx (D-17). */
+  @keyframes drift1 {
+    to {
+      transform: translate(14vw, 10vw);
+    }
+  }
+
+  @keyframes drift2 {
+    to {
+      transform: translate(-12vw, -14vw);
+    }
+  }
+
   /* v3 landing (brief §D-3): the constellation backdrop's five node sparks
      twinkle in place — curve-agnostic keyframe, --ease-brand lives on the
      consumer rule below (D-17). */
@@ -409,7 +424,10 @@ html {
     [data-slot="hero-spotlight"],
     [data-slot="card-spotlight"],
     [data-slot="comet"],
-    [data-slot="constellation-spark"] {
+    [data-slot="constellation-spark"],
+    [data-slot="atmosphere-aurora-a1"],
+    [data-slot="atmosphere-aurora-a2"],
+    [data-slot="atmosphere-glow"] {
       display: none;
     }
 

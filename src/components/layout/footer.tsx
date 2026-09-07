@@ -21,7 +21,7 @@ export function Footer() {
   const annee = new Date().getFullYear();
 
   return (
-    <footer className="bg-[var(--ink)] text-white in-data-[density=compact]:py-2">
+    <footer className="relative z-[1] bg-[var(--ink)] text-white in-data-[density=compact]:py-2">
       <div className="mx-auto max-w-[1200px] px-6 py-16">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="col-span-2 flex flex-col gap-3 sm:col-span-4 lg:col-span-1">

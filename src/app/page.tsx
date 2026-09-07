@@ -9,6 +9,7 @@ import { CtaFinal } from "@/components/sections/cta-final";
 import { Faq } from "@/components/sections/faq";
 import { RailSections } from "@/components/motion/rail-sections";
 import { BarreReservation } from "@/components/motion/barre-reservation";
+import { Atmosphere } from "@/components/motion/atmosphere";
 
 // why (D-38): the landing page must stay static/ISR, not dynamic, even
 // though every section now reads Supabase through the cookieless client —
@@ -21,6 +22,7 @@ export const revalidate = 3600;
 export default function Home() {
   return (
     <>
+      <Atmosphere />
       <RailSections />
       <BarreReservation />
       <Hero />
