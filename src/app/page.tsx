@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { EtEnsuite } from "@/components/sections/et-ensuite";
 import { PourQui } from "@/components/sections/pour-qui";
 import { Competences } from "@/components/sections/competences";
 import { ProgrammeAccordion } from "@/components/sections/programme-accordion";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <EtEnsuite />
       <PourQui />
       <Competences />
       <ProgrammeAccordion />
