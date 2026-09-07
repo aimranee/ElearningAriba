@@ -103,6 +103,7 @@ export function NouveauMotDePasseForm() {
           name="motDePasse"
           type="password"
           autoComplete="new-password"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.motDePasse ? "true" : undefined}
         />
@@ -121,6 +122,7 @@ export function NouveauMotDePasseForm() {
           name="confirmation"
           type="password"
           autoComplete="new-password"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.confirmation ? "true" : undefined}
         />

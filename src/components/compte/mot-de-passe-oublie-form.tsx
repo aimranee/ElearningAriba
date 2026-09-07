@@ -91,6 +91,7 @@ export function MotDePasseOublieForm() {
           name="email"
           type="email"
           autoComplete="email"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.email ? "true" : undefined}
         />
