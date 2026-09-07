@@ -6,6 +6,7 @@ import contact from "@/locales/fr/contact.json";
 import common from "@/locales/fr/common.json";
 import { Button } from "@/components/ui/button";
 import { Message } from "@/components/ui/message";
+import { useHydrated } from "@/lib/hooks/use-hydrated";
 import {
   Field,
   FieldLabel,
@@ -38,10 +39,7 @@ export function ContactForm() {
   /* why (FUITE-02): see src/components/compte/submit-button.tsx — this
      form's submit button is rendered inline, so the same hydration gate is
      repeated here rather than through a shared component. */
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  const hydrated = useHydrated();
 
   /* why: set on mount, not during render — "use client" components still
      render once on the server, so writing Date.now() to the hidden input's

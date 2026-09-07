@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState, type FormEvent } from "react";
+import { Suspense, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
@@ -10,6 +10,7 @@ import { Field, FieldLabel, FieldControl, FieldError } from "@/components/ui/fie
 import common from "@/locales/fr/common.json";
 import connexion from "@/locales/fr/connexion.json";
 import { lireCreneauChoisi } from "@/lib/agenda/creneaux";
+import { useHydrated } from "@/lib/hooks/use-hydrated";
 
 type Status = "idle" | "submitting" | "error";
 
@@ -58,10 +59,7 @@ export function ConnexionForm() {
   /* why (FUITE-02): see submit-button.tsx — this form's submit button is
      rendered inline (not through SubmitButton), so the same hydration gate
      is repeated here rather than through a shared component. */
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  const hydrated = useHydrated();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

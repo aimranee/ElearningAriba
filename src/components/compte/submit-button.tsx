@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
+import { useHydrated } from "@/lib/hooks/use-hydrated";
 import { cn } from "@/lib/utils";
 import common from "@/locales/fr/common.json";
 
@@ -30,15 +31,13 @@ export function SubmitButton({
   /*
    * why (FUITE-02): server-rendered HTML has no onSubmit handler attached
    * yet, so a submission on a slow connection posts straight to the page
-   * route and comes back empty. Rendering disabled until the effect below
-   * fires — which only happens after hydration — makes that submission
-   * impossible rather than silent; `pending` still governs disabling once
-   * hydrated, so the click behaviour above is unchanged.
+   * route and comes back empty. Rendering disabled until hydration
+   * completes — the gate reports false during server render and hydration
+   * and true afterwards — makes that submission impossible rather than
+   * silent; `pending` still governs disabling once hydrated, so the click
+   * behaviour above is unchanged.
    */
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  const hydrated = useHydrated();
 
   return (
     <div className="flex flex-col gap-2">
