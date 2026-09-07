@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Direction 3 — éditorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Bleu / blanc / vert — proposition direction 3, éditorial */
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.22 0.015 250);
+    --primary: oklch(0.44 0.16 258);
+    --primary-foreground: oklch(0.98 0.01 258);
+    --success: oklch(0.58 0.14 148);
+    --success-foreground: oklch(0.98 0.02 148);
+    --success-muted: oklch(0.94 0.04 148);
+    --muted: oklch(0.97 0.008 250);
+    --muted-foreground: oklch(0.46 0.015 250);
+    --border: oklch(0.87 0.01 250);
+    --ring: oklch(0.44 0.16 258 / 0.5);
+    --destructive: oklch(0.55 0.2 25);
+
+    --shadow-contact: 0 1px 2px oklch(0.22 0.015 250 / 0.06);
+    --shadow-soft: 0 18px 36px oklch(0.22 0.015 250 / 0.08);
+    --shadow-1: var(--shadow-contact), 0 3px 6px oklch(0.22 0.015 250 / 0.03);
+    --shadow-2: var(--shadow-contact), 0 6px 12px oklch(0.22 0.015 250 / 0.05);
+    --shadow-3: var(--shadow-contact), 0 12px 24px oklch(0.22 0.015 250 / 0.06);
+    --shadow-4: var(--shadow-contact), var(--shadow-soft);
+
+    --radius: 0.375rem;
+    --ease-brand: cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-base: 240ms;
+
+    --font-heading: "Fraunces", Georgia, serif;
+    --font-body: "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+  }
+
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+
+  h1, h2, h3 { font-family: var(--font-heading); margin: 0; font-weight: 500; }
+
+  a, button {
+    font-family: inherit;
+    transition: all var(--duration-base) var(--ease-brand);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  .card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+    border-radius: var(--radius);
+  }
+
+  @keyframes rise-fade {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero {
+    padding: 6.5rem 2rem 5rem;
+    text-align: left;
+    max-width: 52rem;
+    margin: 0 auto;
+    animation: rise-fade 650ms var(--ease-brand) both;
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .kicker::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: var(--success);
+  }
+
+  .hero h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .hero p.lede {
+    font-size: 1.15rem;
+    color: var(--muted-foreground);
+    line-height: 1.65;
+    max-width: 36rem;
+  }
+
+  .cta-row {
+    margin-top: 2.25rem;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-primary:hover {
+    background: oklch(0.38 0.17 258);
+    box-shadow: var(--shadow-2);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--foreground);
+    border-bottom: 1px solid var(--foreground);
+    border-radius: 0;
+    padding: 0.8rem 0;
+  }
+
+  .btn-secondary:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .cards {
+    padding: 1rem 2rem 6rem;
+    max-width: 52rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 0;
+    width: 100%;
+  }
+
+  .card {
+    display: block;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    animation: rise-fade 650ms var(--ease-brand) both;
+  }
+
+  .card:nth-child(2) { animation-delay: 80ms; }
+  .card:nth-child(3) { animation-delay: 160ms; }
+
+  .card:hover { box-shadow: var(--shadow-1); }
+
+  .card svg { width: 1.75rem; height: 1.75rem; color: var(--primary); }
+
+  .card h3 { margin-top: 0.9rem; font-size: 1.15rem; }
+
+  .card p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--muted-foreground);
+    line-height: 1.55;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+    padding: 0.2rem 0;
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+</style>
+</head>
+<body>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="hero">
+  <span class="kicker">Formation SAP Ariba</span>
+  <h1>Un formateur, un créneau, votre progrès. Le reste n'est que détail.</h1>
+  <hr class="rule" />
+  <p class="lede">Réservez une session live, suivez votre présence et recevez votre attestation à l'issue du parcours.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#">Démarrer ma formation</a>
+    <a class="btn btn-secondary" href="#">Voir le programme</a>
+  </div>
+</section>
+
+<!-- contenu factice — remplacé par les réponses client -->
+<section class="cards">
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 5h16M4 12h16M4 19h10" stroke-linecap="round" />
+    </svg>
+    <h3>Un programme structuré</h3>
+    <p>Cinq modules, un fil pédagogique clair, du cadrage jusqu'à la pratique.</p>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 4h16v16H4z" stroke-linejoin="round" />
+      <path d="M4 9h16" stroke-linecap="round" />
+    </svg>
+    <h3>Un agenda réel</h3>
+    <p>Choisissez un créneau qui existe vraiment dans le calendrier du formateur.</p>
+    <span class="badge">Créneau confirmé</span>
+  </a>
+  <a class="card" href="#" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z" stroke-linejoin="round" />
+    </svg>
+    <h3>Un suivi jusqu'à l'attestation</h3>
+    <p>Présence, progression et attestation, visibles depuis votre espace apprenant.</p>
+  </a>
+</section>
+
+</body>
+</html>

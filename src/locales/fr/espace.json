@@ -1,0 +1,61 @@
+{
+  "titre": "Votre espace apprenant. Tout votre parcours SAP Ariba, réuni au même endroit.",
+  "intro": "Retrouvez vos rendez-vous, vos sessions, votre historique, vos documents, vos factures et votre avancement.",
+  "bienvenue": "Bonjour {prenom}, heureux de vous revoir.",
+  "nav": {
+    "apercu": "Mon espace",
+    "profil": "Mon profil",
+    "donnees": "Mes données"
+  },
+  "deconnexion": "Se déconnecter",
+  "aucuneReservation": {
+    "titre": "Vous n'avez encore rien réservé.",
+    "message": "Choisissez un appel découverte, une session individuelle ou une session en groupe pour démarrer votre parcours.",
+    "action": "Voir les créneaux disponibles"
+  },
+  "rendezVous": {
+    "titre": "Mes prochains rendez-vous",
+    "statutConfirme": "Confirmé",
+    "vide": {
+      "titre": "Aucun rendez-vous à venir.",
+      "message": "Réservez un créneau pour le voir apparaître ici."
+    }
+  },
+  "sessions": {
+    "titre": "Mes sessions",
+    "vide": {
+      "titre": "Aucune session en cours.",
+      "message": "Inscrivez-vous à une session en groupe pour la retrouver ici."
+    }
+  },
+  "historique": {
+    "titre": "Mon historique",
+    "vide": {
+      "titre": "Aucun historique pour le moment.",
+      "message": "Vos rendez-vous et sessions passés apparaîtront ici une fois terminés."
+    }
+  },
+  "documents": {
+    "titre": "Mes documents",
+    "expiration": "Vos liens de téléchargement sont personnels et expirent rapidement. Relancez le téléchargement si le vôtre n'est plus valide.",
+    "erreur": "Ce document n'a pas pu être ouvert. Réessayez dans quelques instants.",
+    "vide": {
+      "titre": "Aucun document disponible.",
+      "message": "Les supports de formation apparaîtront ici après votre première session."
+    }
+  },
+  "factures": {
+    "titre": "Mes factures",
+    "vide": {
+      "titre": "Aucune facture pour le moment.",
+      "message": "Vos factures apparaîtront ici après votre premier paiement."
+    }
+  },
+  "avancement": {
+    "titre": "Mon avancement",
+    "vide": {
+      "titre": "Votre progression n'a pas encore commencé.",
+      "message": "Votre avancement se construira au fil de votre présence aux sessions."
+    }
+  }
+}

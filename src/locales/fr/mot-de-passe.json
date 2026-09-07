@@ -1,0 +1,29 @@
+{
+  "demande": {
+    "titre": "Mot de passe oublié ? Nous vous envoyons un lien.",
+    "intro": "Indiquez l'adresse email de votre compte. Vous recevrez un lien pour choisir un nouveau mot de passe.",
+    "action": "Envoyer le lien",
+    "succes": {
+      "titre": "Vérifiez votre boîte mail. Un lien de réinitialisation vous attend.",
+      "message": "Si un compte existe pour cette adresse, le lien arrive dans quelques instants. Il expire après un délai de sécurité."
+    },
+    "retourConnexion": "Revenir à la connexion."
+  },
+  "nouveau": {
+    "titre": "Choisissez votre nouveau mot de passe.",
+    "intro": "Saisissez-le deux fois : la seconde saisie évite toute erreur de frappe.",
+    "champs": {
+      "motDePasse": "Nouveau mot de passe",
+      "confirmation": "Confirmez le nouveau mot de passe"
+    },
+    "action": "Enregistrer mon nouveau mot de passe",
+    "succes": {
+      "titre": "Votre mot de passe a été modifié.",
+      "message": "Vous pouvez dès maintenant vous connecter avec votre nouveau mot de passe."
+    }
+  },
+  "erreurs": {
+    "lienExpire": "Ce lien n'est plus valide. Demandez-en un nouveau.",
+    "rejetServeur": "Votre demande n'a pas pu être traitée. Réessayez dans quelques instants."
+  }
+}

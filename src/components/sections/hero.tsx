@@ -1,0 +1,244 @@
+import Link from "next/link";
+import { Check, FileText, GraduationCap, Radio, UserCheck } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
+import { Reveal } from "@/components/motion/reveal";
+import { Typewriter } from "@/components/motion/typewriter";
+import { AssemblyCard } from "@/components/motion/assembly-card";
+import { AssemblyConnectors } from "@/components/motion/assembly-connectors";
+import { HeroSpotlight } from "@/components/motion/hero-spotlight";
+import { Magnetic } from "@/components/motion/magnetic";
+import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
+import { formatHours, formatNumber } from "@/lib/i18n/fr";
+import common from "@/locales/fr/common.json";
+import landing from "@/locales/fr/landing.json";
+
+/* why: the three pills/checklist rows share icon + gradient, indexed the
+   same way as format-modalites' STEP_GRADIENTS — matched verbatim from the
+   mockup (`#B4771A`/`#0E9F6E` are the same two raw-hex exceptions). */
+const ASM_PILL_ICONS = [UserCheck, Radio, FileText] as const;
+const ASM_PILL_GRADIENTS = [
+  "linear-gradient(135deg,var(--violet),var(--indigo))",
+  "linear-gradient(135deg,var(--amber),#B4771A)",
+  "linear-gradient(135deg,var(--mint),#0E9F6E)",
+] as const;
+
+// why: post-2026-09-01, "Ce que vous allez apprendre" carries six
+// verb-first result headlines plus a permanently-visible sentence
+// (content_item.description) — the typewriter here cycles the short form of
+// the same competency term, not the sentence. Keyed by content_item.cle (not
+// array index) so a reorder in the database can't silently mismatch. The
+// first item's cle ("ecosysteme-ariba") is load-bearing: hero.tsx:83 takes
+// words[0] as the resting word that splits the signed accroche around
+// "SAP Ariba" — changing that item's cle or dropping its word regresses the
+// H1 split silently.
+const TYPEWRITER_WORDS: Record<string, string> = {
+  "ecosysteme-ariba": "SAP Ariba",
+  "procure-to-pay": "Procure-to-Pay",
+  "source-to-pay": "Source-to-Pay",
+  "rfq-rfp": "les RFQ et RFP",
+  "gestion-catalogues": "les catalogues",
+  "certification": "la certification",
+};
+
+/**
+ * The founder-approved maquette hero, read end to end from Supabase (D-24):
+ * eyebrow, H1 (typewriter-cycled competencies over the signed accroche),
+ * lead, two CTAs, three chips, and the console frame naming a live module.
+ * The root visual layer (mounted once in layout.tsx, plan 02-03) shows
+ * through — this section carries no per-section wash of its own (D-20).
+ */
+async function Hero() {
+  const [sectionResult, competencesResult, modulesResult] = await Promise.all([
+    getSection("hero"),
+    getSectionItems("competences"),
+    getModules(),
+  ]);
+
+  if (!sectionResult.ok || !competencesResult.ok || !modulesResult.ok) {
+    return (
+      <section data-slot="hero" className="relative overflow-hidden">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+          <EmptyState tone="error">
+            <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
+          </EmptyState>
+        </div>
+      </section>
+    );
+  }
+
+  const accroche = sectionResult.data.titre;
+  const sousTitre = sectionResult.data.lead ?? "";
+  const words = competencesResult.data
+    .map((item) => TYPEWRITER_WORDS[item.cle])
+    .filter((word): word is string => Boolean(word));
+
+  // Split the signed accroche around its own resting word so the fixed
+  // sentence text is derived from the database string, never hand-typed
+  // (D-25) — only the split points are computed here. Two cuts: first the
+  // lead sentence at its own period (tinted --violet, per maquette v2 · 3),
+  // then the remainder around the resting word so the typewriter can sit on
+  // its own line below "Maîtrisez".
+  const leadSplit = accroche.indexOf(".");
+  const accrocheLead = leadSplit >= 0 ? accroche.slice(0, leadSplit + 1) : accroche;
+  const accrocheRest = leadSplit >= 0 ? accroche.slice(leadSplit + 1).trimStart() : "";
+
+  const restingWord = words[0] ?? "";
+  const splitIndex = restingWord ? accrocheRest.indexOf(restingWord) : -1;
+  const accrochePrefix = splitIndex >= 0 ? accrocheRest.slice(0, splitIndex) : accrocheRest;
+  const accrocheSuffix =
+    splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
+  const hasValidSplit = leadSplit >= 0 && splitIndex >= 0;
+
+  const assemblage = common.assemblage;
+
+  // D-103: entry 1 is derived from the database (never hand-typed), entries
+  // 2 and 3 are registered placeholders (CADR-03) — the mocks registry is
+  // what keeps them from shipping unseen at go-live.
+  const moduleCount = modulesResult.data.length;
+  const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
+  const preuveModules = landing.hero.preuve.modules
+    .replace("{modules}", formatNumber(moduleCount))
+    .replace("{heures}", formatHours(totalHours));
+  const preuve = [preuveModules, landing.hero.preuve.formateur, landing.hero.preuve.groupe];
+
+  return (
+    <section
+      data-slot="hero"
+      className="relative overflow-hidden py-[clamp(5rem,9vw,7rem)]"
+    >
+      <HeroSpotlight />
+      <Magnetic />
+      <div className="relative z-[1] mx-auto grid max-w-6xl gap-[clamp(2rem,5vw,4.5rem)] px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+        <div className="flex flex-col gap-[1.6rem]">
+          <Reveal
+            as="h1"
+            dataD={1}
+            className="relative font-heading text-[length:var(--text-display)] leading-[var(--text-display--line-height)] font-extrabold tracking-[-0.032em] text-balance"
+          >
+            <span className="sr-only">{accroche}</span>
+            {hasValidSplit ? (
+              <span aria-hidden="true">
+                <span className="text-[var(--ink)]">{accrocheLead}</span>{" "}
+                {accrochePrefix}
+                <br />
+                <Typewriter words={words} />
+                {accrocheSuffix}
+              </span>
+            ) : (
+              <span aria-hidden="true">{accroche}</span>
+            )}
+          </Reveal>
+
+          <Reveal
+            as="p"
+            dataD={2}
+            className="max-w-[62ch] text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]"
+          >
+            {sousTitre}
+          </Reveal>
+
+          <Reveal as="div" dataD={3} className="flex flex-wrap gap-[0.8rem]">
+            <Button
+              render={<Link href="/inscription" />}
+              nativeButton={false}
+              size="lg"
+              data-magnetic="true"
+            >
+              {common.actions.prendreRdv}
+            </Button>
+            <Button
+              render={<Link href="/programme" />}
+              nativeButton={false}
+              variant="outline"
+              size="lg"
+            >
+              <FileText />
+              {common.actions.voirProgramme}
+            </Button>
+          </Reveal>
+
+          <Reveal
+            as="p"
+            dataD={4}
+            className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]"
+          >
+            {preuve.join(" · ")}
+          </Reveal>
+
+          <Reveal as="ul" dataD={5} className="flex flex-wrap gap-[0.6rem]">
+            {common.hero.chips.map((chip) => (
+              <li
+                key={chip}
+                className="inline-flex items-center gap-[0.45rem] rounded-full border border-[var(--border)] bg-white px-[0.9rem] py-[0.45rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-1)]"
+              >
+                <Check className="size-3.5 text-[var(--mint)]" />
+                {chip}
+              </li>
+            ))}
+          </Reveal>
+        </div>
+
+        <Reveal as="div" dataD={2} className="relative min-w-0">
+          <div
+            data-slot="hero-assembly"
+            className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]"
+          >
+            <div className="flex items-center gap-1.5 border-b border-[var(--border2)] bg-white px-[14px] py-[11px]">
+              <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
+              <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
+              <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
+              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">
+                {assemblage.frameLabel}
+              </span>
+            </div>
+
+            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] sm:gap-[3.5rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
+              <AssemblyConnectors />
+
+              <div className="relative z-[1] min-w-0 flex flex-col gap-[0.6rem]">
+                {assemblage.pills.map((pill, index) => {
+                  const Icon = ASM_PILL_ICONS[index];
+                  return (
+                    <div
+                      key={pill.cle}
+                      className="flex items-center gap-[0.6rem] rounded-[14px] border border-[var(--hairline)] bg-white px-[0.8rem] py-[0.65rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold tracking-[-0.01em] text-[var(--ink)] shadow-[var(--contact),var(--inset-hi)]"
+                    >
+                      <span
+                        aria-hidden="true"
+                        style={{ background: ASM_PILL_GRADIENTS[index] }}
+                        className="flex size-7 shrink-0 items-center justify-center rounded-[9px] text-white"
+                      >
+                        {Icon ? <Icon className="size-[15px]" /> : null}
+                      </span>
+                      {pill.label}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div
+                className="relative z-[1] min-w-0 rounded-[18px] p-[1.15rem] text-white shadow-[var(--shadow-brand)]"
+                style={{ background: "linear-gradient(135deg,var(--violet),var(--indigo))" }}
+              >
+                <span className="mb-[0.7rem] inline-flex items-center gap-[0.35rem] rounded-full bg-white/18 px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tracking-[0.1em] uppercase">
+                  <GraduationCap aria-hidden="true" className="size-[10px]" />
+                  {assemblage.badge}
+                </span>
+                <AssemblyCard
+                  modules={modulesResult.data}
+                  moduleLigneTemplate={assemblage.moduleLigne}
+                  progressionTemplate={assemblage.progression}
+                  pills={assemblage.pills}
+                />
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export { Hero };

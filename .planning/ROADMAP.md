@@ -34,10 +34,10 @@ a delivered phase be matched to a payment gate with no interpretation.
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Socle technique et environnement** - Next.js, Supabase, Vercel preview and the local environment stood up
-- [ ] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups
+- [x] **Phase 1: Cadrage, contenus et design** - Lot 1 — framing decisions, French copy, visuals, design system, validated mockups (completed 2026-08-29)
 - [ ] **Phase 2: Site public** - Lot 2 — landing page in seven sections, internal pages, contact form, navigation
 - [ ] **Phase 3: Comptes, connexion et espace apprenant** - Lot 3 — accounts, Google sign-in, learner space, data isolation, GDPR rights
-- [ ] **Phase 4: Agenda et prise de rendez-vous** - Lot 4 — availabilities, public agenda, three-screen booking, agenda back-office
+- [x] **Phase 4: Agenda et prise de rendez-vous** - Lot 4 — availabilities, public agenda, three-screen booking, agenda back-office (completed 2026-09-04)
 - [ ] **Phase 5: SEO, pages juridiques, RGPD et mise en ligne** - Lot 5 — the site goes live on its domain, indexable, legal and compliant
 - [ ] **Phase 6: Sessions live de groupe** - Lot 6 — group sessions, public listing, enrolment, seat management
 - [ ] **Phase 7: Paiement en ligne, formules et factures** - Lot 7 — hosted payment, four sale formulas, orders, invoices
@@ -103,7 +103,22 @@ Plans:
   4. The design system exists with the bleu / blanc / vert palette, typography, spacing scale and components with their states
   5. The client has validated the mockups for the landing page, the internal pages, and every screen of the full journey — inscription, connexion, agenda, réservation, paiement, espace apprenant
 
-**Plans**: TBD
+**Plans**: 12 plans in 5 waves
+
+Plans:
+
+- [x] 01-01-PLAN.md — Exploration — two or three throwaway visual directions outside src/, typography settled
+- [x] 01-02-PLAN.md — Design tokens, typography wiring, atmosphere layer and motion primitives
+- [x] 01-03-PLAN.md — French copy for the shared chrome and the five public screens
+- [x] 01-04-PLAN.md — French copy for the six journey screens, incl. the four surface states
+- [x] 01-05-PLAN.md — Component families: CTA buttons, cards, badges, and the shared Message part
+- [x] 01-06-PLAN.md — Component families: accordions and form fields, plus the four surface-state components
+- [x] 01-07-PLAN.md — Pictograms and the presentational header and footer, mounted in the root layout
+- [x] 01-08-PLAN.md — Automatic email copy, the mock-content guard, and the framing record
+- [x] 01-09-PLAN.md — Maquette: landing, its seven signed sections and the prepared video slot
+- [x] 01-10-PLAN.md — Maquettes: programme, formation, à propos, contact
+- [x] 01-11-PLAN.md — Maquettes: inscription, connexion, espace apprenant
+- [x] 01-12-PLAN.md — Maquettes: agenda, réservation, paiement, and the two missing formatters
 
 ### Phase 2: Site public
 
@@ -120,7 +135,21 @@ Plans:
   4. A visitor can reach any page in two clicks through the navigation menu, and the footer is complete
   5. No module, price or asset on the public site is hardcoded — all of it comes from the database
 
-**Plans**: TBD
+**Plans**: 11 plans in 6 waves
+
+Plans:
+
+- [x] 02-01-PLAN.md — Design tokens, floating cards, banded sections and the single easing curve
+- [x] 02-02-PLAN.md — Content and contact tables with RLS, cookieless read client, typed queries, idempotent seed
+- [x] 02-03-PLAN.md — Root atmosphere layer, mesh drift and the scroll reveal island
+- [x] 02-04-PLAN.md — Blurred header deepening on scroll, scroll progress, complete footer, two-click navigation
+- [x] 02-05-PLAN.md — Hero and figures band from the database, with typewriter, spotlight and magnetic motion
+- [x] 02-06-PLAN.md — Programme, Formation and À propos pages read from the database
+- [x] 02-07-PLAN.md — Contact form end to end: validation, anti-spam, storage and the two emails
+- [x] 02-08-PLAN.md — /programme.pdf generated from the module rows, no new dependency
+- [x] 02-09-PLAN.md — Landing sections: Pour qui, Ce que vous allez apprendre, Programme détaillé
+- [x] 02-10-PLAN.md — Landing sections: Format et modalités, Confiance et sécurité, CTA final et FAQ
+- [ ] 02-11-PLAN.md — Applied-outcome audit, founder recette and phase close
 
 ### Phase 3: Comptes, connexion et espace apprenant
 
@@ -137,7 +166,34 @@ Plans:
   4. An enrolled learner can download a support through a signed, time-limited link that cannot be shared
   5. A learner cannot technically read another learner's data, enforced at the database level, and can request account deletion and a data export
 
-**Plans**: TBD
+**Plans**: 11 plans
+
+Plans:
+**Wave 1**
+
+- [x] 03-01-PLAN.md — Grouped Lot 3 schema: profile identity anchor, support grants, deletion requests, RLS with a negative isolation proof
+- [x] 03-02-PLAN.md — Auth configuration joins the signed copy: password rule, address confirmation, native rate limits, French Auth emails, Google provider, private bucket
+- [x] 03-03-PLAN.md — The new French copy, the checkbox primitive, the auth shell and submit button, and the two validation boundaries
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 03-04-PLAN.md — The session spine: middleware, session read, auth callback, sign-out, the espace gate and its nav band
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] 03-05-PLAN.md — Sign-up with email verification, end to end
+- [x] 03-06-PLAN.md — Sign-in with password and with Google, throttled, plus the deferred redirect-URL check
+- [x] 03-07-PLAN.md — Password reset: request without enumeration, then a new password
+- [x] 03-08-PLAN.md — The learner space with its real first name, and signed short-lived support downloads
+- [x] 03-09-PLAN.md — The profile surface, and the CPT-04 identity invariant
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [x] 03-10-PLAN.md — RGPD: data export and a two-step account-deletion request
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 03-11-PLAN.md — Clean-state re-verification, the honest per-requirement record, the CIO handoff and the two founder gates
 
 ### Phase 4: Agenda et prise de rendez-vous
 
@@ -154,7 +210,38 @@ Plans:
   4. The trainer can define weekly hours, open, grey out or block ranges, set holidays, and view, move, cancel, create on a learner's behalf, or export reservations
   5. A reservation carries an order/confirmation state that is inert until Phase 7 activates it, so the payment rule can be switched on without rewriting the booking flow
 
-**Plans**: TBD
+**Plans**: 9 plans
+
+Plans:
+**Wave 1**
+
+- [x] 04-01-PLAN.md — Availability and reservation model, the exclusion-constraint lock, the read and write RPCs, applied migrations and regenerated types
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [x] 04-02-PLAN.md — Idempotent agenda seed (administrator, appointment types, typical week, French holidays) and the free-slot expansion proofs
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [x] 04-03-PLAN.md — Public `/agenda`: static shell, client availability island, monthly grid, slot list, three-state legend *(Tasks 1-2 complete and committed; Task 3, the D-26 blocking founder visual review, is pending — see 04-03-SUMMARY.md)*
+
+**Wave 4** *(blocked on Wave 3, run in parallel)*
+
+- [x] 04-04-PLAN.md — Booking commit: video-link env var, `.ics` builder, Resend attachments, the POST route and the `.ics` download
+- [x] 04-06-PLAN.md — `/admin` shell with the role gate, weekly hours, range exceptions and the holiday calendar
+
+**Wave 5** *(blocked on Wave 4, run in parallel)*
+
+- [x] 04-05-PLAN.md — The three booking screens, the success surface and the learner's appointments in `/espace`
+- [x] 04-07-PLAN.md — Admin reservation RPCs (move, cancel, book on behalf) and the French-Excel CSV export
+
+**Wave 6** *(blocked on Wave 5)*
+
+- [x] 04-08-PLAN.md — `/admin/reservations`: the table, per-row move and cancel, create-on-behalf and the export panel
+
+**Wave 7** *(blocked on Wave 6)*
+
+- [x] 04-09-PLAN.md — `/admin/types-de-rendez-vous`: per-type edit of label, duration, buffer and price, PATCH-only write path, no create, no delete
 
 ### Phase 5: SEO, pages juridiques, RGPD et mise en ligne
 
@@ -173,6 +260,10 @@ Plans:
   6. Later phases can be deployed onto the live site without service interruption
 
 **Carried from Phase 0**: `next.config.ts` sets a repository-wide `X-Robots-Tag: noindex, nofollow` guard so the pre-launch placeholder cannot be indexed. Removing it is part of this phase's go-live — the site cannot appear in search results until it is gone.
+
+**Carried from the ownership ruling of 2026-08-27**: the client owns neither the Supabase nor the Vercel account — both are created on the founder's account and stay there permanently, not transferred at go-live. This departs from Section 5 of the signed offer, which states these subscriptions are *« souscrits au nom du client pour qu'il en reste propriétaire »*. **That clause is dead and no plan may inherit it.** GOL-04's politique de confidentialité and GOL-07's handover documents and written French guide are the two deliverables that would otherwise describe a reality that does not exist — a factual defect inside a delivered, paid lot. Ending the engagement is a migration, not a handover, and the handover documents must say so. The offers are frozen: no corrected PDF will be issued, so a correction to the client is a letter or a side agreement citing the signed document. Do not plan around a re-issued offer.
+
+**Carried from the content-gate ruling of 2026-09-04**: go-live is gated on `content:check`, and the fix is a step in `.github/workflows/ci.yml` — not a change to `scripts/check-mock-content.mjs`. The script already refuses: it exits 1 today, while `ci.yml` runs only `lint`, `typecheck` and `build`, so nothing invokes it. Wire the step and see it refuse on the remaining items before declaring the gate armed — a gate nobody has watched fail is not a gate. Re-measure the outstanding count at planning time instead of trusting a figure written here: it was 84 items (73 CADR-03, 11 CADR-01) on 2026-09-04 and moves as content lands. The registry covers six of thirteen content files, so the gate guards only what it declares.
 
 **Plans**: TBD
 
@@ -283,10 +374,10 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Socle technique et environnement | 5/6 | In Progress|  |
-| 1. Cadrage, contenus et design | 0/TBD | Not started | - |
-| 2. Site public | 0/TBD | Not started | - |
-| 3. Comptes, connexion et espace apprenant | 0/TBD | Not started | - |
-| 4. Agenda et prise de rendez-vous | 0/TBD | Not started | - |
+| 1. Cadrage, contenus et design | 12/12 | Complete   | 2026-08-29 |
+| 2. Site public | 10/11 | In Progress|  |
+| 3. Comptes, connexion et espace apprenant | 10/11 | In Progress|  |
+| 4. Agenda et prise de rendez-vous | 9/9 | Complete   | 2026-09-04 |
 | 5. SEO, pages juridiques, RGPD et mise en ligne | 0/TBD | Not started | - |
 | 6. Sessions live de groupe | 0/TBD | Not started | - |
 | 7. Paiement en ligne, formules et factures | 0/TBD | Not started | - |

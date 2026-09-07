@@ -3,7 +3,76 @@
     "title": "Formation SAP Ariba",
     "description": "Plateforme de réservation de formations SAP Ariba en direct."
   },
-  "home": {
-    "placeholder": "Le contenu de cette page sera défini au Lot 2."
+  "nav": {
+    "programme": "Programme",
+    "formation": "Formation",
+    "aPropos": "À propos",
+    "contact": "Contact",
+    "inscription": "Inscription",
+    "connexion": "Connexion",
+    "agenda": "Agenda",
+    "reservation": "Réservation",
+    "paiement": "Paiement",
+    "espace": "Mon espace",
+    "allerAuContenu": "Aller au contenu principal",
+    "menu": {
+      "ouvrir": "Ouvrir le menu",
+      "fermer": "Fermer le menu"
+    }
+  },
+  "footer": {
+    "baseline": "Une formation SAP Ariba en direct, animée par un expert certifié — pas une vidéo de plus à regarder.",
+    "colonnes": {
+      "formation": "Formation",
+      "compte": "Mon compte",
+      "informations": "Informations"
+    },
+    "copyright": "© {annee} Formation SAP Ariba. Tous droits réservés.",
+    "mentionsLegales": "Mentions légales",
+    "politiqueConfidentialite": "Politique de confidentialité",
+    "politiqueCookies": "Politique de cookies",
+    "politiqueRemboursement": "Politique de remboursement",
+    "clauseNonResponsabilite": "Clause de non-responsabilité"
+  },
+  "actions": {
+    "prendreRdv": "Prendre RDV",
+    "voirProgramme": "Voir le programme",
+    "reserver": "Réserver",
+    "sInscrire": "S'inscrire",
+    "seConnecter": "Se connecter",
+    "envoyer": "Envoyer",
+    "telecharger": "Télécharger",
+    "reessayer": "Réessayer",
+    "annuler": "Annuler",
+    "continuer": "Continuer",
+    "enSavoirPlus": "En savoir plus"
+  },
+  "etats": {
+    "chargement": "Chargement en cours…",
+    "preparationFormulaire": "Préparation du formulaire…",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer.",
+    "champRequis": "Ce champ est requis.",
+    "aucunResultat": "Aucun résultat pour le moment."
+  },
+  "hero": {
+    "chips": ["Aucun prérequis SAP", "Expert certifié"]
+  },
+  "formatModalitesAside": {
+    "resume": "{modules} modules · {heures} de formation live"
+  },
+  "assemblage": {
+    "frameLabel": "Votre parcours SAP Ariba — assemblage",
+    "badge": "Parcours SAP Ariba",
+    "moduleLigne": "Module {n} · {heures}",
+    "progression": "Module {n} sur {total}",
+    "pills": [
+      { "cle": "appel-decouverte", "label": "Appel découverte" },
+      { "cle": "session-live", "label": "Session live" },
+      { "cle": "support-pdf", "label": "Support PDF" }
+    ]
+  },
+  "photoSlot": {
+    "label": "Photo · portrait du formateur",
+    "description": "Emplacement réel, dimensionné 16/9 et prêt pour next/image. Il reste déclaré tant qu'aucun fichier n'est fourni."
   }
 }

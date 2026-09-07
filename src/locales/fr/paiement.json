@@ -1,0 +1,25 @@
+{
+  "titre": "Finalisez votre paiement. Une dernière étape avant de démarrer.",
+  "intro": "Le paiement s'effectue sur une page sécurisée dédiée ; aucune donnée bancaire ne transite par ce site.",
+  "recapitulatif": {
+    "formule": "Formule choisie",
+    "contenuInclus": "Contenu inclus",
+    "montant": "Montant à régler"
+  },
+  "formules": [
+    { "id": "decouverte", "libelle": "Appel découverte", "description": "Un échange de 30 minutes pour cadrer votre besoin.", "prix": 0, "inclus": ["Échange de 30 minutes", "Sans engagement"] },
+    { "id": "session-individuelle", "libelle": "Session individuelle", "description": "Une session d'une heure en tête-à-tête avec le formateur.", "prix": 90, "inclus": ["Session d'une heure", "Support de cours PDF"] },
+    { "id": "session-groupe", "libelle": "Session en groupe", "description": "Une place dans une session live en groupe.", "prix": 60, "inclus": ["Session live en groupe", "Support de cours PDF"] },
+    { "id": "forfait-formation", "libelle": "Forfait formation complet", "description": "L'ensemble du programme, en sessions live avec le formateur.", "prix": 750, "inclus": ["Accès à l'ensemble des modules", "Sessions individuelles et de groupe", "Attestation de suivi"] }
+  ],
+  "consentement": "En continuant, vous acceptez que vos informations de réservation soient transmises à notre prestataire de paiement sécurisé.",
+  "action": {
+    "payer": "Continuer vers le paiement sécurisé"
+  },
+  "securite": "Aucune donnée bancaire ne transite ou n'est conservée sur ce site : le paiement est géré par un prestataire certifié PCI-DSS.",
+  "echecHandoff": {
+    "titre": "Le paiement n'a pas pu être initié.",
+    "message": "Une erreur est survenue lors de la redirection vers la page de paiement sécurisée.",
+    "reessayer": "Réessayer le paiement"
+  }
+}

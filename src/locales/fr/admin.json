@@ -1,0 +1,187 @@
+{
+  "titre": "Espace administrateur",
+  "intro": "Gérez l’agenda, les jours fériés et les réservations depuis un seul endroit.",
+  "nav": {
+    "horaires": "Horaires",
+    "joursFeries": "Jours fériés",
+    "typesDeRendezVous": "Types de rendez-vous",
+    "reservations": "Réservations"
+  },
+  "accueil": {
+    "titre": "Bienvenue dans votre espace administrateur",
+    "intro": "Choisissez une section ci-dessous pour gérer vos disponibilités et vos rendez-vous.",
+    "sections": {
+      "horaires": "Déclarez vos horaires hebdomadaires et vos exceptions.",
+      "joursFeries": "Consultez et réouvrez les jours fériés français.",
+      "typesDeRendezVous": "Configurez le libellé, la durée, le tampon et le prix de chaque type de rendez-vous.",
+      "reservations": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant."
+    }
+  },
+  "horaires": {
+    "titre": "Horaires",
+    "intro": "Déclarez vos plages horaires continues par jour de semaine ; la répartition en créneaux se fait automatiquement selon la durée et le tampon du type de rendez-vous choisi.",
+    "champs": {
+      "jour": "Jour",
+      "heureDebut": "Heure de début",
+      "heureFin": "Heure de fin"
+    },
+    "actions": {
+      "ajouterPlage": "Ajouter une plage",
+      "enregistrer": "Enregistrer",
+      "desactiver": "Désactiver",
+      "reactiver": "Réactiver"
+    },
+    "jours": {
+      "1": "Lundi",
+      "2": "Mardi",
+      "3": "Mercredi",
+      "4": "Jeudi",
+      "5": "Vendredi",
+      "6": "Samedi",
+      "7": "Dimanche"
+    },
+    "aucunePlage": "Aucune plage déclarée ce jour-là.",
+    "succes": "Horaires mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
+  "exceptions": {
+    "titre": "Exceptions",
+    "intro": "Bloquez une journée entière, une plage partielle, ou ouvrez une plage supplémentaire en dehors des horaires habituels.",
+    "avertissement": "Bloquer une plage ne libère aucune place et ne vend rien : cela retire simplement ces horaires de l’agenda public.",
+    "champs": {
+      "jour": "Date",
+      "motif": "Motif",
+      "heureDebut": "Heure de début",
+      "heureFin": "Heure de fin",
+      "libelle": "Libellé",
+      "journeeEntiere": "Journée entière"
+    },
+    "actions": {
+      "bloquerJournee": "Bloquer la journée",
+      "bloquerPlage": "Bloquer une plage",
+      "ouvrirPlage": "Ouvrir une plage",
+      "enregistrer": "Enregistrer",
+      "supprimer": "Supprimer",
+      "confirmerSuppression": "Confirmer la suppression"
+    },
+    "suppression": {
+      "titre": "Supprimer cette exception ?",
+      "message": "Cette action retire définitivement l’exception de l’agenda."
+    },
+    "aucuneException": "Aucune exception sur la période affichée.",
+    "succes": "Exception enregistrée.",
+    "erreurSuppression": "La suppression a échoué. Merci de réessayer.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
+  "joursFeries": {
+    "titre": "Jours fériés",
+    "intro": "Les onze jours fériés français sont fermés par défaut ; réouvrez-les au cas par cas.",
+    "actions": {
+      "reouvrir": "Réouvrir",
+      "fermer": "Fermer"
+    },
+    "succes": "Jour férié mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer.",
+    "jourDeLAn": "Jour de l’an",
+    "lundiDePaques": "Lundi de Pâques",
+    "feteDuTravail": "Fête du Travail",
+    "victoire1945": "Victoire 1945",
+    "ascension": "Ascension",
+    "lundiDePentecote": "Lundi de Pentecôte",
+    "feteNationale": "Fête nationale",
+    "assomption": "Assomption",
+    "toussaint": "Toussaint",
+    "armistice": "Armistice",
+    "noel": "Noël"
+  },
+  "legende": {
+    "reserve": "Réservé",
+    "bloque": "Bloqué"
+  },
+  "typesRendezVous": {
+    "titre": "Types de rendez-vous",
+    "intro": "Configurez le libellé, la durée, le tampon et le prix de chaque type de rendez-vous.",
+    "consequence": "Une nouvelle durée ou un nouveau tampon modifie les créneaux proposés à partir de maintenant ; les rendez-vous déjà réservés conservent la durée et le prix enregistrés au moment de la réservation.",
+    "champs": {
+      "libelle": "Libellé",
+      "dureeMinutes": "Durée en minutes",
+      "tamponMinutes": "Temps tampon en minutes",
+      "prix": "Prix"
+    },
+    "actions": {
+      "enregistrer": "Enregistrer"
+    },
+    "succes": "Type de rendez-vous mis à jour.",
+    "erreur": "Une erreur est survenue. Merci de réessayer."
+  },
+  "reservations": {
+    "titre": "Réservations",
+    "intro": "Consultez, déplacez, annulez ou réservez un rendez-vous pour un apprenant existant.",
+    "colonnes": {
+      "date": "Date",
+      "type": "Type",
+      "duree": "Durée",
+      "apprenant": "Apprenant",
+      "email": "Email",
+      "statut": "Statut"
+    },
+    "compteSupprime": "Compte supprimé",
+    "vide": "Aucune réservation sur la période affichée.",
+    "statuts": {
+      "confirmee": "Confirmée",
+      "enAttentePaiement": "En attente de paiement",
+      "annulee": "Annulée"
+    },
+    "actions": {
+      "deplacer": "Déplacer",
+      "annuler": "Annuler ce rendez-vous",
+      "confirmerAnnulation": "Confirmer l’annulation",
+      "choisirNouveauCreneau": "Choisir un nouveau créneau"
+    },
+    "export": {
+      "titre": "Exporter au format CSV",
+      "colonnesAnnonce": "L’export contient exactement six colonnes, dans cet ordre : date, type, durée, apprenant, email, statut.",
+      "bouton": "Exporter la période",
+      "champs": {
+        "du": "Du",
+        "au": "Au"
+      }
+    },
+    "creation": {
+      "titre": "Réserver pour un apprenant",
+      "intro": "Cette réservation est rattachée à un compte apprenant existant ; aucun compte n’est créé depuis cet écran.",
+      "succes": "Rendez-vous créé.",
+      "champs": {
+        "email": "E-mail de l’apprenant",
+        "type": "Type de rendez-vous",
+        "creneau": "Créneau"
+      }
+    },
+    "annulation": {
+      "confirmationTitre": "Annuler cette réservation ?",
+      "confirmationMessage": "L’apprenant sera averti par e-mail de cette annulation.",
+      "dateHeureNouvelle": "Annulé — aucun nouveau rendez-vous n’est prévu."
+    }
+  },
+  "erreurs": {
+    "jourSemaineInvalide": "Le jour de la semaine est invalide.",
+    "heureInvalide": "L’heure est invalide.",
+    "heureFinAvantDebut": "L’heure de fin doit être après l’heure de début.",
+    "jourInvalide": "La date est invalide.",
+    "motifInvalide": "Le motif est invalide.",
+    "heuresIncompletes": "Renseignez à la fois l’heure de début et l’heure de fin, ou aucune des deux.",
+    "champsInvalides": "La demande est invalide.",
+    "nonAutorise": "Vous n’êtes pas autorisé à effectuer cette action.",
+    "introuvable": "Cette réservation est introuvable.",
+    "dejaAnnulee": "Cette réservation est déjà annulée.",
+    "creneauIndisponible": "Ce créneau n’est plus disponible.",
+    "apprenantIntrouvable": "Aucun compte n’existe pour cette adresse e-mail. Aucun compte n’est créé depuis le back-office.",
+    "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
+    "appelDecouverteDejaReserve": "Cet apprenant a déjà réservé un appel découverte.",
+    "libelleInvalide": "Le libellé est invalide.",
+    "dureeInvalide": "La durée doit être un nombre entier de minutes supérieur à zéro.",
+    "tamponInvalide": "Le temps tampon doit être un nombre entier de minutes positif ou nul.",
+    "prixInvalide": "Le prix est invalide.",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
+  }
+}

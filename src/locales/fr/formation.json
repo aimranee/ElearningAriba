@@ -1,0 +1,29 @@
+{
+  "titre": "Le format tient en peu de mots. Voici comment se déroule concrètement une session.",
+  "intro": "Cette formation se vit en direct, avec un expert, pas à travers un enregistrement à consommer seul.",
+  "deroule": [
+    "Connexion à la session live à l'heure indiquée sur votre créneau réservé",
+    "Présentation du module par le formateur, avec échanges en direct",
+    "Démonstration pas à pas sur la plateforme SAP Ariba",
+    "Cas pratique en fin de module, réalisé avec l'accompagnement du formateur",
+    "Temps de questions et de synthèse avant la clôture de la session"
+  ],
+  "fourni": [
+    "Un support de cours PDF téléchargeable par module",
+    "Un accès à l'espace apprenant pour suivre votre progression",
+    "Le cas pratique corrigé de chaque module"
+  ],
+  "prerequis": "Aucun prérequis SAP n'est nécessaire pour suivre cette formation.",
+  "dureeAcces": "L'accès aux supports court pendant toute la durée de votre parcours.",
+  "modalites": [
+    {
+      "titre": "Formations live",
+      "description": "Chaque session est animée en direct par un expert certifié."
+    },
+    {
+      "titre": "Vidéos à venir",
+      "description": "Des compléments vidéo sont à l'étude pour une prochaine version — non inclus à ce jour.",
+      "statut": "futur"
+    }
+  ]
+}

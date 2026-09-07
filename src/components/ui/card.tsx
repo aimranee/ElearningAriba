@@ -1,0 +1,139 @@
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const cardVariants = cva(
+  "flex flex-col gap-4 rounded-xl border py-4 transition-[transform,box-shadow,border-color,background-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] outline-none in-data-[density=compact]:gap-2 in-data-[density=compact]:py-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-[loading=true]:pointer-events-none aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20" +
+    /* why: a static card must never look clickable — hover/active lift only
+       apply once the call site marks the card as an interactive control */
+    " data-[interactive=true]:hover:shadow-[var(--shadow-2)] data-[interactive=true]:active:translate-y-px",
+  {
+    variants: {
+      variant: {
+        /* niveau 1 (D-19): tinted, borderless-shadow surface — zero
+           box-shadow at rest and on hover. Hover only flips background to
+           white, border to --hairline-2, and lifts 2px. */
+        tint: "border-[var(--hairline)] bg-[var(--tint)] shadow-none rounded-[20px] hover:bg-white hover:border-[var(--hairline-2)] hover:-translate-y-[2px]",
+        /* niveau 2 (D-19): a contact shadow at rest, transitioning to
+           --shadow-1 on hover — never a lift into the raised tier. */
+        default:
+          "border-[var(--hairline)] bg-background shadow-[var(--contact),var(--inset-hi)] hover:-translate-y-[3px] hover:border-[var(--hairline-2)] hover:shadow-[var(--shadow-1),var(--inset-hi)]",
+        /* why (D-19): the unconditional hover-lift is now scoped to this
+           tier only — niveau 3, the reserved surface for the page's two
+           highest-emphasis elements. The base comment's "a static card must
+           never look clickable" rationale is superseded for this variant; a
+           raised card IS the maquette's highest-emphasis surface, not an
+           interactive control. */
+        raised:
+          "border-transparent bg-background shadow-[var(--shadow-3),var(--inset-hi)] rounded-[22px] hover:shadow-[var(--shadow-4),var(--inset-hi)] hover:-translate-y-[7px]",
+        outline: "border-border bg-background shadow-none",
+        success: "border-transparent bg-success-muted shadow-[var(--shadow-1)]",
+        muted: "border-transparent bg-muted shadow-none",
+      },
+      size: {
+        default: "px-4",
+        sm: "gap-2 px-3 py-3",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+function Card({
+  className,
+  variant = "default",
+  size = "default",
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof cardVariants>) {
+  return (
+    <div
+      data-slot="card"
+      className={cn(cardVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn("flex flex-col gap-1.5 px-4 in-data-[density=compact]:px-3", className)}
+      {...props}
+    />
+  )
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
+  return (
+    <h3
+      data-slot="card-title"
+      className={cn(
+        "text-[length:var(--text-section)] leading-[var(--text-section--line-height)] font-heading font-semibold in-data-[density=compact]:text-[length:var(--text-lead)]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function CardDescription({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p
+      data-slot="card-description"
+      className={cn("text-muted-foreground text-sm", className)}
+      {...props}
+    />
+  )
+}
+
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("px-4 in-data-[density=compact]:px-3", className)}
+      {...props}
+    />
+  )
+}
+
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-footer"
+      className={cn("flex items-center gap-2 px-4 in-data-[density=compact]:px-3", className)}
+      {...props}
+    />
+  )
+}
+
+function CardSkeleton({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-skeleton"
+      className={cn(
+        "hidden animate-pulse flex-col gap-2 in-data-[loading=true]:flex",
+        className
+      )}
+      {...props}
+    >
+      <div className="bg-muted h-4 w-3/4 rounded-[var(--radius-sm)]" />
+      <div className="bg-muted h-4 w-full rounded-[var(--radius-sm)]" />
+      <div className="bg-muted h-4 w-1/2 rounded-[var(--radius-sm)]" />
+    </div>
+  )
+}
+
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  CardSkeleton,
+  cardVariants,
+}

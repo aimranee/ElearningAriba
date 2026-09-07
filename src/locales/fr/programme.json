@@ -1,0 +1,78 @@
+{
+  "titre": "Le programme détaillé se lit module par module. Chaque étape a un objectif précis.",
+  "intro": "Cinq modules construisent progressivement votre maîtrise de SAP Ariba. Voici leur contenu complet.",
+  "telechargerPdf": "Télécharger le programme en PDF",
+  "totalLabelPdf": "Total",
+  "modules": [
+    {
+      "titre": "Découverte de l'écosystème Ariba",
+      "duree": 3,
+      "objectifs": [
+        "Situer SAP Ariba dans le système d'information achats",
+        "Distinguer les rôles acheteur, fournisseur et administrateur",
+        "Repérer les principaux flux de la plateforme"
+      ],
+      "contenu": [
+        "Présentation de la plateforme et de ses modules",
+        "Panorama des rôles et des permissions",
+        "Vue d'ensemble des flux Procure-to-Pay et Source-to-Pay"
+      ]
+    },
+    {
+      "titre": "Procure-to-Pay au quotidien",
+      "duree": 4,
+      "objectifs": [
+        "Créer et suivre une demande d'achat",
+        "Comprendre le cycle de validation jusqu'au paiement",
+        "Identifier les points de blocage courants"
+      ],
+      "contenu": [
+        "De la demande d'achat à la commande",
+        "Réception et rapprochement facture",
+        "Suivi du statut de paiement fournisseur"
+      ]
+    },
+    {
+      "titre": "Source-to-Pay et stratégie achats",
+      "duree": 4,
+      "objectifs": [
+        "Relier sourcing et exécution des achats",
+        "Structurer une démarche de négociation",
+        "Intégrer le sourcing au cycle Procure-to-Pay"
+      ],
+      "contenu": [
+        "Principes du sourcing stratégique",
+        "Négociation et sélection fournisseur",
+        "Passage du sourcing à la commande"
+      ]
+    },
+    {
+      "titre": "Appels d'offres RFQ et RFP",
+      "duree": 3,
+      "objectifs": [
+        "Construire un appel d'offres structuré",
+        "Diffuser une consultation aux bons fournisseurs",
+        "Analyser et comparer les réponses reçues"
+      ],
+      "contenu": [
+        "Différence entre RFQ et RFP",
+        "Paramétrage d'une consultation sur Ariba",
+        "Grille d'analyse des réponses fournisseurs"
+      ]
+    },
+    {
+      "titre": "Catalogues, contrats et workflows",
+      "duree": 3,
+      "objectifs": [
+        "Configurer un catalogue fournisseur",
+        "Structurer un contrat dans Ariba",
+        "Automatiser un circuit de validation"
+      ],
+      "contenu": [
+        "Mise en place et gestion des catalogues",
+        "Suivi des contrats et de leurs échéances",
+        "Conception d'un workflow d'approbation"
+      ]
+    }
+  ]
+}

@@ -18,6 +18,30 @@ const serverEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.url(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  /**
+   * why (D-48): boot-time-required would break `next build` until the CIO
+   * provisions the key — optional here, strictly re-validated at request
+   * time inside src/lib/email/resend.ts (D-34).
+   */
+  RESEND_API_KEY: z.string().min(1).optional(),
+  /**
+   * why: a bucket name, not a secret — defaulted rather than required so a
+   * missing value never breaks `next build`. CPT-07's signed-URL generation
+   * reads it; the hosted bucket itself is a CIO item (see
+   * <hosted_dependencies> in 03-CONTEXT.md).
+   */
+  SUPABASE_SUPPORTS_BUCKET: z.string().min(1).default("supports"),
+  /**
+   * why (D-15): the trainer's fixed video-conferencing link, injected into
+   * the `.ics` LOCATION, the two AGD-06 emails and the screen-3 recap.
+   * Optional here so `next build` stays green while the CIO provisions it
+   * per environment — src/app/api/reservation/route.ts re-validates it
+   * strictly at request time, the same optional-at-boot/strict-at-use split
+   * RESEND_API_KEY already uses (D-48). Server-only: it must never be
+   * prefixed NEXT_PUBLIC_, or an unauthenticated visitor could read the
+   * trainer's permanent meeting room out of the client bundle.
+   */
+  FORMATEUR_LIEN_VISIO: z.url().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

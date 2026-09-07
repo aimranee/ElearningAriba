@@ -1,0 +1,31 @@
+{
+  "_pourquoi": "Ce registre liste chaque valeur de copy encore fictive dans les emails automatiques, en attente des réponses du client dans Cadrage_Formation_SAP_Ariba_Questions_Client.docx. Le gate Lot 1 ne peut fermer tant qu'une entrée subsiste ici : la fermeture du gate est la suppression de ce fichier, pas une correction case par case.",
+  "mocks": [
+    { "file": "emails.json", "key": "confirmationInscription.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "confirmationReservation.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "rappel.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "reinitialisationMotDePasse.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.objet", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.preheader", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.salutation", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.0", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.1", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.2", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.3", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.4", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.corps.5", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.action.libelle", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.action.contexte", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactNotification.pied", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.objet", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.preheader", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.salutation", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.corps.0", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.corps.1", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.action.libelle", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.action.contexte", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "contactAccusReception.pied", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" }
+  ]
+}

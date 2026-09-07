@@ -1,16 +1,29 @@
 name: CI
 
-# A workflow only runs from the ref that carries it. Listing `main` alone
-# meant this file — which lives on the phase branches — could never fire:
-# a push to a `gsd/**` branch matched no trigger, and `main` has no copy of
-# it to run. The check name therefore never registered, so it could not be
-# required. Phase branches run it on every push, which is also what proves
-# the workflow before it becomes the merge gate.
+# A workflow only runs from the ref that carries it, so this file has to be
+# on a branch for that branch to be checked at all.
+#
+# The push filter used to name prefixes: [main, 'gsd/**']. That silently left
+# every other branch unobserved, and it cost something real — `cio/merge-lots-1-4`,
+# carrying Lots 1 to 4 merged together, was pushed on 2026-09-07 with no run at
+# all. A prefix list only ever guards the prefixes someone thought of.
+#
+# `'**'` matches every branch, slashes included, and — unlike a bare `push:` —
+# excludes tags. The blocking gate is the pull_request trigger below: it filters
+# the PR's target, not its source, so a PR from any branch into the trunk is
+# checked. That gate was seen refusing on run 33403822473 (2026-08-31).
+#
+# The target is listed as BOTH `main` and `master` on purpose. The remote trunk
+# was renamed from `main` to `master` on 2026-09-07, and the rename did not
+# carry: GitHub moved branch protection with it, but this filter kept pointing
+# at a branch that no longer existed, which silently disarmed the merge gate.
+# Naming both survives the rename in either direction. Do not trim this to one
+# name without checking `git ls-remote --heads origin` first.
 on:
   pull_request:
-    branches: [main]
+    branches: [main, master]
   push:
-    branches: [main, 'gsd/**']
+    branches: ['**']
   workflow_dispatch:
 
 permissions:

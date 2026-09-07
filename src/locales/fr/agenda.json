@@ -1,0 +1,39 @@
+{
+  "titre": "Choisissez votre créneau. Le bon moment pour démarrer, c'est celui que vous fixez.",
+  "intro": "Consultez les disponibilités du formateur et réservez directement en ligne.",
+  "moisPrecedent": "Mois précédent",
+  "moisSuivant": "Mois suivant",
+  "legende": {
+    "libre": "Libre",
+    "indisponible": "Indisponible",
+    "passe": "Passé"
+  },
+  "typesRendezVous": [
+    { "id": "decouverte", "libelle": "Appel découverte", "dureeMinutes": 30, "prix": 0 },
+    { "id": "individuelle", "libelle": "Session individuelle", "dureeMinutes": 60, "prix": 90 }
+  ],
+  "aucunCreneau": {
+    "titre": "Aucun créneau disponible pour le moment.",
+    "message": "De nouvelles disponibilités sont ajoutées régulièrement ; revenez bientôt ou contactez-nous.",
+    "action": "Nous contacter"
+  },
+  "chargement": "Chargement des disponibilités…",
+  "voirPlus": "Voir plus de créneaux",
+  "matin": "Matin",
+  "apresMidi": "Après-midi",
+  "maintien": {
+    "notice": "Ce créneau est réservé pour vous pendant {minutes} minutes.",
+    "expire": "Le délai est écoulé ; ce créneau est de nouveau proposé aux autres visiteurs."
+  },
+  "confiance": {
+    "confirmation": "Une confirmation immédiate vous est envoyée par e-mail après la réservation.",
+    "modification": "Un changement de créneau se fait directement auprès du formateur ; il n’y a pas d’annulation en libre-service."
+  },
+  "erreurs": {
+    "creneauIndisponible": "Ce créneau vient d’être réservé par quelqu’un d’autre. Choisissez un autre horaire.",
+    "typeInconnu": "Ce type de rendez-vous n’est plus disponible.",
+    "jetonInconnu": "Votre créneau retenu a expiré ; nous relançons la demande.",
+    "champsInvalides": "La demande est invalide.",
+    "erreurGenerique": "Une erreur est survenue. Merci de réessayer."
+  }
+}

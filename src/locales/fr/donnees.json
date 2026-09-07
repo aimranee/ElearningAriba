@@ -1,0 +1,30 @@
+{
+  "titre": "Vos données personnelles. Vous en gardez le contrôle.",
+  "intro": "Le RGPD vous donne deux droits que vous exercez ici : récupérer une copie de ce que nous conservons à votre sujet, et demander la suppression de votre compte.",
+  "export": {
+    "titre": "Récupérer mes données",
+    "message": "Vous obtenez un fichier contenant votre profil, vos préférences et vos documents. Le téléchargement démarre immédiatement.",
+    "action": "Télécharger mes données",
+    "erreur": "Vos données n'ont pas pu être préparées. Réessayez dans quelques instants."
+  },
+  "suppression": {
+    "titre": "Supprimer mon compte",
+    "message": "Votre demande est transmise au formateur. Votre compte et vos données sont supprimés, à l'exception des documents que la loi nous oblige à conserver, comme vos factures.",
+    "action": "Demander la suppression de mon compte",
+    "confirmation": {
+      "titre": "Cette suppression est définitive.",
+      "message": "Vous perdez l'accès à votre espace, à vos documents et à votre historique. Rien ne pourra être restauré.",
+      "caseACocher": "J'ai compris que la suppression de mon compte est définitive.",
+      "confirmer": "Confirmer la suppression de mon compte"
+    },
+    "accuseReception": {
+      "titre": "Votre demande de suppression a bien été enregistrée.",
+      "message": "Le formateur en a été informé."
+    },
+    "dejaDemandee": {
+      "titre": "Une demande de suppression est déjà en cours.",
+      "message": "Elle a été enregistrée le {date}. Écrivez au formateur si vous souhaitez l'annuler."
+    },
+    "erreur": "Votre demande n'a pas pu être enregistrée. Réessayez dans quelques instants."
+  }
+}

@@ -43,36 +43,36 @@ with no lot: it is the technical foundation the lots are built on.
 - [ ] **PUB-05**: Visitor sees « Format et modalités » — live training, PDF supports, videos to come, access duration, end-of-module practical cases, prerequisites
 - [ ] **PUB-06**: Visitor sees « Confiance et sécurité » — data protection, certified SAP Ariba experts, regularly updated content, and ready placeholders for testimonials and company logos
 - [ ] **PUB-07**: Visitor sees a final CTA and a FAQ of six to eight questions answering the most frequent objections
-- [ ] **PUB-08**: Visitor can read the Programme page — the five modules developed with pedagogical objectives, content and duration
-- [ ] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
-- [ ] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
+- [x] **PUB-08**: Visitor can read the Programme page — the five modules developed with pedagogical objectives, content and duration
+- [x] **PUB-09**: Visitor can read the Formation page — format, modalities, the concrete run of a live session, what is provided
+- [x] **PUB-10**: Visitor can read the À propos page — the trainer, their background, their SAP Ariba legitimacy
 - [ ] **PUB-11**: Visitor can send a message from the Contact page (nom, email, téléphone, profil, message), it is stored in the database, the trainer is notified immediately, the prospect gets an acknowledgement, and the form is protected against spam
-- [ ] **PUB-12**: Every page is reachable in two clicks through a minimalist navigation menu, with a complete footer
+- [x] **PUB-12**: Every page is reachable in two clicks through a minimalist navigation menu, with a complete footer
 - [ ] **PUB-13**: All public-site content comes from the database — no module, price or asset hardcoded
 
 ### Comptes — Lot 3: comptes utilisateurs, connexion et espace apprenant
 
-- [ ] **CPT-01**: Visitor can create an account with email and password, and must verify their email address
-- [ ] **CPT-02**: Visitor can sign in with a Google account in one click
-- [ ] **CPT-03**: Learner can reset a forgotten password, and repeated sign-in attempts are throttled
-- [ ] **CPT-04**: An account is required for every reservation, including the free discovery call — one identity, with the learner's whole history attached to their record
-- [ ] **CPT-05**: Learner can fill their profile — identity, contact details, professional profile (acheteur, consultant, étudiant, entreprise), communication preferences
-- [ ] **CPT-06**: Learner sees their space — mes prochains rendez-vous et sessions, mon historique, mes documents, mes factures, mon avancement — with honest empty states for the surfaces filled by later lots
-- [ ] **CPT-07**: Enrolled learners can download supports through signed, time-limited, non-shareable links
-- [ ] **CPT-08**: Roles are learner and administrator, and database-level isolation makes it technically impossible for a learner to read another learner's data
-- [ ] **CPT-09**: Learner can request deletion of their account and export of their data (GDPR)
+- [x] **CPT-01**: Visitor can create an account with email and password, and must verify their email address
+- [ ] **CPT-02**: Visitor can sign in with a Google account in one click — **bloquée** : aucun identifiant Google (client OAuth) n'existe encore ; `src/app/api/auth/google/route.ts` vise la même URL de callback que les parcours corrigés (`65dea14`/`3eee9bc`/`2a1b518`) ; la liste d'autorisation **hébergée** devra porter `https://<domaine>/api/auth/callback**`, faute de quoi Google échouera dès sa livraison.
+- [x] **CPT-03**: Learner can reset a forgotten password, and repeated sign-in attempts are throttled
+- [x] **CPT-04**: An account is required for every reservation, including the free discovery call — one identity, with the learner's whole history attached to their record
+- [x] **CPT-05**: Learner can fill their profile — identity, contact details, professional profile (acheteur, consultant, étudiant, entreprise), communication preferences
+- [x] **CPT-06**: Learner sees their space — mes prochains rendez-vous et sessions, mon historique, mes documents, mes factures, mon avancement — with honest empty states for the surfaces filled by later lots
+- [x] **CPT-07**: Enrolled learners can download supports through signed, time-limited, non-shareable links
+- [x] **CPT-08**: Roles are learner and administrator, and database-level isolation makes it technically impossible for a learner to read another learner's data
+- [x] **CPT-09**: Learner can request deletion of their account and export of their data (GDPR)
 
 ### Agenda — Lot 4: agenda et prise de rendez-vous
 
-- [ ] **AGD-01**: The data model holds recurring availabilities per day, exceptions, reservations, and handles the Europe/Paris timezone
-- [ ] **AGD-02**: Visitor sees a public monthly calendar and a list of free slots, with past, blocked or already-taken slots automatically greyed out
-- [ ] **AGD-03**: Administrator can configure appointment types — 30-minute discovery call, one-hour individual session — with configurable label, duration, buffer time and price
-- [ ] **AGD-04**: Learner books in three screens from their account — appointment type, slot, confirmation
-- [ ] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
-- [ ] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
-- [ ] **AGD-07**: Administrator can define weekly working hours, open, grey out or block time ranges, and set holidays
-- [ ] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
-- [ ] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
+- [x] **AGD-01**: The data model holds recurring availabilities per day, exceptions, reservations, and handles the Europe/Paris timezone
+- [x] **AGD-02**: Visitor sees a public monthly calendar and a list of free slots, with past, blocked or already-taken slots automatically greyed out
+- [x] **AGD-03**: Administrator can configure appointment types — 30-minute discovery call, one-hour individual session — with configurable label, duration, buffer time and price
+- [x] **AGD-04**: Learner books in three screens from their account — appointment type, slot, confirmation
+- [x] **AGD-05**: Two learners cannot book the same slot, enforced by a transactional lock in the database
+- [x] **AGD-06**: Learner receives a confirmation email with a `.ics` file, and the trainer is notified immediately
+- [x] **AGD-07**: Administrator can define weekly working hours, open, grey out or block time ranges, and set holidays
+- [x] **AGD-08**: Administrator can view, move or cancel reservations, create an appointment on a learner's behalf, and export the list
+- [x] **AGD-09**: A reservation carries an order/confirmation state that is inert until Lot 7 activates it — so that the "confirmed only after effective payment / slot released if payment fails" rule can be switched on without rewriting the booking flow
 
 ### Mise en ligne — Lot 5: SEO, pages juridiques, RGPD et mise en ligne
 
@@ -192,30 +192,30 @@ offer.
 | PUB-05 | Phase 2 | Pending |
 | PUB-06 | Phase 2 | Pending |
 | PUB-07 | Phase 2 | Pending |
-| PUB-08 | Phase 2 | Pending |
-| PUB-09 | Phase 2 | Pending |
-| PUB-10 | Phase 2 | Pending |
+| PUB-08 | Phase 2 | Complete |
+| PUB-09 | Phase 2 | Complete |
+| PUB-10 | Phase 2 | Complete |
 | PUB-11 | Phase 2 | Pending |
-| PUB-12 | Phase 2 | Pending |
+| PUB-12 | Phase 2 | Complete (02-04) |
 | PUB-13 | Phase 2 | Pending |
-| CPT-01 | Phase 3 | Pending |
-| CPT-02 | Phase 3 | Pending |
-| CPT-03 | Phase 3 | Pending |
-| CPT-04 | Phase 3 | Pending |
-| CPT-05 | Phase 3 | Pending |
-| CPT-06 | Phase 3 | Pending |
-| CPT-07 | Phase 3 | Pending |
-| CPT-08 | Phase 3 | Pending |
-| CPT-09 | Phase 3 | Pending |
-| AGD-01 | Phase 4 | Pending |
-| AGD-02 | Phase 4 | Pending |
-| AGD-03 | Phase 4 | Pending |
-| AGD-04 | Phase 4 | Pending |
-| AGD-05 | Phase 4 | Pending |
-| AGD-06 | Phase 4 | Pending |
-| AGD-07 | Phase 4 | Pending |
-| AGD-08 | Phase 4 | Pending |
-| AGD-09 | Phase 4 | Pending |
+| CPT-01 | Phase 3 | Complete (03-11) |
+| CPT-02 | Phase 3 | Blocked — Google OAuth client missing |
+| CPT-03 | Phase 3 | Complete (03-11) |
+| CPT-04 | Phase 3 | Complete (03-11) |
+| CPT-05 | Phase 3 | Complete (03-11) |
+| CPT-06 | Phase 3 | Complete (03-11) |
+| CPT-07 | Phase 3 | Complete (03-11) |
+| CPT-08 | Phase 3 | Complete (03-11) |
+| CPT-09 | Phase 3 | Complete (03-11) |
+| AGD-01 | Phase 4 | Complete |
+| AGD-02 | Phase 4 | Complete |
+| AGD-03 | Phase 4 | Complete |
+| AGD-04 | Phase 4 | Complete |
+| AGD-05 | Phase 4 | Complete |
+| AGD-06 | Phase 4 | Complete |
+| AGD-07 | Phase 4 | Complete |
+| AGD-08 | Phase 4 | Complete |
+| AGD-09 | Phase 4 | Complete |
 | GOL-01 | Phase 5 | Pending |
 | GOL-02 | Phase 5 | Pending |
 | GOL-03 | Phase 5 | Pending |

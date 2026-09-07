@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import common from "@/locales/fr/common.json";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { RevealScope } from "@/components/motion/reveal";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 
-// Geist is the untouched create-next-app library default, kept as a
-// placeholder: the real typography is defined by the Lot 1 design system
-// after client validation.
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodyFont = Inter({ variable: "--font-body", subsets: ["latin"] });
+const headingFont = Plus_Jakarta_Sans({
+  variable: "--font-heading-face",
   subsets: ["latin"],
 });
 
@@ -25,9 +22,28 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <RevealScope />
+        <ScrollProgress />
+        <a
+          href="#contenu-principal"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          {common.nav.allerAuContenu}
+        </a>
+        <Header />
+        {/* why: children need flex-1 on a wrapper, not on <body> itself, now
+            that the header and footer are siblings sharing the body's flex
+            column — otherwise every page's own flex-1 would compete with
+            them for the remaining space. pt-[76px] offsets the now-fixed
+            header (D-18) so no route's content renders underneath it. */}
+        <main id="contenu-principal" className="flex-1 pt-[76px]">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }

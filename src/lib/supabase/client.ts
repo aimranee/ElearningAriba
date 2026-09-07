@@ -12,8 +12,15 @@ import type { Database } from "@/types/database.types";
  * split is why this file lives apart from src/lib/supabase/server.ts.
  */
 export function createClient() {
-  return createBrowserClient<Database>(
+  return createBrowserClient<Database, "app">(
     clientEnv.NEXT_PUBLIC_SUPABASE_URL,
     clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      // Every table lives in schema app, nothing in public — default here
+      // instead of calling .schema('app') on every content read.
+      db: {
+        schema: "app",
+      },
+    },
   );
 }
