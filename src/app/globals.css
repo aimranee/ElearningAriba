@@ -353,6 +353,22 @@ html {
     }
   }
 
+  /* v3 landing (brief §D-3): the constellation backdrop's five node sparks
+     twinkle in place — curve-agnostic keyframe, --ease-brand lives on the
+     consumer rule below (D-17). */
+  @keyframes twinkle {
+    from {
+      opacity: 0.25;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  [data-slot="constellation-spark"] {
+    animation: twinkle 5s var(--ease-brand) infinite alternate;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -378,8 +394,13 @@ html {
        invisible-but-present node. */
     [data-slot="hero-spotlight"],
     [data-slot="card-spotlight"],
-    [data-slot="comet"] {
+    [data-slot="comet"],
+    [data-slot="constellation-spark"] {
       display: none;
+    }
+
+    [data-slot="constellation-link"] {
+      animation: none;
     }
 
     [data-slot="timeline-line"] {
