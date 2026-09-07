@@ -1,6 +1,6 @@
 import { AuthShell } from "@/components/compte/auth-shell";
 import { MotDePasseOublieForm } from "@/components/compte/mot-de-passe-oublie-form";
-import { Card, CardContent } from "@/components/ui/card";
+import connexion from "@/locales/fr/connexion.json";
 import motDePasse from "@/locales/fr/mot-de-passe.json";
 
 /*
@@ -9,12 +9,12 @@ import motDePasse from "@/locales/fr/mot-de-passe.json";
  */
 export default function MotDePasseOublie() {
   return (
-    <AuthShell titre={motDePasse.demande.titre} intro={motDePasse.demande.intro}>
-      <Card>
-        <CardContent>
-          <MotDePasseOublieForm />
-        </CardContent>
-      </Card>
+    <AuthShell
+      titre={motDePasse.demande.titre}
+      intro={motDePasse.demande.intro}
+      entete={connexion.motDePasseOublie}
+    >
+      <MotDePasseOublieForm />
     </AuthShell>
   );
 }

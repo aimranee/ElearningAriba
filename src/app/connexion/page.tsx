@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { AuthShell } from "@/components/compte/auth-shell";
 import { ConnexionForm } from "@/components/compte/connexion-form";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { EspaceFenetre } from "@/components/illustrations/espace-fenetre";
+import common from "@/locales/fr/common.json";
 import connexion from "@/locales/fr/connexion.json";
 
 /*
@@ -13,20 +14,18 @@ import connexion from "@/locales/fr/connexion.json";
  */
 export default function Connexion() {
   return (
-    <AuthShell titre={connexion.titre} intro={connexion.intro}>
-      <Card>
-        <CardContent>
-          <ConnexionForm />
-        </CardContent>
-        <CardFooter>
-          <Link
-            href="/inscription"
-            className="text-sm text-primary hover:underline"
-          >
-            {connexion.pasDeCompte}
-          </Link>
-        </CardFooter>
-      </Card>
+    <AuthShell
+      titre={connexion.titre}
+      intro={connexion.intro}
+      entete={common.nav.connexion}
+      illustration={<EspaceFenetre />}
+    >
+      <ConnexionForm />
+      <p className="text-center text-sm text-muted-foreground">
+        <Link href="/inscription" className="text-primary font-semibold hover:underline">
+          {connexion.pasDeCompte}
+        </Link>
+      </p>
     </AuthShell>
   );
 }
