@@ -103,3 +103,5 @@ local) — voir `src/lib/env/site-url.ts`.
 - Flux de contribution (branche, pull request, CI) : voir `CONTRIBUTING.md`
 - Configuration de l'hébergement (Supabase et Vercel hébergés) : voir
   `docs/hebergement.md`
+
+<!-- deploy trigger verified 2026-09-07 -->
