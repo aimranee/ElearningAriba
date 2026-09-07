@@ -29,7 +29,7 @@ Phase: 04 (agenda-et-prise-de-rendez-vous) - COMPLETE; Phase 02 (site-public) - 
 Plan: Phase 04 9 of 9 complete. Phase 02: 02-01..02-10 complete, 02-11 NOT started; unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 - deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending.
 Status: Lot 4 - all five D-26 founder gates signed off (04-03, 04-05, 04-06, 04-08, 04-09); AGD-01..AGD-09 delivered. Lot 2 - waves 1-5 delivered and verified from the repo (next build green, content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows), but the phase does not close until 02-11 runs.
 Counter note: `completed_phases: 4` counts phases 00, 01, 03 and 04. Phase 02 is the outstanding one, not phase 04 - the number is unchanged by the merge but its meaning is not. Treat `completed_plans` as unverified: a file count of the merged tree shows 02-11 as the only unstarted plan, which would make it 48/49, and this counter family is known to be reset by execute-phase.
-Last activity: 2026-09-07 - Completed quick task 260907-n7j: Landing v3 Run C (format night preview, confiance fact list, cta-final mini-calendrier, faq two-column)
+Last activity: 2026-09-07 - Completed quick task 260907-opw: Auth v2 panneau + formulaire (recomposed connexion/inscription/mot-de-passe-oublie/nouveau-mot-de-passe onto a night-panel AuthShell, Google-first forms, 44px fields)
 
 Progress: [█████████░] 96%  (47/49 plans; see the counter note above)
 
@@ -139,6 +139,7 @@ Recent decisions affecting current work:
 | 260904-nge | Correctif 2 — piste de grille implicite (grid-cols-1) et boutons de mois icône seule sous sm | 2026-09-04 | d8e78b0 | Verified | [260904-nge-correctif-2-piste-de-grille-implicite-et](./quick/260904-nge-correctif-2-piste-de-grille-implicite-et/) |
 | 260907-my2 | Landing v3 Run B: pour-qui speech bubbles, competences night wall, programme timeline | 2026-09-07 | c87d330 | Verified | [260907-my2-landing-v3-run-b-pour-qui-speech-bubbles](./quick/260907-my2-landing-v3-run-b-pour-qui-speech-bubbles/) |
 | 260907-n7j | Landing v3 Run C: format night preview, confiance fact list, cta-final mini-calendrier, faq two-column | 2026-09-07 | d24b49a | Verified | [260907-n7j-landing-v3-le-parcours-run-c-of-3-format](./quick/260907-n7j-landing-v3-le-parcours-run-c-of-3-format/) |
+| 260907-opw | Auth v2 panneau + formulaire: recompose the four auth pages as a night brand panel beside the form column, lead both forms with Google, raise fields/buttons to 44px | 2026-09-07 | 4209e83 | Verified | [260907-opw-auth-v2-panneau-formulaire-recompose-fou](./quick/260907-opw-auth-v2-panneau-formulaire-recompose-fou/) |
 
 ### Blockers/Concerns
 
