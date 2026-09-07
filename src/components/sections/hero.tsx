@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { Typewriter } from "@/components/motion/typewriter";
-import { HeroSpotlight } from "@/components/motion/hero-spotlight";
 import { Magnetic } from "@/components/motion/magnetic";
 import { FluxAchat } from "@/components/illustrations/flux-achat";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
@@ -103,16 +102,10 @@ async function Hero() {
       data-section="top"
       className={
         "relative overflow-hidden py-[clamp(5rem,9vw,7rem)] " +
-        "before:pointer-events-none before:absolute before:inset-0 before:content-[''] " +
-        "before:[background-image:radial-gradient(circle,var(--grid-dot)_1px,transparent_1.5px)] " +
-        "before:[background-size:22px_22px] " +
-        "before:[mask-image:radial-gradient(ellipse_75%_65%_at_50%_18%,#000_15%,transparent_72%)] " +
-        "before:[-webkit-mask-image:radial-gradient(ellipse_75%_65%_at_50%_18%,#000_15%,transparent_72%)] " +
         "after:pointer-events-none after:absolute after:inset-0 after:content-[''] " +
         "after:[background:radial-gradient(55%_45%_at_12%_8%,rgba(99,91,255,.13),transparent_70%),radial-gradient(40%_40%_at_100%_45%,rgba(15,126,166,.07),transparent_70%)]"
       }
     >
-      <HeroSpotlight />
       <Magnetic />
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-[clamp(2rem,5vw,4.5rem)] px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
         <div className="flex flex-col gap-[1.6rem]">
@@ -161,6 +154,7 @@ async function Hero() {
               nativeButton={false}
               size="lg"
               data-magnetic="true"
+              className="min-h-11"
             >
               {common.actions.prendreRdv}
             </Button>
@@ -169,6 +163,7 @@ async function Hero() {
               nativeButton={false}
               variant="outline"
               size="lg"
+              className="min-h-11"
             >
               <FileText />
               {common.actions.voirProgramme}

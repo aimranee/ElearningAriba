@@ -421,7 +421,6 @@ html {
        ABSENT under reduced motion, not merely frozen — display:none removes
        them from the render tree entirely rather than leaving an
        invisible-but-present node. */
-    [data-slot="hero-spotlight"],
     [data-slot="card-spotlight"],
     [data-slot="comet"],
     [data-slot="constellation-spark"],

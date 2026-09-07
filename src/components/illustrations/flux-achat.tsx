@@ -37,7 +37,7 @@ function FluxAchat() {
   const sessionLivePill = assemblage.pills[1];
 
   return (
-    <div data-slot="flux-achat" aria-hidden="true" className="relative px-2 pt-5 pb-10">
+    <div data-slot="flux-achat" aria-hidden="true" className="relative px-2 pt-5 pb-16">
       <div
         data-slot="board"
         className="relative overflow-visible rounded-[28px] bg-white p-[1.35rem_1.35rem_1.1rem] shadow-[var(--shadow-4),var(--inset-hi)]"
@@ -125,13 +125,13 @@ function FluxAchat() {
             />
             {sessionLivePill?.label} · {apercu.enDirect}
           </div>
+        </div>
 
-          <div className="absolute bottom-[0.4rem] left-1 flex -rotate-2 items-center gap-[0.55rem] rounded-[14px] border border-[var(--hairline)] bg-white py-[0.6rem] pr-[0.6rem] pl-[0.85rem] text-[length:var(--text-small)] font-bold whitespace-nowrap text-[var(--ink)] shadow-[var(--shadow-2),var(--inset-hi)]">
-            {apercu.panneaux[0]?.titre}
-            <span className="inline-flex items-center gap-[0.3rem] rounded-full bg-[var(--mint-wash)] px-[0.5rem] py-[0.2rem] text-[length:var(--text-micro)] font-extrabold text-[var(--mint-ink)]">
-              {apercu.confirme}
-            </span>
-          </div>
+        <div className="absolute -bottom-4 left-1 flex -rotate-2 items-center gap-[0.55rem] rounded-[14px] border border-[var(--hairline)] bg-white py-[0.6rem] pr-[0.6rem] pl-[0.85rem] text-[length:var(--text-small)] font-bold whitespace-nowrap text-[var(--ink)] shadow-[var(--shadow-2),var(--inset-hi)]">
+          {apercu.panneaux[0]?.titre}
+          <span className="inline-flex items-center gap-[0.3rem] rounded-full bg-[var(--mint-wash)] px-[0.5rem] py-[0.2rem] text-[length:var(--text-micro)] font-extrabold text-[var(--mint-ink)]">
+            {apercu.confirme}
+          </span>
         </div>
       </div>
     </div>
