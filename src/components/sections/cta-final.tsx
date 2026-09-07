@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Calendar } from "lucide-react";
 
+import { MiniCalendrier } from "@/components/illustrations/mini-calendrier";
 import { Section } from "@/components/sections/section";
 import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { getSection } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
 
 /**
  * PUB-07 (final CTA half) — the outer gradient panel keeps `--shadow-brand`
@@ -33,7 +33,6 @@ async function CtaFinal() {
   }
 
   const section = sectionResult.data;
-  const etapes = landing.ctaFinal.etapes;
 
   return (
     <Section tone="default" data-section="reservation">
@@ -89,29 +88,7 @@ async function CtaFinal() {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold tracking-[-0.01em] text-white">
-              {etapes.titre}
-            </h3>
-            <div className="mt-4 flex flex-col gap-[0.75rem]">
-              {etapes.items.map((etape, index) => (
-                <div
-                  key={etape.titre}
-                  className="flex items-start gap-[0.85rem] rounded-[15px] border border-white/15 bg-black/10 px-[1rem] py-[0.9rem]"
-                >
-                  <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-white text-[length:var(--text-small)] font-bold text-[var(--deep)]">
-                    {index + 1}
-                  </span>
-                  <div className="flex flex-col gap-[0.15rem] pt-[0.1rem]">
-                    <strong className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold text-white">{etape.titre}</strong>
-                    <span className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-white/82">
-                      {etape.description}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <MiniCalendrier />
         </div>
       </Reveal>
     </Section>
