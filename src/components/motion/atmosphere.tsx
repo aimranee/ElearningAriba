@@ -11,24 +11,24 @@
    `(pointer: fine)` and outside `prefers-reduced-motion` — otherwise the
    dot grid renders alone, static, and no listener attaches (D-39 budget). */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const LERP_FACTOR = 0.08;
 const STOP_THRESHOLD = 0.5;
 
 function Atmosphere() {
-  const [motionEnabled, setMotionEnabled] = useState(false);
+  const motionGroupRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(pointer: fine)").matches;
-    if (reduced || !fine) return;
-    setMotionEnabled(true);
-  }, []);
+    const group = motionGroupRef.current;
+    if (reduced || !fine) {
+      if (group) group.style.display = "none";
+      return;
+    }
 
-  useEffect(() => {
-    if (!motionEnabled) return;
     const glow = glowRef.current;
     if (!glow) return;
 
@@ -80,7 +80,7 @@ function Atmosphere() {
       document.documentElement.removeEventListener("mouseenter", onMouseEnter);
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [motionEnabled]);
+  }, []);
 
   return (
     <div
@@ -96,34 +96,36 @@ function Atmosphere() {
           backgroundSize: "22px 22px",
         }}
       />
-      {motionEnabled ? (
-        <>
-          <span
-            data-slot="atmosphere-aurora-a1"
-            className="absolute -top-[28vw] -left-[22vw] size-[70vw] max-h-[980px] max-w-[980px] rounded-full blur-[40px]"
-            style={{
-              background: "radial-gradient(circle, rgba(99,91,255,.14), transparent 62%)",
-              animation: "drift1 34s var(--ease-brand) infinite alternate",
-            }}
-          />
-          <span
-            data-slot="atmosphere-aurora-a2"
-            className="absolute -right-[26vw] -bottom-[30vw] size-[70vw] max-h-[980px] max-w-[980px] rounded-full blur-[40px]"
-            style={{
-              background: "radial-gradient(circle, rgba(15,126,166,.11), transparent 62%)",
-              animation: "drift2 42s var(--ease-brand) infinite alternate",
-            }}
-          />
-          <span
-            ref={glowRef}
-            data-slot="atmosphere-glow"
-            className="absolute top-0 left-0 -m-[360px] size-[720px] rounded-full opacity-0 transition-opacity duration-[400ms] ease-[var(--ease-brand)]"
-            style={{
-              background: "radial-gradient(circle, rgba(99,91,255,.16), transparent 60%)",
-            }}
-          />
-        </>
-      ) : null}
+      {/* why: this group is not conditionally rendered (that would need a
+          setState call inside the mount effect, cascading a second render).
+          The effect above hides it synchronously on mount instead, via the
+          ref, when reduced-motion or a coarse pointer rules the glow out. */}
+      <div ref={motionGroupRef}>
+        <span
+          data-slot="atmosphere-aurora-a1"
+          className="absolute -top-[28vw] -left-[22vw] size-[70vw] max-h-[980px] max-w-[980px] rounded-full blur-[40px]"
+          style={{
+            background: "radial-gradient(circle, rgba(99,91,255,.14), transparent 62%)",
+            animation: "drift1 34s var(--ease-brand) infinite alternate",
+          }}
+        />
+        <span
+          data-slot="atmosphere-aurora-a2"
+          className="absolute -right-[26vw] -bottom-[30vw] size-[70vw] max-h-[980px] max-w-[980px] rounded-full blur-[40px]"
+          style={{
+            background: "radial-gradient(circle, rgba(15,126,166,.11), transparent 62%)",
+            animation: "drift2 42s var(--ease-brand) infinite alternate",
+          }}
+        />
+        <span
+          ref={glowRef}
+          data-slot="atmosphere-glow"
+          className="absolute top-0 left-0 -m-[360px] size-[720px] rounded-full opacity-0 transition-opacity duration-[400ms] ease-[var(--ease-brand)]"
+          style={{
+            background: "radial-gradient(circle, rgba(99,91,255,.16), transparent 60%)",
+          }}
+        />
+      </div>
     </div>
   );
 }
