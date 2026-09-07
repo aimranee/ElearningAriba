@@ -10,7 +10,6 @@ import {
   Calendar,
   Check,
   Download,
-  GraduationCap,
   MessageCircle,
   MousePointer2,
   User,
@@ -76,7 +75,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
     <div>
       <div className="mt-10 grid items-start gap-[clamp(2rem,4vw,3.5rem)] lg:grid-cols-[0.92fr_1.08fr]">
         <div>
-          <ol className="flex flex-col gap-[0.3rem]">
+          <ol role="tablist" aria-label="Déroulé d'une session" className="flex flex-col gap-[0.3rem]">
             {deroule.map((etape, index) => {
               const isSelected = selected === index;
               return (
@@ -87,19 +86,10 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                     onClick={() => setSelected(index)}
                     className={
                       isSelected
-                        ? "group relative grid w-full grid-cols-[auto_1fr] gap-[1.1rem] rounded-[18px] border border-[var(--hairline)] bg-[var(--tint-violet)] p-[1.3rem_1.4rem] text-left transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)]"
-                        : "group relative grid w-full grid-cols-[auto_1fr] gap-[1.1rem] rounded-[18px] border border-transparent bg-transparent p-[1.3rem_1.4rem] text-left transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:border-[var(--hairline)] hover:bg-[var(--tint-violet)]"
+                        ? "group relative grid w-full grid-cols-[auto_1fr] gap-[1.1rem] rounded-[18px] border border-[var(--hairline-2)] bg-white p-[1.3rem_1.4rem] text-left shadow-[var(--shadow-1)] transition-[background-color,border-color,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-brand)]"
+                        : "group relative grid w-full grid-cols-[auto_1fr] gap-[1.1rem] rounded-[18px] border border-transparent bg-transparent p-[1.3rem_1.4rem] text-left transition-[background-color,border-color,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:border-[var(--hairline)] hover:bg-white"
                     }
                   >
-                    <span
-                      aria-hidden="true"
-                      className={
-                        isSelected
-                          ? "absolute top-4 bottom-4 left-0 w-[3px] rounded-full opacity-100"
-                          : "absolute top-4 bottom-4 left-0 w-[3px] rounded-full opacity-0 transition-opacity duration-[var(--duration-base)] ease-[var(--ease-brand)] group-hover:opacity-100"
-                      }
-                      style={{ background: ETAPE_TEINTES[index] }}
-                    />
                     <span
                       aria-hidden="true"
                       style={{ backgroundColor: ETAPE_TEINTES[index] }}
@@ -122,44 +112,30 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
             })}
           </ol>
 
-          <div aria-hidden="true" className="mt-9 flex items-center px-[0.4rem]">
-            {[1, 2, 3, 4, 5].map((n, index) => (
-              <div key={n} className="flex flex-1 items-center last:flex-none">
-                <span
-                  className={
-                    selected === index
-                      ? "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--ink)] bg-[var(--ink)] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tabular-nums text-white"
-                      : "flex size-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--hairline)] bg-white text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tabular-nums text-[var(--muted-ink)]"
-                  }
-                >
-                  {String(n).padStart(2, "0")}
-                </span>
-                {index < 4 ? (
-                  <span
-                    className={
-                      index < selected
-                        ? "h-[2px] flex-1 rounded-full bg-[linear-gradient(90deg,var(--violet),var(--mint))]"
-                        : "h-[2px] flex-1 rounded-full bg-[var(--border)]"
-                    }
-                  />
-                ) : null}
-              </div>
-            ))}
-          </div>
+          <p className="mt-4 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">{resume}</p>
         </div>
 
         <div aria-hidden="true" className="lg:sticky lg:top-[104px]">
-          <div className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]">
-            <div className="flex items-center gap-1.5 border-b border-[var(--border2)] bg-white px-[14px] py-[11px]">
+          <div className="relative overflow-hidden rounded-[22px] bg-[var(--night)] text-white shadow-[var(--shadow-2)]">
+            <div className="flex items-center gap-1.5 border-b border-white/10 px-[14px] py-[11px]">
               <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
               <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
-              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">
+              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-white/60">
                 {apercu.frameLabel}
+              </span>
+              <span className="ml-auto inline-flex items-center gap-[0.4rem] rounded-full bg-[rgba(31,199,155,.16)] px-[0.6rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold tracking-[0.06em] text-[var(--mint-soft)] uppercase">
+                <span
+                  aria-hidden="true"
+                  className="size-[7px] rounded-full bg-[var(--live)]"
+                  style={{ animation: "pulse-live 1.8s var(--ease-brand) infinite" }}
+                />
+                {apercu.enDirect}
               </span>
             </div>
 
-            <div className="p-[1.15rem]">
+            <div className="bg-[linear-gradient(180deg,var(--night-2),var(--night))] p-[1.15rem]">
+            <div className="rounded-[16px] bg-white p-[1.15rem] text-[var(--ink)]">
               <span
                 className="inline-flex items-center rounded-full px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tracking-[0.1em] text-white uppercase"
                 style={{ backgroundColor: ETAPE_TEINTES[selected] }}
@@ -304,6 +280,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
                 ) : null}
               </div>
             </div>
+            </div>
           </div>
           <p className="mt-2 text-center text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">{apercu.nonContractuel}</p>
         </div>
@@ -339,10 +316,6 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
               {ligne.texte}
             </div>
           ))}
-        </div>
-        <div className="mt-4 flex items-center gap-2 text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">
-          <GraduationCap aria-hidden="true" className="size-[14px] text-[var(--violet)]" />
-          <span>{resume}</span>
         </div>
       </div>
     </div>
