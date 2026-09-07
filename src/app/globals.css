@@ -320,6 +320,20 @@ html {
     transition-delay: 0.70s;
   }
 
+  /* v3 landing (brief §D-4): the programme timeline's vertical gradient line
+     draws top-to-bottom once its Reveal wrapper enters the viewport — same
+     .reveal.in idiom as the competence-rule trace above; the reduced-motion
+     override for this slot already exists (see @media block below). */
+  .reveal [data-slot="timeline-line"] {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.6s var(--ease-brand);
+  }
+
+  .reveal.in [data-slot="timeline-line"] {
+    transform: scaleY(1);
+  }
+
   /* D-17 assembly-connector comet — consumes --ease-brand rather than the
      maquette's ease-in-out (one curve, nowhere else). */
   @keyframes comet {
