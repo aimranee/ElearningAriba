@@ -29,7 +29,7 @@ Phase: 04 (agenda-et-prise-de-rendez-vous) - COMPLETE; Phase 02 (site-public) - 
 Plan: Phase 04 9 of 9 complete. Phase 02: 02-01..02-10 complete, 02-11 NOT started; unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 - deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending.
 Status: Lot 4 - all five D-26 founder gates signed off (04-03, 04-05, 04-06, 04-08, 04-09); AGD-01..AGD-09 delivered. Lot 2 - waves 1-5 delivered and verified from the repo (next build green, content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows), but the phase does not close until 02-11 runs.
 Counter note: `completed_phases: 4` counts phases 00, 01, 03 and 04. Phase 02 is the outstanding one, not phase 04 - the number is unchanged by the merge but its meaning is not. Treat `completed_plans` as unverified: a file count of the merged tree shows 02-11 as the only unstarted plan, which would make it 48/49, and this counter family is known to be reset by execute-phase.
-Last activity: 2026-09-07 - Completed quick task 260907-pik: Auth v2 correctifs (unlayered the dead compact-panel CSS rule, raised password-reset fields to 44px, tokenised the login illustration colours and matched the live pulse to the dot)
+Last activity: 2026-09-07 - Completed quick task 260907-pnt: Landing v3 Run D (last) — applied v3 copy to fr/landing.json and fr/common.json, reseeded local content database
 
 Progress: [█████████░] 96%  (47/49 plans; see the counter note above)
 
@@ -141,6 +141,7 @@ Recent decisions affecting current work:
 | 260907-n7j | Landing v3 Run C: format night preview, confiance fact list, cta-final mini-calendrier, faq two-column | 2026-09-07 | d24b49a | Verified | [260907-n7j-landing-v3-le-parcours-run-c-of-3-format](./quick/260907-n7j-landing-v3-le-parcours-run-c-of-3-format/) |
 | 260907-opw | Auth v2 panneau + formulaire: recompose the four auth pages as a night brand panel beside the form column, lead both forms with Google, raise fields/buttons to 44px | 2026-09-07 | 4209e83 | Verified | [260907-opw-auth-v2-panneau-formulaire-recompose-fou](./quick/260907-opw-auth-v2-panneau-formulaire-recompose-fou/) |
 | 260907-pik | Auth v2 correctifs: lift dead compact-panel CSS rule out of components layer, raise password-reset fields to 44px, use tokens for login illustration colours and match live pulse | 2026-09-07 | fe96eeb | Verified | [260907-pik-auth-v2-correctifs-lift-dead-compact-pan](./quick/260907-pik-auth-v2-correctifs-lift-dead-compact-pan/) |
+| 260907-pnt | Landing v3 Run D (last): apply v3 copy to fr/landing.json and fr/common.json, reseed local content DB | 2026-09-07 | c3e472b | Verified | [260907-pnt-landing-v3-run-d-apply-v3-copy-to-fr-loc](./quick/260907-pnt-landing-v3-run-d-apply-v3-copy-to-fr-loc/) |
 
 ### Blockers/Concerns
 
