@@ -3,8 +3,8 @@
 import { Suspense, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { LogIn } from "lucide-react";
 
+import { GoogleMark } from "@/components/icons/google-mark";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel, FieldControl, FieldError } from "@/components/ui/field";
 import common from "@/locales/fr/common.json";
@@ -122,6 +122,22 @@ export function ConnexionForm() {
 
   return (
     <form method="post" onSubmit={handleSubmit} className="flex flex-col gap-5" aria-label={connexion.titre}>
+      <Button
+        render={<Link href="/api/auth/google" prefetch={false} />}
+        nativeButton={false}
+        variant="outline"
+        className="h-11 w-full"
+      >
+        <GoogleMark className="size-[18px]" />
+        {connexion.google}
+      </Button>
+
+      <div className="flex items-center gap-3" aria-hidden="true">
+        <span className="h-px flex-1 bg-border" />
+        <span className="text-sm text-muted-foreground">{common.formulaires.ou}</span>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
       <Field>
         <FieldLabel htmlFor="connexion-email">{connexion.champs.email}</FieldLabel>
         <FieldControl
@@ -129,6 +145,7 @@ export function ConnexionForm() {
           name="email"
           type="email"
           autoComplete="email"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.email ? "true" : undefined}
         />
@@ -144,6 +161,7 @@ export function ConnexionForm() {
           name="motDePasse"
           type="password"
           autoComplete="current-password"
+          className="h-11"
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.motDePasse ? "true" : undefined}
         />
@@ -154,13 +172,14 @@ export function ConnexionForm() {
 
       <Link
         href="/mot-de-passe-oublie"
-        className="self-end text-sm text-primary outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring rounded-md"
+        className="self-end text-sm text-primary font-semibold py-3 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring rounded-md"
       >
         {connexion.motDePasseOublie}
       </Link>
 
       <Button
         type="submit"
+        className="h-11 w-full"
         data-loading={isSubmitting ? "true" : undefined}
         disabled={!hydrated || isSubmitting}
       >
@@ -171,20 +190,6 @@ export function ConnexionForm() {
           {common.etats.preparationFormulaire}
         </p>
       ) : null}
-
-      <div className="flex items-center gap-3" aria-hidden="true">
-        <span className="h-px flex-1 bg-border" />
-        <span className="h-px flex-1 bg-border" />
-      </div>
-
-      <Button
-        render={<Link href="/api/auth/google" prefetch={false} />}
-        nativeButton={false}
-        variant="outline"
-      >
-        <LogIn aria-hidden="true" />
-        {connexion.google}
-      </Button>
 
       {submitError ? (
         <RejectionField messageKey={submitError} />
