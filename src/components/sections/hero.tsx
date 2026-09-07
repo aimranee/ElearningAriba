@@ -1,28 +1,22 @@
 import Link from "next/link";
-import { Check, FileText, GraduationCap, Radio, UserCheck } from "lucide-react";
+import { Calendar, Check, FileText, UserCheck, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { Typewriter } from "@/components/motion/typewriter";
-import { AssemblyCard } from "@/components/motion/assembly-card";
-import { AssemblyConnectors } from "@/components/motion/assembly-connectors";
 import { HeroSpotlight } from "@/components/motion/hero-spotlight";
 import { Magnetic } from "@/components/motion/magnetic";
+import { FluxAchat } from "@/components/illustrations/flux-achat";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
 import { formatHours, formatNumber } from "@/lib/i18n/fr";
 import common from "@/locales/fr/common.json";
 import landing from "@/locales/fr/landing.json";
 
-/* why: the three pills/checklist rows share icon + gradient, indexed the
-   same way as format-modalites' STEP_GRADIENTS — matched verbatim from the
-   mockup (`#B4771A`/`#0E9F6E` are the same two raw-hex exceptions). */
-const ASM_PILL_ICONS = [UserCheck, Radio, FileText] as const;
-const ASM_PILL_GRADIENTS = [
-  "linear-gradient(135deg,var(--violet),var(--indigo))",
-  "linear-gradient(135deg,var(--amber),#B4771A)",
-  "linear-gradient(135deg,var(--mint),#0E9F6E)",
-] as const;
+/* why: the three proof-line facts (D-103) now render as an icon list
+   (brief §C-01) — one lucide icon per fact, matched 1:1 by array index to
+   `preuve` below (modules count, formateur, groupe). */
+const PROOF_ICONS = [Calendar, UserCheck, Users] as const;
 
 // why: post-2026-09-01, "Ce que vous allez apprendre" carries six
 // verb-first result headlines plus a permanently-visible sentence
@@ -43,11 +37,13 @@ const TYPEWRITER_WORDS: Record<string, string> = {
 };
 
 /**
- * The founder-approved maquette hero, read end to end from Supabase (D-24):
- * eyebrow, H1 (typewriter-cycled competencies over the signed accroche),
- * lead, two CTAs, three chips, and the console frame naming a live module.
- * The root visual layer (mounted once in layout.tsx, plan 02-03) shows
- * through — this section carries no per-section wash of its own (D-20).
+ * The v3 "Le parcours" hero (brief §C-01), read end to end from Supabase
+ * (D-24): two chips above the H1, the typewriter-cycled accroche, lead, two
+ * CTAs, a three-fact icon proof line, and the `FluxAchat` illustration
+ * replacing the old assembly-card console. The primary CTA now points at
+ * `/reservation` (brief §D) — the visitor picks a slot before creating an
+ * account. Own dot-grid + glow pseudo-layers on `data-slot="hero"` (no
+ * per-section wash elsewhere, D-20).
  */
 async function Hero() {
   const [sectionResult, competencesResult, modulesResult] = await Promise.all([
@@ -58,7 +54,7 @@ async function Hero() {
 
   if (!sectionResult.ok || !competencesResult.ok || !modulesResult.ok) {
     return (
-      <section data-slot="hero" className="relative overflow-hidden">
+      <section data-slot="hero" data-section="top" className="relative overflow-hidden">
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
           <EmptyState tone="error">
             <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
@@ -91,8 +87,6 @@ async function Hero() {
     splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
   const hasValidSplit = leadSplit >= 0 && splitIndex >= 0;
 
-  const assemblage = common.assemblage;
-
   // D-103: entry 1 is derived from the database (never hand-typed), entries
   // 2 and 3 are registered placeholders (CADR-03) — the mocks registry is
   // what keeps them from shipping unseen at go-live.
@@ -106,15 +100,37 @@ async function Hero() {
   return (
     <section
       data-slot="hero"
-      className="relative overflow-hidden py-[clamp(5rem,9vw,7rem)]"
+      data-section="top"
+      className={
+        "relative overflow-hidden py-[clamp(5rem,9vw,7rem)] " +
+        "before:pointer-events-none before:absolute before:inset-0 before:content-[''] " +
+        "before:[background-image:radial-gradient(circle,var(--grid-dot)_1px,transparent_1.5px)] " +
+        "before:[background-size:22px_22px] " +
+        "before:[mask-image:radial-gradient(ellipse_75%_65%_at_50%_18%,#000_15%,transparent_72%)] " +
+        "before:[-webkit-mask-image:radial-gradient(ellipse_75%_65%_at_50%_18%,#000_15%,transparent_72%)] " +
+        "after:pointer-events-none after:absolute after:inset-0 after:content-[''] " +
+        "after:[background:radial-gradient(55%_45%_at_12%_8%,rgba(99,91,255,.13),transparent_70%),radial-gradient(40%_40%_at_100%_45%,rgba(15,126,166,.07),transparent_70%)]"
+      }
     >
       <HeroSpotlight />
       <Magnetic />
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-[clamp(2rem,5vw,4.5rem)] px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
         <div className="flex flex-col gap-[1.6rem]">
+          <Reveal as="ul" dataD={1} className="flex flex-wrap gap-[0.6rem]">
+            {common.hero.chips.map((chip) => (
+              <li
+                key={chip}
+                className="inline-flex items-center gap-[0.45rem] rounded-full border border-[var(--border)] bg-white px-[0.9rem] py-[0.45rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-1)]"
+              >
+                <Check className="size-3.5 text-[var(--mint)]" />
+                {chip}
+              </li>
+            ))}
+          </Reveal>
+
           <Reveal
             as="h1"
-            dataD={1}
+            dataD={2}
             className="relative font-heading text-[length:var(--text-display)] leading-[var(--text-display--line-height)] font-extrabold tracking-[-0.032em] text-balance"
           >
             <span className="sr-only">{accroche}</span>
@@ -133,15 +149,15 @@ async function Hero() {
 
           <Reveal
             as="p"
-            dataD={2}
+            dataD={3}
             className="max-w-[62ch] text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)] text-[var(--muted-ink)]"
           >
             {sousTitre}
           </Reveal>
 
-          <Reveal as="div" dataD={3} className="flex flex-wrap gap-[0.8rem]">
+          <Reveal as="div" dataD={4} className="flex flex-wrap gap-[0.8rem]">
             <Button
-              render={<Link href="/inscription" />}
+              render={<Link href="/reservation" />}
               nativeButton={false}
               size="lg"
               data-magnetic="true"
@@ -160,81 +176,24 @@ async function Hero() {
           </Reveal>
 
           <Reveal
-            as="p"
-            dataD={4}
-            className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]"
+            as="ul"
+            dataD={5}
+            className="flex flex-wrap gap-[0.6rem] gap-y-[0.6rem] text-[length:var(--text-small)] text-[var(--muted-ink)]"
           >
-            {preuve.join(" · ")}
-          </Reveal>
-
-          <Reveal as="ul" dataD={5} className="flex flex-wrap gap-[0.6rem]">
-            {common.hero.chips.map((chip) => (
-              <li
-                key={chip}
-                className="inline-flex items-center gap-[0.45rem] rounded-full border border-[var(--border)] bg-white px-[0.9rem] py-[0.45rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink-soft)] shadow-[var(--shadow-1)]"
-              >
-                <Check className="size-3.5 text-[var(--mint)]" />
-                {chip}
-              </li>
-            ))}
+            {preuve.map((fait, index) => {
+              const Icon = PROOF_ICONS[index];
+              return (
+                <li key={fait} className="inline-flex items-center gap-[0.5rem] pr-[1.4rem]">
+                  {Icon ? <Icon className="size-4 text-[var(--deep)]" /> : null}
+                  {fait}
+                </li>
+              );
+            })}
           </Reveal>
         </div>
 
         <Reveal as="div" dataD={2} className="relative min-w-0">
-          <div
-            data-slot="hero-assembly"
-            className="relative overflow-hidden rounded-[22px] bg-white text-[var(--ink)] shadow-[var(--shadow-4),var(--inset-hi)]"
-          >
-            <div className="flex items-center gap-1.5 border-b border-[var(--border2)] bg-white px-[14px] py-[11px]">
-              <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
-              <span className="size-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
-              <span className="size-2.5 rounded-full" style={{ background: "#28C840" }} />
-              <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--muted-ink)]">
-                {assemblage.frameLabel}
-              </span>
-            </div>
-
-            <div className="relative grid grid-cols-1 items-center gap-[1.1rem] sm:gap-[3.5rem] p-[1.15rem] sm:grid-cols-[.92fr_1.08fr]">
-              <AssemblyConnectors />
-
-              <div className="relative z-[1] min-w-0 flex flex-col gap-[0.6rem]">
-                {assemblage.pills.map((pill, index) => {
-                  const Icon = ASM_PILL_ICONS[index];
-                  return (
-                    <div
-                      key={pill.cle}
-                      className="flex items-center gap-[0.6rem] rounded-[14px] border border-[var(--hairline)] bg-white px-[0.8rem] py-[0.65rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-bold tracking-[-0.01em] text-[var(--ink)] shadow-[var(--contact),var(--inset-hi)]"
-                    >
-                      <span
-                        aria-hidden="true"
-                        style={{ background: ASM_PILL_GRADIENTS[index] }}
-                        className="flex size-7 shrink-0 items-center justify-center rounded-[9px] text-white"
-                      >
-                        {Icon ? <Icon className="size-[15px]" /> : null}
-                      </span>
-                      {pill.label}
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div
-                className="relative z-[1] min-w-0 rounded-[18px] p-[1.15rem] text-white shadow-[var(--shadow-brand)]"
-                style={{ background: "linear-gradient(135deg,var(--violet),var(--indigo))" }}
-              >
-                <span className="mb-[0.7rem] inline-flex items-center gap-[0.35rem] rounded-full bg-white/18 px-[0.6rem] py-[0.28rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-extrabold tracking-[0.1em] uppercase">
-                  <GraduationCap aria-hidden="true" className="size-[10px]" />
-                  {assemblage.badge}
-                </span>
-                <AssemblyCard
-                  modules={modulesResult.data}
-                  moduleLigneTemplate={assemblage.moduleLigne}
-                  progressionTemplate={assemblage.progression}
-                  pills={assemblage.pills}
-                />
-              </div>
-            </div>
-          </div>
+          <FluxAchat />
         </Reveal>
       </div>
     </section>

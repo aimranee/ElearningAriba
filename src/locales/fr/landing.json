@@ -6,6 +6,9 @@
       "modules": "{modules} modules · {heures} en direct",
       "formateur": "Animé par un expert certifié SAP Ariba",
       "groupe": "6 participants maximum par session"
+    },
+    "flux": {
+      "etapes": ["Demande", "Validation", "Réception", "Facture"]
     }
   },
   "pourQui": {
