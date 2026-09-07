@@ -70,7 +70,7 @@ function Constellation({ className }: { className?: string }) {
           <line key={index} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
         ))}
       </g>
-      {LINKS.map((d, index) => (
+      {LINKS.map((d) => (
         <path
           key={d}
           data-slot="constellation-link"
