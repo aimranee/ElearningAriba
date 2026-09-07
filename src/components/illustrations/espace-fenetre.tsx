@@ -20,10 +20,10 @@ function EspaceFenetre() {
         <span className="ml-2 min-w-0 flex-1 truncate whitespace-nowrap text-[length:var(--text-micro)] font-semibold text-white/60">
           {`${common.nav.espace} · ${common.metadata.title}`}
         </span>
-        <span className="ml-auto inline-flex flex-none items-center gap-[0.4rem] whitespace-nowrap rounded-full bg-[rgba(31,199,155,.16)] px-[0.6rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold uppercase tracking-[0.06em] text-[var(--mint-soft)]">
+        <span className="ml-auto inline-flex flex-none items-center gap-[0.4rem] whitespace-nowrap rounded-full bg-[color-mix(in_srgb,var(--live)_18%,transparent)] px-[0.6rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold uppercase tracking-[0.06em] text-white/90">
           <span
             aria-hidden="true"
-            className="size-[7px] rounded-full bg-[var(--mint)]"
+            className="size-[7px] rounded-full bg-[var(--live)]"
             style={{ animation: "pulse-live 1.8s var(--ease-brand) infinite" }}
           />
           En direct
@@ -42,7 +42,7 @@ function EspaceFenetre() {
             <b className="text-[var(--ink)]">Session individuelle</b>
             <span>Découverte de l&apos;écosystème Ariba</span>
           </div>
-          <span className="mt-[0.6rem] inline-flex items-center gap-[0.3rem] rounded-full bg-[#e6faf3] px-[0.55rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold text-[var(--mint-ink)]">
+          <span className="mt-[0.6rem] inline-flex items-center gap-[0.3rem] rounded-full bg-success-muted px-[0.55rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold text-[var(--mint-ink)]">
             <svg
               viewBox="0 0 24 24"
               stroke="currentColor"
