@@ -205,6 +205,18 @@ html {
   --tint-violet: #f4f3ff;
   --contact: 0 1px 2px rgba(10, 37, 64, 0.05);
   --inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* v3 landing "Le parcours" (brief §B) — night wall, glass tiles, live dot.
+     Names lifted verbatim from the maquette. */
+  --night: #0a2540;
+  --night-2: #102f52;
+  --glass: rgba(255, 255, 255, 0.055);
+  --glass-2: rgba(255, 255, 255, 0.09);
+  --glass-line: rgba(255, 255, 255, 0.11);
+  --glass-line-2: rgba(255, 255, 255, 0.22);
+  --grid-dot: rgba(10, 37, 64, 0.16);
+  --grid-dot-night: rgba(255, 255, 255, 0.09);
+  --live: #ff5f57;
 }
 
 /* No dark-mode toggle exists anywhere in the app and none is in signed scope —
@@ -319,6 +331,28 @@ html {
     }
   }
 
+  /* v3 landing (brief §B): halo pulse for the "En direct" live dot, and the
+     flux illustration's dashed-path scroll. Neither keyframe carries an
+     easing function itself — the consuming element's `animation` shorthand
+     supplies --ease-brand (D-17), keyframes stay curve-agnostic. */
+  @keyframes pulse-live {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 95, 87, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 9px rgba(255, 95, 87, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 95, 87, 0);
+    }
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -64;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -343,8 +377,13 @@ html {
        them from the render tree entirely rather than leaving an
        invisible-but-present node. */
     [data-slot="hero-spotlight"],
-    [data-slot="card-spotlight"] {
+    [data-slot="card-spotlight"],
+    [data-slot="comet"] {
       display: none;
+    }
+
+    [data-slot="timeline-line"] {
+      transform: none;
     }
   }
 
