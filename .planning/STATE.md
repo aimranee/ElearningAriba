@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "MERGE 2026-09-07 (CIO): Phase 04 COMPLETE (gate D-26 04-09 approved 2026-09-04, AGD-01..AGD-09 delivered, D-36 consigned in 04-CONTEXT.md). Phase 02 remains INCOMPLETE on this merged history: 02-11 not started and four human-verify gates unreviewed, so PUB-01..PUB-07 stay pending. Next: close Phase 02, then Phase 05 (SEO, pages juridiques, RGPD et mise en ligne)."
+stopped_at: "Phase 04 COMPLETE: gate D-26 04-09 approved 2026-09-04, AGD-01 through AGD-09 delivered, D-36 consigned in 04-CONTEXT.md. Phase 02 NOT complete: 02-11 not started and four human-verify gates unreviewed (02-04 T3, 02-05 T4, 02-09 T3, 02-10 T3), so PUB-01 through PUB-07 remain pending. Next: Phase 05 (SEO, pages juridiques, RGPD et mise en ligne), which does not clear the Phase 02 debt."
 last_updated: "2026-09-07T00:00:00.000Z"
-last_activity: 2026-09-07 -- Merged gsd/phase-02-site-public into gsd/phase-04-agenda-et-prise-de-rendez-vous on cio/merge-lots-1-4
+last_activity: 2026-09-07 -- Merged gsd/phase-04 (carrying phase-03) and gsd/phase-02 into a single line
 progress:
   total_phases: 11
   completed_phases: 4
@@ -21,16 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-27)
 
 **Core value:** The learner can book — and pay for — a real slot in the trainer's calendar, and the trainer sees it.
-**Current focus:** Phase 02 — site-public (02-11 and its four deferred gates); then Phase 05
+**Current focus:** Phase 05 — SEO, pages juridiques, RGPD et mise en ligne
 
 ## Current Position
 
-Phase: 02 (site-public) — EXECUTING  |  Phase 04 (agenda-et-prise-de-rendez-vous) — COMPLETE
-Plan: Phase 04 — 9 of 9, all five D-26 founder gates signed off (04-03, 04-05, 04-06, 04-08, 04-09), AGD-01 through AGD-09 delivered. Phase 02 — 02-01..02-10 complete, 02-11 NOT STARTED; human-verify gates unreviewed on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3, all deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending.
-Status: The four complete phases are 00, 01, 03 and 04 — NOT 00 through 03. Phase 02 is the open one and it is the gate on Phase 05.
-Last activity: 2026-09-07 - Merged Lots 1-4 onto cio/merge-lots-1-4 for a preview deployment (CIO); phase-02 head 2aa011a, phase-04 head 6d5b340
+Phase: 04 (agenda-et-prise-de-rendez-vous) - COMPLETE; Phase 02 (site-public) - STILL EXECUTING
+Plan: Phase 04 9 of 9 complete. Phase 02: 02-01..02-10 complete, 02-11 NOT started; unreviewed human-verify gates remain on 02-04 Task 3, 02-05 Task 4, 02-09 Task 3 and 02-10 Task 3 - deferred to 02-11 by founder decision, so requirements PUB-01..PUB-07 correctly remain pending.
+Status: Lot 4 - all five D-26 founder gates signed off (04-03, 04-05, 04-06, 04-08, 04-09); AGD-01..AGD-09 delivered. Lot 2 - waves 1-5 delivered and verified from the repo (next build green, content routes static with 1h ISR, /programme.pdf renders five modules totalling 17 h from database rows), but the phase does not close until 02-11 runs.
+Counter note: `completed_phases: 4` counts phases 00, 01, 03 and 04. Phase 02 is the outstanding one, not phase 04 - the number is unchanged by the merge but its meaning is not. Treat `completed_plans` as unverified: a file count of the merged tree shows 02-11 as the only unstarted plan, which would make it 48/49, and this counter family is known to be reset by execute-phase.
+Last activity: 2026-09-04 - Lot 4 closed gate D-26 04-09 (source in d6c67a3/d796e89); Lot 2 quick task 260904-nuf, run 4, recorded D-96 to D-100
 
-Progress: [███░░░░░░░] 29%
+Progress: [█████████░] 96%  (47/49 plans; see the counter note above)
 
 ## Performance Metrics
 
@@ -111,7 +112,26 @@ Recent decisions affecting current work:
 
 *(none — 00-06 Task 4 closed; see `.planning/phases/00-socle-technique-et-environnement/00-06-SUMMARY.md`)*
 
-### Quick Tasks Completed
+#- **[Deployment, CIO, 2026-09-07]** This merged line is deployed to **preview only** —
+  `cio/merge-lots-1-4`, commit `51701b0`, verified live at 260 769 bytes on `/`.
+  **It must not reach production:** the app creates accounts and stores named
+  reservations while the five legal pages, the RGPD consent banner, domain email
+  authentication and the domain itself are all Phase 05 and unbuilt. `main` stays at
+  `27ab022`. The `next.config.ts` `X-Robots-Tag: noindex` guard is confirmed present on
+  the running preview and is removed only by Phase 05.
+
+- **[Preview data, CIO, 2026-09-07]** The hosted preview project held 3 of the 10
+  migrations; the 7 for Lots 3 and 4 were pushed and parity is 10/10. Content and agenda
+  are seeded and match local table for table. The preview trainer account is the
+  placeholder `formateur@example.test` with an unrecorded password — **nobody can sign
+  into `/admin` there yet**, and that address must never reach production.
+
+- **[CI, CIO, 2026-09-07]** `ci.yml` triggers on push only for `[main, 'gsd/**']`, so a
+  `cio/**` branch runs **no CI at all** — the push was neither green nor red, it was
+  unwatched. `npx eslint src` exits 1 with three `react-hooks/set-state-in-effect`
+  errors present on `gsd/phase-04` alone, so they predate the merge.
+
+## Quick Tasks Completed
 
 | # | Description | Date | Commit | Status | Directory |
 |---|-------------|------|--------|--------|-----------|
@@ -199,10 +219,6 @@ Recent decisions affecting current work:
 - **[Phase 04-09, resolved — phase 04 closed]** Founder approved the Task 3 D-26 gate 2026-09-04 on machine evidence plus a Playwright pass (see `04-09-SUMMARY.md` § "Task 3 — Founder Review Gate"). All seven plan truths verified individually; two run-reported gaps ruled non-issues (four nav entries is correct, not two; the "strictly decreases 15→30" criterion was wrong, the mechanism proves out at buffer 90). The confirmation-email price and the English-formatted price-input prefill are explicitly out of this approval's scope — the latter the founder chose not to fix now. D-36 accepts the 21,14 × 44 px reservation cell at 320px, closing the tradeoff `04-08` left open. This was the fifth and last D-26 gate of the phase: AGD-01 through AGD-09 are delivered, Lot 4 is complete.
 
 - 260901-m2n: local Supabase stack unreachable (no supabase_db_ElearningAriba container) - npm run content:seed and content-verified build blocked. supabase start/stop/reset forbidden this run. Restart stack externally, then re-run content:seed + build + HTML verification.
-
-- **[Phase 02, OPEN — carried through the 2026-09-07 merge]** `02-11` is not started and four human-verify gates are unreviewed (`02-04` Task 3, `02-05` Task 4, `02-09` Task 3, `02-10` Task 3), deferred to `02-11` by founder decision. **PUB-01 through PUB-07 remain pending.** Phase 02 is therefore NOT among the four complete phases (00, 01, 03, 04) and is the gate on Phase 05.
-
-- **[Deployment, CIO]** This merged history has never been deployed to production and must not be: the app creates accounts and stores named reservations while the five legal pages, the RGPD consent banner, domain email authentication and the domain itself are all Phase 05 and unbuilt. `next.config.ts` `X-Robots-Tag: noindex, nofollow` stays until Phase 05 removes it.
 
 ## Quick Tasks Completed
 
