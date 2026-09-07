@@ -4,7 +4,6 @@
     "description": "Plateforme de réservation de formations SAP Ariba en direct."
   },
   "nav": {
-    "accueil": "Accueil",
     "programme": "Programme",
     "formation": "Formation",
     "aPropos": "À propos",
@@ -36,7 +35,6 @@
     "clauseNonResponsabilite": "Clause de non-responsabilité"
   },
   "actions": {
-    "demarrer": "Démarrer ma formation",
     "prendreRdv": "Prendre RDV",
     "voirProgramme": "Voir le programme",
     "reserver": "Réserver",
@@ -46,7 +44,8 @@
     "telecharger": "Télécharger",
     "reessayer": "Réessayer",
     "annuler": "Annuler",
-    "continuer": "Continuer"
+    "continuer": "Continuer",
+    "enSavoirPlus": "En savoir plus"
   },
   "etats": {
     "chargement": "Chargement en cours…",
@@ -56,49 +55,16 @@
     "aucunResultat": "Aucun résultat pour le moment."
   },
   "hero": {
-    "eyebrow": "Formation live · SAP Ariba",
-    "chips": ["Aucun prérequis SAP", "Expert certifié", "Appel découverte gratuit"],
-    "console": {
-      "url": "formation-sap-ariba.fr/reservation",
-      "liveLabel": "Session live",
-      "liveAnimator": "animée par un expert certifié",
-      "slotsLabel": "Créneaux disponibles",
-      "videoPlaceholder": "Emplacement vidéo de présentation — prêt à recevoir la vidéo",
-      "slots": [
-        { "date": "Mardi 8 septembre · 09:00", "places": "Places restantes : 4", "tag": "Confirmé" },
-        { "date": "Jeudi 10 septembre · 14:00", "places": "Places restantes : 7" },
-        { "date": "Lundi 14 septembre · 09:00", "places": "Places restantes : 9" }
-      ]
-    },
-    "badges": {
-      "pdf": "Support PDF par module",
-      "certification": "Préparation certification"
-    }
-  },
-  "statsBand": {
-    "modules": "modules progressifs",
-    "heures": "de formation live",
-    "competences": "compétences pratiquées",
-    "prerequis": "prérequis SAP exigé"
+    "chips": ["Aucun prérequis SAP", "Expert certifié"]
   },
   "formatModalitesAside": {
-    "titre": "Ce que comprend votre parcours",
-    "items": [
-      { "cle": "formations-live", "label": "Sessions animées en direct" },
-      { "cle": "supports-pdf", "label": "Support PDF par module" },
-      { "cle": "cas-pratiques-en-fin-de-module", "label": "Cas pratique en fin de module" },
-      { "cle": "duree-d-acces", "label": "Accès aux supports" },
-      { "cle": "prerequis", "label": "Aucun prérequis SAP" }
-    ],
-    "itemFutur": { "cle": "videos-a-venir", "label": "Compléments vidéo — à venir" },
     "resume": "{modules} modules · {heures} de formation live"
   },
   "assemblage": {
     "frameLabel": "Votre parcours SAP Ariba — assemblage",
-    "statut": "En préparation",
     "badge": "Parcours SAP Ariba",
-    "moduleTitre": "Procure-to-Pay",
-    "resume": "{modules} modules · {heures} de formation live",
+    "moduleLigne": "Module {n} · {heures}",
+    "progression": "Module {n} sur {total}",
     "pills": [
       { "cle": "appel-decouverte", "label": "Appel découverte" },
       { "cle": "session-live", "label": "Session live" },

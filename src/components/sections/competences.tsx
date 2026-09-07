@@ -1,15 +1,35 @@
+import { Award } from "lucide-react";
 import { Section, SectionHeader } from "@/components/sections/section";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
+import { CardSpotlight } from "@/components/motion/card-spotlight";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems } from "@/lib/content/queries";
 import common from "@/locales/fr/common.json";
 
 /**
- * PUB-03 — six competency rows read from `competences`, on the --lav2
- * tinted band (D-21) that alternates against the transparent PourQui/
- * ProgrammeAccordion sections either side of it.
+ * PUB-03 — six white cards, one gradient icon tile per competency (D-96).
+ * Saturated colour concentrates in the pastille, the card body stays white.
  */
+const CARD_TEINTES: Record<string, { a: string; b: string }> = {
+  "ecosysteme-ariba": { a: "var(--violet)", b: "var(--indigo)" },
+  "procure-to-pay": { a: "var(--sky-ink)", b: "var(--azur-ink)" },
+  "source-to-pay": { a: "var(--mint-ink)", b: "var(--azur-ink)" },
+  "rfq-rfp": { a: "var(--amber-ink)", b: "var(--coral-ink)" },
+  "gestion-catalogues": { a: "var(--magenta-ink)", b: "var(--violet-ink)" },
+  certification: { a: "var(--coral-ink)", b: "var(--magenta-ink)" },
+};
+
+// why (CADR-04): un badge est une marque générique — le registre de
+// pictogrammes interdit de la redessiner. Les cinq compétences de domaine
+// résolvent depuis le registre ; la certification prend Award ici, au point
+// d'appel, exactement comme le contrat du registre l'exige.
+function resolvePictogram(cle: string | null) {
+  if (cle === "certification") return Award;
+  if (cle && cle in pictograms) return pictograms[cle as PictogramName];
+  return null;
+}
+
 async function Competences() {
   const [sectionResult, itemsResult] = await Promise.all([
     getSection("competences"),
@@ -18,7 +38,7 @@ async function Competences() {
 
   if (!sectionResult.ok || !itemsResult.ok) {
     return (
-      <Section tone="band">
+      <Section tone="default">
         <EmptyState tone="error">
           <EmptyStateDescription>{common.etats.erreurGenerique}</EmptyStateDescription>
         </EmptyState>
@@ -30,32 +50,54 @@ async function Competences() {
   const items = itemsResult.data;
 
   return (
-    <Section tone="band">
+    <Section tone="default">
       <SectionHeader
         eyebrow={section.eyebrow ?? undefined}
         title={section.titre}
         titleAccent={section.titre_accent ?? undefined}
       />
-      <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 min-[1000px]:grid-cols-3">
+      <ul className="mt-10 grid grid-cols-1 gap-[1.25rem] sm:grid-cols-2 lg:grid-cols-3 grid-auto-rows-[1fr]">
         {items.map((item, index) => {
-          const Picto = item.picto ? pictograms[item.picto as PictogramName] : null;
+          const teinte = CARD_TEINTES[item.cle] ?? { a: "var(--violet)", b: "var(--indigo)" };
+          const Picto = resolvePictogram(item.cle);
+
           return (
             <Reveal
               key={item.id}
               as="li"
               dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-              className="flex items-center gap-4 rounded-[20px] bg-[var(--tint)] border border-[var(--hairline)] p-[1.15rem] px-[1.35rem] shadow-none transition-[transform,background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] hover:-translate-y-[2px]"
+              className="h-full"
             >
-              <span
-                aria-hidden="true"
-                className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--lav)] font-heading text-[0.78rem] font-extrabold tracking-normal text-[var(--deep)] tabular-nums"
+              <div
+                data-slot="card"
+                className="relative flex h-full min-h-[13.5rem] flex-col gap-[0.9rem] rounded-[22px] border border-[var(--hairline)] bg-white p-[1.6rem] shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_var(--carte-ombre-2)] transition-[transform,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:-translate-y-[7px] hover:shadow-[0_1px_2px_var(--carte-ombre-1),0_24px_50px_-28px_color-mix(in_srgb,var(--tuile-b)_55%,transparent)]"
+                style={
+                  {
+                    "--tuile-a": teinte.a,
+                    "--tuile-b": teinte.b,
+                    "--carte-ombre-1": "color-mix(in srgb, var(--tuile-b) 8%, transparent)",
+                    "--carte-ombre-2": "color-mix(in srgb, var(--tuile-b) 42%, transparent)",
+                  } as React.CSSProperties
+                }
               >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {Picto ? <Picto className="size-5 shrink-0 text-[var(--deep)]" /> : null}
-              <span className="text-[0.97rem] leading-[1.4] font-semibold tracking-[-0.01em]">
-                {item.titre}
-              </span>
+                <CardSpotlight />
+                {Picto ? (
+                  <span
+                    aria-hidden="true"
+                    className="flex size-[52px] shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(140deg,var(--tuile-a)_0%,var(--tuile-b)_100%)]"
+                  >
+                    <Picto className="size-6 text-white" />
+                  </span>
+                ) : null}
+                <div>
+                  <p className="font-heading text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.02em] text-[var(--ink)]">
+                    {item.titre}
+                  </p>
+                  <p className="mt-[0.5rem] text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--ink-soft)]">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
             </Reveal>
           );
         })}

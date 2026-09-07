@@ -261,6 +261,10 @@ Plans:
 
 **Carried from Phase 0**: `next.config.ts` sets a repository-wide `X-Robots-Tag: noindex, nofollow` guard so the pre-launch placeholder cannot be indexed. Removing it is part of this phase's go-live — the site cannot appear in search results until it is gone.
 
+**Carried from the ownership ruling of 2026-08-27**: the client owns neither the Supabase nor the Vercel account — both are created on the founder's account and stay there permanently, not transferred at go-live. This departs from Section 5 of the signed offer, which states these subscriptions are *« souscrits au nom du client pour qu'il en reste propriétaire »*. **That clause is dead and no plan may inherit it.** GOL-04's politique de confidentialité and GOL-07's handover documents and written French guide are the two deliverables that would otherwise describe a reality that does not exist — a factual defect inside a delivered, paid lot. Ending the engagement is a migration, not a handover, and the handover documents must say so. The offers are frozen: no corrected PDF will be issued, so a correction to the client is a letter or a side agreement citing the signed document. Do not plan around a re-issued offer.
+
+**Carried from the content-gate ruling of 2026-09-04**: go-live is gated on `content:check`, and the fix is a step in `.github/workflows/ci.yml` — not a change to `scripts/check-mock-content.mjs`. The script already refuses: it exits 1 today, while `ci.yml` runs only `lint`, `typecheck` and `build`, so nothing invokes it. Wire the step and see it refuse on the remaining items before declaring the gate armed — a gate nobody has watched fail is not a gate. Re-measure the outstanding count at planning time instead of trusting a figure written here: it was 84 items (73 CADR-03, 11 CADR-01) on 2026-09-04 and moves as content lands. The registry covers six of thirteen content files, so the gate guards only what it declares.
+
 **Plans**: TBD
 
 ### Phase 6: Sessions live de groupe

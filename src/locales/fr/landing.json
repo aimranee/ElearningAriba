@@ -1,7 +1,12 @@
 {
   "hero": {
     "titre": "Formez-vous en direct. Maîtrisez SAP Ariba",
-    "sousTitre": "Une formation live, animée par un expert certifié, pour prendre en main l'écosystème Ariba du premier appel d'offres jusqu'à la certification."
+    "sousTitre": "Prenez en main l'écosystème Ariba, du premier appel d'offres jusqu'à la certification.",
+    "preuve": {
+      "modules": "{modules} modules · {heures} en direct",
+      "formateur": "Animé par un expert certifié SAP Ariba",
+      "groupe": "6 participants maximum par session"
+    }
   },
   "pourQui": {
     "eyebrow": "Pour qui",
@@ -11,27 +16,32 @@
       {
         "titre": "Acheteurs",
         "description": "Structurez vos processus d'achat et gagnez en autonomie sur Ariba au quotidien.",
-        "picto": "acheteur"
+        "picto": "acheteur",
+        "accroche": "« Je veux structurer mes achats, pas les subir »"
       },
       {
         "titre": "Category managers",
         "description": "Pilotez vos catégories d'achat avec les bons outils Source-to-Pay.",
-        "picto": "category-manager"
+        "picto": "category-manager",
+        "accroche": "« Je veux piloter mes catégories avec les bons outils »"
       },
       {
         "titre": "Professionnels supply chain et achats",
         "description": "Reliez vos flux d'approvisionnement aux processus Procure-to-Pay.",
-        "picto": "supply-chain"
+        "picto": "supply-chain",
+        "accroche": "« Je veux relier mes flux au bon processus »"
       },
       {
         "titre": "Consultants SAP Ariba juniors ou en reconversion",
         "description": "Construisez une expertise opérationnelle reconnue sur le marché.",
-        "picto": "consultant"
+        "picto": "consultant",
+        "accroche": "« Je veux une expertise que le marché reconnaît »"
       },
       {
         "titre": "Étudiants et jeunes diplômés",
         "description": "Ajoutez une compétence recherchée à votre profil, sans prérequis SAP.",
-        "picto": "etudiant"
+        "picto": "etudiant",
+        "accroche": "« Je veux une compétence rare avant mon premier poste »"
       }
     ]
   },
@@ -39,18 +49,43 @@
     "eyebrow": "Ce que vous allez apprendre",
     "titre": "Six compétences concrètes vous attendent. Chacune se pratique, pas seulement se regarde.",
     "items": [
-      "L'écosystème Ariba dans son ensemble",
-      "Le processus Procure-to-Pay",
-      "Le processus Source-to-Pay",
-      "Les appels d'offres RFQ et RFP",
-      "La gestion des catalogues",
-      "Les contrats et les workflows"
+      {
+        "titre": "Vous orienter dans l'écosystème Ariba",
+        "description": "Vous savez où vous êtes dans la plateforme et ce que l'étape suivante attend de vous.",
+        "picto": "ecosysteme-ariba"
+      },
+      {
+        "titre": "Dérouler un Procure-to-Pay complet",
+        "description": "Créer une demande, la faire valider, réceptionner, rapprocher la facture.",
+        "picto": "procure-to-pay"
+      },
+      {
+        "titre": "Piloter un Source-to-Pay de bout en bout",
+        "description": "Comparer sur des critères tenus, négocier, transformer la décision en contrat.",
+        "picto": "source-to-pay"
+      },
+      {
+        "titre": "Mener un appel d'offres jusqu'à la décision",
+        "description": "Poser les critères, diffuser la consultation RFQ ou RFP, défendre le choix final.",
+        "picto": "rfq-rfp"
+      },
+      {
+        "titre": "Tenir catalogues, contrats et workflows",
+        "description": "Un catalogue à jour, un contrat cadré, une validation qui ne bloque personne.",
+        "picto": "gestion-catalogues"
+      },
+      {
+        "titre": "Préparer la certification SAP Ariba",
+        "description": "Le vocabulaire et les processus que la certification met à l'épreuve.",
+        "picto": "certification"
+      }
     ]
   },
   "programme": {
     "eyebrow": "Programme détaillé",
     "titre": "Le programme se déroule en cinq modules. Chacun construit sur le précédent.",
     "telechargerPdf": "Télécharger le programme en PDF",
+    "auProgramme": "Au programme",
     "modules": [
       {
         "titre": "Découverte de l'écosystème Ariba",
@@ -82,6 +117,29 @@
   "formatModalites": {
     "eyebrow": "Format et modalités",
     "titre": "Le format tient en quelques repères clairs. Voici comment se déroule la formation.",
+    "apercu": {
+      "etapeLabel": "Étape {n}",
+      "panneaux": [
+        { "eyebrow": "Connexion", "titre": "Votre créneau réservé" },
+        { "eyebrow": "Présentation", "titre": "Le formateur présente le module" },
+        { "eyebrow": "Démonstration", "titre": "Le formateur partage son écran" },
+        { "eyebrow": "Cas pratique", "titre": "Vous mettez en pratique" },
+        { "eyebrow": "Synthèse", "titre": "Questions et synthèse" }
+      ],
+      "enDirect": "En direct",
+      "ecranPartage": "Écran partagé",
+      "rejoindre": "Rejoindre la session",
+      "confirme": "Confirmé",
+      "accompagne": "Accompagné par le formateur",
+      "supportModule": "Support PDF du module",
+      "vosQuestions": "Vos questions",
+      "creneauExemple": "Jeudi · 14 h — 16 h",
+      "formateur": "Formateur",
+      "participants": "Participants",
+      "nonContractuel": "Aperçu de l'interface — exemple non contractuel.",
+      "frameLabel": "Session live · Formation SAP Ariba",
+      "ceQuiEstFourni": "Ce qui est fourni"
+    },
     "items": [
       {
         "titre": "Formations live",
@@ -113,66 +171,112 @@
   "confiance": {
     "eyebrow": "Confiance et sécurité",
     "titre": "La confiance se construit sur des faits. En voici trois.",
+    "lead": "Chacun se contrôle : une durée, un nom, un plafond. Ouvrez la preuve.",
+    "preuve": {
+      "voir": "Voir la preuve",
+      "masquer": "Masquer la preuve"
+    },
+    "formateur": {
+      "eyebrow": "Le formateur",
+      "nom": "Jean Dupont",
+      "initiales": "JD",
+      "intitule": "Consultant SAP Ariba",
+      "points": [
+        "Consultant sur l'écosystème Ariba",
+        "Certifié sur les modules clés de la plateforme",
+        "Pédagogie construite sur des cas d'usage réels"
+      ],
+      "lienLabel": "Voir le parcours complet"
+    },
     "items": [
       {
-        "titre": "Protection des données",
-        "description": "Vos informations restent hébergées et traitées dans un cadre sécurisé."
+        "cle": "appel-decouverte",
+        "titre": "Un appel découverte gratuit",
+        "description": "Trente minutes avec le formateur avant tout engagement.",
+        "preuve": {
+          "texte": "Trente minutes, sans frais et sans engagement : vous exposez votre contexte, le formateur vous dit si la formation y répond.",
+          "lienHref": "/contact",
+          "lienLabel": "Demander l'appel"
+        }
       },
       {
-        "titre": "Experts SAP Ariba certifiés",
-        "description": "Chaque session est animée par un formateur certifié sur l'écosystème Ariba."
+        "cle": "formateur-identifie",
+        "titre": "Un formateur identifié",
+        "description": "Jean Dupont, consultant SAP Ariba.",
+        "preuve": {
+          "texte": "Parcours, certifications et approche pédagogique sont détaillés sur la page À propos. Vous savez qui anime avant de réserver.",
+          "lienHref": "/a-propos",
+          "lienLabel": "Voir le parcours"
+        }
       },
       {
-        "titre": "Contenus régulièrement mis à jour",
-        "description": "Le programme suit les évolutions de la plateforme et de ses usages."
+        "cle": "groupe-limite",
+        "titre": "Groupe limité à 8 participants",
+        "description": "Chaque session live est plafonnée.",
+        "preuve": {
+          "texte": "Au-delà de 8 inscrits la session est fermée et un nouveau créneau est ouvert. C'est ce plafond qui permet de poser ses questions et de faire le cas pratique accompagné."
+        }
       }
-    ],
-    "temoignages": {
-      "label": "Témoignages",
-      "placeholder": "Les témoignages des premiers apprenants arrivent bientôt."
-    },
-    "logos": {
-      "label": "Entreprises",
-      "placeholder": "Les entreprises partenaires seront présentées ici."
-    }
+    ]
   },
   "faq": {
     "eyebrow": "Vous avez des questions",
     "titre": "Les questions les plus fréquentes trouvent leur réponse ici.",
     "items": [
       {
-        "question": "Faut-il déjà connaître SAP Ariba pour commencer ?",
-        "reponse": "Non, aucun prérequis SAP n'est nécessaire pour suivre cette formation."
+        "question": "Combien coûte la formation ?",
+        "reponse": "Le tarif dépend du parcours choisi — programme complet, session en groupe ou session individuelle. L'appel découverte de trente minutes est gratuit : le montant exact vous y est confirmé avant tout engagement."
       },
       {
-        "question": "La formation est-elle animée en direct ?",
-        "reponse": "Oui, chaque session est animée en direct par un expert certifié."
+        "question": "Faut-il déjà connaître SAP Ariba pour commencer ?",
+        "reponse": "Non. Aucun prérequis SAP n'est nécessaire : la formation part des fondamentaux, et chaque module se pratique."
+      },
+      {
+        "question": "Ai-je besoin de mon propre accès SAP Ariba ?",
+        "reponse": "Cette question est traitée pendant l'appel découverte : le formateur vous indique ce dont vous avez besoin avant la première session."
+      },
+      {
+        "question": "Les sessions sont-elles enregistrées ?",
+        "reponse": "Non. Chaque session est animée en direct — c'est le format même de la formation. Des compléments vidéo sont à l'étude pour une prochaine étape."
       },
       {
         "question": "Combien de temps ai-je accès aux supports ?",
-        "reponse": "La durée d'accès est précisée sur la page Formation."
+        "reponse": "L'accès aux supports court pendant toute la durée de votre parcours. Chaque module dispose de son support PDF téléchargeable, ainsi que du cas pratique corrigé."
       },
       {
-        "question": "Puis-je réserver un appel découverte gratuit ?",
-        "reponse": "Oui, un appel découverte gratuit est proposé avant tout engagement."
+        "question": "Vais-je recevoir une attestation ?",
+        "reponse": "Une attestation de suivi est remise à l'issue du parcours complet."
       },
       {
-        "question": "Comment se déroule l'inscription ?",
-        "reponse": "La création d'un compte est nécessaire, y compris pour l'appel découverte gratuit."
-      },
-      {
-        "question": "Un support PDF est-il fourni pour chaque module ?",
-        "reponse": "Oui, chaque module dispose de son propre support téléchargeable."
-      },
-      {
-        "question": "Que se passe-t-il si je dois annuler ma réservation ?",
-        "reponse": "Le créneau est libéré et vous êtes prévenu selon la politique de remboursement publiée."
+        "question": "La formation est-elle finançable (CPF, OPCO) ?",
+        "reponse": "Posez la question pendant l'appel découverte : votre situation est examinée et la réponse vous est donnée par écrit avant toute inscription."
       }
-    ]
+    ],
+    "cloture": {
+      "question": "Une question qui n'est pas dans cette liste ?",
+      "lien": "Écrivez-nous"
+    }
   },
   "ctaFinal": {
     "eyebrow": "Votre prochaine étape",
     "titre": "Votre créneau vous attend. Réservez-le dès maintenant.",
-    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba."
+    "supportLine": "Rejoignez une session live et progressez avec un expert certifié SAP Ariba.",
+    "etapes": {
+      "titre": "Ce qui se passe ensuite",
+      "items": [
+        {
+          "titre": "Un appel découverte gratuit",
+          "description": "Trente minutes avec le formateur, avant tout engagement."
+        },
+        {
+          "titre": "Votre session est planifiée avec vous",
+          "description": "Une date de session live fixée ensemble, selon vos disponibilités."
+        },
+        {
+          "titre": "Un groupe volontairement petit",
+          "description": "Assez peu de participants pour poser vos questions et faire le cas pratique accompagné."
+        }
+      ]
+    }
   }
 }

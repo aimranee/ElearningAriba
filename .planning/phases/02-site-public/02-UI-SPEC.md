@@ -8,17 +8,19 @@
 
 ## 0. The authority
 
-The design contract for this phase is a **founder-approved maquette**, not this file:
+(Superseded 2026-08-31, founder decision — see D-04.) The maquette is **retired as
+visual authority**. The rendered application is the reference, and the landing is
+rebuilt **section by section**: each section discussed, corrected, delivered and
+verified before the next opens.
 
 `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html`
+stays on disk as a historical trace only — not read, not authoritative.
 
-A single self-contained HTML file. The founder reviewed and approved it on 2026-08-29
-(*"yes that what I'm talking about"*, then *"go ahead, approved"*).
+The tokens, timing and composition rules below were originally measured from that
+file and remain valid as a record of what shipped; treat them as descriptive, not as
+a contract to defer to over the rendered app.
 
-**Read the file.** Every token, timing and composition rule below was measured from it.
-**Where this document and the file disagree, the file wins.**
-
-The reference the maquette is built from is **26academy.com, taken literally** —
+The reference the maquette was built from is **26academy.com, taken literally** —
 structure, treatment, components and palette (D-01).
 
 ---
@@ -126,15 +128,24 @@ islands**, never by turning the page into a client component.
 1. **Hero** — accroche, sous-titre, CTA « Démarrer ma formation », CTA secondaire
    « Voir le programme », visuel principal, emplacement vidéo prêt
 2. **Pour qui est cette formation ?** — five profils + « même sans expérience SAP »
+
+   "Pour qui" cards **rebuilt 2026-09-01** (founder/CTO decisions) — each card
+   now opens on a first-person accroche, with the profile name moved to the
+   footer as a `/programme` link; hover reveals the description under a
+   reserved-height two-block inverse-grid technique so card and row height
+   never shift; the section is `tone="band"` (Compétences flips to
+   `tone="default"` to preserve the alternation) — see `D-49`/`D-50`.
 3. **Ce que vous allez apprendre** — six compétences
 4. **Programme détaillé** — five modules in an accordion + bouton PDF
 5. **Format et modalités** — six repères
 6. **Confiance et sécurité** — three faits + emplacements témoignages / logos
 7. **CTA final et FAQ** — sept questions
 
-Plus the **26academy-style bands** the founder approved: the animated figures band (the
-five module durations 3 h / 4 h / 4 h / 3 h / 3 h — **17 h total**) and honest trust
-placeholders.
+The animated stats band is **removed 2026-09-01** (founder decision) — its
+figures duplicated content already shown elsewhere on the page. The **17 h
+total** itself is not removed from the site: it is still computed from the
+five module durations (3 h / 4 h / 4 h / 3 h / 3 h) at read time and shown by
+Format et modalités and `/programme.pdf`. Honest trust placeholders remain.
 
 ### Other surfaces
 
@@ -197,4 +208,6 @@ placeholders.
 ---
 
 *Phase: 02-site-public*
-*Derived from the founder-approved maquette on 2026-08-29. The maquette file is the authority.*
+*Originally derived from the founder-approved maquette on 2026-08-29. Superseded
+2026-08-31: the maquette is retired as visual authority; the rendered application is
+the reference, under the section-by-section regime (D-04).*

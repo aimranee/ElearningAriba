@@ -54,13 +54,22 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   vert ». The conflict was raised and the cost named; the founder reaffirmed violet and
   instructed that it **not** be routed to the Chief of Staff for pricing. Build as
   instructed.
-- **D-03**: The seven signed sections ship, **plus the 26academy-style bands** —
-  animated figures band and honest trust placeholders. Not routed for pricing.
-- **D-04**: The **validated maquette is the visual contract**. The founder reviewed and
-  approved it (*"yes that what I'm talking about"*, then *"go ahead, approved"*). File:
+- **D-03** (superseded 2026-09-01, founder decision): the animated stats band
+  is **removed** — its four figures are all restated elsewhere on the page:
+  Format et modalités repeats the module/hours line verbatim
+  (`formatModalitesAside.resume`), the Compétences section renders the same
+  six skills, and "Aucun prérequis SAP" already appears twice (hero chip,
+  Format et modalités). The honest trust placeholders remain. The seven
+  signed sections remain. No signed requirement is affected — none of
+  `PUB-01`..`PUB-07` names a stats band.
+- **D-04** (superseded 2026-08-31, founder decision): the maquette is **retired as
+  visual authority**. The rendered application is the reference. Reason: three times
+  the maquette was wrong and the shipped code was right (missing `<meta charset>`,
+  mobile burger off-viewport at 375px, a second easing curve). The landing is now
+  rebuilt **section by section** — each section discussed, corrected, delivered and
+  verified before the next opens. File
   `C:/Users/Essakhi/Desktop/ElearningSAP/ariba-cto/notes/2026-08-29-maquette-lot2-landing-validee.html`
-  — a single self-contained HTML file. **Read it.** Where this document and the file
-  disagree, **the file wins**.
+  stays on disk as a historical trace only — not read, not authoritative.
 
 ### Design tokens — replace the Lot 1 `:root` palette
 
@@ -200,6 +209,330 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
   production deploy and belongs to the CIO alone.
 - **D-48**: Ship green: `tsc` 0, `eslint` 0, `next build` 0, and the mock guard still
   exits 1 on an unresolved client-dependent key.
+- **D-49** (2026-09-01, founder): "Pour qui" moves to intention cards — a
+  first-person accroche (`content_item.donnees.accroche`, jsonb, no
+  migration) is the card headline, the five signed profile names move to the
+  card footer as a `/programme` link label, and the section tone flips to
+  `band` (Competences flips to `default` to preserve alternation). Two
+  reference screenshots (`Screenshot 2026-09-01 083648.png`/`083656.png`) set
+  direction only, not authority — see `D-50` and the AA contrast note below
+  for the two measured departures. The description originally revealed on
+  hover via a two-block inverse-grid technique that reserved constant card
+  and row height; **replaced 2026-09-01 (founder)** with a dynamic height —
+  compact at rest, expanding on hover/focus, row and downstream content shift
+  with it — after measuring 114–116px of dead space under the footer at rest
+  (35–36% of card height). Reveal duration also slows from `--duration-base`
+  (220ms) to a dedicated `--duration-reveal` (450ms) token for this gesture
+  only; `--duration-base` is unchanged for its other consumers.
+- **D-50** (2026-09-01, CTO): extends `D-05`'s token set with `--blue-ink`
+  (`#3472d8`), `--mint-ink` (`#158568`), `--amber-ink` (`#996c29`) — measured,
+  not an oversight: `--blue`/`--mint`/`--amber` fail WCAG AA as ink-on-white-card
+  (3.68 / 2.16 / 1.77 against the 4.5 threshold) while these darkened variants
+  pass (4.62 / 4.58 / 4.63). Rule going forward: an accent token may decorate a
+  large/decorative surface (pastille fill, wash tint) at any ratio; card body
+  ink must come from an AA-passing token. Also records the reference's second
+  departure: cards link to `/programme`, not to a non-existent per-domain page
+  (Lot 11+, unsold).
+- **D-51** (2026-09-01, founder): "Ce que vous allez apprendre" passe des
+  sujets aux **résultats** : six intitulés verbe-en-tête, chacun avec une
+  phrase portée par `content_item.description`, sans pastille numérotée. La
+  liste signée est rétablie à l'identique — « catalogues, contrats et
+  workflows » regroupés en une compétence, « préparer la certification SAP
+  Ariba » rétablie comme sixième. Motif : les six intitulés redisaient les
+  cinq modules du Programme un pour un, et l'item signé de certification
+  n'existait nulle part sur le site. La promesse reste celle de l'offre —
+  préparer, jamais garantir. **La `cle` du premier item est porteuse** : le
+  H1 du héros y prend son mot de repos.
+- **D-52** (2026-09-01, founder): le seed **retire nominativement** les
+  lignes de contenu retirées. `upsertItems` clé sur `(section_cle, cle)` et
+  ne supprime jamais : sans retrait explicite, une ligne retirée du JSON
+  survit à chaque re-seed et se rend encore. Retrait ligne par ligne sur les
+  deux colonnes, jamais en masse sur `section_cle`.
+- **D-53** (2026-09-01, founder): **le mur chromatique.** La section
+  abandonne l'objet « pastille + titre + phrase sur carte claire », déjà
+  porté par Pour qui, Format et modalités et Confiance : six tuiles pleines,
+  une teinte par compétence, lavage plafonné à 30 %, filigrane du pictogramme
+  coupé par le bord, filet d'accent à pleine saturation qui **se trace au
+  défilement**. Deux règles mesurées en font partie : **`--muted-ink` est
+  interdit sur ces lavages** (échec AA dès 16 % sur le violet et le bleu —
+  titre en `--ink`, phrase en `--ink-soft`), et **l'ordre des teintes est
+  calculé** pour que violet/indigo et bleu/ciel ne soient jamais adjacents,
+  à aucune largeur.
+- **D-54** (2026-09-01, founder): la courbe unique du site passe de
+  `cubic-bezier(0.16, 1, 0.3, 1)` à `cubic-bezier(0.22, 0.61, 0.36, 1)`, et
+  l'entrée `.reveal` passe de 1s en dur à `--duration-entrance: 700ms`.
+  Motif : la courbe expo-out plaçait 49 % du mouvement dans les 10 premiers
+  pour cent du temps — sur les 34px de `.reveal`, 22px étaient parcourus en
+  150ms et les 12px restants étalés sur 850ms, ce que l'œil lit comme un
+  saut suivi d'une immobilité, pas comme un mouvement. Allonger la durée
+  aggrave le défaut ; seule la courbe le corrige. `D-17` tient : une seule
+  courbe sur le site, dont la valeur a changé. `--duration-reveal` (450ms,
+  `D-49`) reste distinct — il porte le dépliement « Pour qui » et le tracé
+  du filet, pas l'entrée.
+- **D-55** (2026-09-01, founder + CTO): `--duration-entrance` passe à
+  **950ms**, et le filigrane des tuiles de compétence cesse de se déplacer
+  au survol : il ne lui reste qu'une éclosion d'opacité 0,18 → 0,26 portée
+  par `--duration-reveal`. Motif, en deux temps. La durée : 700ms se lisait
+  pressé une fois la courbe adoucie, parce que sous easeOutCubic la durée
+  entière est du mouvement perçu. Le filigrane : la tuile monte de 2px
+  pendant que son propre filigrane descendait de 6px — vecteurs opposés qui
+  décollent l'icône de sa carte — et l'élément étant coupé par le bord de la
+  tuile, tout déplacement le pousse hors cadre et lui fait changer de
+  silhouette en cours de mouvement. Règle retenue : ce qui est grand bouge
+  peu et lentement. Le décalage d'icône de 3px de `pour-qui.tsx` reste
+  valide — petit élément, un seul axe, aucun bord qui le coupe.
+- **D-56** (2026-09-01, founder + CTO): l'accordéon Programme rend, sous le
+  résumé de chaque module, les puces `donnees.contenu` sous un libellé
+  « Au programme » ; les `objectifs` restent sur `/programme` parce que la
+  section 3 porte désormais les résultats. Le CTA « Télécharger le
+  programme en PDF » est rétabli sur la landing en lisant son libellé
+  depuis la section `page-programme` : la ligne `telecharger-pdf` n'a pas
+  de `duree_heures`, et `getModules()` refuse la section entière si un de
+  ses items en manque — la loger dans `programme` rendrait l'état
+  d'erreur. Sa requête reste **hors de la garde d'erreur** : son échec
+  masque le bouton, il ne blanchit pas la section.
+- **D-57** (2026-09-01, founder + CTO): la section Format rend le `deroule`
+  réel de cinq étapes lu depuis `page-formation`, avec un aperçu par étape
+  dans le cadre de fenêtre du héros, cinq mises en page distinctes, et « Ce
+  qui est fourni » en bande sous les deux colonnes. Les six « repères »
+  cessaient de décrire une séquence : ils étaient numérotés `01→06` avec une
+  barre de progression alors que « Prérequis » y était l'étape 06 et
+  « Vidéos à venir » — non livré — l'étape 03. L'aperçu de l'étape 03 est un
+  wireframe abstrait : aucune reprise de l'habillage de SAP Ariba sur une
+  page marchande.
+- **D-58** (2026-09-01, CTO): `--sky-ink: #0f7ea6` rejoint `--blue-ink` /
+  `--mint-ink` / `--amber-ink`. Les pastilles numérotées passent du dégradé
+  à l'aplat : seuls `--violet` (4,70), `--deep` (6,29), `--blue-ink` (4,62),
+  `--sky-ink` (4,61) et `--mint-ink` (4,58) portent un chiffre blanc à AA ;
+  `--sky` et `--mint`, utilisés jusqu'ici, étaient mesurés à 2,14 et 2,16.
+  Le glyphe de coche passe à `--mint-ink` (2,16 → 4,58) et les numéros
+  inactifs du stepper à `--muted-ink` (3,02 → 5,41).
+- **D-59** (2026-09-01, fondateur): la tuile « Gestion des catalogues » passe
+  de `--indigo` à `--rose` (#c2185b). Le mur chromatique portait deux teintes
+  quasi-jumelles ; le rose les sépare. L'accent y est purement décoratif —
+  bordure 22 %, lavis 30 % dégradé vers blanc, filigrane 18 %, filet 3 px —
+  et ne passe jamais sous du texte : le titre (`--ink`) et la description
+  (`--ink-soft`) mesurent 9,26 et 7,20 sur le lavis rose à pleine opacité de
+  survol, contre 9,23 et 7,18 avec l'indigo. Le rose de 26academy (#EC4899)
+  a été écarté : 3,53 en blanc-sur, sous la barre AA. Le rose s'écarte une
+  seconde fois de CADR-05 (« palette bleu / blanc / vert »), après le violet
+  de D-02, sur décision du fondateur.
+- **D-60** (2026-09-01, fondateur): la tuile « Tenir catalogues, contrats et
+  workflows » repasse de `--rose` à `--indigo` (#4338ca). Le rose lisait
+  « girly » pour le fondateur ; mesuré sur le rendu, il n'existait qu'à cinq
+  éléments de toute la page, tous dans cette tuile et son pictogramme. Le
+  mur devient violet, blue, mint, amber, indigo, sky : six teintes
+  distinctes, aucun rose. L'objection du D-59 — indigo quasi-jumeau du
+  violet — tombe maintenant que `--sky` occupe la sixième tuile et que les
+  tuiles 1 et 5 ne sont jamais adjacentes dans la grille à trois colonnes.
+  `--rose` sort de la palette : un jeton mort dont la justification est
+  périmée est un piège pour le prochain lecteur. #4338ca porte un glyphe
+  blanc en AA, contrairement à `--sky`, `--mint` et `--blue` (mesurés 2,14 /
+  2,16 / 3,68 au D-57), donc la pastille pictogramme reste conforme.
+- **D-61** (2026-09-01, fondateur): les emplacements « Témoignages » et
+  « Entreprises » sont retirés du rendu et des données semées.
+- **D-62** (2026-09-01, fondateur + CTO): les trois faits deviennent
+  vérifiables — appel découverte gratuit 30 min, formateur nommé avec
+  parcours consultable, groupe plafonné à un nombre. « Protection des
+  données » et « Contenus régulièrement mis à jour » quittent la landing.
+- **D-63** (2026-09-01, fondateur + CTO): l'encart photo 16/9 en pointillés
+  est remplacé par une carte formateur composée en code. Aucune photo n'est
+  sourcée ; `public/` ne contient aucune image matricielle. La pastille de
+  monogramme est le seul emplacement du portrait futur.
+- **D-64** (2026-09-01, fondateur + CTO): mécanisme « fait → preuve » — un
+  clic sur une carte échange sa moitié basse entre description et preuve.
+  Hauteur de carte fixe, aucun décalage de mise en page, même comportement
+  au clavier et au toucher.
+- **D-65** (2026-09-02, fondateur): la règle de décalage zéro du D-64 est
+  levée. Les cartes de fait de la section Confiance passent à une hauteur
+  animée : repliée la hauteur de la description, dépliée celle de la
+  preuve. Motif mesuré : la réserve permanente coûtait 90 px par carte,
+  payés trois fois sur mobile, et faisait grossir la section de 1567 à
+  1683 px malgré la suppression de 461 px d'encarts en pointillés. Le
+  décalage à l'ouverture est accepté parce que l'accordéon Programme
+  (D-56) le produit déjà.
+- **D-66** (2026-09-02, fondateur + CTO): la console du CTA final est
+  retirée, du rendu comme des données. Les dates, les compteurs de places,
+  l'étiquette « Confirmé », le nom de domaine et l'emplacement vidéo
+  quittent la page, et `hero.console` est supprimé de `common.json`. Trois
+  raisons cumulées : elle contredisait le plafond du D-62 (« Places
+  restantes : 9 » contre « Groupe limité à 8 participants ») ; elle
+  n'était enregistrée nulle part, donc invisible à `npm run content:check`
+  et à la porte du lot 5 ; et elle survivait au héros qui l'avait
+  abandonnée, avec un unique consommateur. Aucune disponibilité chiffrée
+  ne revient sur la landing avant que le lot 4 ne livre l'agenda réel.
+- **D-67** (2026-09-02, fondateur + CTO): la colonne droite du CTA final
+  devient « Ce qui se passe ensuite », trois étapes ordonnées composées de
+  contenu déjà signé sur la page. Aucun fait nouveau n'est écrit. La
+  clôture d'une page sans prix doit répondre à la dernière objection
+  réelle — « qu'est-ce qui se passe si je clique ? » — pas rejouer le
+  héros.
+- **D-68** (2026-09-02, CTO): AC-2 est amendé — le niveau 3 passe de deux
+  surfaces persistantes à une, la carte d'assemblage du héros. Le critère
+  a toujours été un plafond (« max 2 »), pas un plancher. `--shadow-4`
+  reste consommé dans la feuille compilée par le cadre du héros.
+- **D-69** (2026-09-02, CTO): une surface translucide posée sur le dégradé de
+  clôture du CTA final doit s'assombrir, jamais s'éclaircir, car le dégradé y
+  est à son extrémité la plus claire — un voile blanc (`bg-white/8`) fait
+  passer la description sous AA : le titre passait de justesse (4.59-4.79),
+  la description `text-white/82` échouait (3.64-3.77, sous le seuil de 4.5),
+  alors que le même voile en noir passe (`bg-black/10` : titre 6.25,
+  description 4.77 ; `bg-black/15` : 6.79/5.14 ; `bg-black/20` : 7.39/5.54 —
+  `bg-black/10` est retenu comme valeur minimale passante). Quatrième
+  occurrence de ce défaut d'encre-sur-surface-teintée dans le projet (après
+  D-50, D-53, D-58). Correction : les lignes d'étapes de `cta-final.tsx`
+  passent à `bg-black/10`. Valeurs vérifiées au DOM après correction
+  (2026-09-02, CTO, dégradé rastérisé, échantillonné sous chaque ligne) :
+  étape 1 titre 6.52 / description 4.95 ; étape 2 titre 6.36 / description
+  4.84 ; étape 3 titre 6.25 / description 4.77 — les trois lignes passent AA,
+  le pire cas est 4.77.
+- **D-70** (2026-09-02, fondateur + CTO): la FAQ adopte l'échelle de
+  `programme-accordion.tsx`, son frère de la même page. Les défauts
+  d'administration (`text-sm` shadcn 14 px, lignes de 46 px,
+  `hover:bg-muted`) quittent la landing. La première ligne s'ouvre au
+  chargement via `defaultValue`, comme le programme le fait déjà. Aucune
+  nouvelle valeur de design n'est inventée : tout est repris littéralement
+  du frère.
+- **D-71** (2026-09-02, fondateur + CTO): les sept questions sont
+  reconstruites autour de ce qu'un visiteur demande vraiment. Cinq des sept
+  actuelles partent : le direct, l'appel découverte et l'inscription sont
+  déjà répondus par les sections 05, 06 et 07 ; le support PDF est absorbé
+  par la question des supports. La question de l'annulation revient au lot
+  5, quand la politique de remboursement sera publiée — pas avant, parce
+  que la réponse actuelle renvoie à une page que le pied de page rend
+  délibérément non navigante.
+- **D-72** (2026-09-02, fondateur + CTO): le prix est demandé et répondu
+  sans chiffre. La question figure en première ligne ; la réponse nomme
+  les trois formes de parcours et renvoie à l'appel découverte gratuit de
+  trente minutes, où le montant est confirmé. Aucun montant sur la landing
+  tant que le client n'a pas donné ses tarifs réels.
+- **D-73** (2026-09-02, fondateur + CTO): trois questions partent en mocks
+  CADR-03 — accès SAP personnel, attestation, financement CPF/OPCO.
+  `landing.faq.items` est déjà une entrée unique de `_mocks.public.json`
+  couvrant tout le tableau : la porte du lot 5 les bloque sans qu'aucune
+  entrée soit ajoutée. La réponse sur le financement n'affirme aucune
+  éligibilité — ni CPF, ni OPCO, ni Qualiopi n'apparaissent nulle part dans
+  le repo ni dans le cahier, et en France cette éligibilité suppose
+  Qualiopi et un numéro de déclaration d'activité. Elle oriente vers
+  l'appel découverte, rien de plus.
+- **D-74** (2026-09-02, CTO): un état animé se mesure dans un navigateur
+  dont `document.visibilityState` vaut `visible`. Un onglet piloté par
+  extension et resté `hidden` produit 0 frame de `requestAnimationFrame`
+  en 2 secondes, donc Base UI ne retire jamais `data-starting-style` du
+  panneau et la règle `data-[starting-style]:h-0 opacity-0` le fige — un
+  accordéon parfaitement sain y rapporte `aria-expanded="true"` avec
+  `height: 0`. Ce n'est pas un défaut produit. Les mesures d'animation et
+  de largeur passent par Playwright (`visibilityState: visible`, rAF
+  actif, viewport réellement redimensionnable).
+- **D-75** (2026-09-02, fondateur): la palette proposée est approuvée — six
+  teintes réparties sur le cercle OKLCH, trois paliers wash (L .968 / C
+  .022), soft (L .840 / C .100) et ink (résolu à 5,5:1 sur --paper, C
+  .150). Les jetons sont posés au run 1 ; aucun consommateur n'est migré
+  avant les runs 2 à 4.
+- **D-76** (2026-09-02, fondateur): le mur chromatique reste à six teintes,
+  D-53 maintenue. Le plafond de distinguabilité mesuré (delta E 8,5 entre
+  tuiles voisines pour un seuil de 15) est accepté en connaissance de
+  cause : chaque tuile porte un titre et un pictogramme, la couleur rythme
+  et n'identifie pas.
+- **D-77** (2026-09-02, fondateur): l'encre marine #0A2540 est conservée.
+  L'option de sortir du couple Stripe en ramenant l'encre sur la teinte de
+  la marque est refusée — --ink, --ink-soft, --muted-ink et --border ne
+  bougent pas.
+- **D-78** (2026-09-02, fondateur): restyler d'abord, réviser ensuite. Les
+  quatre portes human-verify non revues (02-04 T3, 02-05 T4, 02-09 T3,
+  02-10 T3) passent après les runs 1 à 4, en une seule fois, sur l'état
+  final.
+- **D-79** (2026-09-02, CTO): un jeton de TAILLE ne se lit jamais en
+  text-[var(--x)]. Tailwind v4 tranche l'ambiguïté pour la couleur et
+  compile la classe en color: var(--x) ; une valeur qui n'est pas une
+  couleur est jetée silencieusement à l'analyse et l'élément garde la
+  taille héritée, tandis que la règle voisine
+  leading-[var(--x--line-height)] passe. La forme obligatoire est
+  text-[length:var(--x)], et la preuve se prend sur la valeur calculée
+  dans le navigateur, jamais par grep sur la source.
+- **D-80** (2026-09-02, fondateur): le mur des six compétences passe en
+  aplat soft plein — la tuile entière prend le soft de sa teinte. C'est le
+  palier du milieu qui manque à la page : l'audit mesure 0,7 % de pixels
+  pastel contre 22,9 % chez OpenClassrooms, et la page passait du
+  presque-blanc au saturé sans transition.
+- **D-81** (2026-09-02, fondateur): le pictogramme de tuile porte l'encre
+  de sa propre teinte, à même l'aplat, mesuré entre 3,31 et 3,58. Cela
+  échoue le seuil de 4,5 du texte et franchit le plancher 3,0 des objets
+  graphiques — accepté en connaissance de cause, le pictogramme étant
+  décoratif et doublé par le titre.
+- **D-82** (2026-09-02, fondateur): la règle de 3px en haut de tuile est
+  retirée. Sur un aplat coloré elle répète l'information que le fond porte
+  déjà ; elle n'existait que parce que la tuile était blanche.
+- **D-83** (2026-09-02, fondateur): la typographie du mur passe sur les
+  crans du run 1 dans le même run que sa couleur — titre sur --text-card,
+  description sur --text-small. Le mur est fini en une passe ; le run 3
+  couvre les sept autres sections.
+- **D-84** (2026-09-02, CTO): sur un aplat soft, le texte est --ink
+  (9,13-9,91) ou --ink-soft (7,10-7,71). --muted-ink y échoue (3,18-3,45)
+  et l'encre de la teinte aussi (3,31-3,58) ; cette dernière n'est admise
+  que sur un objet graphique, plancher 3,0. Mesuré sur les six soft de la
+  palette, pas estimé.
+- **D-85** (2026-09-03, fondateur): les titres d'accordéon et de carte des
+  sept sections passent sur --text-card (20 px), +23 % sur les deux
+  accordéons, croissance verticale acceptée.
+- **D-86** (2026-09-03, fondateur): les six tailles de surtitre passent
+  toutes sur --text-micro sans exemption ; la maquette du héros s'ajuste par
+  sa géométrie, pas par sa typo.
+- **D-87** (2026-09-03, fondateur): le h2 du CTA final descend de 48 à 40 px
+  — une seule taille par rang de titre.
+- **D-88** (2026-09-03, fondateur): la bande devient un aplat plein
+  --violet-band #E7EBFF. --violet-wash a été mesuré à ΔE 2,56 du papier,
+  sous le seuil du perceptible ; #E7EBFF est à 5,42 et le plancher AA de
+  --muted-ink (4,57) interdit d'aller plus bas.
+- **D-89** (2026-09-03, fondateur): les cinq accents de pour-qui migrent sur
+  la nouvelle palette ; le médaillon prend le wash en aplat direct et les
+  deux color-mix disparaissent.
+- **D-90** (2026-09-03, CTO): le dégradé bg-clip-text du mot accentué
+  échouait à AA sur sa borne --blue (3,59 sur --paper) avant ce run, sur les
+  sept sections et les pages internes. Remplacé par --indigo → --deep →
+  --azur-ink (6,67 / 5,31 / 4,74 sur la bande).
+- **D-91** (2026-09-03, fondateur): la géométrie — 28 paddings, 22
+  gouttières, 13 rayons — reste hors du run 3 ; c'est le run 4.
+- **D-92** (2026-09-04, fondateur): les trois composants
+  `components/motion/` (`format-deroule.tsx`, `confiance-faits.tsx`,
+  `assembly-card.tsx`) migrent vers les jetons typographiques ; l'inventaire
+  du run 3 scopait `components/sections/` et traitait une section comme son
+  propre fichier, manquant ces trois-là, que les sections délèguent pour le
+  rendu.
+- **D-93** (2026-09-04, fondateur): le titre de fait de
+  `confiance-faits.tsx` (ligne 57) passe à `--text-card` (20px) — c'est un
+  accordion trigger, même rôle que les titres de module et questions FAQ
+  déjà envoyés vers `--text-card` au run 3.
+- **D-94** (2026-09-04, fondateur): le titre d'`assembly-card.tsx`
+  (lignes 206/212) passe à `--text-body` (16px) mais garde `leading-[1.2]`
+  — seule exemption de ce run. Aucun jeton n'associe un leading serré de 1.2
+  à une taille de 16px, et la ligne 212 est le sizer qui réserve la boîte du
+  titre de la carte animée ; l'associer à `--text-body--line-height`
+  ferait grossir cette boîte d'environ 20px à 26px dans une carte à
+  géométrie contrainte.
+- **D-95** (2026-09-04, fondateur): un `leading-` jeton ne cohabite jamais
+  avec un `leading-` littéral sur le même élément — la migration remplace
+  toujours la paire taille+leading ensemble, jamais la taille seule (sauf
+  l'exemption nommée de D-94).
+- **D-96** (2026-09-04, fondateur) — le lavis pâle sur les surfaces est abandonné ; la couleur saturée se concentre dans la tuile d'icône, le fond reste blanc.
+- **D-97** (2026-09-04, fondateur) — AC-3 est retirée : l'atmosphère est supprimée par décision du fondateur.
+- **D-98** (2026-09-04, fondateur) — aucun jeton `-soft` ne peut porter un glyphe blanc ; les six dégradés sont bâtis sur la famille `-ink`, valeurs mesurées au brief.
+- **D-99** (2026-09-04, fondateur) — l'ombre de carte est teintée par `--tuile-b` via `color-mix`, usage autorisé parce qu'aucune encre n'est lue par-dessus.
+- **D-100** (2026-09-04, fondateur) — `card-spotlight` suit la règle AC-7 du héros : absent, pas figé, sous reduce-motion.
+- **D-101** (2026-09-04, fondateur) — le carrousel du H1 passe en fondu croisé de mots entiers ; la frappe caractère par caractère laissait un fragment 32,9 % du temps et un vide 8,9 % (mesuré, 146 échantillons).
+- **D-102** (2026-09-04, fondateur) — le H1 n'a qu'un seul accent, le dégradé du mot cyclé ; le violet plat de l'accroche est retiré.
+- **D-103** (2026-09-04, fondateur) — la ligne de preuve mélange un fait dérivé de la base (modules et heures) et deux placeholders enregistrés au registre de mocks ; aucune preuve sociale nominative n'est fabriquée.
+- **D-104** (2026-09-04, fondateur) — le verrou de largeur D-09 survit au changement de mécanisme : en fondu croisé les deux mots coexistent, le verrou devient nécessaire et non plus seulement utile.
+- **D-105** (2026-09-04, fondateur) — la deuxième rangée de "Pour qui" devient deux
+  cartes de 3 colonnes ; les six colonnes sont consommées sur les deux rangées ;
+  `lg:col-start-2` est retiré.
+- **D-106** (2026-09-04, fondateur) — le mécanisme de repli au survol est conservé
+  (décision fondateur) mais la carte porte désormais un repère permanent (libellé +
+  chevron) qui pivote à l'ouverture ; le repère est masqué là où le survol n'existe pas,
+  puisque la description y est déjà toujours ouverte.
+- **D-107** (2026-09-04, fondateur) — le pied de carte n'est plus conditionné à
+  `donnees.accroche` ; il s'affiche toujours, et ne montre `titre` que lorsqu'une
+  accroche distincte existe, pour éviter de dupliquer le titre.
 
 ### Claude's Discretion
 
@@ -279,15 +612,15 @@ are verbatim scope from the signed offer. None is inferred. Every one is **locke
 1. The surface map is verifiable **section by section**: **niveau 1** on
    compétences, the programme and FAQ accordions, and the Format parcours rows;
    **niveau 2** on the Pour-qui tiles, the Confiance tiles, and the parcours' side
-   frame; **niveau 3** on **exactly two persistent surfaces** page-wide (hero
-   assembly card, CTA-final console frame) — the ceiling counts rendered
-   elements that carry the niveau-3 rest/hover treatment (raised Card variant
-   or an equivalent hand-styled surface), not a `Button` primary variant's
+   frame; **niveau 3** on **exactly one persistent surface** page-wide (hero
+   assembly card) — the ceiling counts rendered elements that carry the
+   niveau-3 rest/hover treatment (raised Card variant or an equivalent
+   hand-styled surface), not a `Button` primary variant's
    `hover:shadow-[var(--shadow-4)]` hover micro-interaction, which is excluded
-   from the count. The criterion is the **ceiling on niveau 3** (max 2), not a
-   floor on total card count.
+   from the count. The criterion is the **ceiling on niveau 3** (max 2, D-68
+   amends the observed count to 1), not a floor on total card count.
 2. `--shadow-4` appears in the **compiled CSS output** — consumed by the hero visual
-   frame and the final CTA — not only declared in `globals.css`.
+   frame — not only declared in `globals.css`.
 3. The atmosphere layer is behind **all seven** landing sections, verifiable by mounting
    it once at the root rather than per section.
 4. A search of the codebase for `cubic-bezier` returns **exactly one distinct value**. A

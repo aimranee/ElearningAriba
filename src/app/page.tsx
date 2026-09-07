@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/hero";
-import { StatsBand } from "@/components/sections/stats-band";
 import { PourQui } from "@/components/sections/pour-qui";
 import { Competences } from "@/components/sections/competences";
 import { ProgrammeAccordion } from "@/components/sections/programme-accordion";
@@ -17,7 +16,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <StatsBand />
       <PourQui />
       <Competences />
       <ProgrammeAccordion />

@@ -19,3 +19,12 @@ Out-of-scope discoveries logged during execution, not fixed (per SCOPE BOUNDARY)
   the phase-level grep-for-cubic-bezier check is unaffected. Flagging so a
   later 02-site-public plan closes the same gap in these three files if it
   proves visible in the built stylesheet.
+
+## Run 7 (2026-09-05)
+
+- `src/lib/content/queries.ts` — six `return { ok: false }` guards stay mute
+  on this run (founder-scoped: only the two loop guards in `getConfianceFaits`
+  and `getModules` got `console.error` logging). Not loops, not touched:
+  lines 34, 51, 110, 115, 136, 141 (`getSection`, `getSectionItems`,
+  `getFormationDeroule` ×2, `getFormationFourni` ×2).
+

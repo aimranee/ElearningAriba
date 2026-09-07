@@ -60,19 +60,6 @@ function slugify(value) {
     .replace(/^-+|-+$/g, "");
 }
 
-// why: `competences.items` (landing.json) is a plain string array with no
-// per-item picto key — this is the same positional mapping page.tsx used
-// (COMPETENCE_PICTOS), moved here so the column becomes real data instead of
-// a hardcoded positional array at the call site.
-const COMPETENCE_PICTOS = [
-  "ecosysteme-ariba",
-  "procure-to-pay",
-  "source-to-pay",
-  "rfq-rfp",
-  "gestion-catalogues",
-  "contrats-workflows",
-];
-
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -185,6 +172,7 @@ async function main() {
       eyebrow: landing.confiance.eyebrow,
       titre: splitTwoSentences(landing.confiance.titre).title,
       titre_accent: splitTwoSentences(landing.confiance.titre).titleAccent,
+      lead: landing.confiance.lead,
       position: 6,
     },
     {
@@ -236,13 +224,15 @@ async function main() {
     description: profil.description,
     picto: profil.picto,
     position: index + 1,
+    donnees: { accroche: profil.accroche },
   }));
 
-  const competenceItems = landing.competences.items.map((titre, index) => ({
+  const competenceItems = landing.competences.items.map((competence, index) => ({
     section_cle: "competences",
-    cle: COMPETENCE_PICTOS[index],
-    titre,
-    picto: COMPETENCE_PICTOS[index],
+    cle: competence.picto,
+    titre: competence.titre,
+    description: competence.description,
+    picto: competence.picto,
     position: index + 1,
   }));
 
@@ -292,30 +282,12 @@ async function main() {
 
   const confianceItems = landing.confiance.items.map((item, index) => ({
     section_cle: "confiance",
-    cle: slugify(item.titre),
+    cle: item.cle,
     titre: item.titre,
     description: item.description,
+    donnees: { preuve: item.preuve },
     position: index + 1,
   }));
-
-  const confiancePlaceholders = [
-    {
-      section_cle: "confiance",
-      cle: "temoignages",
-      titre: landing.confiance.temoignages.label,
-      description: landing.confiance.temoignages.placeholder,
-      statut: "placeholder",
-      position: confianceItems.length + 1,
-    },
-    {
-      section_cle: "confiance",
-      cle: "logos",
-      titre: landing.confiance.logos.label,
-      description: landing.confiance.logos.placeholder,
-      statut: "placeholder",
-      position: confianceItems.length + 2,
-    },
-  ];
 
   const faqItems = landing.faq.items.map((item, index) => ({
     section_cle: "faq",
@@ -373,7 +345,6 @@ async function main() {
     ...moduleItems,
     ...formatItems,
     ...confianceItems,
-    ...confiancePlaceholders,
     ...faqItems,
     ...pageProgrammeItems,
     pageProgrammeDownloadItem,
@@ -382,6 +353,31 @@ async function main() {
     pageFormationFourniItem,
     ...pageAProposItems,
   ]);
+
+  // why (2026-09-01): upsertItems clé sur (section_cle, cle) et ne supprime
+  // jamais. La refonte fusionne « catalogues » et « contrats et workflows » en
+  // une compétence : sans retrait explicite la ligne retirée survit à chaque
+  // re-seed et rend une septième tuile. Retrait nominatif, jamais en masse.
+  const RETIRED_ITEMS = [
+    { section_cle: "competences", cle: "contrats-workflows" },
+    { section_cle: "confiance", cle: "temoignages" },
+    { section_cle: "confiance", cle: "logos" },
+    { section_cle: "confiance", cle: "protection-des-donnees" },
+    { section_cle: "confiance", cle: "experts-sap-ariba-certifies" },
+    { section_cle: "confiance", cle: "contenus-regulierement-mis-a-jour" },
+  ];
+
+  for (const entry of RETIRED_ITEMS) {
+    const { error } = await supabase
+      .from("content_item")
+      .delete()
+      .eq("section_cle", entry.section_cle)
+      .eq("cle", entry.cle);
+    if (error) {
+      console.error(`content:seed: content_item retirement failed: ${error.message}`);
+      process.exit(1);
+    }
+  }
 
   console.log("content:seed: done");
 }

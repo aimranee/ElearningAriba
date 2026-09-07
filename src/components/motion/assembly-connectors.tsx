@@ -1,19 +1,23 @@
 "use client";
-/* why: the assembly card's 3 bezier connectors are literal, hand-written
-   paths ported verbatim from cta-final.tsx's original static SVG (D-19's
-   sibling: never computed from element positions, never recomputed on
-   resize — that approach was rejected). This island only adds a
-   progressive stroke-trace on viewport entry (IntersectionObserver, once)
-   plus a small comet per path, modeled on typewriter.tsx's pattern: refs +
-   a single useEffect, direct DOM style writes, matchMedia reduced-motion
-   check, no useState-driven per-frame writes. */
+/* why: the assembly card's 3 connectors are literal, hand-written paths —
+   never computed from element positions, never recomputed on resize
+   (rejected 2026-08-28, reaffirmed 2026-08-31). Per the 2026-08-31
+   mechanics brief, cables now stop short of the card at x≈47.8 and
+   terminate on a small static node instead of crossing onto the card's
+   surface — the white-at-40% gradient stop that once let them survive
+   that crossing is now dead code, removed rather than preserved. This
+   island only adds a progressive stroke-trace on viewport entry
+   (IntersectionObserver, once) plus a small comet per path, modeled on
+   typewriter.tsx's pattern: refs + a single useEffect, direct DOM style
+   writes, matchMedia reduced-motion check, no useState-driven per-frame
+   writes. */
 
 import { useEffect, useRef } from "react";
 
 const PATHS = [
-  { id: "asm-w1", d: "M40 18 C 56 18, 52 50, 66 50", from: "var(--violet)" },
-  { id: "asm-w2", d: "M40 50 C 54 50, 54 50, 66 50", from: "var(--amber)" },
-  { id: "asm-w3", d: "M40 82 C 56 82, 52 50, 66 50", from: "var(--mint)" },
+  { id: "asm-w1", d: "M40.9 18 C 46.8 18, 46.8 50, 52.7 50", accent: "var(--violet)", cy: 18 },
+  { id: "asm-w2", d: "M40.9 50 L 52.7 50", accent: "var(--amber)", cy: 50 },
+  { id: "asm-w3", d: "M40.9 82 C 46.8 82, 46.8 50, 52.7 50", accent: "var(--mint)", cy: 82 },
 ] as const;
 
 const TRACE_STAGGER_MS = 140;
@@ -84,18 +88,10 @@ function AssemblyConnectors() {
     <svg
       ref={svgRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 size-full"
+      className="pointer-events-none absolute inset-0 hidden size-full sm:block"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
-      <defs>
-        {PATHS.map((path) => (
-          <linearGradient key={path.id} id={path.id} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={path.from} stopOpacity=".25" />
-            <stop offset="100%" stopColor="var(--violet)" stopOpacity=".95" />
-          </linearGradient>
-        ))}
-      </defs>
       {PATHS.map((path, index) => (
         <path
           key={path.id}
@@ -104,11 +100,12 @@ function AssemblyConnectors() {
           }}
           d={path.d}
           fill="none"
-          stroke={`url(#${path.id})`}
-          strokeWidth="1.6"
+          stroke={path.accent}
+          strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />
       ))}
+      <circle cx={52.7} cy={50} r="1.6" fill="var(--violet)" />
       {PATHS.map((path, index) => (
         <circle
           key={`${path.id}-comet`}
@@ -116,7 +113,7 @@ function AssemblyConnectors() {
             cometRefs.current[index] = el;
           }}
           r="1.4"
-          fill="var(--violet)"
+          fill={path.accent}
           style={{
             offsetPath: `path("${path.d}")`,
             animation: "comet 2.6s var(--ease-brand) infinite",

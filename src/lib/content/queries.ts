@@ -54,12 +54,18 @@ export async function getSectionItems(
 }
 
 /* why: `donnees` is jsonb — validated at the boundary (CLAUDE.md) rather than
-   trusted as an unchecked value. Missing arrays default to empty instead of
-   failing the whole section on one malformed row. */
+   trusted as an unchecked value. The schema itself defaults missing
+   `objectifs`/`contenu` arrays to empty; the loop in getModules() below is
+   stricter on purpose and drops the whole section on one malformed row
+   (deliberate block-fail policy, not an inconsistency with this schema). */
 const moduleDonneesSchema = z.object({
   objectifs: z.array(z.string()).default([]),
   contenu: z.array(z.string()).default([]),
 });
+
+/* why: `accroche` is jsonb, validated at the boundary per CLAUDE.md; optional
+   so a missing/malformed value degrades silently instead of throwing. */
+export const profilDonneesSchema = z.object({ accroche: z.string().optional() });
 
 export type ModuleContent = {
   id: string;
@@ -77,6 +83,124 @@ export type ModuleContent = {
  * every row so the 17 h total (D-30) is `sum(dureeHeures)` computed here,
  * never a stored string.
  */
+/* why (2026-09-01): these schemas duplicate src/app/formation/page.tsx:20-28
+   on purpose — that page already works, converging them in this run would
+   widen the risk surface for no benefit to section 5. */
+const derouleDonneesSchema = z.object({
+  deroule: z.array(z.string()).default([]),
+});
+
+const fourniDonneesSchema = z.object({
+  fourni: z.array(z.string()).default([]),
+  prerequis: z.string().optional(),
+  dureeAcces: z.string().optional(),
+});
+
+/**
+ * The five page-formation `deroule` steps. An empty array is treated as a
+ * read failure, not a valid empty list — a "how it runs" section with zero
+ * steps is a defect (D-57).
+ */
+export async function getFormationDeroule(): Promise<QueryResult<string[]>> {
+  const result = await getSectionItems("page-formation");
+  if (!result.ok) {
+    return result;
+  }
+
+  const item = result.data.find((row) => row.cle === "deroule");
+  if (!item) {
+    return { ok: false };
+  }
+
+  const parsed = derouleDonneesSchema.safeParse(item.donnees);
+  if (!parsed.success || parsed.data.deroule.length === 0) {
+    return { ok: false };
+  }
+
+  return { ok: true, data: parsed.data.deroule };
+}
+
+/**
+ * The page-formation `fourni` list plus `prerequis`/`dureeAcces`. Only the
+ * read/parse itself fails the whole result — a missing `prerequis` or
+ * `dureeAcces` degrades silently for the caller.
+ */
+export async function getFormationFourni(): Promise<
+  QueryResult<{ fourni: string[]; prerequis?: string; dureeAcces?: string }>
+> {
+  const result = await getSectionItems("page-formation");
+  if (!result.ok) {
+    return result;
+  }
+
+  const item = result.data.find((row) => row.cle === "fourni");
+  if (!item) {
+    return { ok: false };
+  }
+
+  const parsed = fourniDonneesSchema.safeParse(item.donnees);
+  if (!parsed.success) {
+    return { ok: false };
+  }
+
+  return { ok: true, data: parsed.data };
+}
+
+/* why: `donnees.preuve` is jsonb, validated at the boundary per CLAUDE.md —
+   lienHref/lienLabel stay optional (the third fact carries no link). */
+const confianceDonneesSchema = z.object({
+  preuve: z.object({
+    texte: z.string(),
+    lienHref: z.string().optional(),
+    lienLabel: z.string().optional(),
+  }),
+});
+
+export type ConfianceFait = {
+  id: string;
+  cle: string;
+  titre: string;
+  description: string;
+  preuveTexte: string;
+  preuveLienHref?: string;
+  preuveLienLabel?: string;
+};
+
+export async function getConfianceFaits(): Promise<QueryResult<ConfianceFait[]>> {
+  const result = await getSectionItems("confiance");
+  if (!result.ok) {
+    return result;
+  }
+
+  const faits: ConfianceFait[] = [];
+  for (const item of result.data) {
+    const parsedDonnees = confianceDonneesSchema.safeParse(item.donnees);
+    if (!parsedDonnees.success || item.titre === null || item.description === null) {
+      console.error("getConfianceFaits: rejecting section 'confiance'", {
+        cle: item.cle,
+        issues: parsedDonnees.success ? undefined : parsedDonnees.error.issues,
+        missingIdentityField: parsedDonnees.success
+          ? item.titre === null
+            ? "titre"
+            : "description"
+          : undefined,
+      });
+      return { ok: false };
+    }
+    faits.push({
+      id: item.id,
+      cle: item.cle,
+      titre: item.titre,
+      description: item.description,
+      preuveTexte: parsedDonnees.data.preuve.texte,
+      preuveLienHref: parsedDonnees.data.preuve.lienHref,
+      preuveLienLabel: parsedDonnees.data.preuve.lienLabel,
+    });
+  }
+
+  return { ok: true, data: faits };
+}
+
 export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
   const result = await getSectionItems("programme");
   if (!result.ok) {
@@ -87,6 +211,15 @@ export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
   for (const item of result.data) {
     const parsedDonnees = moduleDonneesSchema.safeParse(item.donnees);
     if (!parsedDonnees.success || item.titre === null || item.duree_heures === null) {
+      console.error("getModules: rejecting section 'programme'", {
+        cle: item.cle,
+        issues: parsedDonnees.success ? undefined : parsedDonnees.error.issues,
+        missingIdentityField: parsedDonnees.success
+          ? item.titre === null
+            ? "titre"
+            : "duree_heures"
+          : undefined,
+      });
       return { ok: false };
     }
     modules.push({
