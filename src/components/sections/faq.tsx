@@ -59,46 +59,54 @@ async function Faq() {
 
   return (
     <Section tone="default" data-section="faq">
-      <SectionHeader
-        eyebrow={section.eyebrow ?? undefined}
-        title={section.titre}
-        titleAccent={section.titre_accent ?? undefined}
-        className="max-w-[880px]"
-      />
-      <Accordion
-        className="mx-auto mt-10 max-w-[880px] gap-[0.9rem]"
-        defaultValue={entries[0] ? [entries[0].id] : []}
-      >
-        {entries.map((entry, index) => (
-          <Reveal key={entry.id} dataD={((index % 3) + 1) as 1 | 2 | 3}>
-            <AccordionItem
-              value={entry.id}
-              className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] shadow-none transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[open]:bg-white data-[open]:border-[var(--hairline-2)]"
+      <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
+        <div className="lg:sticky lg:top-[100px]">
+          <SectionHeader
+            eyebrow={section.eyebrow ?? undefined}
+            title={section.titre}
+            titleAccent={section.titre_accent ?? undefined}
+            className="mx-0 max-w-none text-left"
+          />
+          <p className="mt-6 text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
+            {landing.faq.cloture.question}{" "}
+            <Link
+              href="/contact"
+              className="font-semibold text-[var(--deep)] underline underline-offset-4 hover:text-[var(--violet-ink)]"
             >
-              <AccordionHeader>
-                <AccordionTrigger className="gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)]">
-                  <span className="flex-1 text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.015em]">
-                    {entry.question}
-                  </span>
-                </AccordionTrigger>
-              </AccordionHeader>
-              <AccordionPanel className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
-                {entry.reponse}
-              </AccordionPanel>
-            </AccordionItem>
-          </Reveal>
-        ))}
-      </Accordion>
+              {landing.faq.cloture.lien}
+            </Link>
+          </p>
+        </div>
 
-      <p className="mx-auto mt-8 max-w-[880px] text-center text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
-        {landing.faq.cloture.question}{" "}
-        <Link
-          href="/contact"
-          className="font-semibold text-[var(--deep)] underline underline-offset-4 hover:text-[var(--violet-ink)]"
-        >
-          {landing.faq.cloture.lien}
-        </Link>
-      </p>
+        <Accordion className="gap-[0.9rem]" defaultValue={entries[0] ? [entries[0].id] : []}>
+          {entries.map((entry, index) => (
+            <Reveal key={entry.id} dataD={((index % 3) + 1) as 1 | 2 | 3}>
+              <AccordionItem
+                value={entry.id}
+                className="rounded-[20px] border border-[var(--hairline)] bg-[var(--tint)] shadow-none transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-white hover:border-[var(--hairline-2)] data-[open]:bg-white data-[open]:border-[var(--hairline-2)]"
+              >
+                <AccordionHeader>
+                  <AccordionTrigger className="group gap-4 rounded-[18px] px-[1.5rem] py-[1.35rem] transition-colors duration-[var(--duration-base)] ease-[var(--ease-brand)] hover:bg-transparent hover:text-[var(--deep)] [&_svg[data-slot=accordion-chevron]]:hidden">
+                    <span className="flex-1 text-[length:var(--text-card)] leading-[var(--text-card--line-height)] font-bold tracking-[-0.015em]">
+                      {entry.question}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="relative flex size-[26px] shrink-0 items-center justify-center rounded-full bg-[var(--lav)] text-[var(--deep)]"
+                    >
+                      <span className="absolute h-0.5 w-3 rounded-full bg-current" />
+                      <span className="absolute h-0.5 w-3 rotate-90 rounded-full bg-current transition-transform duration-[var(--duration-base)] ease-[var(--ease-brand)] group-data-[panel-open]:rotate-0" />
+                    </span>
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
+                  {entry.reponse}
+                </AccordionPanel>
+              </AccordionItem>
+            </Reveal>
+          ))}
+        </Accordion>
+      </div>
     </Section>
   );
 }
