@@ -214,10 +214,10 @@
       },
       {
         "cle": "groupe-limite",
-        "titre": "Groupe limité à 8 participants",
+        "titre": "Groupe limité à 6 participants",
         "description": "Chaque session live est plafonnée.",
         "preuve": {
-          "texte": "Au-delà de 8 inscrits la session est fermée et un nouveau créneau est ouvert. C'est ce plafond qui permet de poser ses questions et de faire le cas pratique accompagné."
+          "texte": "Au-delà de 6 inscrits la session est fermée et un nouveau créneau est ouvert. C'est ce plafond qui permet de poser ses questions et de faire le cas pratique accompagné."
         }
       }
     ]
