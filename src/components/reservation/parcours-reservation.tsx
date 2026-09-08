@@ -115,6 +115,10 @@ export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReserv
     setEtape("recapitulatif");
   }
 
+  function onDetourConnexion() {
+    conserverAuDepartRef.current = true;
+  }
+
   function onRetourCreneaux() {
     effacerJetonCreneauChoisi();
     setCreneau(null);
@@ -205,6 +209,7 @@ export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReserv
           onChoisirAutreHoraire={onRetourCreneaux}
           statutCommit={statutCommit}
           onValider={onValider}
+          onDetourConnexion={onDetourConnexion}
         />
       ) : null}
     </div>

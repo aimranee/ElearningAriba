@@ -24,6 +24,7 @@ type EtapeRecapitulatifProps = {
   onChoisirAutreHoraire: () => void;
   statutCommit: "idle" | "submitting" | "error";
   onValider: () => void;
+  onDetourConnexion: () => void;
 };
 
 /*
@@ -46,6 +47,7 @@ export function EtapeRecapitulatif({
   onChoisirAutreHoraire,
   statutCommit,
   onValider,
+  onDetourConnexion,
 }: EtapeRecapitulatifProps) {
   const isSubmitting = statutCommit === "submitting";
   const gratuit = type.prixCentimes === 0;
@@ -113,14 +115,14 @@ export function EtapeRecapitulatif({
           </p>
           <div className="flex flex-wrap gap-3">
             <Button
-              render={<Link href="/connexion" />}
+              render={<Link href="/connexion" onClick={onDetourConnexion} />}
               nativeButton={false}
               className="h-11"
             >
               {reservation.actions.seConnecter}
             </Button>
             <Button
-              render={<Link href="/inscription" />}
+              render={<Link href="/inscription" onClick={onDetourConnexion} />}
               nativeButton={false}
               variant="outline"
               className="h-11"
