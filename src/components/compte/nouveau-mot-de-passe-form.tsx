@@ -81,7 +81,10 @@ export function NouveauMotDePasseForm() {
         <p className="text-muted-foreground text-sm">
           {motDePasse.nouveau.succes.message}
         </p>
-        <Link href="/connexion" className="self-start text-sm text-primary hover:underline">
+        <Link
+          href="/connexion"
+          className="self-start text-sm text-primary font-semibold py-3 outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:border-ring rounded-md"
+        >
           {motDePasse.demande.retourConnexion}
         </Link>
       </div>
