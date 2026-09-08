@@ -49,12 +49,18 @@ export const timeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
 );
 
 /* why: numberFormatter/formatNumber render a bare digit with no unit
-   (D-30/D-43 of Lot 2) — a hand-written " h" at a call site is the same
-   class of violation as a hand-written "€", so the module duration unit
-   gets its own formatter instead of a second formatting path. */
+   (D-30/D-43 of Lot 2) — a hand-written " h" or " min" at a call site is the
+   same class of violation as a hand-written "€", so each duration unit gets
+   its own formatter instead of a second formatting path. */
 export const hourFormatter: Intl.NumberFormat = new Intl.NumberFormat(LOCALE, {
   style: "unit",
   unit: "hour",
+  unitDisplay: "short",
+});
+
+export const minuteFormatter: Intl.NumberFormat = new Intl.NumberFormat(LOCALE, {
+  style: "unit",
+  unit: "minute",
   unitDisplay: "short",
 });
 
@@ -80,6 +86,10 @@ export function formatTime(date: Date): string {
 
 export function formatHours(value: number): string {
   return hourFormatter.format(value);
+}
+
+export function formatMinutes(value: number): string {
+  return minuteFormatter.format(value);
 }
 
 /* why: French prose never writes clock time in the CLDR "14:30" shape — it

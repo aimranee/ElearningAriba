@@ -8,7 +8,7 @@ import {
   EmptyStateAction,
 } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
-import { formatCurrency, formatNumber } from "@/lib/i18n/fr";
+import { formatCurrency, formatMinutes } from "@/lib/i18n/fr";
 import { getTypesRendezVous } from "@/lib/agenda/types-rendez-vous";
 import { AgendaBooker } from "@/components/agenda/agenda-booker";
 
@@ -47,7 +47,7 @@ export default async function Agenda() {
                 </CardHeader>
                 <CardContent className="flex items-center justify-between gap-2">
                   <span className="text-muted-foreground text-sm">
-                    {formatNumber(type.dureeMinutes)}
+                    {formatMinutes(type.dureeMinutes)}
                   </span>
                   <Badge variant={type.prixCentimes === 0 ? "success" : "outline"}>
                     {formatCurrency(type.prixCentimes / 100)}

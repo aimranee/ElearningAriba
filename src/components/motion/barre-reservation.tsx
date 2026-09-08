@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import common from "@/locales/fr/common.json";
 import agenda from "@/locales/fr/agenda.json";
+import { formatMinutes } from "@/lib/i18n/fr";
 
 function BarreReservation() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -101,7 +102,7 @@ function BarreReservation() {
       </Button>
       {decouverte ? (
         <p className="mt-[0.35rem] text-center text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">
-          {decouverte.libelle} · {decouverte.dureeMinutes} min
+          {decouverte.libelle} · {formatMinutes(decouverte.dureeMinutes)}
         </p>
       ) : null}
     </div>

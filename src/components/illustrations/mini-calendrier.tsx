@@ -1,5 +1,6 @@
 import agenda from "@/locales/fr/agenda.json";
 import landing from "@/locales/fr/landing.json";
+import { formatMinutes } from "@/lib/i18n/fr";
 
 /* why: 21 cells, decoration only — never derived from date logic (D-45/D-66).
    Literal per the maquette's three rows: row 1 = on, empty, on, on, empty,
@@ -32,7 +33,7 @@ function MiniCalendrier() {
         <b className="font-heading text-[length:var(--text-body)] font-bold">{panneauTitre}</b>
         {decouverte ? (
           <span className="inline-flex items-center gap-[0.4rem] rounded-full bg-[var(--lav)] px-[0.65rem] py-[0.3rem] text-[length:var(--text-micro)] font-extrabold text-[var(--deep)]">
-            {decouverte.libelle} · {decouverte.dureeMinutes} min
+            {decouverte.libelle} · {formatMinutes(decouverte.dureeMinutes)}
           </span>
         ) : null}
       </div>
