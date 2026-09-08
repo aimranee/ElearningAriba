@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState, type FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
 
@@ -51,7 +51,6 @@ function CallbackFailureNotice() {
  * lifted verbatim from the Lot 1 shell this replaces.
  */
 export function ConnexionForm() {
-  const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [submitError, setSubmitError] = useState<keyof typeof connexion.erreurs | null>(null);
@@ -110,8 +109,11 @@ export function ConnexionForm() {
          the commit button, not from a slot click on /agenda, so they return
          to /reservation with it intact rather than to /espace. Read through
          the single-owner helper, never a second literal of the storage key,
-         and never from a query parameter (no open-redirect surface). */
-      router.push(lireCreneauChoisi() ? "/reservation" : "/espace");
+         and never from a query parameter (no open-redirect surface). A full
+         document navigation, not router.push: the session just changed, so
+         anything the client router prefetched while anonymous is stale by
+         construction, and a document navigation reads none of those caches. */
+      window.location.assign(lireCreneauChoisi() ? "/reservation" : "/espace");
     } catch {
       setSubmitError("rejetServeur");
       setStatus("error");
