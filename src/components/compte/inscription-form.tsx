@@ -121,6 +121,7 @@ export function InscriptionForm() {
     <form
       method="post"
       onSubmit={handleSubmit}
+      noValidate
       className="flex flex-col gap-5"
       aria-label={inscription.titre}
     >
