@@ -6,9 +6,10 @@
    State lives in plain module-scope booleans + direct DOM writes (matching
    the rest of the motion kit, e.g. assembly-card.tsx) rather than
    useState-driven re-renders. When hidden, `visibility` flips only after the
-   hide transition completes (transitionend), so the bar cannot receive
-   keyboard focus while off-screen — a bare opacity/transform toggle would
-   leave it focusable underneath. */
+   hide transition completes (transitionend on the `translate` property —
+   Tailwind v4 compiles `translate-y-*` to CSS `translate`, not `transform`),
+   so the bar cannot receive keyboard focus while off-screen — a bare
+   opacity/transform toggle would leave it focusable underneath. */
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -47,7 +48,13 @@ function BarreReservation() {
     }
 
     function onTransitionEnd(event: TransitionEvent) {
-      if (event.propertyName === "transform" && !(heroOut && !blocked)) {
+      if (event.target !== node) {
+        return;
+      }
+      if (
+        (event.propertyName === "translate" || event.propertyName === "transform") &&
+        !(heroOut && !blocked)
+      ) {
         node!.classList.add("invisible");
       }
     }
