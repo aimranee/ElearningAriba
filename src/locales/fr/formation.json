@@ -4,7 +4,7 @@
   "deroule": [
     "Connexion à la session live à l'heure indiquée sur votre créneau réservé",
     "Présentation du module par le formateur, avec échanges en direct",
-    "Démonstration pas à pas sur la plateforme SAP Ariba",
+    "Démonstration par le formateur, en partage d'écran",
     "Cas pratique en fin de module, réalisé avec l'accompagnement du formateur",
     "Temps de questions et de synthèse avant la clôture de la session"
   ],
@@ -14,7 +14,7 @@
     "Le cas pratique corrigé de chaque module"
   ],
   "prerequis": "Aucun prérequis SAP n'est nécessaire pour suivre cette formation.",
-  "dureeAcces": "L'accès aux supports court pendant toute la durée de votre parcours.",
+  "dureeAcces": "L'accès aux supports court pendant 6 mois à compter de la date de la formation.",
   "modalites": [
     {
       "titre": "Formations live",

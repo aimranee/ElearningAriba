@@ -159,7 +159,7 @@
       },
       {
         "titre": "Durée d'accès",
-        "description": "Un accès à vos supports pendant toute la durée de votre parcours."
+        "description": "Un accès à vos supports pendant 6 mois à compter de la date de la formation."
       },
       {
         "titre": "Cas pratiques en fin de module",
@@ -244,7 +244,7 @@
       },
       {
         "question": "Combien de temps ai-je accès aux supports ?",
-        "reponse": "L'accès aux supports court pendant toute la durée de votre parcours. Chaque module dispose de son support PDF téléchargeable, ainsi que du cas pratique corrigé."
+        "reponse": "L'accès aux supports court pendant 6 mois à compter de la date de la formation. Chaque module dispose de son support PDF téléchargeable, ainsi que du cas pratique corrigé."
       },
       {
         "question": "Vais-je recevoir une attestation ?",
