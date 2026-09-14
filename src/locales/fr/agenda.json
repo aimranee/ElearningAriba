@@ -10,7 +10,7 @@
   },
   "typesRendezVous": [
     { "id": "decouverte", "libelle": "Appel découverte", "dureeMinutes": 30, "prix": 0 },
-    { "id": "individuelle", "libelle": "Session individuelle", "dureeMinutes": 60, "prix": 90 }
+    { "id": "individuelle", "libelle": "Session individuelle", "dureeMinutes": 90, "prix": 300 }
   ],
   "aucunCreneau": {
     "titre": "Aucun créneau disponible pour le moment.",

@@ -43,6 +43,14 @@ export default function Paiement() {
               <p className="font-heading text-lg font-semibold">
                 {formatCurrency(formule.prix)}
               </p>
+              {formule.prixHT > 0 && (
+                <p className="text-muted-foreground text-xs">
+                  {paiement.mentionHT.replace(
+                    "{montant}",
+                    formatCurrency(formule.prixHT),
+                  )}
+                </p>
+              )}
             </CardContent>
           </Card>
         ))}
@@ -74,6 +82,14 @@ export default function Paiement() {
             <p className="font-heading text-lg font-semibold">
               {formatCurrency(formuleChoisieMaquette.prix)}
             </p>
+            {formuleChoisieMaquette.prixHT > 0 && (
+              <p className="text-muted-foreground text-xs">
+                {paiement.mentionHT.replace(
+                  "{montant}",
+                  formatCurrency(formuleChoisieMaquette.prixHT),
+                )}
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>
