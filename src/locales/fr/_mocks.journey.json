@@ -1,11 +1,9 @@
 {
-  "_pourquoi": "Recense les valeurs de contenu du parcours (formules de vente, prix des rendez-vous) que le client n'a pas encore fournies ; le contenu réel remplace ces clés avant la clôture du Lot 1.",
+  "_pourquoi": "Recense les valeurs de contenu du parcours (formules de vente, prix des rendez-vous) que le client n'a pas encore fournies ; le contenu réel remplace ces clés avant la clôture du Lot 1. Les entrées `awaiting` au format `C-nn — demandes-client.md` renvoient à une ligne de la liste des demandes au client du Chief of Staff (`ariba-chief-of-staff/knowledge/demandes-client.md`, hors dépôt), pas au questionnaire de cadrage.",
   "mocks": [
     { "file": "paiement.json", "key": "formules.0", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "paiement.json", "key": "formules.1", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "paiement.json", "key": "formules.2", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "paiement.json", "key": "formules.3", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "agenda.json", "key": "typesRendezVous.0.prix", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "agenda.json", "key": "typesRendezVous.1.prix", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" }
+    { "file": "paiement.json", "key": "formules.2", "blocks": "CADR-01", "awaiting": "C-11 — demandes-client.md" },
+    { "file": "paiement.json", "key": "formules.3", "blocks": "CADR-01", "awaiting": "C-10 — demandes-client.md" },
+    { "file": "agenda.json", "key": "typesRendezVous.0.prix", "blocks": "CADR-01", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" }
   ]
 }

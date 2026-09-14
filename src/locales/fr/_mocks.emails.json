@@ -1,5 +1,5 @@
 {
-  "_pourquoi": "Ce registre liste chaque valeur de copy encore fictive dans les emails automatiques, en attente des réponses du client dans Cadrage_Formation_SAP_Ariba_Questions_Client.docx. Le gate Lot 1 ne peut fermer tant qu'une entrée subsiste ici : la fermeture du gate est la suppression de ce fichier, pas une correction case par case.",
+  "_pourquoi": "Ce registre liste chaque valeur de copy encore fictive dans les emails automatiques, en attente des réponses du client dans Cadrage_Formation_SAP_Ariba_Questions_Client.docx. Le gate Lot 1 ne peut fermer tant qu'une entrée subsiste ici : la fermeture du gate est la suppression de ce fichier, pas une correction case par case. Les entrées `awaiting` au format `C-nn — demandes-client.md` renvoient à une ligne de la liste des demandes au client du Chief of Staff (`ariba-chief-of-staff/knowledge/demandes-client.md`, hors dépôt), pas au questionnaire de cadrage.",
   "mocks": [
     { "file": "emails.json", "key": "confirmationInscription.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "emails.json", "key": "confirmationReservation.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
@@ -26,6 +26,10 @@
     { "file": "emails.json", "key": "contactAccusReception.action.libelle", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "emails.json", "key": "contactAccusReception.action.contexte", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
     { "file": "emails.json", "key": "contactAccusReception.signature", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
-    { "file": "emails.json", "key": "contactAccusReception.pied", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" }
+    { "file": "emails.json", "key": "contactAccusReception.pied", "blocks": "CADR-03", "awaiting": "Cadrage_Formation_SAP_Ariba_Questions_Client.docx" },
+    { "file": "emails.json", "key": "verificationAdresse.signature", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
+    { "file": "emails.json", "key": "suppressionCompteNotification.signature", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
+    { "file": "emails.json", "key": "reservationNotification.signature", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
+    { "file": "emails.json", "key": "reservationAnnulationOuDeplacementNotice.signature", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" }
   ]
 }
