@@ -51,7 +51,11 @@ export const timeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
 /* why: numberFormatter/formatNumber render a bare digit with no unit
    (D-30/D-43 of Lot 2) — a hand-written " h" or " min" at a call site is the
    same class of violation as a hand-written "€", so each duration unit gets
-   its own formatter instead of a second formatting path. */
+   its own formatter instead of a second formatting path. A fractional hour
+   is never written "1,5 h" in French, it is "1 h 30" — formatHours composes
+   that shape internally rather than pushing the split onto call sites,
+   because the 90-minute appointments (formatHours(duree_minutes / 60)) go
+   through the same function as whole-hour module durations. */
 export const hourFormatter: Intl.NumberFormat = new Intl.NumberFormat(LOCALE, {
   style: "unit",
   unit: "hour",
@@ -85,7 +89,12 @@ export function formatTime(date: Date): string {
 }
 
 export function formatHours(value: number): string {
-  return hourFormatter.format(value);
+  if (Number.isInteger(value)) {
+    return hourFormatter.format(value);
+  }
+  const whole = Math.trunc(value);
+  const minutes = Math.round((value - whole) * 60);
+  return `${hourFormatter.format(whole)} ${String(minutes).padStart(2, "0")}`;
 }
 
 export function formatMinutes(value: number): string {
