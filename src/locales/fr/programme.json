@@ -5,73 +5,83 @@
   "totalLabelPdf": "Total",
   "modules": [
     {
-      "titre": "Découverte de l'écosystème Ariba",
+      "titre": "Prise en main de SAP Ariba",
+      "duree": 1.5,
+      "objectifs": [
+        "Comprendre l'environnement et les principaux modules",
+        "Naviguer efficacement dans l'outil",
+        "Identifier les rôles et responsabilités"
+      ],
+      "contenu": [
+        "Découvrir l'interface et les fonctionnalités clés",
+        "Comprendre les rôles et responsabilités",
+        "Naviguer dans les différents espaces",
+        "Identifier les principales données et documents"
+      ]
+    },
+    {
+      "titre": "Gérer le processus achats",
       "duree": 3,
       "objectifs": [
-        "Situer SAP Ariba dans le système d'information achats",
-        "Distinguer les rôles acheteur, fournisseur et administrateur",
-        "Repérer les principaux flux de la plateforme"
+        "Créer et gérer une demande d'achat",
+        "Construire et suivre une commande",
+        "Gérer les validations et les workflows",
+        "Suivre les différentes étapes du processus"
       ],
       "contenu": [
-        "Présentation de la plateforme et de ses modules",
-        "Panorama des rôles et des permissions",
-        "Vue d'ensemble des flux Procure-to-Pay et Source-to-Pay"
+        "Créer une demande d'achat",
+        "Gérer les validations et workflows",
+        "Créer et suivre une commande",
+        "Gérer les réceptions et les principales étapes du processus"
       ]
     },
     {
-      "titre": "Procure-to-Pay au quotidien",
-      "duree": 4,
+      "titre": "Gérer les fournisseurs",
+      "duree": 2,
       "objectifs": [
-        "Créer et suivre une demande d'achat",
-        "Comprendre le cycle de validation jusqu'au paiement",
-        "Identifier les points de blocage courants"
+        "Rechercher et gérer les fournisseurs",
+        "Suivre les informations et documents fournisseurs",
+        "Faciliter les échanges et la collaboration"
       ],
       "contenu": [
-        "De la demande d'achat à la commande",
-        "Réception et rapprochement facture",
-        "Suivi du statut de paiement fournisseur"
+        "Rechercher et sélectionner un fournisseur",
+        "Consulter et gérer les informations fournisseurs",
+        "Suivre les documents et échanges",
+        "Identifier les actions à réaliser"
       ]
     },
     {
-      "titre": "Source-to-Pay et stratégie achats",
-      "duree": 4,
+      "titre": "Piloter et suivre les achats",
+      "duree": 2,
       "objectifs": [
-        "Relier sourcing et exécution des achats",
-        "Structurer une démarche de négociation",
-        "Intégrer le sourcing au cycle Procure-to-Pay"
+        "Suivre les commandes et les engagements",
+        "Identifier les blocages et anomalies",
+        "Exploiter les données et indicateurs disponibles",
+        "Améliorer la visibilité sur les achats"
       ],
       "contenu": [
-        "Principes du sourcing stratégique",
-        "Négociation et sélection fournisseur",
-        "Passage du sourcing à la commande"
+        "Suivre les commandes et engagements",
+        "Identifier les anomalies et blocages",
+        "Exploiter les données disponibles",
+        "Suivre les indicateurs clés",
+        "Améliorer le suivi de l'activité"
       ]
     },
     {
-      "titre": "Appels d'offres RFQ et RFP",
-      "duree": 3,
+      "titre": "Optimiser sa pratique au quotidien",
+      "duree": 1.5,
       "objectifs": [
-        "Construire un appel d'offres structuré",
-        "Diffuser une consultation aux bons fournisseurs",
-        "Analyser et comparer les réponses reçues"
+        "Réduire les erreurs et les ressaisies",
+        "Accélérer le traitement des demandes et commandes",
+        "Adopter les bonnes pratiques d'utilisation",
+        "Gagner en autonomie et en efficacité"
       ],
       "contenu": [
-        "Différence entre RFQ et RFP",
-        "Paramétrage d'une consultation sur Ariba",
-        "Grille d'analyse des réponses fournisseurs"
-      ]
-    },
-    {
-      "titre": "Catalogues, contrats et workflows",
-      "duree": 3,
-      "objectifs": [
-        "Configurer un catalogue fournisseur",
-        "Structurer un contrat dans Ariba",
-        "Automatiser un circuit de validation"
-      ],
-      "contenu": [
-        "Mise en place et gestion des catalogues",
-        "Suivi des contrats et de leurs échéances",
-        "Conception d'un workflow d'approbation"
+        "Bonnes pratiques opérationnelles",
+        "Réduction des erreurs et ressaisies",
+        "Optimisation du traitement des demandes",
+        "Cas pratiques issus de situations professionnelles",
+        "Mise en situation et validation des acquis"
       ]
     }
   ]

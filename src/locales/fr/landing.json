@@ -91,29 +91,29 @@
     "auProgramme": "Au programme",
     "modules": [
       {
-        "titre": "Découverte de l'écosystème Ariba",
+        "titre": "Prise en main de SAP Ariba",
+        "duree": 1.5,
+        "resume": "Maîtriser l'environnement SAP Ariba et naviguer efficacement dans l'outil."
+      },
+      {
+        "titre": "Gérer le processus achats",
         "duree": 3,
-        "resume": "Vous prenez vos repères : modules, rôles, et les deux grands flux que vous allez pratiquer."
+        "resume": "Réaliser les principales opérations achats dans SAP Ariba."
       },
       {
-        "titre": "Procure-to-Pay au quotidien",
-        "duree": 4,
-        "resume": "Vous déroulez un achat complet, de la demande au paiement, comme au poste."
+        "titre": "Gérer les fournisseurs",
+        "duree": 2,
+        "resume": "Assurer un suivi efficace des fournisseurs dans SAP Ariba."
       },
       {
-        "titre": "Source-to-Pay et stratégie achats",
-        "duree": 4,
-        "resume": "Vous sourcez, comparez et négociez, puis vous raccordez la décision au cycle achats."
+        "titre": "Piloter et suivre les achats",
+        "duree": 2,
+        "resume": "Améliorer la visibilité et le pilotage des activités achats."
       },
       {
-        "titre": "Appels d'offres RFQ et RFP",
-        "duree": 3,
-        "resume": "Vous montez un appel d'offres, le diffusez et analysez les réponses jusqu'au choix."
-      },
-      {
-        "titre": "Catalogues, contrats et workflows",
-        "duree": 3,
-        "resume": "Vous configurez catalogues et contrats, et automatisez les validations qui traînent."
+        "titre": "Optimiser sa pratique au quotidien",
+        "duree": 1.5,
+        "resume": "Gagner en rapidité, autonomie et fiabilité dans l'utilisation de SAP Ariba."
       }
     ]
   },

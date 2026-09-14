@@ -358,6 +358,11 @@ async function main() {
   // jamais. La refonte fusionne « catalogues » et « contrats et workflows » en
   // une compétence : sans retrait explicite la ligne retirée survit à chaque
   // re-seed et rend une septième tuile. Retrait nominatif, jamais en masse.
+  // why: the client's programme (2026-09-14) replaces the five mock modules
+  // outright — same structure, new titles/durees/resumes. The upsert keys on
+  // (section_cle, cle) with cle = slugify(titre), so renaming the modules
+  // creates five new rows per section without touching the old ones; they
+  // must be retired by name, in both sections that carry them.
   const RETIRED_ITEMS = [
     { section_cle: "competences", cle: "contrats-workflows" },
     { section_cle: "confiance", cle: "temoignages" },
@@ -365,6 +370,16 @@ async function main() {
     { section_cle: "confiance", cle: "protection-des-donnees" },
     { section_cle: "confiance", cle: "experts-sap-ariba-certifies" },
     { section_cle: "confiance", cle: "contenus-regulierement-mis-a-jour" },
+    { section_cle: "programme", cle: "decouverte-de-l-ecosysteme-ariba" },
+    { section_cle: "programme", cle: "procure-to-pay-au-quotidien" },
+    { section_cle: "programme", cle: "source-to-pay-et-strategie-achats" },
+    { section_cle: "programme", cle: "appels-d-offres-rfq-et-rfp" },
+    { section_cle: "programme", cle: "catalogues-contrats-et-workflows" },
+    { section_cle: "page-programme", cle: "decouverte-de-l-ecosysteme-ariba" },
+    { section_cle: "page-programme", cle: "procure-to-pay-au-quotidien" },
+    { section_cle: "page-programme", cle: "source-to-pay-et-strategie-achats" },
+    { section_cle: "page-programme", cle: "appels-d-offres-rfq-et-rfp" },
+    { section_cle: "page-programme", cle: "catalogues-contrats-et-workflows" },
   ];
 
   for (const entry of RETIRED_ITEMS) {

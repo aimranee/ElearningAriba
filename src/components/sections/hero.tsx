@@ -86,9 +86,10 @@ async function Hero() {
     splitIndex >= 0 ? accrocheRest.slice(splitIndex + restingWord.length) : "";
   const hasValidSplit = leadSplit >= 0 && splitIndex >= 0;
 
-  // D-103: entry 1 is derived from the database (never hand-typed), entries
-  // 2 and 3 are registered placeholders (CADR-03) — the mocks registry is
-  // what keeps them from shipping unseen at go-live.
+  // D-103: entry 1 is derived from the database (never hand-typed); entry 2
+  // (formateur) is a registered placeholder (CADR-03); entry 3 (groupe) is
+  // the client's fact (§ 4.1, 6 participants maximum, 2026-09-14) — the
+  // mocks registry is what keeps entry 2 from shipping unseen at go-live.
   const moduleCount = modulesResult.data.length;
   const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
   const preuveModules = landing.hero.preuve.modules
