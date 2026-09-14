@@ -285,6 +285,8 @@ Plans:
   5. Cancelling or postponing a session emails every enrolled learner automatically
   6. A session enrolment carries the same inert order/confirmation state as a reservation, ready for Phase 7
 
+**Carried from the client's cadrage answers of 2026-09-13**: the group offer is « Parcours de 6h, petit groupe » at 599 € HT, 6 participants maximum (§ 4.1, a configuration). Whether that is one 6-hour session or a series sold as one seat is unanswered (C-11). If it is a series, measure it against Lots 6 and 7 as signed before planning: the offer pays « une place … à l'inscription », and Lot 6 creates series without saying a series sells as one.
+
 **Plans**: TBD
 
 ### Phase 7: Paiement en ligne, formules et factures
@@ -302,6 +304,8 @@ Plans:
   4. A PDF invoice or receipt is generated automatically, emailed, and available in the learner space
   5. The trainer can set prices, formulas and promotional codes from the back-office, and can list, search and export orders and read the revenue collected over a period
   6. Cancelling frees the slot and notifies the learner; any refund is decided and executed by the trainer under the published refund policy
+
+**Carried from the client's cadrage answers of 2026-09-13**: the forfait is bounded by 12 hours AND 6 months of validity (§ 2.5) where the offer says only « dans la limite de son forfait » — two bounds, verify the fit at planning. Whether the forfait covers group sessions is unanswered (C-10). Prices are the client's: 250 / 599 / 1 599 € HT, displayed TTC with HT mentioned (Ruling 21); rounded-TTC question open as C-13. Launch discount −10 % maximum, occasional promo codes only, no discount on individual sessions, enterprise on quote (§ 2.6). The 12 h forfait against a 10 h programme is open as C-12.
 
 **Plans**: TBD
 

@@ -274,18 +274,27 @@ offer.
 Questions the signed document does not answer. Recorded here rather than
 resolved in the roadmap.
 
-1. **Package (« forfait ») limits are undefined.** PAY-05 says the learner books
-   "dans la limite de son forfait" but the offer does not state what bounds a
-   package — a number of sessions, an hour volume, a validity window, or a
-   module list. Needs a client answer at cadrage (Lot 1) before Lot 7 is
-   planned.
+1. ~~**Package (« forfait ») limits are undefined.**~~ **Closed 2026-09-14.**
+   PAY-05 says the learner books "dans la limite de son forfait" but the offer
+   does not state what bounds a package. The client answered § 2.5 of
+   `Cadrage_Formation_SAP_Ariba_Reponses_Client_2026-09-13.docx`: the forfait
+   is bounded by **12 heures ET 6 mois de validité** — two boxes checked,
+   neither a session count nor a module list. Two bounds where the offer left
+   one open; verify the fit against the signed offer at Lot 7 planning
+   (Ruling 17 du Chief of Staff).
 
 2. **The attendance threshold for a certificate is "paramétrable"** (SUI-06) but
    no default is given. Needs a client answer before Lot 9 is planned.
+   *2026-09-14: § 7 of the client's cadrage answers came back empty on this
+   point — still open, tracked as C-07 in the Chief of Staff's client-request
+   list.*
 
 3. **Whether the free discovery call counts towards progression** (SUI-03) is
    not stated. Needs a client answer before Lot 9 is planned.
+   *2026-09-14: § 7 of the client's cadrage answers came back empty on this
+   point — still open, tracked as C-08 in the Chief of Staff's client-request
+   list.*
 
 ---
 *Requirements defined: 2026-08-27*
-*Last updated: 2026-08-27 after initial definition*
+*Last updated: 2026-09-14 after the client's cadrage answers of 2026-09-13*
