@@ -55,3 +55,6 @@ supabase/.branches/
 
 # Orphaned agent worktrees — noise in git status, not project state
 .claude/worktrees/
+
+# GSD planning directory (retired)
+.planning/
