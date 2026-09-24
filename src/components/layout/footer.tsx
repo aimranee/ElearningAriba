@@ -1,24 +1,28 @@
 import Link from "next/link";
 import { FOCUS_RING } from "@/lib/utils";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import { localizedPath } from "@/lib/i18n/routes";
+import type { Locale } from "@/lib/i18n/locale";
 
 const FOOTER_LINK_CLASS = `block py-1 text-sm text-white/78 hover:text-white ${FOCUS_RING}`;
 
-// why (D-41/PUB-12): the five legal pages are Lot 5 work — a placeholder
-// anchor pointing nowhere would look clickable and go nowhere, so they
-// render as non-navigating spans carrying the signed label until Lot 5
-// ships the route.
-const INFORMATIONS_LABELS = [
-  common.footer.mentionsLegales,
-  common.footer.politiqueConfidentialite,
-  common.footer.politiqueCookies,
-  common.footer.politiqueRemboursement,
-  common.footer.clauseNonResponsabilite,
-] as const;
-
 /** Presentational only — link labels and layout, no legal prose (D-41). */
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const href = (frenchPath: string) => localizedPath(frenchPath, locale);
   const annee = new Date().getFullYear();
+
+  // why (D-41/PUB-12): the five legal pages are Lot 5 work — a placeholder
+  // anchor pointing nowhere would look clickable and go nowhere, so they
+  // render as non-navigating spans carrying the signed label until Lot 5
+  // ships the route.
+  const informationsLabels = [
+    common.footer.mentionsLegales,
+    common.footer.politiqueConfidentialite,
+    common.footer.politiqueCookies,
+    common.footer.politiqueRemboursement,
+    common.footer.clauseNonResponsabilite,
+  ];
 
   return (
     <footer className="relative z-[1] bg-[var(--ink)] text-white in-data-[density=compact]:py-2">
@@ -39,17 +43,17 @@ export function Footer() {
             </h2>
             <ul className="mt-4 flex flex-col gap-1">
               <li>
-                <Link href="/formation" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/formation")} className={FOOTER_LINK_CLASS}>
                   {common.nav.formation}
                 </Link>
               </li>
               <li>
-                <Link href="/a-propos" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/a-propos")} className={FOOTER_LINK_CLASS}>
                   {common.nav.aPropos}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/contact")} className={FOOTER_LINK_CLASS}>
                   {common.nav.contact}
                 </Link>
               </li>
@@ -62,22 +66,22 @@ export function Footer() {
             </h2>
             <ul className="mt-4 flex flex-col gap-1">
               <li>
-                <Link href="/inscription" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/inscription")} className={FOOTER_LINK_CLASS}>
                   {common.nav.inscription}
                 </Link>
               </li>
               <li>
-                <Link href="/connexion" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/connexion")} className={FOOTER_LINK_CLASS}>
                   {common.nav.connexion}
                 </Link>
               </li>
               <li>
-                <Link href="/agenda" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/agenda")} className={FOOTER_LINK_CLASS}>
                   {common.nav.agenda}
                 </Link>
               </li>
               <li>
-                <Link href="/espace" className={FOOTER_LINK_CLASS}>
+                <Link href={href("/espace")} className={FOOTER_LINK_CLASS}>
                   {common.nav.espace}
                 </Link>
               </li>
@@ -89,7 +93,7 @@ export function Footer() {
               {common.footer.colonnes.informations}
             </h2>
             <ul className="mt-4 flex flex-col gap-1">
-              {INFORMATIONS_LABELS.map((label) => (
+              {informationsLabels.map((label) => (
                 <li key={label}>
                   <span className="block py-1 text-sm text-white/78">{label}</span>
                 </li>
@@ -101,7 +105,7 @@ export function Footer() {
         <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/12 pt-6 text-sm text-white/55">
           <span>{common.footer.copyright.replace("{annee}", String(annee))}</span>
           <Link
-            href="/reservation"
+            href={href("/reservation")}
             className={`ml-auto text-white/72 hover:text-white ${FOCUS_RING}`}
           >
             {common.actions.reserver}

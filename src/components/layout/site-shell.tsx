@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "@/app/globals.css";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { RevealScope } from "@/components/motion/reveal";
@@ -10,8 +11,9 @@ import { ScrollProgress } from "@/components/motion/scroll-progress";
 
 /*
  * why (#18): the document shell shared by every root layout — (public),
- * (app) and global-not-found — so fonts, global CSS, metadata and chrome
- * are declared once and cannot drift between roots.
+ * (public-en), (app) and global-not-found — so fonts, global CSS, metadata
+ * and chrome are declared once and cannot drift between roots. (#19) The
+ * locale sets <html lang> and the language of every label it renders.
  */
 
 const bodyFont = Inter({ variable: "--font-body", subsets: ["latin"] });
@@ -20,15 +22,25 @@ const headingFont = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-export const siteMetadata: Metadata = {
-  title: common.metadata.title,
-  description: common.metadata.description,
-};
+export function siteMetadata(locale: Locale): Metadata {
+  const common = getMessages(locale, "common");
+  return {
+    title: common.metadata.title,
+    description: common.metadata.description,
+  };
+}
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  locale,
+  children,
+}: {
+  locale: Locale;
+  children: ReactNode;
+}) {
+  const common = getMessages(locale, "common");
   return (
     <html
-      lang="fr"
+      lang={locale}
       className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
@@ -40,7 +52,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         >
           {common.nav.allerAuContenu}
         </a>
-        <Header />
+        <Header locale={locale} />
         {/* why: children need flex-1 on a wrapper, not on <body> itself, now
             that the header and footer are siblings sharing the body's flex
             column — otherwise every page's own flex-1 would compete with
@@ -49,7 +61,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <main id="contenu-principal" className="relative z-[1] flex-1 pt-[76px]">
           {children}
         </main>
-        <Footer />
+        <Footer locale={locale} />
       </body>
     </html>
   );

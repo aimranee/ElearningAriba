@@ -3,25 +3,30 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { FOCUS_RING } from "@/lib/utils";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import { localizedPath } from "@/lib/i18n/routes";
+import type { Locale } from "@/lib/i18n/locale";
 
 // why (PUB-12): every visible label reads from common.nav — never a literal
 // string (CLAUDE.md) — so the header can reach five public routes in one
-// click, with the footer covering the rest (D-41).
+// click, with the footer covering the rest (D-41). (#19) Links go to the
+// page's copy in `locale` where one exists (routes.ts), else to French.
 const NAV_LINK_CLASS = `text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`;
-
-const MOBILE_LINKS = [
-  { href: "/formation", label: common.nav.formation },
-  { href: "/a-propos", label: common.nav.aPropos },
-  { href: "/contact", label: common.nav.contact },
-  { href: "/connexion", label: common.nav.connexion },
-] as const;
 
 /**
  * Presentational only — no active-route computation, no client state.
  * Lot 1 route shells only; Lot 3 owns auth (D-38).
  */
-export function Header() {
+export function Header({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const href = (frenchPath: string) => localizedPath(frenchPath, locale);
+  const mobileLinks = [
+    { href: href("/formation"), label: common.nav.formation },
+    { href: href("/a-propos"), label: common.nav.aPropos },
+    { href: href("/contact"), label: common.nav.contact },
+    { href: href("/connexion"), label: common.nav.connexion },
+  ];
+
   return (
     <header
       data-slot="site-header"
@@ -49,7 +54,7 @@ export function Header() {
     >
       <div className="relative z-[1] mx-auto flex h-full max-w-[1200px] items-center justify-between gap-4 px-6">
         <Link
-          href="/"
+          href={href("/")}
           className={`inline-flex min-w-0 items-center gap-[0.6rem] ${FOCUS_RING}`}
         >
           <span
@@ -72,13 +77,13 @@ export function Header() {
           aria-label={common.metadata.title}
           className="hidden items-center gap-6 min-[1000px]:flex"
         >
-          <Link href="/formation" className={NAV_LINK_CLASS}>
+          <Link href={href("/formation")} className={NAV_LINK_CLASS}>
             {common.nav.formation}
           </Link>
-          <Link href="/a-propos" className={NAV_LINK_CLASS}>
+          <Link href={href("/a-propos")} className={NAV_LINK_CLASS}>
             {common.nav.aPropos}
           </Link>
-          <Link href="/contact" className={NAV_LINK_CLASS}>
+          <Link href={href("/contact")} className={NAV_LINK_CLASS}>
             {common.nav.contact}
           </Link>
         </nav>
@@ -88,7 +93,7 @@ export function Header() {
               header — a pill floating on nothing reads poorly without a
               background under it. */}
           <Link
-            href="/connexion"
+            href={href("/connexion")}
             className={`hidden text-sm font-semibold text-[var(--ink-soft)] transition-colors duration-300 ease-[var(--ease-brand)] hover:text-[var(--violet)] min-[1000px]:inline-flex ${FOCUS_RING}`}
           >
             {common.nav.connexion}
@@ -99,7 +104,7 @@ export function Header() {
               1000px, otherwise the burger is pushed past the viewport edge
               at 375px. */}
           <Button
-            render={<Link href="/reservation" />}
+            render={<Link href={href("/reservation")} />}
             nativeButton={false}
             data-magnetic="true"
             className="h-11 gap-[0.7rem] rounded-full pr-1.5 pl-5 text-sm font-bold"
@@ -114,7 +119,7 @@ export function Header() {
           </Button>
         </div>
 
-        <MobileNav links={MOBILE_LINKS} />
+        <MobileNav links={mobileLinks} labels={common.nav.menu} />
       </div>
     </header>
   );

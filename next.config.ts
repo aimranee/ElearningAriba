@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { resolveSiteUrl } from "./src/lib/env/site-url";
+import { EN_ENABLED } from "./src/lib/i18n/flag";
 
 // Side-effect import: validates the environment at module load, so `dev`,
 // `build` and `start` all fail fast before serving a request. Relative
@@ -40,6 +41,25 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
+  },
+
+  // why (#17, I18N-11): with English off, every /en URL answers the global
+  // 404 (French shell) before the filesystem is consulted, so no English
+  // route — present or future — renders or is reachable. A rewrite, not a
+  // middleware: the public routes keep no middleware (D-15/D-16) and stay
+  // static/ISR. The destination is deliberately a path with no route.
+  async rewrites() {
+    if (EN_ENABLED) {
+      return [];
+    }
+    return {
+      beforeFiles: [
+        { source: "/en", destination: "/__en-disabled" },
+        { source: "/en/:path*", destination: "/__en-disabled" },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
 
   // why (Lot 2, #16): /programme merged into /formation#programme — a

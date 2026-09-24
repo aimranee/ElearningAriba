@@ -7,11 +7,11 @@ import { SiteShell, siteMetadata } from "@/components/layout/site-shell";
  * the 404 of an unmatched URL. This renders the same page the single root
  * used to: the site shell around Next's built-in "not found" UI.
  */
-export const metadata = siteMetadata;
+export const metadata = siteMetadata("fr");
 
 export default function GlobalNotFound() {
   return (
-    <SiteShell>
+    <SiteShell locale="fr">
       <NotFound />
     </SiteShell>
   );

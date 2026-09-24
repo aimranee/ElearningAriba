@@ -6,11 +6,20 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { FOCUS_RING } from "@/lib/utils";
-import common from "@/locales/fr/common.json";
 
 type NavLink = { href: string; label: string };
+type MenuLabels = { ouvrir: string; fermer: string };
 
-export function MobileNav({ links }: { links: readonly NavLink[] }) {
+// why (#19): the labels come from the server parent in the page's language —
+// a client component importing a locale's JSON would ship French to every
+// language.
+export function MobileNav({
+  links,
+  labels,
+}: {
+  links: readonly NavLink[];
+  labels: MenuLabels;
+}) {
   const [open, setOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
@@ -27,7 +36,7 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
         ref={burgerRef}
         type="button"
         aria-expanded={open}
-        aria-label={open ? common.nav.menu.fermer : common.nav.menu.ouvrir}
+        aria-label={open ? labels.fermer : labels.ouvrir}
         onClick={() => setOpen((value) => !value)}
         className={`flex size-11 items-center justify-center rounded-xl border border-border bg-background text-foreground ${FOCUS_RING}`}
       >
@@ -40,7 +49,7 @@ export function MobileNav({ links }: { links: readonly NavLink[] }) {
 
       {open && (
         <nav
-          aria-label={common.nav.menu.ouvrir}
+          aria-label={labels.ouvrir}
           className="absolute inset-x-0 top-[76px] flex flex-col gap-1 border-b border-border bg-[rgba(252,252,255,.97)] px-6 pt-2 pb-5 backdrop-blur-[20px]"
         >
           {links.map((link) => (

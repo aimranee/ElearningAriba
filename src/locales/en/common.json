@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "SAP Ariba Training",
+    "description": "Booking platform for live SAP Ariba training."
+  },
+  "nav": {
+    "programme": "Programme",
+    "formation": "Training",
+    "aPropos": "About",
+    "contact": "Contact",
+    "inscription": "Sign up",
+    "connexion": "Sign in",
+    "agenda": "Calendar",
+    "reservation": "Booking",
+    "paiement": "Payment",
+    "espace": "My account",
+    "allerAuContenu": "Skip to main content",
+    "sections": "Sections",
+    "menu": {
+      "ouvrir": "Open menu",
+      "fermer": "Close menu"
+    }
+  },
+  "footer": {
+    "baseline": "Live SAP Ariba training, led by a certified expert — not one more video to watch.",
+    "colonnes": {
+      "formation": "Training",
+      "compte": "Account",
+      "informations": "Information"
+    },
+    "copyright": "© {annee} SAP Ariba Training. All rights reserved.",
+    "mentionsLegales": "Legal notice",
+    "politiqueConfidentialite": "Privacy policy",
+    "politiqueCookies": "Cookie policy",
+    "politiqueRemboursement": "Refund policy",
+    "clauseNonResponsabilite": "Disclaimer"
+  },
+  "actions": {
+    "prendreRdv": "Book now",
+    "voirProgramme": "View the programme",
+    "reserver": "Book",
+    "sInscrire": "Sign up",
+    "seConnecter": "Sign in",
+    "envoyer": "Send",
+    "telecharger": "Download",
+    "reessayer": "Try again",
+    "annuler": "Cancel",
+    "continuer": "Continue",
+    "enSavoirPlus": "Learn more",
+    "nousContacter": "Contact us"
+  },
+  "etats": {
+    "chargement": "Loading…",
+    "preparationFormulaire": "Preparing the form…",
+    "erreurGenerique": "Something went wrong. Please try again.",
+    "champRequis": "This field is required.",
+    "aucunResultat": "No results yet."
+  },
+  "hero": {
+    "chips": ["No SAP prerequisites", "Certified expert", "Hands-on cases in every module"]
+  },
+  "formatModalitesAside": {
+    "resume": "{modules} modules · {heures} of live training"
+  },
+  "assemblage": {
+    "frameLabel": "Your SAP Ariba learning path — assembly",
+    "badge": "SAP Ariba learning path",
+    "moduleLigne": "Module {n} · {heures}",
+    "progression": "Module {n} of {total}",
+    "pills": [
+      { "cle": "appel-decouverte", "label": "Discovery call" },
+      { "cle": "session-live", "label": "Live session" },
+      { "cle": "support-pdf", "label": "PDF handout" }
+    ]
+  },
+  "photoSlot": {
+    "label": "Photo · trainer portrait",
+    "description": "A real slot, sized 16:9 and ready for next/image. It stays declared until a file is supplied."
+  },
+  "formulaires": {
+    "ou": "or"
+  }
+}
