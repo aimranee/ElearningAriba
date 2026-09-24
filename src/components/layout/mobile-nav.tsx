@@ -2,7 +2,7 @@
 /* why: the burger toggle needs client state (open/closed, aria-expanded) —
    only this leaf is a client component, header.tsx itself stays server. */
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { FOCUS_RING } from "@/lib/utils";
@@ -16,9 +16,11 @@ type MenuLabels = { ouvrir: string; fermer: string };
 export function MobileNav({
   links,
   labels,
+  languageSwitcher,
 }: {
   links: readonly NavLink[];
   labels: MenuLabels;
+  languageSwitcher?: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
@@ -62,6 +64,7 @@ export function MobileNav({
               {link.label}
             </Link>
           ))}
+          {languageSwitcher}
         </nav>
       )}
     </div>

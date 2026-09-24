@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { FOCUS_RING } from "@/lib/utils";
+import { EN_ENABLED } from "@/lib/i18n/flag";
 import { getMessages } from "@/lib/i18n/messages";
 import { localizedPath } from "@/lib/i18n/routes";
 import type { Locale } from "@/lib/i18n/locale";
@@ -89,6 +91,12 @@ export function Header({ locale }: { locale: Locale }) {
         </nav>
 
         <div className="flex items-center gap-3">
+          {/* why (#20): in the bar from md up; below md the 360 px bar has no
+              room left beside the wordmark, CTA and burger, so the switcher
+              moves into the mobile menu. Absent while English is off. */}
+          {EN_ENABLED && (
+            <LanguageSwitcher locale={locale} labels={common.langue} className="hidden md:flex" />
+          )}
           {/* why: Connexion returns to being a plain link on a transparent
               header — a pill floating on nothing reads poorly without a
               background under it. */}
@@ -119,7 +127,15 @@ export function Header({ locale }: { locale: Locale }) {
           </Button>
         </div>
 
-        <MobileNav links={mobileLinks} labels={common.nav.menu} />
+        <MobileNav
+          links={mobileLinks}
+          labels={common.nav.menu}
+          languageSwitcher={
+            EN_ENABLED ? (
+              <LanguageSwitcher locale={locale} labels={common.langue} className="flex pt-2 md:hidden" />
+            ) : undefined
+          }
+        />
       </div>
     </header>
   );

@@ -3,7 +3,7 @@ import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-import { EN_ROUTES, PENDING_EN_ROUTES } from "./routes";
+import { EN_ROUTES, PENDING_EN_ROUTES, languagePair } from "./routes";
 
 const APP_DIR = fileURLToPath(new URL("../../app", import.meta.url));
 const PAGE_FILE = /^page\.(tsx|ts|jsx|js|mdx)$/;
@@ -67,5 +67,18 @@ describe("FR↔EN route parity", () => {
 
   it("has no English page outside the map", () => {
     expect(englishRoutes).toEqual(Object.values(EN_ROUTES).sort());
+  });
+});
+
+// why (#20): the switcher shows only where this finds a pair, and links to it.
+describe("language pair of a URL", () => {
+  it("pairs the French About page with the English one, from either side", () => {
+    expect(languagePair("/a-propos")).toEqual({ fr: "/a-propos", en: "/en/about" });
+    expect(languagePair("/en/about")).toEqual({ fr: "/a-propos", en: "/en/about" });
+  });
+
+  it("finds no pair for an app page or an unknown URL", () => {
+    expect(languagePair("/connexion")).toBeNull();
+    expect(languagePair("/cette-page-n-existe-pas")).toBeNull();
   });
 });

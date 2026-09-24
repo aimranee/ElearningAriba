@@ -21,6 +21,13 @@
       "fermer": "Fermer le menu"
     }
   },
+  "langue": {
+    "choisir": "Choisir la langue",
+    "options": {
+      "fr": { "court": "FR", "nom": "Français" },
+      "en": { "court": "EN", "nom": "English" }
+    }
+  },
   "footer": {
     "baseline": "Une formation SAP Ariba en direct, animée par un expert certifié — pas une vidéo de plus à regarder.",
     "colonnes": {

@@ -21,6 +21,13 @@
       "fermer": "Close menu"
     }
   },
+  "langue": {
+    "choisir": "Choose language",
+    "options": {
+      "fr": { "court": "FR", "nom": "Français" },
+      "en": { "court": "EN", "nom": "English" }
+    }
+  },
   "footer": {
     "baseline": "Live SAP Ariba training, led by a certified expert — not one more video to watch.",
     "colonnes": {
