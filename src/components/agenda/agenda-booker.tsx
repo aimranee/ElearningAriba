@@ -139,10 +139,13 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
   // Release the held slot on abandon: unmount (in-app navigation away from
   // /agenda, the reliable path) and beforeunload (tab close, best-effort —
   // keepalive required or the fetch is cancelled when the document goes
-  // away). Neither fires a release when the island unmounts because it is
-  // navigating to /reservation with the slot it just retained.
+  // away). Neither fires a release when the island leaves because it is
+  // navigating to /reservation with the slot it just retained — and since
+  // #18 put /agenda and /reservation under different root layouts, that
+  // navigation is a full page load, so beforeunload needs the guard too.
   useEffect(() => {
     function liberer() {
+      if (naviguantVersReservationRef.current) return;
       const stocke = lireCreneauChoisi();
       if (!stocke?.jeton) return;
       void fetch("/api/creneaux/maintien", {
@@ -155,9 +158,7 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
     window.addEventListener("beforeunload", liberer);
     return () => {
       window.removeEventListener("beforeunload", liberer);
-      if (!naviguantVersReservationRef.current) {
-        liberer();
-      }
+      liberer();
     };
   }, []);
 

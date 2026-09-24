@@ -233,3 +233,35 @@ export function effacerCreneauChoisi(): void {
   if (typeof window === "undefined") return;
   window.sessionStorage.removeItem(CLE_CRENEAU_CHOISI);
 }
+
+/*
+ * why (#18): /reservation and the public pages sit under different root
+ * layouts, so leaving the booking for a public page is a full page load: the
+ * booking island never unmounts, and its unmount cleanup (release + clear)
+ * no longer runs. On unload the payload is therefore set aside instead of
+ * kept, and only a reload of /reservation itself takes it back — the one
+ * unload after which the booking used to come back on its recap.
+ */
+const CLE_CRENEAU_RECHARGEMENT = "ariba.creneau.rechargement" as const;
+
+/** On /reservation's unload: clears the payload, keeping it for a reload. */
+export function mettreDeCoteCreneauChoisi(): void {
+  if (typeof window === "undefined") return;
+  const brut = window.sessionStorage.getItem(CLE_CRENEAU_CHOISI);
+  if (brut) window.sessionStorage.setItem(CLE_CRENEAU_RECHARGEMENT, brut);
+  window.sessionStorage.removeItem(CLE_CRENEAU_CHOISI);
+}
+
+/** On /reservation's mount: restores the set-aside payload after a reload of this same page, and drops it otherwise. */
+export function reprendreCreneauApresRechargement(): void {
+  if (typeof window === "undefined") return;
+  const brut = window.sessionStorage.getItem(CLE_CRENEAU_RECHARGEMENT);
+  window.sessionStorage.removeItem(CLE_CRENEAU_RECHARGEMENT);
+  if (!brut) return;
+  const [entree] = performance.getEntriesByType("navigation");
+  const recharge =
+    entree instanceof PerformanceNavigationTiming &&
+    entree.type === "reload" &&
+    new URL(entree.name).pathname === window.location.pathname;
+  if (recharge) window.sessionStorage.setItem(CLE_CRENEAU_CHOISI, brut);
+}

@@ -10,6 +10,8 @@ import {
   lireCreneauChoisi,
   effacerCreneauChoisi,
   effacerJetonCreneauChoisi,
+  mettreDeCoteCreneauChoisi,
+  reprendreCreneauApresRechargement,
 } from "@/lib/agenda/creneaux";
 import { EtapeType } from "@/components/reservation/etape-type";
 import { EtapeCreneau } from "@/components/reservation/etape-creneau";
@@ -72,6 +74,7 @@ export function ParcoursReservation({
   // case it targets: there is no prop/state this value could be computed
   // from during render, only an external store React does not own.
   useEffect(() => {
+    reprendreCreneauApresRechargement();
     const stocke = lireCreneauChoisi();
     if (stocke) {
       /* eslint-disable react-hooks/set-state-in-effect */
@@ -85,7 +88,8 @@ export function ParcoursReservation({
   // Release the held slot on genuine abandon — unmount (in-app navigation
   // away, e.g. the header nav) and beforeunload (tab close, best-effort —
   // keepalive required or the fetch is cancelled when the document goes
-  // away). Neither releases when the ref above is set.
+  // away). Neither releases when the ref above is set. Since #18, leaving for
+  // a public page is also a page unload, hence mettreDeCoteCreneauChoisi.
   useEffect(() => {
     function liberer() {
       const stocke = lireCreneauChoisi();
@@ -97,9 +101,13 @@ export function ParcoursReservation({
         keepalive: true,
       });
     }
-    window.addEventListener("beforeunload", liberer);
+    function quitterLaPage() {
+      liberer();
+      mettreDeCoteCreneauChoisi();
+    }
+    window.addEventListener("beforeunload", quitterLaPage);
     return () => {
-      window.removeEventListener("beforeunload", liberer);
+      window.removeEventListener("beforeunload", quitterLaPage);
       if (!conserverAuDepartRef.current) {
         liberer();
         effacerCreneauChoisi();
