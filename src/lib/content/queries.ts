@@ -2,6 +2,8 @@ import "server-only";
 
 import { z } from "zod";
 
+import { localizeItem, localizeSection } from "@/lib/content/localize";
+import type { Locale } from "@/lib/i18n/locale";
 import { createPublicClient } from "@/lib/supabase/public";
 import type { Database } from "@/types/database.types";
 
@@ -21,7 +23,13 @@ export type ContentItem = Database["app"]["Tables"]["content_item"]["Row"];
  */
 export type QueryResult<T> = { ok: true; data: T } | { ok: false };
 
-export async function getSection(cle: string): Promise<QueryResult<ContentSection>> {
+/* why (#17): `locale` defaults to French, so every French caller and its
+   query stay as they were; English reads the same rows and falls back to
+   French field by field (localize.ts). */
+export async function getSection(
+  cle: string,
+  locale: Locale = "fr",
+): Promise<QueryResult<ContentSection>> {
   const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("content_section")
@@ -33,11 +41,12 @@ export async function getSection(cle: string): Promise<QueryResult<ContentSectio
   if (error || !data) {
     return { ok: false };
   }
-  return { ok: true, data };
+  return { ok: true, data: localizeSection(data, locale) };
 }
 
 export async function getSectionItems(
   sectionCle: string,
+  locale: Locale = "fr",
 ): Promise<QueryResult<ContentItem[]>> {
   const supabase = createPublicClient();
   const { data, error } = await supabase
@@ -50,7 +59,7 @@ export async function getSectionItems(
   if (error || !data) {
     return { ok: false };
   }
-  return { ok: true, data };
+  return { ok: true, data: data.map((row) => localizeItem(row, locale)) };
 }
 
 /* why: `donnees` is jsonb — validated at the boundary (CLAUDE.md) rather than

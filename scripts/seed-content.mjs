@@ -11,9 +11,16 @@ import { dirname, join } from "node:path";
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const localesDir = join(rootDir, "src/locales/fr");
+// why (#19): English copies mirror the French files key for key (typed in
+// src/lib/i18n/messages.ts); only namespaces already translated exist here.
+const enLocalesDir = join(rootDir, "src/locales/en");
 
 function readJson(name) {
   return JSON.parse(readFileSync(join(localesDir, name), "utf8"));
+}
+
+function readEnJson(name) {
+  return JSON.parse(readFileSync(join(enLocalesDir, name), "utf8"));
 }
 
 // why: D-22 wants the signed two-sentence H2 split into title (first
@@ -75,11 +82,17 @@ const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
 
+// why (#19): a section without English copy yet carries null *_en columns —
+// the English site falls back to French field by field.
 function normalizeSection(row) {
   return {
     eyebrow: null,
     titre_accent: null,
     lead: null,
+    eyebrow_en: null,
+    titre_en: null,
+    titre_accent_en: null,
+    lead_en: null,
     ...row,
   };
 }
@@ -109,6 +122,9 @@ function normalizeItem(row) {
     duree_heures: null,
     statut: null,
     donnees: {},
+    titre_en: null,
+    description_en: null,
+    donnees_en: null,
     ...row,
   };
 }
@@ -135,6 +151,10 @@ async function main() {
   // the internal-page headers. The nav labels are already signed copy
   // (common.json is chrome, read at seed time here rather than invented).
   const common = readJson("common.json");
+  // why (#19): English is seeded for the About section only; the page
+  // tickets (#21–#24) add the other sections.
+  const aProposEn = readEnJson("a-propos.json");
+  const commonEn = readEnJson("common.json");
 
   await upsertSections([
     { cle: "hero", titre: landing.hero.titre, lead: landing.hero.sousTitre, position: 1 },
@@ -213,6 +233,10 @@ async function main() {
       titre: splitTwoSentences(aPropos.titre).title,
       titre_accent: splitTwoSentences(aPropos.titre).titleAccent,
       lead: aPropos.intro,
+      eyebrow_en: commonEn.nav.aPropos,
+      titre_en: splitTwoSentences(aProposEn.titre).title,
+      titre_accent_en: splitTwoSentences(aProposEn.titre).titleAccent,
+      lead_en: aProposEn.intro,
       position: 11,
     },
   ]);
@@ -350,9 +374,27 @@ async function main() {
   // sentence itself as the card title), so `titre` holds that sentence
   // verbatim rather than inventing a label (D-25).
   const pageAProposItems = [
-    { section_cle: "page-a-propos", cle: "parcours", titre: aPropos.parcours, position: 1 },
-    { section_cle: "page-a-propos", cle: "legitimite", titre: aPropos.legitimite, position: 2 },
-    { section_cle: "page-a-propos", cle: "approche", titre: aPropos.approche, position: 3 },
+    {
+      section_cle: "page-a-propos",
+      cle: "parcours",
+      titre: aPropos.parcours,
+      titre_en: aProposEn.parcours,
+      position: 1,
+    },
+    {
+      section_cle: "page-a-propos",
+      cle: "legitimite",
+      titre: aPropos.legitimite,
+      titre_en: aProposEn.legitimite,
+      position: 2,
+    },
+    {
+      section_cle: "page-a-propos",
+      cle: "approche",
+      titre: aPropos.approche,
+      titre_en: aProposEn.approche,
+      position: 3,
+    },
   ];
 
   await upsertItems([
