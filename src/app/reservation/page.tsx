@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import reservation from "@/locales/fr/reservation.json";
 import { EmptyState, EmptyStateTitle } from "@/components/ui/empty-state";
 import * as authSession from "@/lib/auth/session";
@@ -13,11 +15,25 @@ import { ParcoursReservation } from "@/components/reservation/parcours-reservati
  * which is exactly the barrier D-28 removes. The confirmation surface,
  * which holds personal data, keeps that stricter guard — see that route.
  */
-export default async function Reservation() {
+/* why (#27): `?type=<id>` is a deep link from the Formation page's RDV
+   surfaces — validated at the boundary, and kept only when it names an
+   active type, so an unknown, missing or inactive id leaves the flow
+   exactly as it is without the parameter. */
+const searchParamsSchema = z.object({ type: z.string().optional() });
+
+export default async function Reservation({ searchParams }: PageProps<"/reservation">) {
   const learnerResult = await authSession.getLearner();
   const estConnecte = learnerResult.ok;
 
-  const typesResult = await getTypesRendezVous();
+  const [typesResult, params] = await Promise.all([
+    getTypesRendezVous(),
+    searchParams.then((raw) => searchParamsSchema.safeParse(raw)),
+  ]);
+  const typeDemande = params.success ? params.data.type : undefined;
+  const typeInitial =
+    typesResult.ok && typeDemande && typesResult.data.some((type) => type.id === typeDemande)
+      ? typeDemande
+      : null;
 
   /* why (D-15, T-04-31c): FORMATEUR_LIEN_VISIO is the trainer's *permanent*
      meeting room, not a per-meeting link — reading it here only when
@@ -38,7 +54,12 @@ export default async function Reservation() {
       </header>
 
       {typesResult.ok && typesResult.data.length > 0 ? (
-        <ParcoursReservation types={typesResult.data} estConnecte={estConnecte} lieu={lieu} />
+        <ParcoursReservation
+          types={typesResult.data}
+          estConnecte={estConnecte}
+          lieu={lieu}
+          typeInitial={typeInitial}
+        />
       ) : (
         <EmptyState tone="error">
           <EmptyStateTitle>{reservation.erreurs.erreurGenerique}</EmptyStateTitle>

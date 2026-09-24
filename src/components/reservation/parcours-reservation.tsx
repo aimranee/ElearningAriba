@@ -31,6 +31,9 @@ type ParcoursReservationProps = {
   types: TypeRendezVous[];
   estConnecte: boolean;
   lieu: string | null;
+  /* why (#27): a type already chosen by the deep link — the flow starts one
+     step in, on the slot step, with the type step still reachable. */
+  typeInitial: string | null;
 };
 
 /*
@@ -40,10 +43,15 @@ type ParcoursReservationProps = {
  * of its outcome to a reservation.erreurs.* key; the screens themselves stay
  * presentational.
  */
-export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReservationProps) {
+export function ParcoursReservation({
+  types,
+  estConnecte,
+  lieu,
+  typeInitial,
+}: ParcoursReservationProps) {
   const router = useRouter();
-  const [etape, setEtape] = useState<Etape>("type");
-  const [typeId, setTypeId] = useState<string | null>(null);
+  const [etape, setEtape] = useState<Etape>(typeInitial ? "creneau" : "type");
+  const [typeId, setTypeId] = useState<string | null>(typeInitial);
   const [creneau, setCreneau] = useState<CreneauEtat | null>(null);
   const [statutCommit, setStatutCommit] = useState<StatutCommit>("idle");
   const [erreurCommit, setErreurCommit] = useState<string | null>(null);
@@ -125,6 +133,17 @@ export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReserv
     setEtape("creneau");
   }
 
+  /* why (#27): the type step must stay reachable once the deep link has
+     skipped it — the step indicator's first entry becomes the way back
+     while the slot step is showing. */
+  function onRetourType() {
+    effacerJetonCreneauChoisi();
+    setErreurCommit(null);
+    setCreneau(null);
+    setTypeId(null);
+    setEtape("type");
+  }
+
   async function onValider() {
     if (!typeChoisi || !creneau) return;
     setStatutCommit("submitting");
@@ -174,6 +193,20 @@ export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReserv
       <ol className="flex flex-wrap gap-2 text-sm">
         {ETAPES_ORDRE.map((cle) => {
           const active = cle === etape;
+          if (cle === "type" && etape === "creneau") {
+            return (
+              <li key={cle}>
+                <button
+                  type="button"
+                  data-slot="etape-retour-type"
+                  onClick={onRetourType}
+                  className="text-muted-foreground rounded-lg px-2.5 py-1 underline-offset-4 outline-none hover:text-primary hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
+                >
+                  {reservation.etapes[ETAPES_AFFICHAGE[cle]]}
+                </button>
+              </li>
+            );
+          }
           return (
             <li key={cle}>
               <span
