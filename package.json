@@ -13,7 +13,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "db:types": "node scripts/gen-db-types.mjs",
-    "content:check": "node scripts/check-mock-content.mjs",
+    "content:check": "node --experimental-strip-types scripts/check-mock-content.mjs",
     "content:seed": "node --env-file-if-exists=.env.local scripts/seed-content.mjs",
     "agenda:seed": "node --env-file-if-exists=.env.local scripts/seed-agenda.mjs",
     "ics:check": "node --experimental-strip-types --conditions=react-server scripts/check-ics.mjs"

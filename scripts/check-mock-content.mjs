@@ -9,14 +9,22 @@
 // PR gate would block every merge in the lot and the pressure would be to
 // delete the guard instead of closing the mocks. Run it by hand with
 // `npm run content:check`.
-import { readdirSync, readFileSync } from "node:fs";
+//
+// #29 (parent #17): the registry stays French-only, one entry per value —
+// but since #19 an English translation can exist beside it at
+// src/locales/en/<same file>#<same key>. Below the French lines, this also
+// lists each entry's English twin when that file and key exist, via the
+// pure lookup in src/lib/content/mock-english-twin.ts (kept out of this
+// script so the twin logic has a test without reading real files).
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const localesDir = join(
-  dirname(dirname(fileURLToPath(import.meta.url))),
-  "src/locales/fr",
-);
+import { findEnglishTwin } from "../src/lib/content/mock-english-twin.ts";
+
+const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
+const localesDir = join(rootDir, "src/locales/fr");
+const localesEnDir = join(rootDir, "src/locales/en");
 
 const registryNames = readdirSync(localesDir).filter((f) =>
   /^_mocks\..*\.json$/.test(f),
@@ -42,6 +50,7 @@ function resolvePath(bundle, key) {
 let outstanding = 0;
 let unresolvable = 0;
 const perRequirement = new Map();
+const resolvedMocks = [];
 
 for (const registryName of registryNames) {
   const registry = JSON.parse(
@@ -75,12 +84,51 @@ for (const registryName of registryNames) {
     );
     outstanding += 1;
     perRequirement.set(mock.blocks, (perRequirement.get(mock.blocks) ?? 0) + 1);
+    resolvedMocks.push(mock);
   }
 }
 
 if (perRequirement.size > 0) {
   console.error("check-mock-content: par exigence —");
   for (const [requirement, count] of perRequirement) {
+    console.error(`check-mock-content:   ${requirement}: ${count}`);
+  }
+}
+
+const englishBundleCache = new Map();
+
+function readEnglishBundle(file) {
+  if (englishBundleCache.has(file)) {
+    return englishBundleCache.get(file);
+  }
+  const bundlePath = join(localesEnDir, file);
+  const bundle = existsSync(bundlePath)
+    ? JSON.parse(readFileSync(bundlePath, "utf8"))
+    : undefined;
+  englishBundleCache.set(file, bundle);
+  return bundle;
+}
+
+const perRequirementEnglish = new Map();
+
+for (const mock of resolvedMocks) {
+  const englishValue = findEnglishTwin(mock, readEnglishBundle(mock.file));
+  if (englishValue === undefined) {
+    continue;
+  }
+
+  console.error(
+    `check-mock-content: [en] ${mock.file}#${mock.key} — bloque ${mock.blocks} — en attente de ${mock.awaiting}`,
+  );
+  perRequirementEnglish.set(
+    mock.blocks,
+    (perRequirementEnglish.get(mock.blocks) ?? 0) + 1,
+  );
+}
+
+if (perRequirementEnglish.size > 0) {
+  console.error("check-mock-content: par exigence (anglais) —");
+  for (const [requirement, count] of perRequirementEnglish) {
     console.error(`check-mock-content:   ${requirement}: ${count}`);
   }
 }
