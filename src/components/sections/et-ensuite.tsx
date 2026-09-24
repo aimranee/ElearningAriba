@@ -3,8 +3,8 @@ import { ArrowRight, CalendarCheck, PhoneCall, Users } from "lucide-react";
 
 import { Section } from "@/components/sections/section";
 import { Reveal } from "@/components/motion/reveal";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 // why (brief §J3, maquette `.step .pic`): decorative step pictograms, paired
 // 1:1 by index with `landing.ctaFinal.etapes.items` — chrome only, no new
@@ -20,8 +20,9 @@ const STEP_ICONS = [PhoneCall, CalendarCheck, Users] as const;
  * query of its own: this section is pure locale-driven chrome, same as
  * `formatModalites.apercu` elsewhere on the page.
  */
-function EtEnsuite() {
-  const etapes = landing.ctaFinal.etapes;
+function EtEnsuite({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const etapes = getMessages(locale, "landing").ctaFinal.etapes;
 
   return (
     <Section tone="default" className="pt-0 pb-[clamp(2rem,4vw,3rem)]">

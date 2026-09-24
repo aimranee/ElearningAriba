@@ -9,17 +9,22 @@
    hide transition completes (transitionend on the `translate` property —
    Tailwind v4 compiles `translate-y-*` to CSS `translate`, not `transform`),
    so the bar cannot receive keyboard focus while off-screen — a bare
-   opacity/transform toggle would leave it focusable underneath. */
+   opacity/transform toggle would leave it focusable underneath.
+   (#22) Its text arrives from the server parent, already in the page's
+   language — this island imports no copy of its own. */
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import common from "@/locales/fr/common.json";
-import agenda from "@/locales/fr/agenda.json";
-import { formatMinutes } from "@/lib/i18n/fr";
 
-function BarreReservation() {
+interface BarreReservationProps {
+  action: string;
+  /** The discovery call's label and formatted length, or null when unknown. */
+  decouverte: { libelle: string; duree: string } | null;
+}
+
+function BarreReservation({ action, decouverte }: BarreReservationProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -90,19 +95,17 @@ function BarreReservation() {
     };
   }, []);
 
-  const decouverte = agenda.typesRendezVous[0];
-
   return (
     <div
       ref={rootRef}
       className="invisible fixed inset-x-0 bottom-0 z-[45] translate-y-[110%] border-t border-[var(--hairline)] bg-white/[.88] px-4 pt-[0.7rem] pb-[calc(0.7rem+env(safe-area-inset-bottom))] shadow-[0_-12px_30px_-20px_rgba(10,37,64,.4)] backdrop-blur-[18px] transition-transform duration-[450ms] ease-[var(--ease-brand)] lg:hidden"
     >
       <Button render={<Link href="/reservation" />} nativeButton={false} size="lg" className="w-full">
-        {common.actions.prendreRdv}
+        {action}
       </Button>
       {decouverte ? (
         <p className="mt-[0.35rem] text-center text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">
-          {decouverte.libelle} · {formatMinutes(decouverte.dureeMinutes)}
+          {decouverte.libelle} · {decouverte.duree}
         </p>
       ) : null}
     </div>

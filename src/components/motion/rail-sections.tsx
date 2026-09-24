@@ -11,12 +11,20 @@
    scroll/observer ticks. Labels are read from the DOM at mount (each
    section's own eyebrow text) rather than duplicated in code — the first
    station has no eyebrow and uses the site title, already an approved
-   string. */
+   string. (#22) The rail's own two strings — its accessible name and the
+   first station's label — arrive from the server parent in the page's
+   language. */
 
 import { useEffect, useRef } from "react";
 
 import { cn, FOCUS_RING } from "@/lib/utils";
-import common from "@/locales/fr/common.json";
+
+interface RailSectionsProps {
+  /** Accessible name of the rail. */
+  label: string;
+  /** Label of the first station, which has no eyebrow: the site title. */
+  topLabel: string;
+}
 
 const SECTION_KEYS = [
   "top",
@@ -29,7 +37,7 @@ const SECTION_KEYS = [
   "faq",
 ] as const;
 
-function RailSections() {
+function RailSections({ label, topLabel }: RailSectionsProps) {
   const navRef = useRef<HTMLElement>(null);
   const dotRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -49,7 +57,7 @@ function RailSections() {
       const labelEl = labelRefs.current[index];
       if (!labelEl || !el) return;
       if (SECTION_KEYS[index] === "top") {
-        labelEl.textContent = common.metadata.title;
+        labelEl.textContent = topLabel;
         return;
       }
       const eyebrow = el.querySelector<HTMLElement>('[data-slot="eyebrow"], [data-eyebrow]');
@@ -113,12 +121,12 @@ function RailSections() {
 
     present.forEach(({ el }) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [topLabel]);
 
   return (
     <nav
       ref={navRef}
-      aria-label={common.nav.sections}
+      aria-label={label}
       className="fixed top-1/2 left-[22px] z-40 hidden -translate-y-1/2 xl:block"
     >
       <ul className="relative flex flex-col gap-[18px] py-1.5">

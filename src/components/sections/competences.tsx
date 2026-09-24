@@ -8,7 +8,9 @@ import { CardSpotlight } from "@/components/motion/card-spotlight";
 import { Constellation } from "@/components/illustrations/constellation";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems } from "@/lib/content/queries";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /**
  * PUB-03 — six white cards, one gradient icon tile per competency (D-96).
@@ -33,10 +35,11 @@ function resolvePictogram(cle: string | null) {
   return null;
 }
 
-async function Competences() {
+async function Competences({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
   const [sectionResult, itemsResult] = await Promise.all([
-    getSection("competences"),
-    getSectionItems("competences"),
+    getSection("competences", locale),
+    getSectionItems("competences", locale),
   ]);
 
   if (!sectionResult.ok || !itemsResult.ok) {
@@ -121,7 +124,7 @@ async function Competences() {
           </Button>
           <Button
             variant="outline"
-            render={<Link href="/formation#programme" />}
+            render={<Link href={`${localizedPath("/formation", locale)}#programme`} />}
             nativeButton={false}
             className="min-h-11 border-[var(--glass-line)] bg-[var(--glass)] text-white hover:bg-[var(--glass-2)] hover:text-white"
           >

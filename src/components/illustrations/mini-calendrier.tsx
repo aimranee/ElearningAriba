@@ -1,6 +1,7 @@
 import agenda from "@/locales/fr/agenda.json";
-import landing from "@/locales/fr/landing.json";
-import { formatMinutes } from "@/lib/i18n/fr";
+import { formatMinutes, initialesJoursSemaine } from "@/lib/i18n/fr";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 /* why: 21 cells, decoration only — never derived from date logic (D-45/D-66).
    Literal per the maquette's three rows: row 1 = on, empty, on, on, empty,
@@ -16,9 +17,13 @@ const SLOT_STATES: readonly ("on" | "pick" | "")[] = [
  * The cta-final decorative mini-calendar (brief §C-07, maquette `.cal`):
  * pure server-rendered illustration mirroring `flux-achat.tsx`'s shape —
  * `aria-hidden`, no fetch, no date/seat-count content, only reused strings.
+ * (#22) agenda.json supplies only the call's length, as in aide-rdv.tsx; its
+ * label is landing copy in the page's language.
  */
-function MiniCalendrier() {
+function MiniCalendrier({ locale }: { locale: Locale }) {
+  const landing = getMessages(locale, "landing");
   const decouverte = agenda.typesRendezVous[0];
+  const jours = initialesJoursSemaine(locale);
   const panneauTitre = landing.formatModalites.apercu.panneaux[0]?.titre;
   const confirme = landing.formatModalites.apercu.confirme;
   const conclusion = landing.ctaFinal.etapes.items[1]?.description;
@@ -33,19 +38,15 @@ function MiniCalendrier() {
         <b className="font-heading text-[length:var(--text-body)] font-bold">{panneauTitre}</b>
         {decouverte ? (
           <span className="inline-flex items-center gap-[0.4rem] rounded-full bg-[var(--lav)] px-[0.65rem] py-[0.3rem] text-[length:var(--text-micro)] font-extrabold text-[var(--deep)]">
-            {decouverte.libelle} · {formatMinutes(decouverte.dureeMinutes)}
+            {landing.rdvDecouverte.libelle} · {formatMinutes(decouverte.dureeMinutes, locale)}
           </span>
         ) : null}
       </div>
 
       <div className="mt-4 grid grid-cols-7 gap-[0.4rem] text-center text-[length:var(--text-micro)] font-bold text-[var(--muted2)]">
-        <span>L</span>
-        <span>M</span>
-        <span>M</span>
-        <span>J</span>
-        <span>V</span>
-        <span>S</span>
-        <span>D</span>
+        {jours.map((jour, index) => (
+          <span key={index}>{jour}</span>
+        ))}
       </div>
 
       <div className="mt-2 grid grid-cols-7 gap-[0.4rem]">

@@ -51,6 +51,7 @@ interface Apercu {
   nonContractuel: string;
   frameLabel: string;
   ceQuiEstFourni: string;
+  derouleLabel: string;
 }
 
 interface FourniLigne {
@@ -75,7 +76,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
     <div>
       <div className="mt-10 grid items-start gap-[clamp(2rem,4vw,3.5rem)] lg:grid-cols-[0.92fr_1.08fr]">
         <div>
-          <ol role="tablist" aria-label="Déroulé d'une session" className="flex flex-col gap-[0.3rem]">
+          <ol role="tablist" aria-label={apercu.derouleLabel} className="flex flex-col gap-[0.3rem]">
             {deroule.map((etape, index) => {
               const isSelected = selected === index;
               return (

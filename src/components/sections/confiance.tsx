@@ -7,8 +7,9 @@ import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { ConfianceFaits } from "@/components/motion/confiance-faits";
 import { getSection, getConfianceFaits } from "@/lib/content/queries";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /* why: the three faits carry generic marks (phone/check/users), the same
    class pictograms.tsx's header reserves for lucide-react at the call site
@@ -33,10 +34,12 @@ const CONFIANCE_TEINTES: Record<string, { ta: string; tb: string }> = {
  * outlined photo placeholder (D-63). Server component; the toggle mechanism
  * alone lives in the client island ConfianceFaits.
  */
-async function Confiance() {
+async function Confiance({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
   const [sectionResult, faitsResult] = await Promise.all([
-    getSection("confiance"),
-    getConfianceFaits(),
+    getSection("confiance", locale),
+    getConfianceFaits(locale),
   ]);
 
   if (!sectionResult.ok || !faitsResult.ok) {
@@ -94,7 +97,7 @@ async function Confiance() {
               ))}
             </ul>
             <Link
-              href="/a-propos"
+              href={localizedPath("/a-propos", locale)}
               className="mt-auto inline-flex w-fit min-h-11 items-center text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--violet)] underline underline-offset-2"
             >
               {formateur.lienLabel}
@@ -107,9 +110,12 @@ async function Confiance() {
           const Icon = CONFIANCE_ICONS[fait.cle];
           // D-28: the discovery-call proof link points to the booking flow
           // (/reservation), not /contact — a call-site override, the
-          // seed/JSON value is left untouched.
+          // seed/JSON value is left untouched. (#22) The seeded href is a
+          // French path, shown in the page's language when it has a copy.
           const preuveLienHref =
-            fait.cle === "appel-decouverte" ? "/reservation" : fait.preuveLienHref;
+            fait.cle === "appel-decouverte"
+              ? "/reservation"
+              : fait.preuveLienHref && localizedPath(fait.preuveLienHref, locale);
           return {
             id: fait.id,
             cle: fait.cle,

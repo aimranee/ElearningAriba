@@ -1,7 +1,7 @@
 import { CircleCheck, FileText, Package, Receipt } from "lucide-react";
 
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 /* why: the serpentine path is drawn twice — once as a plain hairline rail,
    once as the animated gradient dash — and reused a third time by the
@@ -30,7 +30,9 @@ const FLUX_NODES = [
  * strings, registered in `landing.json` per brief §E). This panel is the
  * page's sole `--shadow-4` surface (D-68).
  */
-function FluxAchat() {
+function FluxAchat({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
   const etapes = landing.hero.flux.etapes;
   const assemblage = common.assemblage;
   const apercu = landing.formatModalites.apercu;

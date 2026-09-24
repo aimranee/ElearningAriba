@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { getSection } from "@/lib/content/queries";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /**
  * PUB-07 (final CTA half) — the outer gradient panel keeps `--shadow-brand`
@@ -19,8 +21,9 @@ import common from "@/locales/fr/common.json";
  * retired for good (D-66): no price, no formula, no payment provider name
  * (D-45).
  */
-async function CtaFinal() {
-  const sectionResult = await getSection("cta-final");
+async function CtaFinal({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const sectionResult = await getSection("cta-final", locale);
 
   if (!sectionResult.ok) {
     return (
@@ -77,7 +80,7 @@ async function CtaFinal() {
                 {common.actions.reserver}
               </Button>
               <Button
-                render={<Link href="/formation#programme" />}
+                render={<Link href={`${localizedPath("/formation", locale)}#programme`} />}
                 nativeButton={false}
                 variant="outline"
                 size="lg"
@@ -88,7 +91,7 @@ async function CtaFinal() {
             </div>
           </div>
 
-          <MiniCalendrier />
+          <MiniCalendrier locale={locale} />
         </div>
       </Reveal>
     </Section>

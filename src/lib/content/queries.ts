@@ -25,7 +25,8 @@ export type QueryResult<T> = { ok: true; data: T } | { ok: false };
 
 /* why (#17): `locale` defaults to French, so every French caller and its
    query stay as they were; English reads the same rows and falls back to
-   French field by field (localize.ts). */
+   French field by field (localize.ts). (#22) The landing's helpers below
+   take the same optional locale. */
 export async function getSection(
   cle: string,
   locale: Locale = "fr",
@@ -110,8 +111,10 @@ const fourniDonneesSchema = z.object({
  * read failure, not a valid empty list — a "how it runs" section with zero
  * steps is a defect (D-57).
  */
-export async function getFormationDeroule(): Promise<QueryResult<string[]>> {
-  const result = await getSectionItems("page-formation");
+export async function getFormationDeroule(
+  locale: Locale = "fr",
+): Promise<QueryResult<string[]>> {
+  const result = await getSectionItems("page-formation", locale);
   if (!result.ok) {
     return result;
   }
@@ -134,10 +137,10 @@ export async function getFormationDeroule(): Promise<QueryResult<string[]>> {
  * read/parse itself fails the whole result — a missing `prerequis` or
  * `dureeAcces` degrades silently for the caller.
  */
-export async function getFormationFourni(): Promise<
-  QueryResult<{ fourni: string[]; prerequis?: string; dureeAcces?: string }>
-> {
-  const result = await getSectionItems("page-formation");
+export async function getFormationFourni(
+  locale: Locale = "fr",
+): Promise<QueryResult<{ fourni: string[]; prerequis?: string; dureeAcces?: string }>> {
+  const result = await getSectionItems("page-formation", locale);
   if (!result.ok) {
     return result;
   }
@@ -175,8 +178,10 @@ export type ConfianceFait = {
   preuveLienLabel?: string;
 };
 
-export async function getConfianceFaits(): Promise<QueryResult<ConfianceFait[]>> {
-  const result = await getSectionItems("confiance");
+export async function getConfianceFaits(
+  locale: Locale = "fr",
+): Promise<QueryResult<ConfianceFait[]>> {
+  const result = await getSectionItems("confiance", locale);
   if (!result.ok) {
     return result;
   }
@@ -210,8 +215,8 @@ export async function getConfianceFaits(): Promise<QueryResult<ConfianceFait[]>>
   return { ok: true, data: faits };
 }
 
-export async function getModules(): Promise<QueryResult<ModuleContent[]>> {
-  const result = await getSectionItems("programme");
+export async function getModules(locale: Locale = "fr"): Promise<QueryResult<ModuleContent[]>> {
+  const result = await getSectionItems("programme", locale);
   if (!result.ok) {
     return result;
   }

@@ -12,8 +12,9 @@ import {
 import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { getSection, getSectionItems } from "@/lib/content/queries";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /* why: `donnees` is jsonb — validated at the read boundary (CLAUDE.md)
    rather than trusted unchecked; a malformed row is dropped instead of
@@ -31,10 +32,12 @@ type FaqEntry = { id: string; question: string; reponse: string };
  * markup. Scale copied literally from `programme-accordion.tsx` (D-70): no
  * new design value invented here. First entry opens on load.
  */
-async function Faq() {
+async function Faq({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
   const [sectionResult, itemsResult] = await Promise.all([
-    getSection("faq"),
-    getSectionItems("faq"),
+    getSection("faq", locale),
+    getSectionItems("faq", locale),
   ]);
 
   if (!sectionResult.ok || !itemsResult.ok) {
@@ -70,7 +73,7 @@ async function Faq() {
           <p className="mt-6 text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--muted-ink)]">
             {landing.faq.cloture.question}{" "}
             <Link
-              href="/contact"
+              href={localizedPath("/contact", locale)}
               className="font-semibold text-[var(--deep)] underline underline-offset-4 hover:text-[var(--violet-ink)]"
             >
               {landing.faq.cloture.lien}

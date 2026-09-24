@@ -14,8 +14,8 @@ import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
 import { formatHours } from "@/lib/i18n/fr";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 /**
  * PUB-04 — five programme modules read from `getModules()`, rendered through
@@ -23,12 +23,14 @@ import landing from "@/locales/fr/landing.json";
  * opens by default. Below it, a ghost PDF-download CTA (route built in
  * 02-08, D-24 label) and a primary reservation CTA (D-12 magnetic).
  */
-async function ProgrammeAccordion() {
+async function ProgrammeAccordion({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
   const [sectionResult, modulesResult, itemsResult, pdfResult] = await Promise.all([
-    getSection("programme"),
-    getModules(),
-    getSectionItems("programme"),
-    getSectionItems("page-programme"),
+    getSection("programme", locale),
+    getModules(locale),
+    getSectionItems("programme", locale),
+    getSectionItems("page-programme", locale),
   ]);
 
   if (!sectionResult.ok || !modulesResult.ok || !itemsResult.ok) {
@@ -92,7 +94,7 @@ async function ProgrammeAccordion() {
                       {module.titre}
                     </span>
                     <span className="hidden shrink-0 rounded-full bg-[var(--lav)] px-[0.7rem] py-[0.32rem] text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-[var(--deep)] tabular-nums sm:inline-block">
-                      {formatHours(module.dureeHeures)}
+                      {formatHours(module.dureeHeures, locale)}
                     </span>
                   </AccordionTrigger>
                 </AccordionHeader>

@@ -9,8 +9,9 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { FluxAchat } from "@/components/illustrations/flux-achat";
 import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
 import { formatHours, formatNumber } from "@/lib/i18n/fr";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /* why: the three proof-line facts (D-103) now render as an icon list
    (brief §C-01) — one lucide icon per fact, matched 1:1 by array index to
@@ -22,18 +23,11 @@ const PROOF_ICONS = [Calendar, UserCheck, Users] as const;
 // (content_item.description) — the typewriter here cycles the short form of
 // the same competency term, not the sentence. Keyed by content_item.cle (not
 // array index) so a reorder in the database can't silently mismatch. The
-// first item's cle ("ecosysteme-ariba") is load-bearing: hero.tsx:83 takes
+// first item's cle ("ecosysteme-ariba") is load-bearing: the hero takes
 // words[0] as the resting word that splits the signed accroche around
 // "SAP Ariba" — changing that item's cle or dropping its word regresses the
-// H1 split silently.
-const TYPEWRITER_WORDS: Record<string, string> = {
-  "ecosysteme-ariba": "SAP Ariba",
-  "procure-to-pay": "Procure-to-Pay",
-  "source-to-pay": "Source-to-Pay",
-  "rfq-rfp": "les RFQ et RFP",
-  "gestion-catalogues": "les catalogues",
-  "certification": "la certification",
-};
+// H1 split silently. (#22) The words are copy, in landing.json
+// `hero.typewriter`, one set per language.
 
 /**
  * The v3 "Le parcours" hero (brief §C-01), read end to end from Supabase
@@ -44,11 +38,14 @@ const TYPEWRITER_WORDS: Record<string, string> = {
  * account. Own dot-grid + glow pseudo-layers on `data-slot="hero"` (no
  * per-section wash elsewhere, D-20).
  */
-async function Hero() {
+async function Hero({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
+  const typewriterWords: Record<string, string> = landing.hero.typewriter;
   const [sectionResult, competencesResult, modulesResult] = await Promise.all([
-    getSection("hero"),
-    getSectionItems("competences"),
-    getModules(),
+    getSection("hero", locale),
+    getSectionItems("competences", locale),
+    getModules(locale),
   ]);
 
   if (!sectionResult.ok || !competencesResult.ok || !modulesResult.ok) {
@@ -66,7 +63,7 @@ async function Hero() {
   const accroche = sectionResult.data.titre;
   const sousTitre = sectionResult.data.lead ?? "";
   const words = competencesResult.data
-    .map((item) => TYPEWRITER_WORDS[item.cle])
+    .map((item) => typewriterWords[item.cle])
     .filter((word): word is string => Boolean(word));
 
   // Split the signed accroche around its own resting word so the fixed
@@ -93,8 +90,8 @@ async function Hero() {
   const moduleCount = modulesResult.data.length;
   const totalHours = modulesResult.data.reduce((sum, module) => sum + module.dureeHeures, 0);
   const preuveModules = landing.hero.preuve.modules
-    .replace("{modules}", formatNumber(moduleCount))
-    .replace("{heures}", formatHours(totalHours));
+    .replace("{modules}", formatNumber(moduleCount, locale))
+    .replace("{heures}", formatHours(totalHours, locale));
   const preuve = [preuveModules, landing.hero.preuve.formateur, landing.hero.preuve.groupe];
 
   return (
@@ -160,7 +157,7 @@ async function Hero() {
               {common.actions.prendreRdv}
             </Button>
             <Button
-              render={<Link href="/formation#programme" />}
+              render={<Link href={`${localizedPath("/formation", locale)}#programme`} />}
               nativeButton={false}
               variant="outline"
               size="lg"
@@ -189,7 +186,7 @@ async function Hero() {
         </div>
 
         <Reveal as="div" dataD={2} className="relative min-w-0">
-          <FluxAchat />
+          <FluxAchat locale={locale} />
         </Reveal>
       </div>
     </section>

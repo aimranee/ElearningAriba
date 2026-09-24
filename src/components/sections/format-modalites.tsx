@@ -9,8 +9,8 @@ import {
   getSectionItems,
 } from "@/lib/content/queries";
 import { formatHours, formatNumber } from "@/lib/i18n/fr";
-import common from "@/locales/fr/common.json";
-import landing from "@/locales/fr/landing.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 /**
  * PUB-05 — the section renders `tone="default"` (transparent), alternating
@@ -21,14 +21,16 @@ import landing from "@/locales/fr/landing.json";
  * columns. The deroule *is* the section — an empty/missing read renders the
  * D-32 error state, same as the other four reads below.
  */
-async function FormatModalites() {
+async function FormatModalites({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const landing = getMessages(locale, "landing");
   const [sectionResult, itemsResult, derouleResult, fourniResult, modulesResult] =
     await Promise.all([
-      getSection("format-modalites"),
-      getSectionItems("format-modalites"),
-      getFormationDeroule(),
-      getFormationFourni(),
-      getModules(),
+      getSection("format-modalites", locale),
+      getSectionItems("format-modalites", locale),
+      getFormationDeroule(locale),
+      getFormationFourni(locale),
+      getModules(locale),
     ]);
 
   if (
@@ -56,8 +58,8 @@ async function FormatModalites() {
   const moduleCount = modules.length;
   const totalHours = modules.reduce((sum, module) => sum + module.dureeHeures, 0);
   const resume = common.formatModalitesAside.resume
-    .replace("{modules}", formatNumber(moduleCount))
-    .replace("{heures}", formatHours(totalHours));
+    .replace("{modules}", formatNumber(moduleCount, locale))
+    .replace("{heures}", formatHours(totalHours, locale));
 
   const introItem = items.find((item) => item.cle === "formations-live");
   const futurItem = items.find((item) => item.statut === "futur");

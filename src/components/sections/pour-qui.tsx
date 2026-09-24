@@ -6,7 +6,9 @@ import { EmptyState, EmptyStateDescription } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
 import { pictograms, type PictogramName } from "@/components/icons/pictograms";
 import { getSection, getSectionItems, profilDonneesSchema } from "@/lib/content/queries";
-import common from "@/locales/fr/common.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 
 /**
  * PUB-02 — five intention cards read from `pour-qui`. Uniform-width 3+2 grid
@@ -27,10 +29,12 @@ const PROFIL_ACCENTS: Record<string, { tileA: string; tileB: string; ink: string
   etudiant: { tileA: "var(--amber-ink)", tileB: "var(--coral-ink)", ink: "var(--amber-ink)" },
 };
 
-async function PourQui() {
+async function PourQui({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const programmeHref = `${localizedPath("/formation", locale)}#programme`;
   const [sectionResult, itemsResult] = await Promise.all([
-    getSection("pour-qui"),
-    getSectionItems("pour-qui"),
+    getSection("pour-qui", locale),
+    getSectionItems("pour-qui", locale),
   ]);
 
   if (!sectionResult.ok || !itemsResult.ok) {
@@ -71,7 +75,7 @@ async function PourQui() {
               className={index < 3 ? "lg:col-span-2" : "lg:col-span-3"}
             >
               <Link
-                href="/formation#programme"
+                href={programmeHref}
                 className="group block h-full"
                 aria-label={hasAccroche ? `${accroche} — ${titre}` : titre}
               >
