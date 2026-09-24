@@ -208,3 +208,24 @@ const enMoisAnneeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(EN_LOC
 export function formatMoisAnnee(value: Date, locale: Locale = "fr"): string {
   return locale === "en" ? enMoisAnneeFormatter.format(value) : moisAnneeFormatter.format(value);
 }
+
+/* why (#22): the landing's decorative mini-calendar heads its week with one
+   letter per day, Monday first — L M M J V S D in French, M T W T F S S in
+   English. The letters come from Intl like every other date part; the
+   reference week (Monday 5 January 2026, noon UTC) is fixed, never "today". */
+const SEMAINE_REFERENCE: readonly Date[] = Array.from(
+  { length: 7 },
+  (_, index) => new Date(Date.UTC(2026, 0, 5 + index, 12)),
+);
+
+function initialesJours(locale: string): string[] {
+  const formatter = new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, weekday: "narrow" });
+  return SEMAINE_REFERENCE.map((day) => formatter.format(day));
+}
+
+const INITIALES_JOURS_FR: readonly string[] = initialesJours(LOCALE);
+const INITIALES_JOURS_EN: readonly string[] = initialesJours(EN_LOCALE);
+
+export function initialesJoursSemaine(locale: Locale = "fr"): readonly string[] {
+  return locale === "en" ? INITIALES_JOURS_EN : INITIALES_JOURS_FR;
+}

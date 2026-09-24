@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { formatHours, formatMinutes, formatMoisAnnee, formatNumber } from "./fr";
+import {
+  formatHours,
+  formatMinutes,
+  formatMoisAnnee,
+  formatNumber,
+  initialesJoursSemaine,
+} from "./fr";
 
 /**
  * Pins formatHours (fr.ts:91) against today's rendering. The function
@@ -109,5 +115,18 @@ describe("formatMoisAnnee", () => {
 
   it("renders French unchanged", () => {
     expect(formatMoisAnnee(new Date("2026-06-15"))).toBe("juin 2026");
+  });
+});
+
+// why (#22): the landing's decorative mini-calendar heads its week with one
+// letter per day, Monday first.
+describe("initialesJoursSemaine", () => {
+  it("renders the French week as the landing always showed it", () => {
+    expect(initialesJoursSemaine()).toEqual(["L", "M", "M", "J", "V", "S", "D"]);
+    expect(initialesJoursSemaine("fr")).toEqual(["L", "M", "M", "J", "V", "S", "D"]);
+  });
+
+  it("renders the English week, Monday first", () => {
+    expect(initialesJoursSemaine("en")).toEqual(["M", "T", "W", "T", "F", "S", "S"]);
   });
 });
