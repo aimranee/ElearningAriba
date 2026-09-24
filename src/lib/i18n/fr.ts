@@ -5,8 +5,16 @@
  * must format through these constants or the helpers below.
  */
 
+import type { Locale } from "@/lib/i18n/locale";
+
 export const LOCALE = "fr-FR" as const;
 export const TIME_ZONE = "Europe/Paris" as const;
+
+/* why (#17, #21): the English site formats in British English. Each helper
+   below that an English page uses takes an optional locale; French is the
+   default, so every existing call site and its output stay exactly as they
+   were. */
+export const EN_LOCALE = "en-GB" as const;
 
 export const dateFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   LOCALE,
@@ -76,8 +84,10 @@ export function formatDateTime(date: Date): string {
   return dateTimeFormatter.format(date);
 }
 
-export function formatNumber(value: number): string {
-  return numberFormatter.format(value);
+const enNumberFormatter: Intl.NumberFormat = new Intl.NumberFormat(EN_LOCALE);
+
+export function formatNumber(value: number, locale: Locale = "fr"): string {
+  return locale === "en" ? enNumberFormatter.format(value) : numberFormatter.format(value);
 }
 
 export function formatCurrency(value: number): string {
@@ -88,7 +98,37 @@ export function formatTime(date: Date): string {
   return timeFormatter.format(date);
 }
 
-export function formatHours(value: number): string {
+/* why (#21, CTO decision 2026-09-24): CLDR's en-GB units read "1 hr" and
+   "30 mins", not the SI symbols. The English site keeps the symbols the
+   French renders and spells the minutes — "1 h 30 min", "2 h", "30 min" —
+   so they are composed here, never at a call site. "h" and "min" are SI
+   unit symbols, the same in both languages, not translatable copy. A
+   no-break space holds each number to its symbol; the two groups are
+   joined by a plain space. */
+const EN_HOUR_SYMBOL = "h";
+const EN_MINUTE_SYMBOL = "min";
+
+function formatEnUnit(value: number, symbol: string): string {
+  return `${enNumberFormatter.format(value)} ${symbol}`;
+}
+
+function formatHoursEn(value: number): string {
+  let whole = Math.trunc(value);
+  let minutes = Math.round((value - whole) * 60);
+  if (minutes === 60) {
+    whole += 1;
+    minutes = 0;
+  }
+  const groups: string[] = [];
+  if (whole > 0 || minutes === 0) groups.push(formatEnUnit(whole, EN_HOUR_SYMBOL));
+  if (minutes > 0) groups.push(formatEnUnit(minutes, EN_MINUTE_SYMBOL));
+  return groups.join(" ");
+}
+
+export function formatHours(value: number, locale: Locale = "fr"): string {
+  if (locale === "en") {
+    return formatHoursEn(value);
+  }
   if (Number.isInteger(value)) {
     return hourFormatter.format(value);
   }
@@ -97,7 +137,10 @@ export function formatHours(value: number): string {
   return `${hourFormatter.format(whole)} ${String(minutes).padStart(2, "0")}`;
 }
 
-export function formatMinutes(value: number): string {
+export function formatMinutes(value: number, locale: Locale = "fr"): string {
+  if (locale === "en") {
+    return formatEnUnit(value, EN_MINUTE_SYMBOL);
+  }
   return minuteFormatter.format(value);
 }
 
@@ -156,6 +199,12 @@ export const moisAnneeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   },
 );
 
-export function formatMoisAnnee(value: Date): string {
-  return moisAnneeFormatter.format(value);
+const enMoisAnneeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(EN_LOCALE, {
+  timeZone: TIME_ZONE,
+  month: "long",
+  year: "numeric",
+});
+
+export function formatMoisAnnee(value: Date, locale: Locale = "fr"): string {
+  return locale === "en" ? enMoisAnneeFormatter.format(value) : moisAnneeFormatter.format(value);
 }
