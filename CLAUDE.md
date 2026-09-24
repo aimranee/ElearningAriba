@@ -65,7 +65,7 @@ cadrage") — decided in Lot 1.
 
 - In all interactions and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
 - At the end of each plan, list unresolved questions (extremely concise).
-- DO NOT write tests unless explicitly requested
+- Write tests for a ticket's acceptance criteria — the ticket is the request
 - DO NOT run dev server — assume already running
 - Add code comments sparingly — focus on "why", not "what"
 - Use GitHub CLI for all GitHub interactions
