@@ -9,7 +9,7 @@ platform — the learner creates an account, books and pays for a slot in the
 trainer's calendar, and follows their progression. A French back-office runs
 availability, sessions, attendance and payments.
 
-Remote `github.com/aimranee/ElearningAriba.git`, default branch `main`, private.
+Remote `github.com/aimranee/ElearningAriba.git`, default branch `master`, private.
 It sits inside the workspace repo, which ignores it — two separate histories.
 Never commit product code to the parent.
 
@@ -65,7 +65,7 @@ cadrage") — decided in Lot 1.
 
 - In all interactions and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
 - At the end of each plan, list unresolved questions (extremely concise).
-- DO NOT write tests unless explicitly requested
+- Write tests for a ticket's acceptance criteria — the ticket is the request
 - DO NOT run dev server — assume already running
 - Add code comments sparingly — focus on "why", not "what"
 - Use GitHub CLI for all GitHub interactions
@@ -80,9 +80,16 @@ Format: `#<type>: <one sentence>`
 Example: `#feat: add agenda slot picker`
 Types: feat / fix / refactor / chore / docs
 
-## Developer Profile
+## Agent skills
 
-<!-- GSD:profile-start -->
-> Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.
-> This section is managed by `generate-claude-profile` -- do not edit manually.
-<!-- GSD:profile-end -->
+### Issue tracker
+
+Issues live as GitHub issues on `aimranee/ElearningWorkspace`, driven with the `gh` CLI. Every `gh issue` command carries `-R aimranee/ElearningWorkspace`. See `docs/agents/issue-tracker.md` — a verbatim copy of the workspace's canonical file (`../docs/agents/issue-tracker.md`); edit the workspace copy first.
+
+### Triage labels
+
+Default vocabulary — each label string equals its canonical role name. See `docs/agents/triage-labels.md` — a verbatim copy of the workspace's canonical file (`../docs/agents/triage-labels.md`); edit the workspace copy first.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.

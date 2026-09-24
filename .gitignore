@@ -50,9 +50,6 @@ Desktop.ini
 supabase/.temp/
 supabase/.branches/
 
-# Internal tooling output (never ships to the client-owned repo)
-.gsd-headless/
-
 # Orphaned agent worktrees — noise in git status, not project state
 .claude/worktrees/
 
