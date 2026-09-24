@@ -20,6 +20,9 @@
     { "file": "common.json", "key": "footer.baseline", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
     { "file": "common.json", "key": "hero.chips.1", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
     { "file": "formation.json", "key": "modalites.0.description", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
-    { "file": "landing.json", "key": "formatModalites.items.0.description", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" }
+    { "file": "landing.json", "key": "formatModalites.items.0.description", "blocks": "CADR-03", "awaiting": "C-01 — demandes-client.md" },
+    { "file": "formation.json", "key": "temoignages.0", "blocks": "C-27", "awaiting": "C-27 — demandes-client.md" },
+    { "file": "formation.json", "key": "temoignages.1", "blocks": "C-27", "awaiting": "C-27 — demandes-client.md" },
+    { "file": "formation.json", "key": "temoignages.2", "blocks": "C-27", "awaiting": "C-27 — demandes-client.md" }
   ]
 }

@@ -249,6 +249,10 @@ async function main() {
     position: index + 1,
   }));
 
+  // why (#27): the cadrage's § 3.2 « Objectif pédagogique » and § 3.3 « Cas
+  // pratique » ride the same page-programme rows as the module content —
+  // the Formation page validates them at its read boundary and tolerates
+  // rows that do not carry them yet.
   const pageProgrammeItems = programme.modules.map((module, index) => ({
     section_cle: "page-programme",
     cle: slugify(module.titre),
@@ -257,6 +261,8 @@ async function main() {
     donnees: {
       objectifs: module.objectifs,
       contenu: module.contenu,
+      objectifPedagogique: module.objectifPedagogique,
+      casPratique: module.casPratique,
     },
     position: index + 1,
   }));
@@ -327,6 +333,16 @@ async function main() {
     position: pageFormationModaliteItems.length + 2,
   };
 
+  // why (#27): the § 4.1 facts of the cadrage (format, pedagogy split,
+  // session length) are content, not chrome — seeded like deroule and
+  // fourni so the Formation header's facts strip reads the database.
+  const pageFormationChiffresItem = {
+    section_cle: "page-formation",
+    cle: "chiffres",
+    donnees: formation.chiffres,
+    position: pageFormationModaliteItems.length + 3,
+  };
+
   // why: same gap as page-formation (02-02-SUMMARY.md) — page-a-propos had a
   // content_section row and no content_item rows. The three narrative blocks
   // (parcours, légitimité, approche) become items; the JSON carries no
@@ -351,6 +367,7 @@ async function main() {
     ...pageFormationModaliteItems,
     pageFormationDerouleItem,
     pageFormationFourniItem,
+    pageFormationChiffresItem,
     ...pageAProposItems,
   ]);
 

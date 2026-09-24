@@ -7,6 +7,8 @@
     {
       "titre": "Prise en main de SAP Ariba",
       "duree": 1.5,
+      "objectifPedagogique": "Maîtriser l'environnement SAP Ariba et naviguer efficacement dans l'outil",
+      "casPratique": "Réaliser une première navigation dans SAP Ariba et retrouver les informations nécessaires à une demande d'achat.",
       "objectifs": [
         "Comprendre l'environnement et les principaux modules",
         "Naviguer efficacement dans l'outil",
@@ -22,6 +24,8 @@
     {
       "titre": "Gérer le processus achats",
       "duree": 3,
+      "objectifPedagogique": "Réaliser les principales opérations achats dans SAP Ariba",
+      "casPratique": "Traiter une demande d'achat de bout en bout, de sa création jusqu'au suivi de la commande.",
       "objectifs": [
         "Créer et gérer une demande d'achat",
         "Construire et suivre une commande",
@@ -38,6 +42,8 @@
     {
       "titre": "Gérer les fournisseurs",
       "duree": 2,
+      "objectifPedagogique": "Assurer un suivi efficace des fournisseurs dans SAP Ariba",
+      "casPratique": "Rechercher un fournisseur, consulter ses informations et vérifier les éléments nécessaires à une commande.",
       "objectifs": [
         "Rechercher et gérer les fournisseurs",
         "Suivre les informations et documents fournisseurs",
@@ -53,6 +59,8 @@
     {
       "titre": "Piloter et suivre les achats",
       "duree": 2,
+      "objectifPedagogique": "Améliorer la visibilité et le pilotage des activités achats",
+      "casPratique": "Analyser le suivi de plusieurs commandes, identifier une anomalie et déterminer les actions à mener.",
       "objectifs": [
         "Suivre les commandes et les engagements",
         "Identifier les blocages et anomalies",
@@ -70,6 +78,8 @@
     {
       "titre": "Optimiser sa pratique au quotidien",
       "duree": 1.5,
+      "objectifPedagogique": "Gagner en rapidité, autonomie et fiabilité dans l'utilisation de SAP Ariba",
+      "casPratique": "Résoudre un cas complet d'achat en appliquant les bonnes pratiques pour gagner en rapidité et fiabilité.",
       "objectifs": [
         "Réduire les erreurs et les ressaisies",
         "Accélérer le traitement des demandes et commandes",

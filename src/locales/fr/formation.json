@@ -25,5 +25,61 @@
       "description": "Des compléments vidéo sont à l'étude pour une prochaine version — non inclus à ce jour.",
       "statut": "futur"
     }
-  ]
+  ],
+  "chiffres": {
+    "enDirect": "En direct, en visioconférence",
+    "pedagogie": "30 % théorie · 70 % pratique",
+    "seance": "1 h 30 par séance"
+  },
+  "faits": {
+    "parcours": "Parcours",
+    "parcoursValeur": "{modules} modules · {heures}",
+    "format": "Format",
+    "pedagogie": "Pédagogie",
+    "seance": "Séance"
+  },
+  "programme": {
+    "module": "Module {n}",
+    "casPratique": "Cas pratique",
+    "objectifsDetail": "Objectifs détaillés"
+  },
+  "derouleTitre": "Le déroulé d'une session",
+  "fourniTitre": "Ce qui est fourni",
+  "aVenir": "À venir",
+  "temoignagesTitre": "Ils ont suivi la formation",
+  "noteSur": "Note : {note} sur 5",
+  "temoignages": [
+    {
+      "prenom": "Claire",
+      "initiale": "M",
+      "role": "Acheteuse, secteur industriel",
+      "date": "2026-06-15",
+      "note": 5,
+      "citation": "Les cas pratiques en fin de module m'ont permis de refaire mes demandes d'achat dans Ariba dès le lendemain. Le direct change tout : on pose la question au moment où elle se pose."
+    },
+    {
+      "prenom": "Karim",
+      "initiale": "B",
+      "role": "Category manager",
+      "date": "2026-07-15",
+      "note": 5,
+      "citation": "Une formation qui va droit au geste métier. Le suivi des fournisseurs et le pilotage des commandes sont devenus clairs, sans jargon inutile."
+    },
+    {
+      "prenom": "Sophie",
+      "initiale": "L",
+      "role": "Consultante SAP Ariba junior",
+      "date": "2026-09-15",
+      "note": 5,
+      "citation": "Cinq modules dans l'ordre d'un vrai cycle d'achat, avec un formateur qui partage son écran. Je suis arrivée sans prérequis, je repars autonome."
+    }
+  ],
+  "aide": {
+    "titre": "Un doute sur le format ?",
+    "texte": "Appel découverte gratuit, {duree}, sans engagement"
+  },
+  "bandeau": {
+    "titre": "Prêt à démarrer ? Réservez votre appel découverte.",
+    "texte": "{duree} avec le formateur pour vérifier que le programme répond à votre besoin, sans engagement."
+  }
 }

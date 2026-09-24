@@ -143,3 +143,19 @@ export const dateAvecJourFormatter: Intl.DateTimeFormat = new Intl.DateTimeForma
 export function formatDateAvecJour(value: Date): string {
   return dateAvecJourFormatter.format(value);
 }
+
+/* why (#27): a testimonial is dated to the month, never the day — "juin
+   2026", the way a review platform prints it. A hand-assembled month name
+   at the call site would be the same defect class as the hand-written "€". */
+export const moisAnneeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  LOCALE,
+  {
+    timeZone: TIME_ZONE,
+    month: "long",
+    year: "numeric",
+  },
+);
+
+export function formatMoisAnnee(value: Date): string {
+  return moisAnneeFormatter.format(value);
+}

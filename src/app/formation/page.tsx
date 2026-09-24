@@ -1,18 +1,12 @@
 import Link from "next/link";
-import { CheckCircle2, Video, Download, Target, BookOpen } from "lucide-react";
+import { Calendar, CheckCircle2, Download, FileText, Video } from "lucide-react";
 import { z } from "zod";
 
 import common from "@/locales/fr/common.json";
+import formation from "@/locales/fr/formation.json";
 import { getSection, getSectionItems } from "@/lib/content/queries";
 import { Section, SectionHeader } from "@/components/sections/section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   EmptyState,
@@ -20,7 +14,12 @@ import {
   EmptyStateDescription,
 } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/motion/reveal";
-import { formatHours } from "@/lib/i18n/fr";
+import { CarteModule, type ModuleProgramme } from "@/components/formation/carte-module";
+import { AideRdv, RDV_DECOUVERTE_HREF, texteAideRdv } from "@/components/formation/aide-rdv";
+import { BarreRdv } from "@/components/formation/barre-rdv";
+import { BandeauRdv } from "@/components/formation/bandeau-rdv";
+import { Temoignages } from "@/components/formation/temoignages";
+import { formatHours, formatNumber } from "@/lib/i18n/fr";
 
 // why (D-38): keeps the route static/ISR through the cookieless public read
 // client.
@@ -37,11 +36,22 @@ const fourniDonneesSchema = z.object({
   dureeAcces: z.string().optional(),
 });
 
-/* why (Lot 2, #16): the five developed modules, merged in from the former
-   /programme page — same `page-programme` rows, same read-boundary schema. */
+/* why (#27): the § 4.1 facts ride a `chiffres` row; every key is optional so
+   a database that predates the row still renders the header. */
+const chiffresDonneesSchema = z.object({
+  enDirect: z.string().optional(),
+  pedagogie: z.string().optional(),
+  seance: z.string().optional(),
+});
+
+/* why (Lot 2, #16 / #27): the five developed modules — same `page-programme`
+   rows, same read-boundary schema; objectifPedagogique and casPratique are
+   optional so rows that do not carry them yet still render. */
 const moduleDonneesSchema = z.object({
   objectifs: z.array(z.string()).default([]),
   contenu: z.array(z.string()).default([]),
+  objectifPedagogique: z.string().optional(),
+  casPratique: z.string().optional(),
 });
 
 type Modalite = {
@@ -51,13 +61,17 @@ type Modalite = {
   statut: string | null;
 };
 
-type ModuleProgramme = {
-  id: string;
-  titre: string;
-  dureeHeures: number;
-  objectifs: string[];
-  contenu: string[];
-};
+type Fait = { label: string; valeur: string };
+
+/* why (2026-09-01, format-deroule.tsx): the only palette fills that carry a
+   white number at AA — flat, never a gradient, one measurable point. */
+const ETAPE_TEINTES = [
+  "var(--violet)",
+  "var(--deep)",
+  "var(--blue-ink)",
+  "var(--sky-ink)",
+  "var(--mint-ink)",
+] as const;
 
 export default async function Formation() {
   const [sectionResult, itemsResult, programmeSectionResult, programmeItemsResult] =
@@ -94,6 +108,7 @@ export default async function Formation() {
   let fourni: string[] = [];
   let prerequis: string | undefined;
   let dureeAcces: string | undefined;
+  let chiffres: z.infer<typeof chiffresDonneesSchema> = {};
 
   for (const item of itemsResult.data) {
     if (item.cle === "deroule") {
@@ -109,6 +124,13 @@ export default async function Formation() {
         fourni = parsed.data.fourni;
         prerequis = parsed.data.prerequis;
         dureeAcces = parsed.data.dureeAcces;
+      }
+      continue;
+    }
+    if (item.cle === "chiffres") {
+      const parsed = chiffresDonneesSchema.safeParse(item.donnees);
+      if (parsed.success) {
+        chiffres = parsed.data;
       }
       continue;
     }
@@ -139,6 +161,8 @@ export default async function Formation() {
       dureeHeures: item.duree_heures,
       objectifs: parsed.data.objectifs,
       contenu: parsed.data.contenu,
+      objectifPedagogique: parsed.data.objectifPedagogique,
+      casPratique: parsed.data.casPratique,
     });
   }
 
@@ -146,59 +170,115 @@ export default async function Formation() {
     (item) => item.cle === "telecharger-pdf",
   )?.titre;
 
+  const totalHeures = modules.reduce((sum, module) => sum + module.dureeHeures, 0);
+  const faits: Fait[] = [
+    {
+      label: formation.faits.parcours,
+      valeur: formation.faits.parcoursValeur
+        .replace("{modules}", formatNumber(modules.length))
+        .replace("{heures}", formatHours(totalHeures)),
+    },
+  ];
+  if (chiffres.enDirect) faits.push({ label: formation.faits.format, valeur: chiffres.enDirect });
+  if (chiffres.pedagogie) faits.push({ label: formation.faits.pedagogie, valeur: chiffres.pedagogie });
+  if (chiffres.seance) faits.push({ label: formation.faits.seance, valeur: chiffres.seance });
+
   return (
     <>
-      <Section tone="default">
+      {/* 1. Header — eyebrow / title / lead from the page-formation row, the
+          two actions, the facts strip, then the modalités compacted. */}
+      <Section tone="default" data-section="formation-entete">
         <SectionHeader
           eyebrow={section.eyebrow ?? undefined}
           title={section.titre}
           titleAccent={section.titre_accent ?? undefined}
           lead={section.lead ?? undefined}
         />
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Reveal dataD={1} className="mt-8 flex flex-wrap justify-center gap-[0.8rem]">
+          <Button
+            render={<Link href="/reservation" />}
+            nativeButton={false}
+            size="lg"
+            data-magnetic="true"
+            className="min-h-11"
+          >
+            <Calendar aria-hidden="true" />
+            {common.actions.prendreRdv}
+          </Button>
+          <Button
+            render={<a href="#programme" />}
+            nativeButton={false}
+            variant="outline"
+            size="lg"
+            className="min-h-11"
+          >
+            <FileText aria-hidden="true" />
+            {common.actions.voirProgramme}
+          </Button>
+        </Reveal>
+
+        <Reveal
+          as="dl"
+          dataD={2}
+          className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 md:grid-cols-4"
+        >
+          {faits.map((fait) => (
+            <div
+              key={fait.label}
+              className="rounded-[16px] border border-[var(--hairline)] bg-[var(--tint)] px-4 py-3"
+            >
+              <dt className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-bold tracking-[0.14em] text-[var(--muted-ink)] uppercase">
+                {fait.label}
+              </dt>
+              <dd className="mt-1 font-heading text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold text-[var(--ink)]">
+                {fait.valeur}
+              </dd>
+            </div>
+          ))}
+        </Reveal>
+
+        {/* 2. Modalités — every row renders, compactly. */}
+        <div className="mx-auto mt-8 grid max-w-4xl gap-3 md:grid-cols-2">
           {modalites.map((modalite, index) => {
             const isFutur = modalite.statut === "futur";
             return (
-              <Reveal
-                key={modalite.id}
-                dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-              >
-                <Card variant="raised">
-                  <CardHeader className="flex flex-row items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="flex size-[42px] shrink-0 items-center justify-center rounded-[13px]"
-                      style={
-                        isFutur
-                          ? { background: "#FFF4E3", color: "#B4771A" }
-                          : { background: "var(--lav)", color: "var(--deep)" }
-                      }
-                    >
+              <Reveal key={modalite.id} dataD={((index % 5) + 3) as 1 | 2 | 3 | 4 | 5}>
+                <Card variant="tint" className="h-full flex-row items-start gap-3 px-4 py-4">
+                  <span
+                    aria-hidden="true"
+                    className="flex size-[38px] shrink-0 items-center justify-center rounded-[12px]"
+                    style={
+                      isFutur
+                        ? { background: "var(--amber-wash)", color: "var(--amber-ink)" }
+                        : { background: "var(--lav)", color: "var(--deep)" }
+                    }
+                  >
+                    {isFutur ? (
+                      <Video aria-hidden="true" className="size-5" />
+                    ) : (
+                      <CheckCircle2 aria-hidden="true" className="size-5" />
+                    )}
+                  </span>
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-heading text-[length:var(--text-body)] leading-[var(--text-body--line-height)] font-bold text-[var(--ink)]">
+                        {modalite.titre}
+                      </h3>
                       {isFutur ? (
-                        <Video aria-hidden="true" className="size-5" />
-                      ) : (
-                        <CheckCircle2 aria-hidden="true" className="size-5" />
-                      )}
-                    </span>
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2">
-                        <CardTitle>{modalite.titre}</CardTitle>
-                        {isFutur ? (
-                          <span
-                            className="inline-flex items-center rounded-full px-[0.55rem] py-[0.22rem] text-[0.68rem] font-bold uppercase tracking-[0.06em]"
-                            style={{ color: "#B4771A", background: "#FFF4E3" }}
-                          >
-                            À venir
-                          </span>
-                        ) : null}
-                      </div>
-                      {modalite.description ? (
-                        <CardDescription className="px-0">
-                          {modalite.description}
-                        </CardDescription>
+                        <span
+                          className="inline-flex items-center rounded-full px-[0.55rem] py-[0.22rem] text-[0.68rem] leading-none font-bold tracking-[0.06em] uppercase"
+                          style={{ color: "var(--amber-ink)", background: "var(--amber-wash)" }}
+                        >
+                          {formation.aVenir}
+                        </span>
                       ) : null}
                     </div>
-                  </CardHeader>
+                    {modalite.description ? (
+                      <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
+                        {modalite.description}
+                      </p>
+                    ) : null}
+                  </div>
                 </Card>
               </Reveal>
             );
@@ -206,120 +286,123 @@ export default async function Formation() {
         </div>
       </Section>
 
-      {/* why (Lot 2, #16): the merged /programme content — same anchor every
-          "Voir le programme" link on the site now targets. */}
-      <Section id="programme" tone="default">
+      {/* 3. Programme — the anchor every « Voir le programme » link targets.
+          why (#27 § 8): at lg the helper tile sits in a sticky side column
+          beside the cards; below lg it is not rendered and the fixed bottom
+          bar (below md) carries the same call. */}
+      <Section id="programme" tone="wash" data-section="programme">
         <SectionHeader
           eyebrow={programmeSection.eyebrow ?? undefined}
           title={programmeSection.titre}
           titleAccent={programmeSection.titre_accent ?? undefined}
           lead={programmeSection.lead ?? undefined}
         />
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {modules.map((module, index) => (
-            <Reveal
-              key={module.id}
-              dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-            >
-              <Card variant="raised">
-                <CardHeader className="flex flex-row items-center gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,var(--violet),var(--deep))] text-xs font-bold tabular-nums text-white"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <CardTitle className="flex-1">{module.titre}</CardTitle>
-                  <Badge>{formatHours(module.dureeHeures)}</Badge>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-3">
-                  <ul className="flex flex-col gap-1.5 text-sm text-foreground/80">
-                    {module.objectifs.map((objectif) => (
-                      <li key={objectif} className="flex items-start gap-2">
-                        <Target
-                          aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-primary"
-                        />
-                        <span>{objectif}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="flex flex-col gap-1.5 text-sm text-muted-foreground">
-                    {module.contenu.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <BookOpen
-                          aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-muted-foreground"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          {telechargerPdf ? (
-            <Button
-              variant="ghost"
-              render={<a href="/programme.pdf" />}
-              nativeButton={false}
-            >
-              <Download aria-hidden="true" />
-              {telechargerPdf}
-            </Button>
-          ) : null}
-          <Button
-            render={<Link href="/reservation" />}
-            nativeButton={false}
-            data-magnetic="true"
-          >
-            {common.actions.reserver}
-          </Button>
+        <div className="mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-8">
+          <div className="min-w-0">
+            <div className="grid gap-5 md:grid-cols-2">
+              {modules.map((module, index) => (
+                <Reveal key={module.id} dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}>
+                  <CarteModule module={module} index={index} />
+                </Reveal>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              {telechargerPdf ? (
+                <Button
+                  variant="ghost"
+                  render={<a href="/programme.pdf" />}
+                  nativeButton={false}
+                  className="min-h-11"
+                >
+                  <Download aria-hidden="true" />
+                  {telechargerPdf}
+                </Button>
+              ) : null}
+              <Button
+                render={<Link href="/reservation" />}
+                nativeButton={false}
+                data-magnetic="true"
+                className="min-h-11"
+              >
+                {common.actions.reserver}
+              </Button>
+            </div>
+          </div>
+          <AideRdv className="hidden lg:sticky lg:top-[104px] lg:flex" />
         </div>
       </Section>
 
-      <Section tone="wash">
-        <SectionHeader title="Le déroulé d'une session" />
-        <ol className="mx-auto mt-10 flex max-w-2xl flex-col gap-3">
+      {/* 4. Déroulé — the deroule row as a numbered sequence. */}
+      <Section tone="default" data-section="deroule">
+        <SectionHeader title={formation.derouleTitre} />
+        <ol className="relative mx-auto mt-10 flex max-w-2xl flex-col gap-3">
+          <span
+            aria-hidden="true"
+            className="absolute top-6 bottom-6 left-[20px] w-0.5 bg-[linear-gradient(180deg,var(--violet),var(--sky-ink)_60%,var(--mint-ink))]"
+          />
           {deroule.map((etape, index) => (
-            <li key={etape} className="flex items-start gap-3 text-sm text-foreground/80">
+            <Reveal
+              key={etape}
+              as="li"
+              dataD={((index % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+              className="relative grid grid-cols-[42px_minmax(0,1fr)] items-start gap-4"
+            >
               <span
                 aria-hidden="true"
-                className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary"
+                style={{ backgroundColor: ETAPE_TEINTES[index % ETAPE_TEINTES.length] }}
+                className="relative z-[1] flex size-[42px] items-center justify-center rounded-[14px] text-[length:var(--text-micro)] leading-none font-extrabold text-white tabular-nums shadow-[0_0_0_5px_var(--paper)]"
               >
-                {index + 1}
+                {String(index + 1).padStart(2, "0")}
               </span>
-              <span>{etape}</span>
-            </li>
+              <p className="rounded-[18px] border border-[var(--hairline)] bg-white px-5 py-3.5 text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--ink)]">
+                {etape}
+              </p>
+            </Reveal>
           ))}
         </ol>
       </Section>
 
-      <Section tone="default">
-        <SectionHeader title="Ce qui est fourni" />
-        <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-6">
-          <Card variant="raised">
-            <CardHeader className="flex flex-col gap-3">
-              <ul className="flex flex-col gap-1.5 text-sm text-foreground/80">
-                {fourni.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle2
-                      aria-hidden="true"
-                      className="mt-0.5 size-4 shrink-0 text-success"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              {prerequis ? <CardDescription className="px-0">{prerequis}</CardDescription> : null}
-              {dureeAcces ? <CardDescription className="px-0">{dureeAcces}</CardDescription> : null}
-            </CardHeader>
+      {/* 5. Fourni — the fourni row with prerequis and dureeAcces. */}
+      <Section tone="wash" data-section="fourni">
+        <SectionHeader title={formation.fourniTitre} />
+        <Reveal className="mx-auto mt-10 max-w-2xl">
+          <Card variant="raised" className="gap-5 px-6 py-6">
+            <ul className="flex flex-col gap-3">
+              {fourni.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--ink)]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-[0.2rem] flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--mint-ink)] text-white"
+                  >
+                    <CheckCircle2 aria-hidden="true" className="size-[13px]" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            {prerequis || dureeAcces ? (
+              <div className="flex flex-col gap-1.5 border-t border-[var(--hairline)] pt-4 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
+                {prerequis ? <p>{prerequis}</p> : null}
+                {dureeAcces ? <p>{dureeAcces}</p> : null}
+              </div>
+            ) : null}
           </Card>
-        </div>
+        </Reveal>
       </Section>
+
+      {/* 6. Témoignages — placeholder entries, registered under C-27. */}
+      <Temoignages />
+
+      {/* 7. RDV band above the footer. */}
+      <BandeauRdv />
+
+      {/* 8. Sticky RDV below md — last in DOM order so its Tab position sits
+          after the band's actions, where the bar is visible, not at the top
+          of the page where it is hidden. */}
+      <BarreRdv href={RDV_DECOUVERTE_HREF} texte={texteAideRdv()} />
     </>
   );
 }
