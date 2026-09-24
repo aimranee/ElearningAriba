@@ -1,0 +1,85 @@
+{
+  "titre": "The format fits in a few words. Here is how a session actually runs.",
+  "intro": "This training is delivered live, with an expert, not through a recording to watch on your own.",
+  "deroule": [
+    "Join the live session at the time shown on your booked slot",
+    "The trainer presents the module, with live discussion",
+    "Demonstration by the trainer, with screen sharing",
+    "Practical case at the end of the module, completed with the trainer's support",
+    "Time for questions and a wrap-up before the session closes"
+  ],
+  "fourni": [
+    "A downloadable PDF handout for each module",
+    "Access to the learner area to track your progress",
+    "The corrected practical case for each module"
+  ],
+  "prerequis": "No SAP prerequisites are needed to follow this training.",
+  "dureeAcces": "Access to the materials lasts 6 months from the date of the training.",
+  "modalites": [
+    {
+      "titre": "Live training",
+      "description": "Each session is led live by a certified expert."
+    },
+    {
+      "titre": "Videos to come",
+      "description": "Video add-ons are being considered for a future version — not included at this time.",
+      "statut": "futur"
+    }
+  ],
+  "chiffres": {
+    "enDirect": "Live, by video conference",
+    "pedagogie": "30% theory · 70% practice",
+    "seance": "1 h 30 min per session"
+  },
+  "faits": {
+    "parcours": "Learning path",
+    "parcoursValeur": "{modules} modules · {heures}",
+    "format": "Format",
+    "pedagogie": "Teaching",
+    "seance": "Session"
+  },
+  "programme": {
+    "module": "Module {n}",
+    "casPratique": "Practical case",
+    "objectifsDetail": "Detailed objectives"
+  },
+  "derouleTitre": "How a session runs",
+  "fourniTitre": "What is provided",
+  "aVenir": "Coming soon",
+  "temoignagesTitre": "They took the training",
+  "noteSur": "Rating: {note} out of 5",
+  "temoignages": [
+    {
+      "prenom": "Claire",
+      "initiale": "M",
+      "role": "Buyer, industrial sector",
+      "date": "2026-06-15",
+      "note": 5,
+      "citation": "The practical cases at the end of each module let me redo my purchase requisitions in Ariba the very next day. Live makes all the difference: you ask the question the moment it comes up."
+    },
+    {
+      "prenom": "Karim",
+      "initiale": "B",
+      "role": "Category manager",
+      "date": "2026-07-15",
+      "note": 5,
+      "citation": "A training course that goes straight to the everyday tasks of the job. Supplier follow-up and order management became clear, with no needless jargon."
+    },
+    {
+      "prenom": "Sophie",
+      "initiale": "L",
+      "role": "Junior SAP Ariba consultant",
+      "date": "2026-09-15",
+      "note": 5,
+      "citation": "Five modules in the order of a real purchasing cycle, with a trainer who shares their screen. I came in with no prerequisites and I leave able to work on my own."
+    }
+  ],
+  "aide": {
+    "titre": "Unsure about the format?",
+    "texte": "Free discovery call, {duree}, no commitment"
+  },
+  "bandeau": {
+    "titre": "Ready to start? Book your discovery call.",
+    "texte": "{duree} with the trainer to check that the programme meets your needs, with no commitment."
+  }
+}

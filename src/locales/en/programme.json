@@ -1,0 +1,98 @@
+{
+  "titre": "The detailed programme reads module by module. Each step has a clear objective.",
+  "intro": "Five modules progressively build your command of SAP Ariba. Here is their full content.",
+  "telechargerPdf": "Download the programme as a PDF",
+  "totalLabelPdf": "Total",
+  "modules": [
+    {
+      "titre": "Getting started with SAP Ariba",
+      "duree": 1.5,
+      "objectifPedagogique": "Master the SAP Ariba environment and navigate the tool efficiently",
+      "casPratique": "Carry out a first walkthrough of SAP Ariba and find the information needed for a purchase requisition.",
+      "objectifs": [
+        "Understand the environment and the main modules",
+        "Navigate the tool efficiently",
+        "Identify roles and responsibilities"
+      ],
+      "contenu": [
+        "Discover the interface and its key features",
+        "Understand roles and responsibilities",
+        "Navigate the different areas",
+        "Identify the main data and documents"
+      ]
+    },
+    {
+      "titre": "Managing the purchasing process",
+      "duree": 3,
+      "objectifPedagogique": "Carry out the main purchasing operations in SAP Ariba",
+      "casPratique": "Handle a purchase requisition from end to end, from its creation to tracking the order.",
+      "objectifs": [
+        "Create and manage a purchase requisition",
+        "Build and track an order",
+        "Manage approvals and workflows",
+        "Track the different stages of the process"
+      ],
+      "contenu": [
+        "Create a purchase requisition",
+        "Manage approvals and workflows",
+        "Create and track an order",
+        "Manage receipts and the main stages of the process"
+      ]
+    },
+    {
+      "titre": "Managing suppliers",
+      "duree": 2,
+      "objectifPedagogique": "Keep effective track of suppliers in SAP Ariba",
+      "casPratique": "Search for a supplier, review their information and check what is needed for an order.",
+      "objectifs": [
+        "Search for and manage suppliers",
+        "Track supplier information and documents",
+        "Make exchanges and collaboration easier"
+      ],
+      "contenu": [
+        "Search for and select a supplier",
+        "Review and manage supplier information",
+        "Track documents and exchanges",
+        "Identify the actions to take"
+      ]
+    },
+    {
+      "titre": "Overseeing and tracking purchasing",
+      "duree": 2,
+      "objectifPedagogique": "Improve the visibility and oversight of purchasing activities",
+      "casPratique": "Analyse the tracking of several orders, spot an anomaly and decide which actions to take.",
+      "objectifs": [
+        "Track orders and commitments",
+        "Identify blockers and anomalies",
+        "Make use of the available data and indicators",
+        "Improve visibility over purchasing"
+      ],
+      "contenu": [
+        "Track orders and commitments",
+        "Identify anomalies and blockers",
+        "Make use of the available data",
+        "Track key indicators",
+        "Improve the tracking of activity"
+      ]
+    },
+    {
+      "titre": "Optimising your day-to-day practice",
+      "duree": 1.5,
+      "objectifPedagogique": "Become faster, more self-sufficient and more reliable in using SAP Ariba",
+      "casPratique": "Solve a complete purchasing case by applying best practices to work faster and more reliably.",
+      "objectifs": [
+        "Reduce errors and re-keying",
+        "Speed up the processing of requisitions and orders",
+        "Adopt good usage practices",
+        "Become more self-sufficient and effective"
+      ],
+      "contenu": [
+        "Operational best practices",
+        "Reducing errors and re-keying",
+        "Streamlining the processing of requisitions",
+        "Practical cases drawn from real work situations",
+        "Hands-on scenario and validation of learning"
+      ]
+    }
+  ]
+}

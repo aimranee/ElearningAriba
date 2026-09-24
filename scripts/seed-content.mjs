@@ -151,10 +151,12 @@ async function main() {
   // the internal-page headers. The nav labels are already signed copy
   // (common.json is chrome, read at seed time here rather than invented).
   const common = readJson("common.json");
-  // why (#19): English is seeded for the About section only; the page
-  // tickets (#21–#24) add the other sections.
+  // why (#19, #21): English is seeded section by section as the page tickets
+  // (#21–#24) translate them — About, then Formation and its programme.
   const aProposEn = readEnJson("a-propos.json");
   const commonEn = readEnJson("common.json");
+  const programmeEn = readEnJson("programme.json");
+  const formationEn = readEnJson("formation.json");
 
   await upsertSections([
     { cle: "hero", titre: landing.hero.titre, lead: landing.hero.sousTitre, position: 1 },
@@ -217,6 +219,10 @@ async function main() {
       titre: splitTwoSentences(programme.titre).title,
       titre_accent: splitTwoSentences(programme.titre).titleAccent,
       lead: programme.intro,
+      eyebrow_en: commonEn.nav.programme,
+      titre_en: splitTwoSentences(programmeEn.titre).title,
+      titre_accent_en: splitTwoSentences(programmeEn.titre).titleAccent,
+      lead_en: programmeEn.intro,
       position: 9,
     },
     {
@@ -225,6 +231,10 @@ async function main() {
       titre: splitTwoSentences(formation.titre).title,
       titre_accent: splitTwoSentences(formation.titre).titleAccent,
       lead: formation.intro,
+      eyebrow_en: commonEn.nav.formation,
+      titre_en: splitTwoSentences(formationEn.titre).title,
+      titre_accent_en: splitTwoSentences(formationEn.titre).titleAccent,
+      lead_en: formationEn.intro,
       position: 10,
     },
     {
@@ -277,19 +287,31 @@ async function main() {
   // pratique » ride the same page-programme rows as the module content —
   // the Formation page validates them at its read boundary and tolerates
   // rows that do not carry them yet.
-  const pageProgrammeItems = programme.modules.map((module, index) => ({
-    section_cle: "page-programme",
-    cle: slugify(module.titre),
-    titre: module.titre,
-    duree_heures: module.duree,
-    donnees: {
-      objectifs: module.objectifs,
-      contenu: module.contenu,
-      objectifPedagogique: module.objectifPedagogique,
-      casPratique: module.casPratique,
-    },
-    position: index + 1,
-  }));
+  // (#21) Each row's English twin comes from the module at the same index of
+  // src/locales/en/programme.json; `cle` stays the French slug.
+  const pageProgrammeItems = programme.modules.map((module, index) => {
+    const moduleEn = programmeEn.modules[index];
+    return {
+      section_cle: "page-programme",
+      cle: slugify(module.titre),
+      titre: module.titre,
+      duree_heures: module.duree,
+      donnees: {
+        objectifs: module.objectifs,
+        contenu: module.contenu,
+        objectifPedagogique: module.objectifPedagogique,
+        casPratique: module.casPratique,
+      },
+      titre_en: moduleEn.titre,
+      donnees_en: {
+        objectifs: moduleEn.objectifs,
+        contenu: moduleEn.contenu,
+        objectifPedagogique: moduleEn.objectifPedagogique,
+        casPratique: moduleEn.casPratique,
+      },
+      position: index + 1,
+    };
+  });
 
   // why: the download-PDF button label must come from the database (D-24),
   // not a hardcoded string — a non-module item carries it, distinguished by
@@ -298,6 +320,7 @@ async function main() {
     section_cle: "page-programme",
     cle: "telecharger-pdf",
     titre: programme.telechargerPdf,
+    titre_en: programmeEn.telechargerPdf,
     position: pageProgrammeItems.length + 1,
   };
 
@@ -336,13 +359,19 @@ async function main() {
     titre: modalite.titre,
     description: modalite.description,
     statut: modalite.statut ?? null,
+    titre_en: formationEn.modalites[index].titre,
+    description_en: formationEn.modalites[index].description,
     position: index + 1,
   }));
 
+  // (#21) déroulé and fourni in English translate the seeded French rows —
+  // the rulings of 2026-09-14 hold in both languages (no replay, no demo
+  // environment).
   const pageFormationDerouleItem = {
     section_cle: "page-formation",
     cle: "deroule",
     donnees: { deroule: formation.deroule },
+    donnees_en: { deroule: formationEn.deroule },
     position: pageFormationModaliteItems.length + 1,
   };
 
@@ -354,6 +383,11 @@ async function main() {
       prerequis: formation.prerequis,
       dureeAcces: formation.dureeAcces,
     },
+    donnees_en: {
+      fourni: formationEn.fourni,
+      prerequis: formationEn.prerequis,
+      dureeAcces: formationEn.dureeAcces,
+    },
     position: pageFormationModaliteItems.length + 2,
   };
 
@@ -364,6 +398,7 @@ async function main() {
     section_cle: "page-formation",
     cle: "chiffres",
     donnees: formation.chiffres,
+    donnees_en: formationEn.chiffres,
     position: pageFormationModaliteItems.length + 3,
   };
 
