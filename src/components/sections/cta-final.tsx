@@ -77,7 +77,7 @@ async function CtaFinal() {
                 {common.actions.reserver}
               </Button>
               <Button
-                render={<Link href="/programme" />}
+                render={<Link href="/formation#programme" />}
                 nativeButton={false}
                 variant="outline"
                 size="lg"

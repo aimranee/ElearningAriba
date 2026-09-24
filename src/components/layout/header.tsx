@@ -11,7 +11,6 @@ import common from "@/locales/fr/common.json";
 const NAV_LINK_CLASS = `text-sm text-foreground/80 hover:text-foreground ${FOCUS_RING}`;
 
 const MOBILE_LINKS = [
-  { href: "/programme", label: common.nav.programme },
   { href: "/formation", label: common.nav.formation },
   { href: "/a-propos", label: common.nav.aPropos },
   { href: "/contact", label: common.nav.contact },
@@ -73,9 +72,6 @@ export function Header() {
           aria-label={common.metadata.title}
           className="hidden items-center gap-6 min-[1000px]:flex"
         >
-          <Link href="/programme" className={NAV_LINK_CLASS}>
-            {common.nav.programme}
-          </Link>
           <Link href="/formation" className={NAV_LINK_CLASS}>
             {common.nav.formation}
           </Link>

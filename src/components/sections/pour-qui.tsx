@@ -71,7 +71,7 @@ async function PourQui() {
               className={index < 3 ? "lg:col-span-2" : "lg:col-span-3"}
             >
               <Link
-                href="/programme"
+                href="/formation#programme"
                 className="group block h-full"
                 aria-label={hasAccroche ? `${accroche} — ${titre}` : titre}
               >

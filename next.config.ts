@@ -34,6 +34,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // why (Lot 2, #16): /programme merged into /formation#programme — a
+  // permanent redirect (308) so search engines and any bookmarked link
+  // transfer to the merged page instead of 404ing.
+  async redirects() {
+    return [
+      {
+        source: "/programme",
+        destination: "/formation#programme",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -121,7 +121,7 @@ async function Competences() {
           </Button>
           <Button
             variant="outline"
-            render={<Link href="/programme" />}
+            render={<Link href="/formation#programme" />}
             nativeButton={false}
             className="min-h-11 border-[var(--glass-line)] bg-[var(--glass)] text-white hover:bg-[var(--glass-2)] hover:text-white"
           >

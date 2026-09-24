@@ -39,11 +39,6 @@ export function Footer() {
             </h2>
             <ul className="mt-4 flex flex-col gap-1">
               <li>
-                <Link href="/programme" className={FOOTER_LINK_CLASS}>
-                  {common.nav.programme}
-                </Link>
-              </li>
-              <li>
                 <Link href="/formation" className={FOOTER_LINK_CLASS}>
                   {common.nav.formation}
                 </Link>
