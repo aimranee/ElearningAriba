@@ -19,7 +19,7 @@ import { formatHours } from "./fr";
 describe("formatHours", () => {
   it("renders a fractional hour as hours and minutes", () => {
     const actual = formatHours(1.5);
-    const expected = `1 h 30`;
+    const expected = `1\u202Fh\u002030`;
 
     expect(actual).toBe(expected);
     expect([...actual].map((char) => char.codePointAt(0))).toEqual([
@@ -33,10 +33,10 @@ describe("formatHours", () => {
   });
 
   it("renders a whole number of hours with no minutes", () => {
-    expect(formatHours(2)).toBe(`2 h`);
+    expect(formatHours(2)).toBe(`2\u202Fh`);
   });
 
   it("renders a two-digit whole number of hours with no minutes", () => {
-    expect(formatHours(10)).toBe(`10 h`);
+    expect(formatHours(10)).toBe(`10\u202Fh`);
   });
 });
