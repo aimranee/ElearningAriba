@@ -151,21 +151,36 @@ async function main() {
   // the internal-page headers. The nav labels are already signed copy
   // (common.json is chrome, read at seed time here rather than invented).
   const common = readJson("common.json");
-  // why (#19, #21): English is seeded section by section as the page tickets
-  // (#21–#24) translate them — About, then Formation and its programme.
+  // why (#19, #21, #22): English is seeded section by section as the page
+  // tickets (#21–#24) translate them — About, Formation and its programme,
+  // then the landing.
   const aProposEn = readEnJson("a-propos.json");
   const commonEn = readEnJson("common.json");
   const programmeEn = readEnJson("programme.json");
   const formationEn = readEnJson("formation.json");
+  // (#22) The landing: src/locales/en/landing.json mirrors the French file,
+  // item for item in the same order; `cle` stays the French one.
+  const landingEn = readEnJson("landing.json");
 
   await upsertSections([
-    { cle: "hero", titre: landing.hero.titre, lead: landing.hero.sousTitre, position: 1 },
+    {
+      cle: "hero",
+      titre: landing.hero.titre,
+      lead: landing.hero.sousTitre,
+      titre_en: landingEn.hero.titre,
+      lead_en: landingEn.hero.sousTitre,
+      position: 1,
+    },
     {
       cle: "pour-qui",
       eyebrow: landing.pourQui.eyebrow,
       titre: splitTwoSentences(landing.pourQui.titre).title,
       titre_accent: splitTwoSentences(landing.pourQui.titre).titleAccent,
       lead: landing.pourQui.reassurance,
+      eyebrow_en: landingEn.pourQui.eyebrow,
+      titre_en: splitTwoSentences(landingEn.pourQui.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.pourQui.titre).titleAccent,
+      lead_en: landingEn.pourQui.reassurance,
       position: 2,
     },
     {
@@ -173,6 +188,9 @@ async function main() {
       eyebrow: landing.competences.eyebrow,
       titre: splitTwoSentences(landing.competences.titre).title,
       titre_accent: splitTwoSentences(landing.competences.titre).titleAccent,
+      eyebrow_en: landingEn.competences.eyebrow,
+      titre_en: splitTwoSentences(landingEn.competences.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.competences.titre).titleAccent,
       position: 3,
     },
     {
@@ -180,6 +198,9 @@ async function main() {
       eyebrow: landing.programme.eyebrow,
       titre: splitTwoSentences(landing.programme.titre).title,
       titre_accent: splitTwoSentences(landing.programme.titre).titleAccent,
+      eyebrow_en: landingEn.programme.eyebrow,
+      titre_en: splitTwoSentences(landingEn.programme.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.programme.titre).titleAccent,
       position: 4,
     },
     {
@@ -187,6 +208,9 @@ async function main() {
       eyebrow: landing.formatModalites.eyebrow,
       titre: splitTwoSentences(landing.formatModalites.titre).title,
       titre_accent: splitTwoSentences(landing.formatModalites.titre).titleAccent,
+      eyebrow_en: landingEn.formatModalites.eyebrow,
+      titre_en: splitTwoSentences(landingEn.formatModalites.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.formatModalites.titre).titleAccent,
       position: 5,
     },
     {
@@ -195,6 +219,10 @@ async function main() {
       titre: splitTwoSentences(landing.confiance.titre).title,
       titre_accent: splitTwoSentences(landing.confiance.titre).titleAccent,
       lead: landing.confiance.lead,
+      eyebrow_en: landingEn.confiance.eyebrow,
+      titre_en: splitTwoSentences(landingEn.confiance.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.confiance.titre).titleAccent,
+      lead_en: landingEn.confiance.lead,
       position: 6,
     },
     {
@@ -203,6 +231,10 @@ async function main() {
       titre: splitTwoSentences(landing.ctaFinal.titre).title,
       titre_accent: splitTwoSentences(landing.ctaFinal.titre).titleAccent,
       lead: landing.ctaFinal.supportLine,
+      eyebrow_en: landingEn.ctaFinal.eyebrow,
+      titre_en: splitTwoSentences(landingEn.ctaFinal.titre).title,
+      titre_accent_en: splitTwoSentences(landingEn.ctaFinal.titre).titleAccent,
+      lead_en: landingEn.ctaFinal.supportLine,
       position: 7,
     },
     {
@@ -210,6 +242,11 @@ async function main() {
       eyebrow: landing.faq.eyebrow,
       titre: splitAtPhrase(landing.faq.titre, "trouvent leur réponse ici.").title,
       titre_accent: splitAtPhrase(landing.faq.titre, "trouvent leur réponse ici.")
+        .titleAccent,
+      // (#22) The English turn sits at the same point of the sentence.
+      eyebrow_en: landingEn.faq.eyebrow,
+      titre_en: splitAtPhrase(landingEn.faq.titre, "find their answer here.").title,
+      titre_accent_en: splitAtPhrase(landingEn.faq.titre, "find their answer here.")
         .titleAccent,
       position: 8,
     },
@@ -259,6 +296,9 @@ async function main() {
     picto: profil.picto,
     position: index + 1,
     donnees: { accroche: profil.accroche },
+    titre_en: landingEn.pourQui.profils[index].titre,
+    description_en: landingEn.pourQui.profils[index].description,
+    donnees_en: { accroche: landingEn.pourQui.profils[index].accroche },
   }));
 
   const competenceItems = landing.competences.items.map((competence, index) => ({
@@ -268,6 +308,8 @@ async function main() {
     description: competence.description,
     picto: competence.picto,
     position: index + 1,
+    titre_en: landingEn.competences.items[index].titre,
+    description_en: landingEn.competences.items[index].description,
   }));
 
   const moduleItems = landing.programme.modules.map((module, index) => ({
@@ -279,6 +321,12 @@ async function main() {
     donnees: {
       objectifs: programme.modules[index].objectifs,
       contenu: programme.modules[index].contenu,
+    },
+    titre_en: landingEn.programme.modules[index].titre,
+    description_en: landingEn.programme.modules[index].resume,
+    donnees_en: {
+      objectifs: programmeEn.modules[index].objectifs,
+      contenu: programmeEn.modules[index].contenu,
     },
     position: index + 1,
   }));
@@ -330,15 +378,22 @@ async function main() {
     titre: item.titre,
     description: item.description,
     statut: item.statut ?? null,
+    titre_en: landingEn.formatModalites.items[index].titre,
+    description_en: landingEn.formatModalites.items[index].description,
     position: index + 1,
   }));
 
+  // (#22) The proof's link stays the French path in both columns; the page
+  // shows it in its own language through the route map.
   const confianceItems = landing.confiance.items.map((item, index) => ({
     section_cle: "confiance",
     cle: item.cle,
     titre: item.titre,
     description: item.description,
     donnees: { preuve: item.preuve },
+    titre_en: landingEn.confiance.items[index].titre,
+    description_en: landingEn.confiance.items[index].description,
+    donnees_en: { preuve: landingEn.confiance.items[index].preuve },
     position: index + 1,
   }));
 
@@ -346,6 +401,10 @@ async function main() {
     section_cle: "faq",
     cle: `faq-${index + 1}`,
     donnees: { question: item.question, reponse: item.reponse },
+    donnees_en: {
+      question: landingEn.faq.items[index].question,
+      reponse: landingEn.faq.items[index].reponse,
+    },
     position: index + 1,
   }));
 

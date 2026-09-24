@@ -9,7 +9,18 @@
     },
     "flux": {
       "etapes": ["Demande", "Validation", "Réception", "Facture"]
+    },
+    "typewriter": {
+      "ecosysteme-ariba": "SAP Ariba",
+      "procure-to-pay": "Procure-to-Pay",
+      "source-to-pay": "Source-to-Pay",
+      "rfq-rfp": "les RFQ et RFP",
+      "gestion-catalogues": "les catalogues",
+      "certification": "la certification"
     }
+  },
+  "rdvDecouverte": {
+    "libelle": "Appel découverte"
   },
   "pourQui": {
     "eyebrow": "Pour qui",
@@ -141,7 +152,8 @@
       "participants": "Participants",
       "nonContractuel": "Aperçu de l'interface — exemple non contractuel.",
       "frameLabel": "Session live · Formation SAP Ariba",
-      "ceQuiEstFourni": "Ce qui est fourni"
+      "ceQuiEstFourni": "Ce qui est fourni",
+      "derouleLabel": "Déroulé d'une session"
     },
     "items": [
       {

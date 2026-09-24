@@ -1,0 +1,297 @@
+{
+  "hero": {
+    "titre": "Live, with an expert. Master SAP Ariba",
+    "sousTitre": "Video sessions in a small group, with real practical cases: you leave able to run a purchase from end to end, and ready for the certification.",
+    "preuve": {
+      "modules": "{modules} modules · {heures} live",
+      "formateur": "Led by a certified SAP Ariba expert",
+      "groupe": "6 participants maximum per session"
+    },
+    "flux": {
+      "etapes": ["Requisition", "Approval", "Receipt", "Invoice"]
+    },
+    "typewriter": {
+      "ecosysteme-ariba": "SAP Ariba",
+      "procure-to-pay": "Procure-to-Pay",
+      "source-to-pay": "Source-to-Pay",
+      "rfq-rfp": "RFQs and RFPs",
+      "gestion-catalogues": "catalogues",
+      "certification": "the certification"
+    }
+  },
+  "rdvDecouverte": {
+    "libelle": "Discovery call"
+  },
+  "pourQui": {
+    "eyebrow": "Who it is for",
+    "titre": "You will recognise yourself in one of these five profiles. Which one is yours?",
+    "reassurance": "New to SAP or already in the role: the training starts from zero and goes all the way to the everyday tasks of the job.",
+    "profils": [
+      {
+        "titre": "Buyers",
+        "description": "Create, approve and track your purchase requisitions without depending on anyone. Ariba becomes your tool, not your obstacle.",
+        "picto": "acheteur",
+        "accroche": "“I want to spend less time searching and more time negotiating”"
+      },
+      {
+        "titre": "Category managers",
+        "description": "Manage your categories with the right criteria, from sourcing to contract, and document every choice.",
+        "picto": "category-manager",
+        "accroche": "“I want purchasing decisions I can defend”"
+      },
+      {
+        "titre": "Supply chain and purchasing professionals",
+        "description": "Connect procurement, receipt and invoicing in a Procure-to-Pay with no breaks.",
+        "picto": "supply-chain",
+        "accroche": "“I want my flows and my orders to speak the same language”"
+      },
+      {
+        "titre": "Junior SAP Ariba consultants or career changers",
+        "description": "Build an operational practice of Ariba, module by module, and prepare for the certification.",
+        "picto": "consultant",
+        "accroche": "“I want expertise the market recognises”"
+      },
+      {
+        "titre": "Students and recent graduates",
+        "description": "Add SAP Ariba to your profile with no prerequisites: a skill in demand from the very first interview.",
+        "picto": "etudiant",
+        "accroche": "“I want a rare skill before my first job”"
+      }
+    ]
+  },
+  "competences": {
+    "eyebrow": "What you will learn",
+    "titre": "Six skills you practise live. Not slides to watch, but tasks to do.",
+    "items": [
+      {
+        "titre": "Find your way around Ariba in a few clicks",
+        "description": "Modules, roles, flows: you know where you are and what the next step expects of you.",
+        "picto": "ecosysteme-ariba"
+      },
+      {
+        "titre": "Run a complete Procure-to-Pay",
+        "description": "From the purchase requisition to the matched invoice, without missing an approval.",
+        "picto": "procure-to-pay"
+      },
+      {
+        "titre": "Lead a Source-to-Pay from end to end",
+        "description": "Compare against firm criteria, negotiate, turn the decision into a contract.",
+        "picto": "source-to-pay"
+      },
+      {
+        "titre": "Take a tender through to the decision",
+        "description": "Set the criteria, issue the RFQ or RFP, defend the final choice.",
+        "picto": "rfq-rfp"
+      },
+      {
+        "titre": "Keep catalogues, contracts and workflows in order",
+        "description": "An up-to-date catalogue, a well-framed contract, an approval that holds nobody up.",
+        "picto": "gestion-catalogues"
+      },
+      {
+        "titre": "Approach the SAP Ariba certification with confidence",
+        "description": "The vocabulary and processes the exam tests, covered and practised.",
+        "picto": "certification"
+      }
+    ]
+  },
+  "programme": {
+    "eyebrow": "Detailed programme",
+    "titre": "Five modules, in the order of a real purchasing cycle. Each one builds on the one before.",
+    "telechargerPdf": "Download the programme as a PDF",
+    "auProgramme": "What it covers",
+    "modules": [
+      {
+        "titre": "Getting started with SAP Ariba",
+        "duree": 1.5,
+        "resume": "Master the SAP Ariba environment and navigate the tool efficiently."
+      },
+      {
+        "titre": "Managing the purchasing process",
+        "duree": 3,
+        "resume": "Carry out the main purchasing operations in SAP Ariba."
+      },
+      {
+        "titre": "Managing suppliers",
+        "duree": 2,
+        "resume": "Keep effective track of suppliers in SAP Ariba."
+      },
+      {
+        "titre": "Overseeing and tracking purchasing",
+        "duree": 2,
+        "resume": "Improve the visibility and oversight of purchasing activities."
+      },
+      {
+        "titre": "Optimising your day-to-day practice",
+        "duree": 1.5,
+        "resume": "Become faster, more self-sufficient and more reliable in using SAP Ariba."
+      }
+    ]
+  },
+  "formatModalites": {
+    "eyebrow": "Format and practicalities",
+    "titre": "One live session, five stages, no spectators. Here is how each module runs.",
+    "apercu": {
+      "etapeLabel": "Step {n}",
+      "panneaux": [
+        { "eyebrow": "Joining", "titre": "Your booked slot" },
+        { "eyebrow": "Presentation", "titre": "The trainer presents the module" },
+        { "eyebrow": "Demonstration", "titre": "The trainer shares their screen" },
+        { "eyebrow": "Practical case", "titre": "You put it into practice" },
+        { "eyebrow": "Wrap-up", "titre": "Questions and wrap-up" }
+      ],
+      "enDirect": "Live",
+      "ecranPartage": "Shared screen",
+      "rejoindre": "Join the session",
+      "confirme": "Confirmed",
+      "accompagne": "Supported by the trainer",
+      "supportModule": "Module PDF handout",
+      "vosQuestions": "Your questions",
+      "creneauExemple": "Thursday · 14:00 — 16:00",
+      "formateur": "Trainer",
+      "participants": "Participants",
+      "nonContractuel": "Interface preview — example only, not contractually binding.",
+      "frameLabel": "Live session · SAP Ariba Training",
+      "ceQuiEstFourni": "What is provided",
+      "derouleLabel": "How a session runs"
+    },
+    "items": [
+      {
+        "titre": "Live training",
+        "description": "Sessions led live by a certified expert: you ask your questions the moment they come up."
+      },
+      {
+        "titre": "PDF handouts",
+        "description": "A downloadable course handout for each module."
+      },
+      {
+        "titre": "Videos to come",
+        "description": "Video add-ons are being considered for a future version — not included at this time.",
+        "statut": "futur"
+      },
+      {
+        "titre": "Access period",
+        "description": "Access to your materials for 6 months from the date of the training."
+      },
+      {
+        "titre": "Practical cases at the end of each module",
+        "description": "Each module ends with a concrete, real-life scenario."
+      },
+      {
+        "titre": "Prerequisites",
+        "description": "No SAP prerequisites are needed to get started."
+      }
+    ]
+  },
+  "confiance": {
+    "eyebrow": "Trust and security",
+    "titre": "No promises, just facts you can check. Here are three.",
+    "lead": "A duration, a name, a cap: each one can be checked. Open the proof.",
+    "preuve": {
+      "voir": "Show the proof",
+      "masquer": "Hide the proof"
+    },
+    "formateur": {
+      "eyebrow": "The trainer",
+      "nom": "Jean Dupont",
+      "initiales": "JD",
+      "intitule": "SAP Ariba consultant",
+      "points": [
+        "Consultant across the Ariba ecosystem",
+        "Certified on the platform's key modules",
+        "Teaching built on real use cases"
+      ],
+      "lienLabel": "See the full background"
+    },
+    "items": [
+      {
+        "cle": "appel-decouverte",
+        "titre": "A free discovery call",
+        "description": "Thirty minutes with the trainer before any commitment.",
+        "preuve": {
+          "texte": "Thirty minutes, free of charge and with no commitment: you explain your situation, and the trainer tells you whether the training meets it.",
+          "lienHref": "/contact",
+          "lienLabel": "Request the call"
+        }
+      },
+      {
+        "cle": "formateur-identifie",
+        "titre": "A named trainer",
+        "description": "Jean Dupont, SAP Ariba consultant.",
+        "preuve": {
+          "texte": "Background, certifications and teaching approach are set out on the About page. You know who is leading before you book.",
+          "lienHref": "/a-propos",
+          "lienLabel": "See the background"
+        }
+      },
+      {
+        "cle": "groupe-limite",
+        "titre": "Group limited to 6 participants",
+        "description": "Every live session is capped.",
+        "preuve": {
+          "texte": "Beyond 6 sign-ups the session is closed and a new slot is opened. This cap is what lets everyone ask their questions and do the practical case with support."
+        }
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "You have questions",
+    "titre": "The most frequent questions find their answer here.",
+    "items": [
+      {
+        "question": "How much does the training cost?",
+        "reponse": "The price depends on the path you choose — full programme, group session or individual session. The thirty-minute discovery call is free: the exact amount is confirmed to you there, before any commitment."
+      },
+      {
+        "question": "Do I need to know SAP Ariba already to start?",
+        "reponse": "No. No SAP prerequisites are needed: the training starts from the fundamentals, and every module is put into practice."
+      },
+      {
+        "question": "Do I need my own SAP Ariba access?",
+        "reponse": "This question is covered during the discovery call: the trainer tells you what you need before the first session."
+      },
+      {
+        "question": "Are the sessions recorded?",
+        "reponse": "No. Every session is led live — that is the very format of the training. Video add-ons are being considered for a later stage."
+      },
+      {
+        "question": "How long do I have access to the materials?",
+        "reponse": "Access to the materials lasts 6 months from the date of the training. Each module comes with its downloadable PDF handout, along with the corrected practical case."
+      },
+      {
+        "question": "Will I receive a certificate of attendance?",
+        "reponse": "A certificate of attendance is issued at the end of the full learning path."
+      },
+      {
+        "question": "Can the training be funded (CPF, OPCO)?",
+        "reponse": "Ask during the discovery call: your situation is reviewed and you are given the answer in writing before any enrolment."
+      }
+    ],
+    "cloture": {
+      "question": "A question that is not on this list?",
+      "lien": "Write to us"
+    }
+  },
+  "ctaFinal": {
+    "eyebrow": "Your next step",
+    "titre": "Start with a thirty-minute call. Book your slot.",
+    "supportLine": "You explain your situation, the trainer tells you whether the training meets it, and together you choose the date of your first session.",
+    "etapes": {
+      "titre": "What happens next",
+      "items": [
+        {
+          "titre": "A free discovery call",
+          "description": "Thirty minutes with the trainer, before any commitment."
+        },
+        {
+          "titre": "Your session is scheduled with you",
+          "description": "A live session date set together, around your availability."
+        },
+        {
+          "titre": "A deliberately small group",
+          "description": "Few enough participants to ask your questions and do the practical case with support."
+        }
+      ]
+    }
+  }
+}
