@@ -1,0 +1,43 @@
+{
+  "titre": "A question before you book? Write to us directly.",
+  "intro": "This form goes straight to the trainer — the reply comes by email.",
+  "champs": {
+    "nom": "Name",
+    "email": "Email",
+    "telephone": "Phone",
+    "profil": "Your profile",
+    "message": "Message"
+  },
+  "profil": {
+    "acheteur": "Buyer",
+    "consultant": "Consultant",
+    "etudiant": "Student",
+    "entreprise": "Company"
+  },
+  "aideParChamp": {
+    "nom": "Your first and last name.",
+    "email": "A valid address so we can reply.",
+    "telephone": "Optional, useful for a quick call back.",
+    "profil": "The profile closest to yours.",
+    "message": "Describe what you need or your question."
+  },
+  "erreurs": {
+    "nomRequis": "Please enter your name.",
+    "emailRequis": "Please enter your email.",
+    "emailInvalide": "This email address is not valid.",
+    "messageRequis": "Please write your message.",
+    "profilRequis": "Please select your profile.",
+    "rejetServeur": "Your message could not be sent. Please try again in a few moments."
+  },
+  "succes": {
+    "titre": "Message sent",
+    "message": "Thank you, your message has been received. You will get a reply by email."
+  },
+  "coordonnees": {
+    "titre": "Contact us directly",
+    "email": "contact@formation-sap-ariba.fr"
+  },
+  "demonstration": {
+    "titre": "Field states, for approval before Lot 2"
+  }
+}

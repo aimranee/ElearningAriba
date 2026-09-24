@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
-import contact from "@/locales/fr/contact.json";
-import common from "@/locales/fr/common.json";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Messages } from "@/lib/i18n/messages";
 import { Button } from "@/components/ui/button";
 import { Message } from "@/components/ui/message";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
@@ -15,14 +15,31 @@ import {
   FieldError,
 } from "@/components/ui/field";
 
-const PROFIL_OPTIONS = Object.entries(contact.profil) as [
-  keyof typeof contact.profil,
-  string,
-][];
+type ContactMessages = Messages<"contact">;
+
+/* why (#23): the form's text, in the page's language — handed down by the
+   server parent (src/components/contact/page-contact.tsx) so this island
+   imports no copy of its own. */
+export interface ContactFormText {
+  titre: string;
+  champs: ContactMessages["champs"];
+  profil: ContactMessages["profil"];
+  aideParChamp: ContactMessages["aideParChamp"];
+  erreurs: ContactMessages["erreurs"];
+  succes: string;
+  envoyer: string;
+  preparationFormulaire: string;
+}
+
+interface ContactFormProps {
+  /** The page's language, sent with the message: it picks the acknowledgement's language. */
+  langue: Locale;
+  texte: ContactFormText;
+}
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-type FieldErrors = Partial<Record<"nom" | "email" | "profil" | "message", keyof typeof contact.erreurs>>;
+type FieldErrors = Partial<Record<"nom" | "email" | "profil" | "message", keyof ContactMessages["erreurs"]>>;
 
 /*
  * why: lifted verbatim from src/app/contact/page.tsx:60-122 (the
@@ -31,7 +48,8 @@ type FieldErrors = Partial<Record<"nom" | "email" | "profil" | "message", keyof 
  * the help text are unchanged. This client island only adds submission
  * wiring, the honeypot, the submit-time guard and the four D-36 states.
  */
-export function ContactForm() {
+export function ContactForm({ langue, texte }: ContactFormProps) {
+  const profilOptions = Object.entries(texte.profil) as [keyof ContactMessages["profil"], string][];
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const renduInputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +85,7 @@ export function ContactForm() {
       message: String(formData.get("message") ?? ""),
       societe: String(formData.get("societe") ?? ""),
       rendu,
+      langue,
     };
 
     try {
@@ -95,7 +114,7 @@ export function ContactForm() {
   }
 
   if (status === "success") {
-    return <Message variant="success">{contact.succes.message}</Message>;
+    return <Message variant="success">{texte.succes}</Message>;
   }
 
   const isSubmitting = status === "submitting";
@@ -107,10 +126,10 @@ export function ContactForm() {
       method="post"
       onSubmit={handleSubmit}
       className="reveal-rise flex flex-col gap-5"
-      aria-label={contact.titre}
+      aria-label={texte.titre}
     >
       <Field>
-        <FieldLabel htmlFor="contact-nom">{contact.champs.nom}</FieldLabel>
+        <FieldLabel htmlFor="contact-nom">{texte.champs.nom}</FieldLabel>
         <FieldControl
           id="contact-nom"
           name="nom"
@@ -118,12 +137,12 @@ export function ContactForm() {
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.nom ? "true" : undefined}
         />
-        <FieldDescription>{contact.aideParChamp.nom}</FieldDescription>
-        {fieldErrors.nom ? <FieldError>{contact.erreurs[fieldErrors.nom]}</FieldError> : null}
+        <FieldDescription>{texte.aideParChamp.nom}</FieldDescription>
+        {fieldErrors.nom ? <FieldError>{texte.erreurs[fieldErrors.nom]}</FieldError> : null}
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="contact-email">{contact.champs.email}</FieldLabel>
+        <FieldLabel htmlFor="contact-email">{texte.champs.email}</FieldLabel>
         <FieldControl
           id="contact-email"
           name="email"
@@ -132,25 +151,25 @@ export function ContactForm() {
           data-loading={isSubmitting ? "true" : undefined}
           aria-invalid={fieldErrors.email ? "true" : undefined}
         />
-        <FieldDescription>{contact.aideParChamp.email}</FieldDescription>
-        {fieldErrors.email ? <FieldError>{contact.erreurs[fieldErrors.email]}</FieldError> : null}
+        <FieldDescription>{texte.aideParChamp.email}</FieldDescription>
+        {fieldErrors.email ? <FieldError>{texte.erreurs[fieldErrors.email]}</FieldError> : null}
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="contact-telephone">{contact.champs.telephone}</FieldLabel>
+        <FieldLabel htmlFor="contact-telephone">{texte.champs.telephone}</FieldLabel>
         <FieldControl id="contact-telephone" name="telephone" type="tel" autoComplete="tel" />
-        <FieldDescription>{contact.aideParChamp.telephone}</FieldDescription>
+        <FieldDescription>{texte.aideParChamp.telephone}</FieldDescription>
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="contact-profil">{contact.champs.profil}</FieldLabel>
+        <FieldLabel htmlFor="contact-profil">{texte.champs.profil}</FieldLabel>
         <FieldControl
           id="contact-profil"
           name="profil"
           aria-invalid={fieldErrors.profil ? "true" : undefined}
           render={
             <select>
-              {PROFIL_OPTIONS.map(([key, label]) => (
+              {profilOptions.map(([key, label]) => (
                 <option key={key} value={key}>
                   {label}
                 </option>
@@ -158,21 +177,21 @@ export function ContactForm() {
             </select>
           }
         />
-        <FieldDescription>{contact.aideParChamp.profil}</FieldDescription>
-        {fieldErrors.profil ? <FieldError>{contact.erreurs[fieldErrors.profil]}</FieldError> : null}
+        <FieldDescription>{texte.aideParChamp.profil}</FieldDescription>
+        {fieldErrors.profil ? <FieldError>{texte.erreurs[fieldErrors.profil]}</FieldError> : null}
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="contact-message">{contact.champs.message}</FieldLabel>
+        <FieldLabel htmlFor="contact-message">{texte.champs.message}</FieldLabel>
         <FieldControl
           id="contact-message"
           name="message"
           aria-invalid={fieldErrors.message ? "true" : undefined}
           render={<textarea rows={4} />}
         />
-        <FieldDescription>{contact.aideParChamp.message}</FieldDescription>
+        <FieldDescription>{texte.aideParChamp.message}</FieldDescription>
         {fieldErrors.message ? (
-          <FieldError>{contact.erreurs[fieldErrors.message]}</FieldError>
+          <FieldError>{texte.erreurs[fieldErrors.message]}</FieldError>
         ) : null}
       </Field>
 
@@ -193,7 +212,7 @@ export function ContactForm() {
 
       {isTransportError ? (
         <Field rejected="server">
-          <FieldError>{contact.erreurs.rejetServeur}</FieldError>
+          <FieldError>{texte.erreurs.rejetServeur}</FieldError>
         </Field>
       ) : null}
 
@@ -203,11 +222,11 @@ export function ContactForm() {
         data-loading={isSubmitting ? "true" : undefined}
         disabled={!hydrated || isSubmitting}
       >
-        {common.actions.envoyer}
+        {texte.envoyer}
       </Button>
       {!hydrated ? (
         <p className="text-muted-foreground text-xs">
-          {common.etats.preparationFormulaire}
+          {texte.preparationFormulaire}
         </p>
       ) : null}
     </form>

@@ -10,6 +10,7 @@ export const EN_ROUTES = {
   "/": "/en",
   "/a-propos": "/en/about",
   "/formation": "/en/training",
+  "/contact": "/en/contact",
 } as const satisfies Record<string, "/en" | `/en/${string}`>;
 
 export type TranslatedRoute = keyof typeof EN_ROUTES;
@@ -17,7 +18,7 @@ export type TranslatedRoute = keyof typeof EN_ROUTES;
 /* French public routes with no English copy yet. The page tickets (#21–#24)
    move each one into EN_ROUTES; routes.test.ts fails on any French public
    page that is in neither. */
-export const PENDING_EN_ROUTES = ["/contact", "/agenda"] as const;
+export const PENDING_EN_ROUTES = ["/agenda"] as const;
 
 const EN_BY_FR: ReadonlyMap<string, string> = new Map(Object.entries(EN_ROUTES));
 const FR_BY_EN: ReadonlyMap<string, string> = new Map(
