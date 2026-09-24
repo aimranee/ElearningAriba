@@ -2,7 +2,8 @@ import { ChevronDown, Target } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { formatHours } from "@/lib/i18n/fr";
-import formation from "@/locales/fr/formation.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 export type ModuleProgramme = {
   id: string;
@@ -17,6 +18,7 @@ export type ModuleProgramme = {
 type CarteModuleProps = {
   module: ModuleProgramme;
   index: number;
+  locale: Locale;
 };
 
 /**
@@ -32,7 +34,8 @@ type CarteModuleProps = {
  * the same reason: a translucent white pill over the band drops its own
  * ink under 3.5:1.
  */
-function CarteModule({ module, index }: CarteModuleProps) {
+function CarteModule({ module, index, locale }: CarteModuleProps) {
+  const formation = getMessages(locale, "formation");
   const numero = String(index + 1).padStart(2, "0");
 
   return (
@@ -46,7 +49,7 @@ function CarteModule({ module, index }: CarteModuleProps) {
           {formation.programme.module.replace("{n}", numero)}
         </span>
         <span className="rounded-full bg-white px-[0.7rem] py-[0.32rem] text-[length:var(--text-micro)] leading-none font-semibold text-[var(--deep)] tabular-nums">
-          {formatHours(module.dureeHeures)}
+          {formatHours(module.dureeHeures, locale)}
         </span>
       </div>
 

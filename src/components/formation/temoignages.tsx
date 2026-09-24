@@ -4,7 +4,8 @@ import { Section, SectionHeader } from "@/components/sections/section";
 import { Card } from "@/components/ui/card";
 import { Reveal } from "@/components/motion/reveal";
 import { formatMoisAnnee } from "@/lib/i18n/fr";
-import formation from "@/locales/fr/formation.json";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 
 /**
  * « Ils ont suivi la formation » (#27 § 6) — placeholder testimonial cards
@@ -14,7 +15,8 @@ import formation from "@/locales/fr/formation.json";
  * _mocks.public.json under C-27 until the client's real testimonials
  * replace them. No photo, no asset, no database row.
  */
-function Temoignages() {
+function Temoignages({ locale }: { locale: Locale }) {
+  const formation = getMessages(locale, "formation");
   const entries = formation.temoignages;
   if (entries.length === 0) {
     return null;
@@ -52,7 +54,12 @@ function Temoignages() {
                   ))}
                 </span>
                 <blockquote className="text-[length:var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--ink-soft)]">
-                  « {temoignage.citation} »
+                  {/* why (#21): quotation marks follow the language — « » in
+                      French, “ ” in English — and stay three text nodes, as
+                      the French markup always was. */}
+                  {formation.guillemets.ouvrant}
+                  {temoignage.citation}
+                  {formation.guillemets.fermant}
                 </blockquote>
                 <div className="mt-auto flex items-center gap-3">
                   <span
@@ -68,7 +75,7 @@ function Temoignages() {
                     </p>
                     <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
                       {temoignage.role} ·{" "}
-                      <time dateTime={temoignage.date.slice(0, 7)}>{formatMoisAnnee(date)}</time>
+                      <time dateTime={temoignage.date.slice(0, 7)}>{formatMoisAnnee(date, locale)}</time>
                     </p>
                   </div>
                 </div>

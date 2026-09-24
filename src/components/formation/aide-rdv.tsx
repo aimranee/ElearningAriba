@@ -5,20 +5,24 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { formatMinutes } from "@/lib/i18n/fr";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
 import agenda from "@/locales/fr/agenda.json";
-import common from "@/locales/fr/common.json";
-import formation from "@/locales/fr/formation.json";
 
+// why (#21): the booking tunnel stays French until Phase B, so the English
+// page links here too.
 export const RDV_DECOUVERTE_HREF = "/reservation?type=decouverte";
 
 /* why: the discovery call's length is read from agenda.json's bootstrap
    row, the same way barre-reservation.tsx does — the copy template carries
-   a {duree} slot rather than a hand-written "30 min". */
-export function texteAideRdv(): string {
+   a {duree} slot rather than a hand-written "30 min". (#21) Only the number
+   is read there; it is formatted in the page's language. */
+export function texteAideRdv(locale: Locale): string {
+  const formation = getMessages(locale, "formation");
   const decouverte = agenda.typesRendezVous[0];
   return formation.aide.texte.replace(
     "{duree}",
-    decouverte ? formatMinutes(decouverte.dureeMinutes) : "",
+    decouverte ? formatMinutes(decouverte.dureeMinutes, locale) : "",
   );
 }
 
@@ -27,7 +31,9 @@ export function texteAideRdv(): string {
  * cards scroll at lg and above. Below that width the call moves to the
  * fixed bottom bar (barre-rdv.tsx); the page decides which one renders.
  */
-function AideRdv({ className }: { className?: string }) {
+function AideRdv({ locale, className }: { locale: Locale; className?: string }) {
+  const common = getMessages(locale, "common");
+  const formation = getMessages(locale, "formation");
   return (
     <Card
       variant="raised"
@@ -45,7 +51,7 @@ function AideRdv({ className }: { className?: string }) {
         {formation.aide.titre}
       </p>
       <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">
-        {texteAideRdv()}
+        {texteAideRdv(locale)}
       </p>
       <Button
         render={<Link href={RDV_DECOUVERTE_HREF} />}

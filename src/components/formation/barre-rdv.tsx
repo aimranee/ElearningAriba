@@ -12,15 +12,17 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import common from "@/locales/fr/common.json";
-import formation from "@/locales/fr/formation.json";
 
+/* why (#21, #17 architecture): a client component takes its text from its
+   server parent, in the page's language, instead of importing French JSON. */
 type BarreRdvProps = {
   href: string;
+  titre: string;
   texte: string;
+  action: string;
 };
 
-function BarreRdv({ href, texte }: BarreRdvProps) {
+function BarreRdv({ href, titre, texte, action }: BarreRdvProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,7 +98,7 @@ function BarreRdv({ href, texte }: BarreRdvProps) {
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-[length:var(--text-small)] leading-[var(--text-small--line-height)] font-semibold text-[var(--ink)]">
-            {formation.aide.titre}
+            {titre}
           </p>
           <p className="text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] text-[var(--muted-ink)]">
             {texte}
@@ -108,7 +110,7 @@ function BarreRdv({ href, texte }: BarreRdvProps) {
           size="lg"
           className="min-h-11 shrink-0"
         >
-          {common.actions.prendreRdv}
+          {action}
         </Button>
       </div>
     </div>

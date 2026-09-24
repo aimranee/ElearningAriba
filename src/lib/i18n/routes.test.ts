@@ -44,6 +44,10 @@ describe("FR↔EN route parity", () => {
     expect(frenchRoutes).toContain("/");
   });
 
+  it("no longer lists /formation as pending (#21)", () => {
+    expect(pending).not.toContain("/formation");
+  });
+
   it("gives every French public route an English copy or a place on the pending list", () => {
     const orphans = frenchRoutes.filter(
       (route) => !translated.includes(route) && !pending.includes(route),
@@ -75,6 +79,12 @@ describe("language pair of a URL", () => {
   it("pairs the French About page with the English one, from either side", () => {
     expect(languagePair("/a-propos")).toEqual({ fr: "/a-propos", en: "/en/about" });
     expect(languagePair("/en/about")).toEqual({ fr: "/a-propos", en: "/en/about" });
+  });
+
+  // why (#21): English URL provisional until the SEO spec (#26).
+  it("pairs the French Formation page with /en/training, from either side", () => {
+    expect(languagePair("/formation")).toEqual({ fr: "/formation", en: "/en/training" });
+    expect(languagePair("/en/training")).toEqual({ fr: "/formation", en: "/en/training" });
   });
 
   it("finds no pair for an app page or an unknown URL", () => {

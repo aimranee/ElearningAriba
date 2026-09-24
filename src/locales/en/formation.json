@@ -48,6 +48,7 @@
   "aVenir": "Coming soon",
   "temoignagesTitre": "They took the training",
   "noteSur": "Rating: {note} out of 5",
+  "guillemets": { "ouvrant": "“", "fermant": "”" },
   "temoignages": [
     {
       "prenom": "Claire",

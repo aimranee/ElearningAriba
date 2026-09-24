@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
 import { RDV_DECOUVERTE_HREF } from "@/components/formation/aide-rdv";
 import { formatMinutes } from "@/lib/i18n/fr";
+import { getMessages } from "@/lib/i18n/messages";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizedPath } from "@/lib/i18n/routes";
 import agenda from "@/locales/fr/agenda.json";
-import common from "@/locales/fr/common.json";
-import formation from "@/locales/fr/formation.json";
 
 /**
  * The RDV band above the footer (#27 § 7): the reference's gradient band
@@ -18,11 +19,13 @@ import formation from "@/locales/fr/formation.json";
  * measures 4.7:1 and a lightening line under it would drop below 4.5.
  * The secondary button keeps a transparent fill for the same reason.
  */
-function BandeauRdv() {
+function BandeauRdv({ locale }: { locale: Locale }) {
+  const common = getMessages(locale, "common");
+  const formation = getMessages(locale, "formation");
   const decouverte = agenda.typesRendezVous[0];
   const texte = formation.bandeau.texte.replace(
     "{duree}",
-    decouverte ? formatMinutes(decouverte.dureeMinutes) : "",
+    decouverte ? formatMinutes(decouverte.dureeMinutes, locale) : "",
   );
 
   return (
@@ -53,7 +56,7 @@ function BandeauRdv() {
               {common.actions.prendreRdv}
             </Button>
             <Button
-              render={<Link href="/contact" />}
+              render={<Link href={localizedPath("/contact", locale)} />}
               nativeButton={false}
               variant="outline"
               size="lg"
