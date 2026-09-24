@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import common from "@/locales/fr/common.json";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { RevealScope } from "@/components/motion/reveal";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
+
+/*
+ * why (#18): the document shell shared by every root layout — (public),
+ * (app) and global-not-found — so fonts, global CSS, metadata and chrome
+ * are declared once and cannot drift between roots.
+ */
 
 const bodyFont = Inter({ variable: "--font-body", subsets: ["latin"] });
 const headingFont = Plus_Jakarta_Sans({
@@ -13,12 +20,12 @@ const headingFont = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const siteMetadata: Metadata = {
   title: common.metadata.title,
   description: common.metadata.description,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <html
       lang="fr"

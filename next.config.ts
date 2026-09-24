@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 
+  // why (#18): two root layouts — (public) and (app) — leave no single
+  // layout to wrap an unmatched URL's 404; src/app/global-not-found.tsx
+  // renders it instead, and only exists behind this flag.
+  experimental: {
+    globalNotFound: true,
+  },
+
   // Pre-launch guard, Phase 0. The site goes live at Lot 5 / Phase 5 with
   // its SEO, legal pages and RGPD; until then nothing here may be indexed.
   // A header covers every response, not only HTML, and outlives any
