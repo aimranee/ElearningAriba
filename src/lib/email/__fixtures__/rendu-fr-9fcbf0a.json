@@ -1,0 +1,26 @@
+{
+  "contactNotification": {
+    "subject": "Nouveau message de contact reçu.",
+    "text": "Bonjour,\n\nUn message a été soumis via le formulaire de contact du site.\nNom : Jeanne Martin\nEmail : jeanne.martin@example.test\nTéléphone : —\nProfil : Consultant\nMessage : Bonjour, une question sur l'appel découverte ?\n\nRépondre à ce message\nCet email automatique transmet le contenu du formulaire ; répondez directement à l'adresse indiquée ci-dessus.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique transmet un message reçu via le site."
+  },
+  "contactAccusReception": {
+    "subject": "Votre message a bien été reçu.",
+    "text": "Bonjour Jeanne Martin,\n\nVotre message envoyé via le formulaire de contact a bien été reçu.\nIl a été transmis au formateur.\n\nConsulter le site\nCe lien vous ramène au site pendant que votre message est traité.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique confirme la réception de votre message."
+  },
+  "suppressionCompteNotification": {
+    "subject": "Une demande de suppression de compte a été enregistrée.",
+    "text": "Bonjour,\n\nUn apprenant a demandé la suppression de son compte.\nPrénom : Jeanne\nNom : Martin\nEmail : jeanne.martin@example.test\nDate de la demande : 25 septembre 2026\n\nConsulter le site\nCe lien vous ramène au site pendant que la demande est traitée.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique transmet une demande de suppression de compte."
+  },
+  "confirmationReservation": {
+    "subject": "Votre réservation est confirmée pour le jeudi 1 octobre 2026 à 10 h 00.",
+    "text": "Bonjour Jeanne,\n\nVotre réservation est confirmée : Appel découverte, le jeudi 1 octobre 2026 à 10 h 00, pour une durée de 30 min.\nLe montant indiqué, 0 €, n’est pas réglé en ligne : le règlement s’effectue directement auprès du formateur, et l’appel découverte reste gratuit.\nLe rendez-vous se déroule au lien suivant : https://meet.example.test/abc.\n\nVoir ma réservation\nCe lien ouvre le récapitulatif de votre rendez-vous dans votre espace apprenant.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique confirme votre réservation ; conservez-le pour référence."
+  },
+  "reservationNotification": {
+    "subject": "Nouvelle réservation : Appel découverte le jeudi 1 octobre 2026 à 10 h 00.",
+    "text": "Bonjour,\n\nUne nouvelle réservation vient d’être enregistrée.\nPrénom : Jeanne\nNom : Martin\nEmail : jeanne.martin@example.test\nType de rendez-vous : Appel découverte\nDate et heure : jeudi 1 octobre 2026 à 10 h 00\nDurée : 30 min\nLien de la session : https://meet.example.test/abc\n\nConsulter le site\nCe lien vous ramène au site pendant que la réservation est traitée.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique confirme une nouvelle réservation reçue via le site."
+  },
+  "reservationAnnulationOuDeplacementNotice": {
+    "subject": "Votre rendez-vous a été modifié.",
+    "text": "Bonjour Jeanne,\n\nVotre rendez-vous initialement prévu le jeudi 1 octobre 2026 à 10 h 00 a été modifié par le formateur.\nNouvelle date et heure : vendredi 2 octobre 2026 à 14 h 00.\nPour toute question, contactez directement le formateur à contact@formation-sap-ariba.fr.\n\nVoir ma réservation\nCe lien ouvre le récapitulatif de votre rendez-vous dans votre espace apprenant.\n\nVotre formateur, expert certifié SAP Ariba\nCet email automatique vous informe d’un changement apporté à votre rendez-vous."
+  }
+}

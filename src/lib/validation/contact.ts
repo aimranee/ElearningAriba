@@ -8,8 +8,13 @@ import { z } from "zod";
  * keys instead of Zod's English defaults (CLAUDE.md: no hardcoded strings).
  * `societe` is the honeypot (D-35); `rendu` is the submit-time timestamp
  * used for the minimum-time-to-submit guard, set client-side on mount.
+ * (#23) `langue` is the language of the page the form was sent from; it
+ * picks the acknowledgement's language and nothing else. Anything but a
+ * known language — missing, empty, unknown, wrong type — reads as French
+ * and never rejects the message.
  */
 export const contactSchema = z.object({
+  langue: z.enum(["fr", "en"]).catch("fr"),
   nom: z.string().trim().min(1),
   email: z.email(),
   telephone: z.string().trim().optional(),

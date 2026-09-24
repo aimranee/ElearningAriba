@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ errors }, { status: 422 });
   }
 
-  const { nom, email, telephone, profil, message, societe, rendu } = parsed.data;
+  const { nom, email, telephone, profil, message, societe, rendu, langue } = parsed.data;
 
   /* why (AC-9, D-35): honeypot check runs before any send or insert. A bot
      that fills every visible field also fills this hidden one; returning
@@ -63,7 +63,10 @@ export async function POST(request: Request) {
       profil: contact.profil[profil as keyof typeof contact.profil],
       message,
     });
-    const acknowledgement = renderContactAcknowledgement({ prenom: nom });
+    /* why (#23, I18N-09): the visitor is answered in the language of the
+       page they wrote from; the trainer's notification above stays French
+       until Phase B gives the admin a profile language. */
+    const acknowledgement = renderContactAcknowledgement({ prenom: nom }, langue);
 
     await sendEmail({
       to: contact.coordonnees.email,

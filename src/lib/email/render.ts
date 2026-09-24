@@ -1,6 +1,19 @@
 import "server-only";
 
 import emails from "@/locales/fr/emails.json";
+import enEmailsJson from "@/locales/en/emails.json";
+import type { Locale } from "@/lib/i18n/locale";
+
+/*
+ * why (#23, I18N-09): only the contact acknowledgement has an English
+ * version in Phase A — the auth, booking and account emails, and the
+ * trainer's notifications, stay French until Phase B. So en/emails.json
+ * carries that one entry, typed against its French twin: a missing English
+ * key fails `npm run typecheck` here. It keeps the French file's name and
+ * key paths so `content:check` lists the English twins of the registered
+ * placeholders (#29).
+ */
+const enEmails: Pick<typeof emails, "contactAccusReception"> = enEmailsJson;
 
 interface RenderedEmail {
   subject: string;
@@ -55,9 +68,13 @@ export function renderContactNotification(values: {
   return renderEntry(emails.contactNotification as EmailEntry, values);
 }
 
-/** The acknowledgement sent back to the prospect. */
-export function renderContactAcknowledgement(values: { prenom: string }): RenderedEmail {
-  return renderEntry(emails.contactAccusReception as EmailEntry, values);
+/** The acknowledgement sent back to the prospect, in the language of the page they wrote from. */
+export function renderContactAcknowledgement(
+  values: { prenom: string },
+  locale: Locale,
+): RenderedEmail {
+  const source = locale === "en" ? enEmails : emails;
+  return renderEntry(source.contactAccusReception as EmailEntry, values);
 }
 
 /** The notification sent to the trainer when a learner requests account deletion. */
