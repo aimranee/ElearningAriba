@@ -90,12 +90,25 @@ export function formatNumber(value: number, locale: Locale = "fr"): string {
   return locale === "en" ? enNumberFormatter.format(value) : numberFormatter.format(value);
 }
 
-export function formatCurrency(value: number): string {
-  return currencyFormatter.format(value);
+/* why (#24): British English writes the euro first with a decimal point —
+   "€300.00" — at the same amount; en-GB keeps the 24-hour clock and Paris
+   time for slot chips, so "14:30" reads the same in both languages. */
+const enCurrencyFormatter: Intl.NumberFormat = new Intl.NumberFormat(EN_LOCALE, {
+  style: "currency",
+  currency: "EUR",
+});
+
+const enTimeFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(EN_LOCALE, {
+  timeZone: TIME_ZONE,
+  timeStyle: "short",
+});
+
+export function formatCurrency(value: number, locale: Locale = "fr"): string {
+  return locale === "en" ? enCurrencyFormatter.format(value) : currencyFormatter.format(value);
 }
 
-export function formatTime(date: Date): string {
-  return timeFormatter.format(date);
+export function formatTime(date: Date, locale: Locale = "fr"): string {
+  return locale === "en" ? enTimeFormatter.format(date) : timeFormatter.format(date);
 }
 
 /* why (#21, CTO decision 2026-09-24): CLDR's en-GB units read "1 hr" and
@@ -183,8 +196,16 @@ export const dateAvecJourFormatter: Intl.DateTimeFormat = new Intl.DateTimeForma
   },
 );
 
-export function formatDateAvecJour(value: Date): string {
-  return dateAvecJourFormatter.format(value);
+// (#24) "Tuesday 8 September" — day before month, as British English writes it.
+const enDateAvecJourFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(EN_LOCALE, {
+  timeZone: TIME_ZONE,
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+});
+
+export function formatDateAvecJour(value: Date, locale: Locale = "fr"): string {
+  return locale === "en" ? enDateAvecJourFormatter.format(value) : dateAvecJourFormatter.format(value);
 }
 
 /* why (#27): a testimonial is dated to the month, never the day — "juin

@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  formatCurrency,
+  formatDateAvecJour,
   formatHours,
   formatMinutes,
   formatMoisAnnee,
   formatNumber,
+  formatTime,
   initialesJoursSemaine,
 } from "./fr";
 
@@ -128,5 +131,55 @@ describe("initialesJoursSemaine", () => {
 
   it("renders the English week, Monday first", () => {
     expect(initialesJoursSemaine("en")).toEqual(["M", "T", "W", "T", "F", "S", "S"]);
+  });
+});
+
+// why (#24): the agenda's prices, slot times and day headings in British
+// English — Paris time, 24-hour clock, day before month, € at the same amount.
+describe("formatCurrency", () => {
+  it("renders English with the euro sign first and a decimal point", () => {
+    expect(formatCurrency(300, "en")).toBe("€300.00");
+    expect(formatCurrency(0, "en")).toBe("€0.00");
+    expect(formatCurrency(1234.5, "en")).toBe("€1,234.50");
+  });
+
+  it("renders French unchanged", () => {
+    expect(formatCurrency(90)).toBe(`90,00 €`);
+    expect(formatCurrency(90, "fr")).toBe(`90,00 €`);
+  });
+});
+
+describe("formatTime", () => {
+  // 12:30 UTC in September is 14:30 in Paris (CEST).
+  const afternoon = new Date("2026-09-08T12:30:00Z");
+  // 08:05 UTC in January is 09:05 in Paris (CET).
+  const morning = new Date("2026-01-12T08:05:00Z");
+
+  it("renders English on the 24-hour clock in Paris time", () => {
+    expect(formatTime(afternoon, "en")).toBe("14:30");
+    expect(formatTime(morning, "en")).toBe("09:05");
+  });
+
+  it("renders French unchanged", () => {
+    expect(formatTime(afternoon)).toBe("14:30");
+    expect(formatTime(morning)).toBe("09:05");
+  });
+});
+
+describe("formatDateAvecJour", () => {
+  const tuesday = new Date("2026-09-08T12:00:00Z");
+
+  it("renders the weekday, then the day, then the month in English", () => {
+    expect(formatDateAvecJour(tuesday, "en")).toBe("Tuesday 8 September");
+  });
+
+  it("renders French unchanged", () => {
+    expect(formatDateAvecJour(tuesday)).toBe("mardi 8 septembre");
+    expect(formatDateAvecJour(tuesday, "fr")).toBe("mardi 8 septembre");
+  });
+
+  it("takes the day in Paris, not in UTC", () => {
+    // 23:30 UTC on Monday 7 September is already Tuesday in Paris.
+    expect(formatDateAvecJour(new Date("2026-09-07T23:30:00Z"), "en")).toBe("Tuesday 8 September");
   });
 });
