@@ -14,6 +14,12 @@ import {
 import { EtapeType } from "@/components/reservation/etape-type";
 import { EtapeCreneau } from "@/components/reservation/etape-creneau";
 import { EtapeRecapitulatif } from "@/components/reservation/etape-recapitulatif";
+import {
+  estRechargementDeCettePage,
+  libererMaintien,
+  retenirCreneau,
+} from "@/lib/agenda/retenir-creneau";
+import { ecrireCreneauChoisi } from "@/lib/agenda/creneaux";
 
 type Etape = "type" | "creneau" | "recapitulatif";
 type StatutCommit = "idle" | "submitting" | "error";
@@ -72,6 +78,52 @@ export function ParcoursReservation({ types, estConnecte, lieu }: ParcoursReserv
       setEtape("recapitulatif");
       /* eslint-enable react-hooks/set-state-in-effect */
     }
+  }, []);
+
+  // why (#28): beforeunload cannot tell a reload from a tab close, so a
+  // reload of this page has just released the stored hold (listener below).
+  // Take it back rather than show a countdown for a hold that is gone: the
+  // release is repeated and awaited first, since the unload's keepalive
+  // release may still be in flight and must not land after the new hold;
+  // then the stored token is re-requested with screen 2's one-retry rule —
+  // it answers 'jeton_inconnu' and a mint follows.
+  useEffect(() => {
+    const stocke = lireCreneauChoisi();
+    if (!estRechargementDeCettePage() || !stocke?.jeton) return;
+    const { typeId: typeStocke, debut, jeton } = stocke;
+    let actif = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCreneau({ debut, jeton: null, expireLe: null });
+
+    async function reprendreLeMaintien() {
+      await libererMaintien(jeton);
+      const resultat = await retenirCreneau({ typeId: typeStocke, debut, jeton }).catch(
+        () => null,
+      );
+      if (!actif) {
+        if (resultat?.ok) void libererMaintien(resultat.jeton);
+        return;
+      }
+      if (resultat?.ok) {
+        ecrireCreneauChoisi({ typeId: typeStocke, debut, jeton: resultat.jeton, expireLe: resultat.expireLe });
+        setCreneau({ debut, jeton: resultat.jeton, expireLe: resultat.expireLe });
+        return;
+      }
+      if (resultat?.erreur === "creneauIndisponible") {
+        effacerCreneauChoisi();
+        setErreurCommit(reservation.erreurs.creneauIndisponible);
+      } else {
+        effacerJetonCreneauChoisi();
+        setErreurCommit(reservation.erreurs.erreurGenerique);
+      }
+      setCreneau(null);
+      setEtape("creneau");
+    }
+
+    void reprendreLeMaintien();
+    return () => {
+      actif = false;
+    };
   }, []);
 
   // Release the held slot on genuine abandon — unmount (in-app navigation

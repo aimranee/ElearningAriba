@@ -21,8 +21,8 @@ import {
   joursPorteurs,
   lireCreneauChoisi,
   ecrireCreneauChoisi,
-  effacerJetonCreneauChoisi,
 } from "@/lib/agenda/creneaux";
+import { retenirCreneau } from "@/lib/agenda/retenir-creneau";
 import { CalendrierMois } from "@/components/agenda/calendrier-mois";
 import { ListeCreneaux } from "@/components/agenda/liste-creneaux";
 import { BookerSkeleton } from "@/components/agenda/booker-skeleton";
@@ -128,49 +128,27 @@ export function EtapeCreneau({ typeId, onCreneauRetenu }: EtapeCreneauProps) {
     const jetonExistant =
       stocke && stocke.typeId === typeId ? (stocke.jeton ?? undefined) : undefined;
 
-    const tenter = async (jeton?: string) => {
-      const reponse = await fetch("/api/creneaux/maintien", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ typeId, debut: debutIso, ...(jeton ? { jeton } : {}) }),
-      });
-      const corps = (await reponse.json().catch(() => ({}))) as {
-        jeton?: string;
-        expireLe?: string;
-        erreur?: keyof typeof agenda.erreurs;
-      };
-      return { ok: reponse.ok, corps };
-    };
+    const resultat = await retenirCreneau({ typeId, debut: debutIso, jeton: jetonExistant });
 
-    let { ok, corps } = await tenter(jetonExistant);
-
-    // Retry once, never in a loop: a stored token gone stale (the fifteen
-    // minutes lapsed, or a server restart) answers 'jeton_inconnu' — drop it
-    // and re-POST once as a mint. Only a second failure reaches the visitor.
-    if (!ok && corps.erreur === "jetonInconnu") {
-      effacerJetonCreneauChoisi();
-      ({ ok, corps } = await tenter(undefined));
-    }
-
-    if (ok && corps.jeton && corps.expireLe) {
+    if (resultat.ok) {
       ecrireCreneauChoisi({
         typeId,
         debut: debutIso,
-        jeton: corps.jeton,
-        expireLe: corps.expireLe,
+        jeton: resultat.jeton,
+        expireLe: resultat.expireLe,
       });
-      onCreneauRetenu({ debut: debutIso, jeton: corps.jeton, expireLe: corps.expireLe });
+      onCreneauRetenu({ debut: debutIso, jeton: resultat.jeton, expireLe: resultat.expireLe });
       return;
     }
 
-    if (corps.erreur === "creneauIndisponible") {
+    if (resultat.erreur === "creneauIndisponible") {
       setMessageErreur(agenda.erreurs.creneauIndisponible);
       await chargerCreneaux(null);
       return;
     }
 
     setMessageErreur(
-      corps.erreur ? agenda.erreurs[corps.erreur] : agenda.erreurs.erreurGenerique,
+      resultat.erreur ? agenda.erreurs[resultat.erreur] : agenda.erreurs.erreurGenerique,
     );
   }
 
