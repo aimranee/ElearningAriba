@@ -4,6 +4,7 @@
   "moisPrecedent": "Mois précédent",
   "moisSuivant": "Mois suivant",
   "legende": {
+    "titre": "Légende",
     "libre": "Libre",
     "indisponible": "Indisponible",
     "passe": "Passé"

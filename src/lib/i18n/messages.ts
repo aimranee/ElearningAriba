@@ -1,9 +1,11 @@
+import frAgenda from "@/locales/fr/agenda.json";
 import frAPropos from "@/locales/fr/a-propos.json";
 import frCommon from "@/locales/fr/common.json";
 import frContact from "@/locales/fr/contact.json";
 import frFormation from "@/locales/fr/formation.json";
 import frLanding from "@/locales/fr/landing.json";
 import frProgramme from "@/locales/fr/programme.json";
+import enAgenda from "@/locales/en/agenda.json";
 import enAPropos from "@/locales/en/a-propos.json";
 import enCommon from "@/locales/en/common.json";
 import enContact from "@/locales/en/contact.json";
@@ -24,6 +26,7 @@ import type { Locale } from "@/lib/i18n/locale";
  */
 const fr = {
   "a-propos": frAPropos,
+  agenda: frAgenda,
   common: frCommon,
   contact: frContact,
   formation: frFormation,
@@ -38,6 +41,7 @@ export type Messages<N extends Namespace> = (typeof fr)[N];
 // `npm run typecheck` on this line.
 const en: { [N in Namespace]: Messages<N> } = {
   "a-propos": enAPropos,
+  agenda: enAgenda,
   common: enCommon,
   contact: enContact,
   formation: enFormation,

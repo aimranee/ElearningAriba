@@ -428,6 +428,7 @@ export type Database = {
           duree_minutes: number
           id: string
           libelle: string
+          libelle_en: string | null
           ordre: number
           prix_centimes: number
           tampon_minutes: number
@@ -439,6 +440,7 @@ export type Database = {
           duree_minutes: number
           id: string
           libelle: string
+          libelle_en?: string | null
           ordre?: number
           prix_centimes?: number
           tampon_minutes?: number
@@ -450,6 +452,7 @@ export type Database = {
           duree_minutes?: number
           id?: string
           libelle?: string
+          libelle_en?: string | null
           ordre?: number
           prix_centimes?: number
           tampon_minutes?: number

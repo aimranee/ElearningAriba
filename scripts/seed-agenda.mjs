@@ -126,6 +126,29 @@ async function seedTypesRendezVous() {
   return manquants.length;
 }
 
+// (#24) English names -- from src/locales/en/agenda.json, which mirrors the
+// French file key for key. Written only where libelle_en is still null: the
+// admin does not edit English until Phase C, so there is nothing configured
+// to revert, and a name set by hand in the database survives a re-run.
+async function seedLibellesAnglais() {
+  const agendaEn = JSON.parse(readFileSync(join(rootDir, "src/locales/en/agenda.json"), "utf8"));
+  let ecrits = 0;
+  for (const t of agendaEn.typesRendezVous) {
+    const { data, error } = await supabase
+      .from("type_rendez_vous")
+      .update({ libelle_en: t.libelle })
+      .eq("id", t.id)
+      .is("libelle_en", null)
+      .select("id");
+    if (error) {
+      console.error(`agenda:seed: type_rendez_vous libelle_en update failed: ${error.message}`);
+      process.exit(1);
+    }
+    ecrits += data.length;
+  }
+  return ecrits;
+}
+
 // D-22: a typical Monday(1)-to-Friday(5) week, 09:00-12:00 and 14:00-17:00.
 // ISO isodow, never extract(dow). No natural unique key exists on this table
 // yet, so read the existing active rows first and insert only the missing
@@ -243,11 +266,12 @@ async function seedJoursFeries() {
 async function main() {
   await promouvoirAdministrateur();
   const typesInseres = await seedTypesRendezVous();
+  const libellesAnglais = await seedLibellesAnglais();
   const semaineInseree = await seedSemaineType();
   const feriesInseres = await seedJoursFeries();
 
   console.log(
-    `agenda:seed: done -- administrator promoted, ${typesInseres} type(s) inserted, ${semaineInseree} weekly range(s) inserted, ${feriesInseres} holiday(s) inserted`,
+    `agenda:seed: done -- administrator promoted, ${typesInseres} type(s) inserted, ${libellesAnglais} English name(s) written, ${semaineInseree} weekly range(s) inserted, ${feriesInseres} holiday(s) inserted`,
   );
 }
 

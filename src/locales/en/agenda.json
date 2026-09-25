@@ -1,0 +1,40 @@
+{
+  "titre": "Choose your slot. The right time to start is the one you set.",
+  "intro": "See the trainer's availability and book directly online.",
+  "moisPrecedent": "Previous month",
+  "moisSuivant": "Next month",
+  "legende": {
+    "titre": "Legend",
+    "libre": "Available",
+    "indisponible": "Unavailable",
+    "passe": "Past"
+  },
+  "typesRendezVous": [
+    { "id": "decouverte", "libelle": "Discovery call", "dureeMinutes": 30, "prix": 0 },
+    { "id": "individuelle", "libelle": "Individual session", "dureeMinutes": 90, "prix": 300 }
+  ],
+  "aucunCreneau": {
+    "titre": "No slots available at the moment.",
+    "message": "New availability is added regularly; check back soon or contact us.",
+    "action": "Contact us"
+  },
+  "chargement": "Loading availability…",
+  "voirPlus": "Show more slots",
+  "matin": "Morning",
+  "apresMidi": "Afternoon",
+  "maintien": {
+    "notice": "This slot is held for you for {minutes} minutes.",
+    "expire": "Time is up; this slot is offered to other visitors again."
+  },
+  "confiance": {
+    "confirmation": "An immediate confirmation is sent to you by email after booking.",
+    "modification": "To change your slot, contact the trainer directly; there is no self-service cancellation."
+  },
+  "erreurs": {
+    "creneauIndisponible": "Someone else has just booked this slot. Please choose another time.",
+    "typeInconnu": "This type of appointment is no longer available.",
+    "jetonInconnu": "Your held slot has expired; we are sending the request again.",
+    "champsInvalides": "The request is invalid.",
+    "erreurGenerique": "Something went wrong. Please try again."
+  }
+}
