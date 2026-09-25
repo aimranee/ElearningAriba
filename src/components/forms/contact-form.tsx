@@ -34,7 +34,7 @@ type FieldErrors = Partial<Record<"nom" | "email" | "profil" | "message", keyof 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const renduInputRef = useRef<HTMLInputElement>(null);
+  const renduRef = useRef<number | null>(null);
 
   /* why (FUITE-02): see src/components/compte/submit-button.tsx — this
      form's submit button is rendered inline, so the same hydration gate is
@@ -42,13 +42,14 @@ export function ContactForm() {
   const hydrated = useHydrated();
 
   /* why: set on mount, not during render — "use client" components still
-     render once on the server, so writing Date.now() to the hidden input's
-     DOM node inside an effect (not as a React-controlled value) avoids a
-     hydration mismatch */
+     render once on the server, so Date.now() during render would differ
+     between server and client. Kept in a ref, never in the DOM (#31): a
+     hidden input written from an effect was wiped by the next commit —
+     React re-applies defaultValue="" on every update, and on a hidden input
+     defaultValue and value are the same attribute — so the form posted
+     rendu 0 and the server's minimum-time check never fired. */
   useEffect(() => {
-    if (renduInputRef.current) {
-      renduInputRef.current.value = String(Date.now());
-    }
+    renduRef.current = Date.now();
   }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -57,7 +58,10 @@ export function ContactForm() {
     setFieldErrors({});
 
     const formData = new FormData(event.currentTarget);
-    const rendu = Number(formData.get("rendu") ?? Date.now());
+    /* why: the submit button stays disabled until hydrated, after the
+       effect has run; if the ref were ever still empty, "now" fails closed
+       (the server reads it as too fast) rather than open. */
+    const rendu = renduRef.current ?? Date.now();
 
     const payload = {
       nom: String(formData.get("nom") ?? ""),
@@ -187,9 +191,6 @@ export function ContactForm() {
         className="sr-only"
         defaultValue=""
       />
-
-      {/* set on mount via the effect above; empty on first render (SSR-safe) */}
-      <input ref={renduInputRef} type="hidden" name="rendu" defaultValue="" readOnly />
 
       {isTransportError ? (
         <Field rejected="server">
