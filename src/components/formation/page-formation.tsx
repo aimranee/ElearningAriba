@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getSection, getSectionItems } from "@/lib/content/queries";
 import { getMessages } from "@/lib/i18n/messages";
 import type { Locale } from "@/lib/i18n/locale";
+import { PROGRAMME_PDF_PATH } from "@/lib/i18n/routes";
 import { Section, SectionHeader } from "@/components/sections/section";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -317,7 +318,7 @@ export async function PageFormation({ locale }: { locale: Locale }) {
               {telechargerPdf ? (
                 <Button
                   variant="ghost"
-                  render={<a href="/programme.pdf" />}
+                  render={<a href={PROGRAMME_PDF_PATH[locale]} />}
                   nativeButton={false}
                   className="min-h-11"
                 >

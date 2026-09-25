@@ -2,7 +2,9 @@
   "titre": "The detailed programme reads module by module. Each step has a clear objective.",
   "intro": "Five modules progressively build your command of SAP Ariba. Here is their full content.",
   "telechargerPdf": "Download the programme as a PDF",
-  "totalLabelPdf": "Total",
+  "totalPdf": "Total: {heures}",
+  "nomFichierPdf": "sap-ariba-training-programme.pdf",
+  "indisponiblePdf": "The programme is not available at the moment.",
   "modules": [
     {
       "titre": "Getting started with SAP Ariba",

@@ -1,9 +1,15 @@
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-import { EN_ROUTES, PENDING_EN_ROUTES, languagePair, localizedPath } from "./routes";
+import {
+  EN_ROUTES,
+  PENDING_EN_ROUTES,
+  PROGRAMME_PDF_PATH,
+  languagePair,
+  localizedPath,
+} from "./routes";
 
 const APP_DIR = fileURLToPath(new URL("../../app", import.meta.url));
 const PAGE_FILE = /^page\.(tsx|ts|jsx|js|mdx)$/;
@@ -124,6 +130,25 @@ describe("language pair of a URL", () => {
   it("finds no pair for an app page or an unknown URL", () => {
     expect(languagePair("/connexion")).toBeNull();
     expect(languagePair("/cette-page-n-existe-pas")).toBeNull();
+  });
+});
+
+// why (#25): the programme PDF is a file, not a page — its English copy is
+// linked from the English pages but gets no switcher and no alternate.
+describe("programme PDF path", () => {
+  it("serves the French PDF at /programme.pdf and the English one at /en/programme.pdf", () => {
+    expect(PROGRAMME_PDF_PATH.fr).toBe("/programme.pdf");
+    expect(PROGRAMME_PDF_PATH.en).toBe("/en/programme.pdf");
+  });
+
+  it("gives both PDF URLs a route handler on disk", () => {
+    expect(existsSync(join(APP_DIR, "programme.pdf", "route.ts"))).toBe(true);
+    expect(existsSync(join(APP_DIR, "(public-en)", "en", "programme.pdf", "route.ts"))).toBe(true);
+  });
+
+  it("keeps the PDF out of the page map, so it has no language pair", () => {
+    expect(languagePair("/programme.pdf")).toBeNull();
+    expect(languagePair("/en/programme.pdf")).toBeNull();
   });
 });
 

@@ -16,6 +16,7 @@ import { getModules, getSection, getSectionItems } from "@/lib/content/queries";
 import { formatHours } from "@/lib/i18n/fr";
 import { getMessages } from "@/lib/i18n/messages";
 import type { Locale } from "@/lib/i18n/locale";
+import { PROGRAMME_PDF_PATH } from "@/lib/i18n/routes";
 
 /**
  * PUB-04 — five programme modules read from `getModules()`, rendered through
@@ -134,7 +135,7 @@ async function ProgrammeAccordion({ locale }: { locale: Locale }) {
         {telechargerPdf ? (
           <Button
             variant="ghost"
-            render={<a href="/programme.pdf" />}
+            render={<a href={PROGRAMME_PDF_PATH[locale]} />}
             nativeButton={false}
             className="min-h-11"
           >

@@ -22,6 +22,13 @@ export type TranslatedRoute = keyof typeof EN_ROUTES;
    page lands here until its English copy exists (#26 makes parity strict). */
 export const PENDING_EN_ROUTES: readonly string[] = [];
 
+/* why (#25): the programme PDF in each language. A file, not a page, so it
+   stays out of EN_ROUTES: no switcher, no hreflang, no sitemap entry. */
+export const PROGRAMME_PDF_PATH = {
+  fr: "/programme.pdf",
+  en: "/en/programme.pdf",
+} as const satisfies Record<Locale, string>;
+
 const EN_BY_FR: ReadonlyMap<string, string> = new Map(Object.entries(EN_ROUTES));
 const FR_BY_EN: ReadonlyMap<string, string> = new Map(
   Object.entries(EN_ROUTES).map(([fr, en]) => [en, fr]),

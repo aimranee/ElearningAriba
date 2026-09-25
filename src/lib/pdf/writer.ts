@@ -142,7 +142,16 @@ function writeContentStream(writer: ByteWriter, page: PdfPage): void {
  * (Helvetica, Helvetica-Bold, both WinAnsiEncoding), one Page + Contents
  * stream pair per page, and a byte-accurate xref table and trailer.
  */
-export function buildPdf(pages: PdfPage[], size: PageSize = A4): Uint8Array {
+export type PdfOptions = {
+  /** BCP 47 tag written to the catalog's /Lang; omitted when absent. */
+  lang?: string;
+};
+
+export function buildPdf(
+  pages: PdfPage[],
+  size: PageSize = A4,
+  options: PdfOptions = {},
+): Uint8Array {
   if (pages.length === 0) {
     throw new Error("buildPdf requires at least one page");
   }
@@ -176,7 +185,10 @@ export function buildPdf(pages: PdfPage[], size: PageSize = A4): Uint8Array {
   const totalObjects = nextObjNum - 1;
 
   startObj(catalogNum);
-  writer.writeString(`<< /Type /Catalog /Pages ${pagesNum} 0 R >>\n`);
+  // why (#25): only the English programme declares a language, so the French
+  // PDF keeps its base bytes.
+  const lang = options.lang ? ` /Lang (${options.lang})` : "";
+  writer.writeString(`<< /Type /Catalog /Pages ${pagesNum} 0 R${lang} >>\n`);
   endObj();
 
   startObj(pagesNum);
