@@ -43,10 +43,10 @@ export async function buildProgrammePdf(): Promise<ProgrammePdfResult> {
       gapAfter: 6,
     });
     for (const objectif of currentModule.objectifs) {
-      lines.push({ text: `• ${objectif}`, size: 11, weight: "regular", gapAfter: 2 });
+      lines.push({ text: `• ${objectif}`, size: 11, weight: "regular", gapAfter: 2, hangingPrefix: "• " });
     }
     for (const item of currentModule.contenu) {
-      lines.push({ text: `• ${item}`, size: 11, weight: "regular", gapAfter: 2 });
+      lines.push({ text: `• ${item}`, size: 11, weight: "regular", gapAfter: 2, hangingPrefix: "• " });
     }
     lines.push({ text: "", size: 6, weight: "regular", gapAfter: 10 });
   }
