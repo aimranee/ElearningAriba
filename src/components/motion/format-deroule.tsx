@@ -115,7 +115,11 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
           <p className="mt-4 text-[length:var(--text-small)] leading-[var(--text-small--line-height)] text-[var(--muted-ink)]">{resume}</p>
         </div>
 
-        <div aria-hidden="true" className="lg:sticky lg:top-[104px]">
+        {/* why min-w-0: the header label is nowrap, so its full text width
+            counts in the preview's min-content even though it truncates;
+            with min-width auto the single grid column grew to ~370px and
+            the page scrolled sideways below 390px (#30). */}
+        <div aria-hidden="true" className="min-w-0 lg:sticky lg:top-[104px]">
           <div className="relative overflow-hidden rounded-[22px] bg-[var(--night)] text-white shadow-[var(--shadow-2)]">
             <div className="flex items-center gap-1.5 border-b border-white/10 px-[14px] py-[11px]">
               <span className="size-2.5 rounded-full" style={{ background: "#FF5F57" }} />
@@ -124,7 +128,7 @@ function FormatDeroule({ deroule, fourniLignes, apercu, premierModuleTitre, resu
               <span className="ml-2 truncate text-[length:var(--text-micro)] leading-[var(--text-micro--line-height)] font-semibold text-white/60">
                 {apercu.frameLabel}
               </span>
-              <span className="ml-auto inline-flex items-center gap-[0.4rem] rounded-full bg-[rgba(31,199,155,.16)] px-[0.6rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold tracking-[0.06em] text-[var(--mint-soft)] uppercase">
+              <span className="ml-auto inline-flex shrink-0 items-center gap-[0.4rem] rounded-full bg-[rgba(31,199,155,.16)] px-[0.6rem] py-[0.25rem] text-[length:var(--text-micro)] font-extrabold tracking-[0.06em] text-[var(--mint-soft)] uppercase">
                 <span
                   aria-hidden="true"
                   className="size-[7px] rounded-full bg-[var(--live)]"
