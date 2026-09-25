@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import { createPublicClient } from "@/lib/supabase/public";
 import type { QueryResult } from "@/lib/content/queries";
+import type { Locale } from "@/lib/i18n/locale";
 
 /**
  * app.type_rendez_vous is the single source of truth for the appointment
@@ -25,11 +26,23 @@ export type TypeRendezVous = {
 const typeRendezVousRowSchema = z.object({
   id: z.string(),
   libelle: z.string(),
+  // (#24) read by the English agenda only; absent from the French query.
+  libelle_en: z.string().nullish(),
   duree_minutes: z.number(),
   tampon_minutes: z.number(),
   prix_centimes: z.number(),
   ordre: z.number(),
 });
+
+const COLONNES_FR = "id, libelle, duree_minutes, tampon_minutes, prix_centimes, ordre";
+const COLONNES_EN = "id, libelle, libelle_en, duree_minutes, tampon_minutes, prix_centimes, ordre";
+
+/* why (#17, #24): English is optional on each type, French required — a
+   missing or blank English name shows the French one, type by type. */
+function libelleLocalise(libelle: string, libelleEn: string | null | undefined, locale: Locale): string {
+  if (locale === "fr" || !libelleEn || libelleEn.trim() === "") return libelle;
+  return libelleEn;
+}
 
 /**
  * Reads the active app.type_rendez_vous rows, ordered by ordre. Runs as a
@@ -41,13 +54,13 @@ const typeRendezVousRowSchema = z.object({
  * empty state rather than throwing — a database hiccup must not take the
  * shop window down.
  */
-export async function getTypesRendezVous(): Promise<
-  QueryResult<TypeRendezVous[]>
-> {
+export async function getTypesRendezVous(
+  locale: Locale = "fr",
+): Promise<QueryResult<TypeRendezVous[]>> {
   const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("type_rendez_vous")
-    .select("id, libelle, duree_minutes, tampon_minutes, prix_centimes, ordre")
+    .select(locale === "en" ? COLONNES_EN : COLONNES_FR)
     .eq("actif", true)
     .order("ordre", { ascending: true });
 
@@ -63,7 +76,7 @@ export async function getTypesRendezVous(): Promise<
     }
     types.push({
       id: parsed.data.id,
-      libelle: parsed.data.libelle,
+      libelle: libelleLocalise(parsed.data.libelle, parsed.data.libelle_en, locale),
       dureeMinutes: parsed.data.duree_minutes,
       tamponMinutes: parsed.data.tampon_minutes,
       prixCentimes: parsed.data.prix_centimes,

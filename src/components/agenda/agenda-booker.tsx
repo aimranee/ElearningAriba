@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import agenda from "@/locales/fr/agenda.json";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   EmptyState,
@@ -27,15 +26,26 @@ import {
   ecrireCreneauChoisi,
   effacerJetonCreneauChoisi,
 } from "@/lib/agenda/creneaux";
-import { CalendrierMois } from "@/components/agenda/calendrier-mois";
-import { ListeCreneaux } from "@/components/agenda/liste-creneaux";
+import { CalendrierMois, type CalendrierMoisTexte } from "@/components/agenda/calendrier-mois";
+import { ListeCreneaux, type ListeCreneauxTexte } from "@/components/agenda/liste-creneaux";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Messages } from "@/lib/i18n/messages";
 import { BookerSkeleton } from "@/components/agenda/booker-skeleton";
 
 const HORIZON_JOURS = 56; // D-13: 8-week booking horizon
 
 type Statut = "chargement" | "pret" | "vide" | "erreur";
 
+/* why (#24): the booker's text, in the page's language, handed down by the
+   server page (src/components/agenda/page-agenda.tsx) — this island imports
+   no copy of its own. */
+export type AgendaBookerTexte = CalendrierMoisTexte &
+  ListeCreneauxTexte &
+  Pick<Messages<"agenda">, "titre" | "erreurs">;
+
 type AgendaBookerProps = {
+  locale: Locale;
+  texte: AgendaBookerTexte;
   types: TypeRendezVous[];
 };
 
@@ -47,7 +57,7 @@ type AgendaBookerProps = {
  * and cannot be used from a "use client" component, despite D-06's naming
  * of it; the intent (anonymous browser read, static route) is unchanged.
  */
-export function AgendaBooker({ types }: AgendaBookerProps) {
+export function AgendaBooker({ locale, texte, types }: AgendaBookerProps) {
   const router = useRouter();
   const [typeId, setTypeId] = useState<string>(types[0]?.id ?? "");
   const [statut, setStatut] = useState<Statut>("chargement");
@@ -91,14 +101,14 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
 
         if (error || !data) {
           setStatut("erreur");
-          setMessageErreur(agenda.erreurs.erreurGenerique);
+          setMessageErreur(texte.erreurs.erreurGenerique);
           return;
         }
 
         const parsed = creneauxRpcSchema.safeParse(data);
         if (!parsed.success) {
           setStatut("erreur");
-          setMessageErreur(agenda.erreurs.erreurGenerique);
+          setMessageErreur(texte.erreurs.erreurGenerique);
           return;
         }
 
@@ -119,10 +129,10 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
         }
       } catch {
         setStatut("erreur");
-        setMessageErreur(agenda.erreurs.erreurGenerique);
+        setMessageErreur(texte.erreurs.erreurGenerique);
       }
     },
-    [],
+    [texte.erreurs.erreurGenerique],
   );
 
   // Mount-time only: read a previously stored retention so the visitor
@@ -187,7 +197,7 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
       const corps = (await reponse.json().catch(() => ({}))) as {
         jeton?: string;
         expireLe?: string;
-        erreur?: keyof typeof agenda.erreurs;
+        erreur?: keyof AgendaBookerTexte["erreurs"];
       };
       return { ok: reponse.ok, corps };
     };
@@ -217,13 +227,13 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
     }
 
     if (corps.erreur === "creneauIndisponible") {
-      setMessageErreur(agenda.erreurs.creneauIndisponible);
+      setMessageErreur(texte.erreurs.creneauIndisponible);
       await chargerCreneaux(typeId, null);
       return;
     }
 
     setMessageErreur(
-      corps.erreur ? agenda.erreurs[corps.erreur] : agenda.erreurs.erreurGenerique,
+      corps.erreur ? texte.erreurs[corps.erreur] : texte.erreurs.erreurGenerique,
     );
   }
 
@@ -234,7 +244,7 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label={agenda.titre}>
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label={texte.titre}>
         {types.map((type) => (
           <Button
             key={type.id}
@@ -257,19 +267,21 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
         <BookerSkeleton />
       ) : statut === "erreur" ? (
         <EmptyState tone="error">
-          <EmptyStateTitle>{agenda.erreurs.erreurGenerique}</EmptyStateTitle>
+          <EmptyStateTitle>{texte.erreurs.erreurGenerique}</EmptyStateTitle>
         </EmptyState>
       ) : statut === "vide" ? (
         <EmptyState tone="waiting">
-          <EmptyStateTitle>{agenda.aucunCreneau.titre}</EmptyStateTitle>
-          <EmptyStateDescription>{agenda.aucunCreneau.message}</EmptyStateDescription>
+          <EmptyStateTitle>{texte.aucunCreneau.titre}</EmptyStateTitle>
+          <EmptyStateDescription>{texte.aucunCreneau.message}</EmptyStateDescription>
           <EmptyStateAction>
-            <Button variant="secondary">{agenda.aucunCreneau.action}</Button>
+            <Button variant="secondary">{texte.aucunCreneau.action}</Button>
           </EmptyStateAction>
         </EmptyState>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <CalendrierMois
+            locale={locale}
+            texte={texte}
             annee={affichage.annee}
             mois={affichage.mois}
             joursPorteurs={porteurs}
@@ -298,6 +310,8 @@ export function AgendaBooker({ types }: AgendaBookerProps) {
             <CardHeader />
             <CardContent>
               <ListeCreneaux
+                locale={locale}
+                texte={texte}
                 jour={jourSelectionne}
                 creneaux={creneauxDuJour}
                 creneauChoisiDebut={

@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Camera } from "lucide-react";
 
-import agenda from "@/locales/fr/agenda.json";
-import common from "@/locales/fr/common.json";
 import { Button } from "@/components/ui/button";
 import {
   EmptyState,
@@ -15,10 +13,21 @@ import {
 import { cn } from "@/lib/utils";
 import { type Creneau, grouperMatinApresMidi } from "@/lib/agenda/creneaux";
 import { formatDateAvecJour, formatTime } from "@/lib/i18n/fr";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Messages } from "@/lib/i18n/messages";
 
 const VISIBLE_PAR_DEFAUT = 6;
 
+/* why (#24): the list's text, in the page's language, handed down by the
+   server page through the booker — this island imports no copy of its own. */
+export type ListeCreneauxTexte = Pick<
+  Messages<"agenda">,
+  "aucunCreneau" | "matin" | "apresMidi" | "voirPlus" | "confiance"
+> & { photoSlot: Messages<"common">["photoSlot"] };
+
 type ListeCreneauxProps = {
+  locale: Locale;
+  texte: ListeCreneauxTexte;
   jour: string | null;
   creneaux: Creneau[];
   creneauChoisiDebut: string | null;
@@ -29,9 +38,12 @@ type ListeCreneauxProps = {
  * why (CONTEXT § trust signals): the trust signals sit adjacent to the slot
  * choice, never louder than it — the trainer's photo, the "confirmation
  * immédiate" promise and the D-11 no-self-service-cancellation rule. All
- * three come from agenda.json/common.json, never a hardcoded string.
+ * three come from agenda.json/common.json (through `texte`), never a
+ * hardcoded string.
  */
 export function ListeCreneaux({
+  locale,
+  texte,
   jour,
   creneaux,
   creneauChoisiDebut,
@@ -42,10 +54,10 @@ export function ListeCreneaux({
   if (!jour || creneaux.length === 0) {
     return (
       <EmptyState tone="waiting">
-        <EmptyStateTitle>{agenda.aucunCreneau.titre}</EmptyStateTitle>
-        <EmptyStateDescription>{agenda.aucunCreneau.message}</EmptyStateDescription>
+        <EmptyStateTitle>{texte.aucunCreneau.titre}</EmptyStateTitle>
+        <EmptyStateDescription>{texte.aucunCreneau.message}</EmptyStateDescription>
         <EmptyStateAction>
-          <Button variant="secondary">{agenda.aucunCreneau.action}</Button>
+          <Button variant="secondary">{texte.aucunCreneau.action}</Button>
         </EmptyStateAction>
       </EmptyState>
     );
@@ -64,17 +76,18 @@ export function ListeCreneaux({
   return (
     <div className="flex flex-col gap-4">
       <p className="font-heading text-base font-semibold capitalize">
-        {formatDateAvecJour(new Date(`${jour}T12:00:00Z`))}
+        {formatDateAvecJour(new Date(`${jour}T12:00:00Z`), locale)}
       </p>
 
       {matinVisible.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <p className="text-muted-foreground text-sm font-medium">{agenda.matin}</p>
+          <p className="text-muted-foreground text-sm font-medium">{texte.matin}</p>
           <div className="flex flex-wrap gap-2">
             {matinVisible.map((creneau) => (
               <ChipCreneau
                 key={creneau.debut.toISOString()}
                 creneau={creneau}
+                locale={locale}
                 selectionne={creneauChoisiDebut === creneau.debut.toISOString()}
                 onClick={() => onChoisirCreneau(creneau)}
               />
@@ -86,13 +99,14 @@ export function ListeCreneaux({
       {apresMidiVisible.length > 0 ? (
         <div className="flex flex-col gap-2">
           <p className="text-muted-foreground text-sm font-medium">
-            {agenda.apresMidi}
+            {texte.apresMidi}
           </p>
           <div className="flex flex-wrap gap-2">
             {apresMidiVisible.map((creneau) => (
               <ChipCreneau
                 key={creneau.debut.toISOString()}
                 creneau={creneau}
+                locale={locale}
                 selectionne={creneauChoisiDebut === creneau.debut.toISOString()}
                 onClick={() => onChoisirCreneau(creneau)}
               />
@@ -109,7 +123,7 @@ export function ListeCreneaux({
           className="h-11 self-start"
           onClick={() => setToutAfficher(true)}
         >
-          {agenda.voirPlus}
+          {texte.voirPlus}
         </Button>
       ) : null}
 
@@ -123,15 +137,15 @@ export function ListeCreneaux({
           </span>
           <div className="flex flex-col gap-0.5">
             <span className="text-xs font-semibold tracking-wide text-[var(--violet)] uppercase">
-              {common.photoSlot.label}
+              {texte.photoSlot.label}
             </span>
             <p className="text-muted-foreground text-sm">
-              {common.photoSlot.description}
+              {texte.photoSlot.description}
             </p>
           </div>
         </div>
-        <p className="text-muted-foreground text-sm">{agenda.confiance.confirmation}</p>
-        <p className="text-muted-foreground text-sm">{agenda.confiance.modification}</p>
+        <p className="text-muted-foreground text-sm">{texte.confiance.confirmation}</p>
+        <p className="text-muted-foreground text-sm">{texte.confiance.modification}</p>
       </div>
     </div>
   );
@@ -139,10 +153,12 @@ export function ListeCreneaux({
 
 function ChipCreneau({
   creneau,
+  locale,
   selectionne,
   onClick,
 }: {
   creneau: Creneau;
+  locale: Locale;
   selectionne: boolean;
   onClick: () => void;
 }) {
@@ -158,7 +174,7 @@ function ChipCreneau({
           : "bg-primary/10 text-primary hover:bg-primary/20 focus-visible:bg-primary/20",
       )}
     >
-      {formatTime(creneau.debut)}
+      {formatTime(creneau.debut, locale)}
     </button>
   );
 }

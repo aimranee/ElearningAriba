@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import agenda from "@/locales/fr/agenda.json";
+import common from "@/locales/fr/common.json";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   EmptyState,
@@ -196,7 +197,10 @@ export function EtapeCreneau({ typeId, onCreneauRetenu }: EtapeCreneauProps) {
         </EmptyState>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
+          {/* the booking flow stays French until Phase B (#17) */}
           <CalendrierMois
+            locale="fr"
+            texte={agenda}
             annee={affichage.annee}
             mois={affichage.mois}
             joursPorteurs={porteurs}
@@ -225,6 +229,8 @@ export function EtapeCreneau({ typeId, onCreneauRetenu }: EtapeCreneauProps) {
             <CardHeader />
             <CardContent>
               <ListeCreneaux
+                locale="fr"
+                texte={{ ...agenda, photoSlot: common.photoSlot }}
                 jour={jourSelectionne}
                 creneaux={creneauxDuJour}
                 creneauChoisiDebut={

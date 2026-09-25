@@ -21,6 +21,7 @@ import {
 } from "@/lib/agenda/creneaux";
 import type { ReservationAdmin } from "@/lib/agenda/admin-queries";
 import admin from "@/locales/fr/admin.json";
+import agenda from "@/locales/fr/agenda.json";
 import common from "@/locales/fr/common.json";
 
 const HORIZON_JOURS = 56; // same D-13 horizon the public booker uses
@@ -113,7 +114,10 @@ export function SelecteurCreneau({
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {/* the admin stays French until Phase C (#17) */}
       <CalendrierMois
+        locale="fr"
+        texte={agenda}
         annee={affichage.annee}
         mois={affichage.mois}
         joursPorteurs={porteurs}
@@ -141,6 +145,8 @@ export function SelecteurCreneau({
       <Card variant="outline">
         <CardContent>
           <ListeCreneaux
+            locale="fr"
+            texte={{ ...agenda, photoSlot: common.photoSlot }}
             jour={jourSelectionne}
             creneaux={creneauxDuJour}
             creneauChoisiDebut={null}

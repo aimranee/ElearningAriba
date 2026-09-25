@@ -3,7 +3,7 @@ import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-import { EN_ROUTES, PENDING_EN_ROUTES, languagePair } from "./routes";
+import { EN_ROUTES, PENDING_EN_ROUTES, languagePair, localizedPath } from "./routes";
 
 const APP_DIR = fileURLToPath(new URL("../../app", import.meta.url));
 const PAGE_FILE = /^page\.(tsx|ts|jsx|js|mdx)$/;
@@ -54,6 +54,13 @@ describe("FR↔EN route parity", () => {
 
   it("no longer lists /contact as pending (#23)", () => {
     expect(pending).not.toContain("/contact");
+  });
+
+  // #24: the last public route; the list is emptied, not deleted — #26
+  // turns the parity strict.
+  it("no longer lists /agenda as pending, leaving the list empty (#24)", () => {
+    expect(pending).not.toContain("/agenda");
+    expect(pending).toEqual([]);
   });
 
   it("gives every French public route an English copy or a place on the pending list", () => {
@@ -107,8 +114,28 @@ describe("language pair of a URL", () => {
     expect(languagePair("/en/contact")).toEqual({ fr: "/contact", en: "/en/contact" });
   });
 
+  // why (#24): English URL provisional until the SEO spec (#26), matching the
+  // footer label "Calendar".
+  it("pairs the French agenda with /en/calendar, from either side", () => {
+    expect(languagePair("/agenda")).toEqual({ fr: "/agenda", en: "/en/calendar" });
+    expect(languagePair("/en/calendar")).toEqual({ fr: "/agenda", en: "/en/calendar" });
+  });
+
   it("finds no pair for an app page or an unknown URL", () => {
     expect(languagePair("/connexion")).toBeNull();
     expect(languagePair("/cette-page-n-existe-pas")).toBeNull();
+  });
+});
+
+// why (#24): the English agenda links its calendar in English, and hands the
+// chosen slot to the booking flow at its French URL (Phase B).
+describe("localized path", () => {
+  it("sends the agenda to /en/calendar in English and keeps it in French", () => {
+    expect(localizedPath("/agenda", "en")).toBe("/en/calendar");
+    expect(localizedPath("/agenda", "fr")).toBe("/agenda");
+  });
+
+  it("keeps the booking flow at its French URL in English", () => {
+    expect(localizedPath("/reservation", "en")).toBe("/reservation");
   });
 });

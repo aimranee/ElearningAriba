@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { requireAdministrator } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
+import { localizedPath } from "@/lib/i18n/routes";
 import {
   typeRendezVousEditSchema,
   mapTypeRendezVousIssuesToErreurKey,
@@ -77,8 +78,11 @@ export async function PATCH(request: Request) {
      /reservation is NOT revalidated here: since plan 04-05's D-28 change
      that route reads the session with getLearner() and is already dynamic
      (ƒ) — it has no cached render to invalidate, so a second call would be
-     a no-op dressed as a guarantee. */
+     a no-op dressed as a guarantee.
+     (#24) The English agenda shows the same prices, durations and French
+     name fallback, under the same revalidate — it is refreshed with it. */
   revalidatePath("/agenda");
+  revalidatePath(localizedPath("/agenda", "en"));
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }

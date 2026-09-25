@@ -1,13 +1,19 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import agenda from "@/locales/fr/agenda.json";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { grilleDuMois, estPasse } from "@/lib/agenda/creneaux";
+import { formatMoisAnnee, initialesJoursSemaine } from "@/lib/i18n/fr";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Messages } from "@/lib/i18n/messages";
 
-const JOURS_SEMAINE = ["L", "M", "M", "J", "V", "S", "D"];
+/* why (#24): the calendar's text, in the page's language, handed down by the
+   server page through the booker — this island imports no copy of its own. */
+export type CalendrierMoisTexte = Pick<Messages<"agenda">, "moisPrecedent" | "moisSuivant" | "legende">;
 
 type CalendrierMoisProps = {
+  locale: Locale;
+  texte: CalendrierMoisTexte;
   annee: number;
   mois: number;
   joursPorteurs: Set<string>;
@@ -27,6 +33,8 @@ type CalendrierMoisProps = {
  * so consulting it for the "Passé" label does not reopen that leak.
  */
 export function CalendrierMois({
+  locale,
+  texte,
   annee,
   mois,
   joursPorteurs,
@@ -36,11 +44,7 @@ export function CalendrierMois({
   onMoisSuivant,
 }: CalendrierMoisProps) {
   const grille = grilleDuMois(annee, mois);
-  const moisAffiche = new Intl.DateTimeFormat("fr-FR", {
-    timeZone: "Europe/Paris",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(Date.UTC(annee, mois, 1)));
+  const moisAffiche = formatMoisAnnee(new Date(Date.UTC(annee, mois, 1)), locale);
 
   return (
     <Card variant="outline" className="gap-3">
@@ -51,10 +55,10 @@ export function CalendrierMois({
           size="sm"
           className="h-11 min-w-11"
           onClick={onMoisPrecedent}
-          aria-label={agenda.moisPrecedent}
+          aria-label={texte.moisPrecedent}
         >
           <ChevronLeft aria-hidden="true" className="size-4 sm:hidden" />
-          <span className="sr-only sm:not-sr-only">{agenda.moisPrecedent}</span>
+          <span className="sr-only sm:not-sr-only">{texte.moisPrecedent}</span>
         </Button>
         <p className="font-heading text-sm font-semibold capitalize">
           {moisAffiche}
@@ -65,14 +69,14 @@ export function CalendrierMois({
           size="sm"
           className="h-11 min-w-11"
           onClick={onMoisSuivant}
-          aria-label={agenda.moisSuivant}
+          aria-label={texte.moisSuivant}
         >
           <ChevronRight aria-hidden="true" className="size-4 sm:hidden" />
-          <span className="sr-only sm:not-sr-only">{agenda.moisSuivant}</span>
+          <span className="sr-only sm:not-sr-only">{texte.moisSuivant}</span>
         </Button>
       </CardHeader>
       <CardContent className="grid grid-cols-7 gap-1 px-3 sm:gap-2 sm:px-4">
-        {JOURS_SEMAINE.map((label, index) => (
+        {initialesJoursSemaine(locale).map((label, index) => (
           <span
             key={`entete-${index}`}
             className="text-muted-foreground text-center text-xs font-medium"
@@ -93,7 +97,7 @@ export function CalendrierMois({
               <span
                 key={jour}
                 aria-disabled="true"
-                aria-label={passe ? agenda.legende.passe : agenda.legende.indisponible}
+                aria-label={passe ? texte.legende.passe : texte.legende.indisponible}
                 className={cn(
                   "text-muted-foreground bg-muted flex h-11 w-full items-center justify-center rounded-lg text-sm",
                   !estDansMois && "opacity-40",
@@ -110,7 +114,7 @@ export function CalendrierMois({
               type="button"
               onClick={() => onSelectJour(jour)}
               aria-pressed={selectionne}
-              aria-label={`${jourDuMois} — ${agenda.legende.libre}`}
+              aria-label={`${jourDuMois} — ${texte.legende.libre}`}
               className={cn(
                 "flex h-11 w-full items-center justify-center rounded-lg text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
                 selectionne
